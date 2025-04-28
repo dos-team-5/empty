@@ -9,7 +9,7 @@ import DriveHeroSection from './DriveHero';
 import DriveAfterHeroSection from './DriveAfterHero';
 import DriveQualificationSection from './DriveQualification';
 import Footer from './Footer';
-import Faq from './Faq/Faq';
+import Faq from './FAQ/Faq';
 
 export {
   ToggleModeSwitch,
