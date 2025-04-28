@@ -1,0 +1,60 @@
+@import 'tailwindcss';
+
+:root {
+  --font-poppins: 'Poppins', sans-serif;
+}
+
+body {
+  font-family: var(--font-poppins);
+}
+
+@theme {
+  /* Accent colors */
+  --color-primary: var(--mantine-primary-color-5);
+  --color-primary-50: var(--mantine-primary-color-0);
+  --color-primary-100: var(--mantine-primary-color-1);
+  --color-primary-200: var(--mantine-primary-color-2);
+  --color-primary-300: var(--mantine-primary-color-3);
+  --color-primary-400: var(--mantine-primary-color-4);
+  --color-primary-500: var(--mantine-primary-color-5);
+  --color-primary-600: var(--mantine-primary-color-6);
+  --color-primary-700: var(--mantine-primary-color-7);
+  --color-primary-800: var(--mantine-primary-color-8);
+  --color-primary-900: var(--mantine-primary-color-9);
+
+  /* Default styling colors */
+  --color-text: var(--mantine-color-text); /* Text color for body elements */
+  --color-body: var(--mantine-color-body); /* Background color for body */
+  --color-error: var(
+    --mantine-color-error
+  ); /* Color for error messages and states */
+  --color-placeholder: var(
+    --mantine-color-placeholder
+  ); /* Color for input placeholders */
+  --color-dimmed: var(--mantine-color-dimmed); /* Color for dimmed text */
+  --color-bright: var(--mantine-color-bright); /* Color for bright text */
+  --color-anchor: var(--mantine-color-anchor); /* Color for links */
+  --color-default: var(
+    --mantine-color-default
+  ); /* Background color of default variant */
+  --color-default-hover: var(
+    --mantine-color-default-hover
+  ); /* Background color of default variant on hover */
+  --color-default-color: var(
+    --mantine-color-default-color
+  ); /* Text color of default variant */
+  --color-default-border: var(
+    --mantine-color-default-border
+  ); /* Border color of default variant */
+
+  /* Animation variables */
+  --animate-slide-in: slide-in 0.15s ease-in-out;
+  @keyframes slide-in {
+    0% {
+      transform: translateX(-100%);
+    }
+    100% {
+      transform: translateX(0);
+    }
+  }
+}
