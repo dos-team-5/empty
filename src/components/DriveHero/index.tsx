@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { Title, BackgroundImage, Box } from '@mantine/core';
 import PrimaryBtn from '../PrimaryBtn';
 import { useMediaQuery } from '@mantine/hooks';
-import SignupModal from '../SignupModal';
+import Link from 'next/link';
 
 const DriveHeroSection: React.FC = () => {
   const mobile = useMediaQuery('(max-width: 1024px)');
@@ -29,14 +29,9 @@ const DriveHeroSection: React.FC = () => {
             </Title>
 
             <Box className="mt-6 flex flex-wrap gap-4 lg:flex-col xl:flex-row">
-              <Box onClick={() => setDriverOpened(true)}>
+              <Link href={'/signup/driver'}>
                 <PrimaryBtn btnText="Sign Up" />
-              </Box>
-                <SignupModal
-                  opened={driverOpened}
-                  onClose={() => setDriverOpened(false)}
-                  type="driver"
-                />
+              </Link>
             </Box>
           </Box>
         </Box>
