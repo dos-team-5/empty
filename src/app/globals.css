@@ -47,7 +47,6 @@ body {
     --mantine-color-default-border
   ); /* Border color of default variant */
 
-  /* Animation variables */
   --animate-slide-in: slide-in 0.15s ease-in-out;
   @keyframes slide-in {
     0% {
