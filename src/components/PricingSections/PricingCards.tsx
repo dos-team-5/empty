@@ -68,7 +68,7 @@ const PricingCards = () => {
         </Text>
       </div>
 
-      <Box mx="auto" maw={600}>
+      <Box mx="auto" maw={500}>
         {plans.map((plan) => (
           <Card
             key={plan.name}
