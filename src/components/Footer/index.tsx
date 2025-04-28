@@ -18,13 +18,12 @@ const links = [
 const Footer = () => {
   const items = links.map((link) => (
     <Anchor
-     
       key={link.label}
       href={link.link}
       lh={1}
       onClick={(event) => event.preventDefault()}
       size="sm"
-      className='!text-text'
+      className="!text-text"
     >
       {link.label}
     </Anchor>
@@ -36,7 +35,7 @@ const Footer = () => {
       mx={'auto'}
       className="border-dimmed border-t-2 px-4 sm:px-8 md:px-16 lg:px-20 xl:px-24 2xl:px-32"
     >
-      <div className="flex flex-col items-center justify-between md:flex-row gap-y-4">
+      <div className="flex flex-col items-center justify-between gap-y-4 md:flex-row">
         <Link href="/" className="py-2 md:py-6">
           <Image
             src={'/EMPTY-Logo.png'}
@@ -47,7 +46,9 @@ const Footer = () => {
           />
         </Link>
 
-        <Group className="!flex-wrap !justify-center !items-center">{items}</Group>
+        <Group className="!flex-wrap !items-center !justify-center">
+          {items}
+        </Group>
 
         <Group gap="xs" justify="flex-end" wrap="nowrap">
           <ActionIcon size="lg" variant="default" radius="xl">

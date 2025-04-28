@@ -1,12 +1,11 @@
 'use client';
-import React, { useState } from 'react';
-import { Title, BackgroundImage, Box, Mark } from '@mantine/core';
+import React from 'react';
+import { Title, BackgroundImage, Box } from '@mantine/core';
 import PrimaryBtn from '../PrimaryBtn';
 import { useMediaQuery } from '@mantine/hooks';
 import Link from 'next/link';
 
 const DriveQualificationSection: React.FC = () => {
-  const [driverOpened, setDriverOpened] = useState(false);
   const mobile = useMediaQuery('(max-width: 1024px)');
   const IsAboveMobile = useMediaQuery('(min-width: 768px)');
   const mobileBanner = 'polestar-banner-2.png';
@@ -35,12 +34,10 @@ const DriveQualificationSection: React.FC = () => {
               mt={'md'}
               className="max-w-sm"
             >
-              <Mark color={'var(--mantine-primary-color-5)'}>
-                Are you qualified to join the empty team today?
-                <br />
-                - you must drive 30+ hours per week in high traffic areas
-                <br />- nothing else
-              </Mark>
+              Are you qualified to join the empty team today?
+              <br />
+              - you must drive 30+ hours per week in high traffic areas
+              <br />- nothing else
             </Title>
 
             <Box className="mt-6 flex flex-wrap gap-4 lg:flex-col xl:flex-row">

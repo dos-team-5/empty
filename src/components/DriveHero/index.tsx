@@ -1,5 +1,5 @@
 'use client';
-import React, { useState } from 'react';
+import React from 'react';
 import { Title, BackgroundImage, Box } from '@mantine/core';
 import PrimaryBtn from '../PrimaryBtn';
 import { useMediaQuery } from '@mantine/hooks';
@@ -7,7 +7,6 @@ import Link from 'next/link';
 
 const DriveHeroSection: React.FC = () => {
   const mobile = useMediaQuery('(max-width: 1024px)');
-  const [driverOpened, setDriverOpened] = useState(false);
   const IsAboveMobile = useMediaQuery('(min-width: 768px)');
   const mobileBanner = 'polestar-banner-2.png';
   const desktopBanner = 'polestar-banner-1.png';

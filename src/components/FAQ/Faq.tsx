@@ -90,11 +90,11 @@ const Faq = () => {
               >
                 {item.question}
                 {openItem === item.id ? (
-                  <Box className="bg-primary text-text !rounded-none p-1">
+                  <Box className="bg-primary !rounded-none p-1 text-white">
                     <Minus size={16} />
                   </Box>
                 ) : (
-                  <Box className="bg-primary text-text !rounded-none p-1">
+                  <Box className="bg-primary !rounded-none p-1 text-white">
                     <Plus size={16} />
                   </Box>
                 )}

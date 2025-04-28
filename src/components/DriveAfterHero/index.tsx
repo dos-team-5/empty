@@ -1,13 +1,12 @@
 'use client';
-import React, { useState } from 'react';
-import { Title, BackgroundImage, Box, Mark } from '@mantine/core';
+import React from 'react';
+import { Title, BackgroundImage, Box } from '@mantine/core';
 import PrimaryBtn from '../PrimaryBtn';
 import { useMediaQuery } from '@mantine/hooks';
-import SignupModal from '../SignupModal';
+
 import Link from 'next/link';
 
 const DriveAfterHeroSection: React.FC = () => {
-  const [driverOpened, setDriverOpened] = useState(false);
   const mobile = useMediaQuery('(max-width: 1024px)');
   const IsAboveMobile = useMediaQuery('(min-width: 768px)');
   const mobileBanner = 'polestar-banner-2.png';
@@ -37,13 +36,11 @@ const DriveAfterHeroSection: React.FC = () => {
             >
               Join now, receive an ad, apply it, take a photo, start earning.
               <br />
-              <Mark color={'var(--mantine-primary-color-5)'}>
-                No hidden fees. No BS.
-              </Mark>
+              No hidden fees. No BS.
             </Title>
 
             <Box className="mt-6 flex flex-wrap gap-4 lg:flex-col xl:flex-row">
-            <Link href={'/signup/driver'}>
+              <Link href={'/signup/driver'}>
                 <PrimaryBtn btnText="Learn More" />
               </Link>
             </Box>
