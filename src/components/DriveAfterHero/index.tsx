@@ -23,20 +23,19 @@ const DriveAfterHeroSection: React.FC = () => {
         className="px-4 sm:px-8 md:px-16 lg:px-20 xl:px-24 2xl:px-32"
       >
         <Box className="flex h-full flex-col justify-start">
-          <Box className="max-w-3xl pt-16 md:pt-20">
-            <Title order={1} fw={500} fz={IsAboveMobile ? 'h1' : 'h2'}>
-              Easily installable and removable decals, reducing your commitment.
+          <Box className="pt-16 md:pt-20">
+            <Title order={1} fw={500} fz={IsAboveMobile ? 56 : 'h2'}>
+              Easily installable and removable decals, <br /> reducing your
+              commitment.
             </Title>
             <Title
               order={2}
-              fw={500}
-              fz={IsAboveMobile ? 'lg' : 'md'}
+              fw={400}
+              fz={IsAboveMobile ? 'h2' : 'md'}
               mt={'md'}
-              className="max-w-sm"
             >
-              Join now, receive an ad, apply it, take a photo, start earning.
-              <br />
-              No hidden fees. No BS.
+              We mail it. You install it, snap a photo, and start earning. It’s
+              that easy—no hidden costs, no BS.
             </Title>
 
             <Box className="mt-6 flex flex-wrap gap-4 lg:flex-col xl:flex-row">
