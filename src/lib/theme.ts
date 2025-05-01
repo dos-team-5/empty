@@ -21,7 +21,7 @@ const darkShades: [
   '#ffffff', //
   '#CB6AA7', // badges and other minor elements background
   '#ffffff',
-  '#161616', // cards and other elements background
+  '#121212', // cards and other elements background
   '#101010', // body
   '#ffffff',
   '#ffffff',
