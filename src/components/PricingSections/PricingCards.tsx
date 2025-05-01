@@ -45,7 +45,7 @@ const PricingCards = () => {
       maw={1800}
       mx="auto"
       mt={100}
-      className="relative px-4 sm:px-8 md:px-16 lg:px-20 xl:px-24 2xl:px-32 pt-20 pb-20"
+      className="relative px-4 pt-20 pb-20 sm:px-8 md:px-16 lg:px-20 xl:px-24 2xl:px-32"
       id="pricingSection"
     >
       <div className="mb-12 space-y-6 rounded-3xl text-center">
@@ -55,6 +55,7 @@ const PricingCards = () => {
             by="word"
             startOnView
             duration={0.5}
+            once
           >
             Why rent a wall when you can own the road?
           </TextAnimate>
@@ -66,6 +67,7 @@ const PricingCards = () => {
             startOnView
             duration={0.5}
             delay={0.5}
+            once
           >
             Go live within 7 days
           </TextAnimate>

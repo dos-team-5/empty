@@ -32,6 +32,7 @@ const HeroSection: React.FC = () => {
                 startOnView
                 duration={0.5}
                 className="max-w-5xl"
+                once
               >
                 Advertise on rideshare vehicles in high-traffic areas
               </TextAnimate>
@@ -44,6 +45,7 @@ const HeroSection: React.FC = () => {
                 duration={0.5}
                 delay={0.5}
                 className="max-w-3xl"
+                once
               >
                 Unbeatable visibility and returns that stationary ads can’t
                 match
@@ -58,6 +60,7 @@ const HeroSection: React.FC = () => {
                   filter: 'blur(0px)',
                   y: 0,
                 }}
+                
                 transition={{ duration: 0.4, delay: 1 }}
               >
                 <Link href={'/#pricingSection'}>

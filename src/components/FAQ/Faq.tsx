@@ -56,6 +56,7 @@ const Faq = () => {
           startOnView
           duration={0.5}
           className=""
+          once
         >
           Got Questions!
         </TextAnimate>
@@ -67,6 +68,7 @@ const Faq = () => {
           duration={0.5}
           className=""
           delay={1}
+          once
         >
           We Got Answers
         </TextAnimate>
