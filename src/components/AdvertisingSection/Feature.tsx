@@ -13,7 +13,7 @@ const FeatureSection: React.FC = () => {
       mt={{ base: 40, md: 80 }}
       maw={1800}
       mx={'auto'}
-      className="px-4 sm:px-8 md:px-16 lg:px-20 xl:px-24 2xl:px-32 "
+      className="px-4 sm:px-8 md:px-16 lg:px-20 xl:px-24 2xl:px-32"
     >
       <div className="mb-12 flex items-center">
         <Title
@@ -28,6 +28,7 @@ const FeatureSection: React.FC = () => {
             startOnView
             duration={0.5}
             className="max-w-5xl"
+            once
           >
             Billboards Don’t Move.
           </TextAnimate>
@@ -39,6 +40,7 @@ const FeatureSection: React.FC = () => {
             duration={0.5}
             delay={1}
             className="max-w-5xl"
+            once
           >
             Your Customers Do.
           </TextAnimate>

@@ -33,6 +33,7 @@ const Advertisement = () => {
                 startOnView
                 duration={0.5}
                 className=""
+                once
               >
                 Outperform Everyone, Outspend No One
               </TextAnimate>
@@ -52,6 +53,7 @@ const Advertisement = () => {
                 duration={0.5}
                 className=""
                 delay={0.5}
+                once
               >
                 From startups to global brands, launch cost-effective campaigns
                 that scale with your budget.
@@ -64,6 +66,7 @@ const Advertisement = () => {
                 duration={0.5}
                 className=""
                 delay={1}
+                once
               >
                 Simple, fast, and built to deliver unmatched ROI and
                 best-in-class CPM.
@@ -76,6 +79,7 @@ const Advertisement = () => {
                 duration={0.5}
                 className=""
                 delay={1.5}
+                once
               >
                 We represent modern advertising done right.
               </TextAnimate>
