@@ -36,7 +36,7 @@ const HeroSection: React.FC = () => {
             </Title>
 
             <Box className="mt-6 flex flex-wrap gap-4 lg:flex-col xl:flex-row">
-              <Link href={'/signup/client'}>
+              <Link href={'/#pricingSection'}>
                 <PrimaryBtn btnText="Advertise" />
               </Link>
 
