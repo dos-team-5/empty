@@ -3,6 +3,7 @@ import { Accordion, Box, Title } from '@mantine/core';
 import { useMediaQuery } from '@mantine/hooks';
 import { Minus, Plus } from 'lucide-react';
 import { useState } from 'react';
+import { TextAnimate } from '../TextAnimation';
 
 const faqData = [
   {
@@ -48,8 +49,27 @@ const Faq = () => {
       mx={'auto'}
       className="mb-16 px-4 sm:px-8 md:px-16 lg:px-20 xl:px-24 2xl:px-32"
     >
-      <Title order={1} ta={'center'} fw={500} fz={IsAboveMobile ? 56 : 'h2'}>
-        Got Questions! <br /> We Got Answers
+      <Title order={1} ta={'center'} fw={500} fz={IsAboveMobile ? 52 : 'h2'}>
+        <TextAnimate
+          animation="blurInUp"
+          by="word"
+          startOnView
+          duration={0.5}
+          className=""
+        >
+          Got Questions!
+        </TextAnimate>
+
+        <TextAnimate
+          animation="blurInUp"
+          by="word"
+          startOnView
+          duration={0.5}
+          className=""
+          delay={1}
+        >
+          We Got Answers
+        </TextAnimate>
       </Title>
 
       <Accordion
@@ -59,12 +79,15 @@ const Faq = () => {
         onChange={setOpenItem}
         variant="separated"
         transitionDuration={200}
+        maw={800}
+        mx={'auto'}
+        className=""
       >
         {faqData.map((item) => (
           <Accordion.Item
             key={item.id}
             value={item.id}
-            className="!border-none"
+            className="!border-none bg-neutral-950 bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(120,119,198,0.3),rgba(255,255,255,0))]"
           >
             <Accordion.Control className="!border-dimmed rounded-lg !border-2 !px-0 !py-2">
               <Box
@@ -83,7 +106,7 @@ const Faq = () => {
                 )}
               </Box>
             </Accordion.Control>
-            <Accordion.Panel className="!border-dimmed rounded-lg !border-2 !border-t-0 !px-0 !py-2">
+            <Accordion.Panel className="!border-dimmed rounded-lg !border-2 !border-t-0 bg-neutral-950 bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(120,119,198,0.3),rgba(255,255,255,0))] !px-0 !py-2">
               {item.answer}
             </Accordion.Panel>
           </Accordion.Item>

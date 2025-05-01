@@ -24,7 +24,7 @@ const DriveAfterHeroSection: React.FC = () => {
       >
         <Box className="flex h-full flex-col justify-start">
           <Box className="pt-16 md:pt-20">
-            <Title order={1} fw={500} fz={IsAboveMobile ? 56 : 'h2'}>
+            <Title order={1} fw={500} fz={IsAboveMobile ? 52 : 'h2'}>
               Easily installable and removable decals, <br /> reducing your
               commitment.
             </Title>

@@ -32,7 +32,12 @@ const MobileNav = ({ onClose }: MobileNavProps) => {
           )}
         </div>
       ))}
-      <Button className="" size={'md'} mt={'sm'} radius={15}>
+      <Button
+        className="!bg-primary-400 hover:!bg-primary"
+        size={'md'}
+        mt={'sm'}
+        radius={15}
+      >
         Book A Call
       </Button>
     </Box>
