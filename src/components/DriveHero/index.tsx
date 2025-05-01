@@ -22,9 +22,19 @@ const DriveHeroSection: React.FC = () => {
         className="px-4 sm:px-8 md:px-16 lg:px-20 xl:px-24 2xl:px-32"
       >
         <Box className="flex h-full flex-col justify-start">
-          <Box className="max-w-md pt-40">
-            <Title order={1} fw={500} fz={IsAboveMobile ? 'h1' : 'h2'}>
-              Generate revenue every month without doing more work
+          <Box className="pt-40">
+            <Title order={1} fw={500} fz={IsAboveMobile ? 56 : 'h2'}>
+              Generate revenue every month <br /> without doing more work.
+            </Title>
+
+            <Title
+              order={2}
+              fw={400}
+              fz={IsAboveMobile ? 'h2' : 'md'}
+              mt={'md'}
+            >
+              Get paid up to $300/month to display ads on your car’s front
+              doors.
             </Title>
 
             <Box className="mt-6 flex flex-wrap gap-4 lg:flex-col xl:flex-row">

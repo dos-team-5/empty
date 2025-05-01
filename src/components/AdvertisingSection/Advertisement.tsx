@@ -18,22 +18,28 @@ const Advertisement = () => {
         mx={'auto'}
         className="px-4 sm:px-8 md:px-16 lg:px-20 xl:px-24 2xl:px-32"
       >
-        <Box className="mt-10 flex h-full flex-col justify-start">
-          <Box className="max-w-md pt-16 md:pt-20">
-            <Title order={1} fw={500} fz={IsAboveMobile ? 'h1' : 'h2'}>
-              Get access to on-the-go billboards,
+        <Box className="mt-10 flex h-full flex-col items-end justify-start">
+          <Box className="pt-16 md:pt-20">
+            <Title
+              order={1}
+              fw={500}
+              fz={IsAboveMobile ? '56' : 'h2'}
+              className="text-end"
+            >
+              Outperform Everyone, Outspend No One
             </Title>
 
             <Title
               order={2}
-              fw={500}
-              fz={IsAboveMobile ? 'lg' : 'md'}
+              fw={400}
+              fz={IsAboveMobile ? 'h2' : 'md'}
               mt={'md'}
-              className="max-w-sm"
+              className="text-end"
             >
-              ensuring visibility across bustling city centers for a fraction of
-              the price. Minimize your Cost per Acquisition while owning a 100%
-              share of voice on all of your vehicles
+              From startups to global brands, launch cost-effective campaigns
+              that scale with your budget. <br /> Simple, fast, and built to
+              deliver unmatched ROI and best-in-class CPM. <br />
+              We represent modern advertising done right.
             </Title>
           </Box>
         </Box>

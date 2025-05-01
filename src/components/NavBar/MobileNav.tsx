@@ -12,7 +12,7 @@ const rightNavLinks = [
   { href: '/drive', label: 'Drive' },
   { href: '/ad-tracker', label: 'AdTracker (beta)' },
   { href: '/contact', label: 'Contact US' },
-  { href: '#', label: <ToggleModeSwitch /> },
+  // { href: '#', label: <ToggleModeSwitch /> },
 ];
 
 const MobileNav = ({ onClose }: MobileNavProps) => {

@@ -1,5 +1,6 @@
 'use client';
 import { Accordion, Box, Title } from '@mantine/core';
+import { useMediaQuery } from '@mantine/hooks';
 import { Minus, Plus } from 'lucide-react';
 import { useState } from 'react';
 
@@ -37,6 +38,7 @@ const faqData = [
 ];
 
 const Faq = () => {
+  const IsAboveMobile = useMediaQuery('(min-width: 768px)');
   const [openItem, setOpenItem] = useState<string | null>(null);
 
   return (
@@ -46,7 +48,7 @@ const Faq = () => {
       mx={'auto'}
       className="mb-16 px-4 sm:px-8 md:px-16 lg:px-20 xl:px-24 2xl:px-32"
     >
-      <Title ta="center" className="mb-12">
+      <Title order={1} ta={'center'} fw={500} fz={IsAboveMobile ? 56 : 'h2'}>
         Got Questions! <br /> We Got Answers
       </Title>
 
