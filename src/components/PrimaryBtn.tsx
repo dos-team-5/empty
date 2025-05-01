@@ -23,7 +23,7 @@ const PrimaryBtn = ({ btnText = 'Primary btn' }: PrimaryBtnProps) => {
       }
       variant="filled"
       size={IsAboveMobile ? 'lg' : 'md'}
-      className="group !w-fit !border-2 !font-medium duration-150 ease-in-out"
+      className="group !bg-primary-400 hover:!bg-primary !w-fit !border-2 !font-medium duration-150 ease-in-out"
     >
       {btnText}
     </Button>

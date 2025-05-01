@@ -10,7 +10,7 @@ import { X } from 'lucide-react';
 const rightNavLinks = [
   { href: '/', label: 'Advertise' },
   { href: '/drive', label: 'Drive' },
-  { href: '/ad-tracker', label: 'AdTracker (beta)' },
+  { href: '/ad-tracker', label: 'AdTracker(beta)' },
   { href: '/contact', label: 'Contact US' },
   // { href: '#', label: <ToggleModeSwitch /> },
 ];
@@ -70,14 +70,15 @@ const TopNav = () => {
                 )}
               </Box>
             ))}
+            <Button
+              className="!bg-primary-400 hover:!bg-primary !hidden lg:!block"
+              size={IsAboveMobile ? 'lg' : 'md'}
+              radius={15}
+            >
+              Book A Call
+            </Button>
           </Group>
-          <Button
-            className="!hidden lg:!block"
-            size={IsAboveMobile ? 'lg' : 'md'}
-            radius={15}
-          >
-            Book A Call
-          </Button>
+
           <Burger
             opened={mobileMenuOpen}
             onClick={toggleMobileMenu}
@@ -95,8 +96,8 @@ const TopNav = () => {
         position="right"
         withCloseButton={true}
         closeButtonProps={{
-          icon: <X size={32} color="white"  />,
-          mr:'xl'
+          icon: <X size={32} color="white" />,
+          mr: 'xl',
         }}
       >
         <MobileNav onClose={toggleMobileMenu} />

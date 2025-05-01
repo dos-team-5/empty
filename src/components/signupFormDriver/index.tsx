@@ -76,7 +76,7 @@ const DriverSignupSection: React.FC = () => {
           <Title
             order={1}
             fw={500}
-            fz={isAboveMobile ? 56 : 'h2'}
+            fz={isAboveMobile ? 52 : 'h2'}
             style={{
               color: 'var(--color-text)',
               fontFamily: 'var(--font-poppins)',

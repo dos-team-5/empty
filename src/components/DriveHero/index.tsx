@@ -23,7 +23,7 @@ const DriveHeroSection: React.FC = () => {
       >
         <Box className="flex h-full flex-col justify-start">
           <Box className="pt-40">
-            <Title order={1} fw={500} fz={IsAboveMobile ? 56 : 'h2'}>
+            <Title order={1} fw={500} fz={IsAboveMobile ? 52 : 'h2'}>
               Generate revenue every month <br /> without doing more work.
             </Title>
 

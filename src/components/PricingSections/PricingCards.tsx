@@ -15,6 +15,7 @@ import {
 import { useMediaQuery } from '@mantine/hooks';
 import { Check } from 'lucide-react';
 import { useState } from 'react';
+import { TextAnimate } from '../TextAnimation';
 
 const plans = [
   {
@@ -44,15 +45,30 @@ const PricingCards = () => {
       maw={1800}
       mx="auto"
       mt={100}
-      className="relative px-4 sm:px-8 md:px-16 lg:px-20 xl:px-24 2xl:px-32"
-      id='pricingSection'
+      className="relative px-4 sm:px-8 md:px-16 lg:px-20 xl:px-24 2xl:px-32 pt-20 pb-20"
+      id="pricingSection"
     >
       <div className="mb-12 space-y-6 rounded-3xl text-center">
-        <Title order={1} fw={500} fz={IsAboveMobile ? 56 : 'h2'}>
-          Why rent a wall when you can own the road?{' '}
+        <Title order={1} fw={500} fz={IsAboveMobile ? 52 : 'h2'}>
+          <TextAnimate
+            animation="blurInUp"
+            by="word"
+            startOnView
+            duration={0.5}
+          >
+            Why rent a wall when you can own the road?
+          </TextAnimate>
         </Title>
         <Title order={2} fw={400} fz={IsAboveMobile ? 'h2' : 'md'} mt={'md'}>
-          Go live within 7 days
+          <TextAnimate
+            animation="blurInUp"
+            by="word"
+            startOnView
+            duration={0.5}
+            delay={0.5}
+          >
+            Go live within 7 days
+          </TextAnimate>
         </Title>
       </div>
 
@@ -62,32 +78,32 @@ const PricingCards = () => {
             key={plan.name}
             padding="xl"
             radius={15}
-            className="border-dimmed border-2 !pb-16"
+            className="border-dimmed flex h-[600px] justify-between border-2 bg-neutral-950 bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(120,119,198,0.3),rgba(255,255,255,0))] !pb-16"
           >
-            <Box mx="auto" maw={300}>
-              <Text className="!p-2 text-center !text-3xl !font-bold">
-                Deploy {selectedOption.cars} Cars
+            <Box mx="auto" maw={500}>
+              <Text className="!p-2 text-center !text-[48px] !font-bold">
+                Deploy {selectedOption.cars} Car
+                {selectedOption.cars === 1 ? '' : 's'}
               </Text>
             </Box>
-            <Stack mt={20}>
-              <Group>
-                <Box className="flex w-full items-center justify-center gap-1">
-                  {selectedOption.price !== null ? (
-                    <>
-                      <Title order={5}>$</Title>
-                      <Text className="!text-primary !text-7xl !font-bold">
-                        {selectedOption.price.toLocaleString()}
-                      </Text>
-                      <Text className="text-dimmed">/month</Text>
-                    </>
-                  ) : (
-                    <Text className="!text-primary text-center !text-4xl !font-bold">
-                      Contact for pricing
+            <Group>
+              <Box className="flex w-full items-center justify-center gap-1">
+                {selectedOption.price !== null ? (
+                  <>
+                    <Title order={5}>$</Title>
+                    <Text className="!text-primary-400 !text-7xl !font-bold">
+                      {selectedOption.price.toLocaleString()}
                     </Text>
-                  )}
-                </Box>
-              </Group>
-
+                    <Text className="text-dimmed">/month</Text>
+                  </>
+                ) : (
+                  <Text className="!text-primary-400 text-center !text-4xl !font-bold">
+                    Contact for pricing
+                  </Text>
+                )}
+              </Box>
+            </Group>
+            <Stack mt={20}>
               <Slider
                 value={selectedIndex}
                 onChange={setSelectedIndex}
@@ -98,8 +114,8 @@ const PricingCards = () => {
                   value: index,
                   label: option.cars.toString(),
                 }))}
-                color="var(--mantine-primary-color-5)"
-                className="mt-6"
+                color="var(--mantine-primary-color-4)"
+                className="mt-6 !text-3xl"
               />
 
               <List
@@ -108,7 +124,7 @@ const PricingCards = () => {
                 className="mt-6"
                 icon={
                   <ThemeIcon
-                    color="var(--mantine-primary-color-5)"
+                    color="var(--mantine-primary-color-4)"
                     size={24}
                     radius={0}
                   >
@@ -117,7 +133,11 @@ const PricingCards = () => {
                 }
               ></List>
 
-              <Button className="mt-12 w-fit" size="lg" radius={15}>
+              <Button
+                className="!bg-primary-400 hover:!bg-primary mt-12 w-fit"
+                size="lg"
+                radius={15}
+              >
                 {selectedOption.price !== null ? 'Checkout' : 'Book A Call'}
               </Button>
             </Stack>

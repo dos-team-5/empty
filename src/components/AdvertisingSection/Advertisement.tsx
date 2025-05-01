@@ -1,6 +1,7 @@
 'use client';
 import { Box, BackgroundImage, Title } from '@mantine/core';
 import { useMediaQuery } from '@mantine/hooks';
+import { TextAnimate } from '../TextAnimation';
 
 const Advertisement = () => {
   const mobile = useMediaQuery('(max-width: 1024px)');
@@ -18,28 +19,66 @@ const Advertisement = () => {
         mx={'auto'}
         className="px-4 sm:px-8 md:px-16 lg:px-20 xl:px-24 2xl:px-32"
       >
-        <Box className="mt-10 flex h-full flex-col items-end justify-start">
+        <Box className="mt-10 flex h-full flex-col items-end justify-end">
           <Box className="pt-16 md:pt-20">
             <Title
               order={1}
               fw={500}
-              fz={IsAboveMobile ? '56' : 'h2'}
+              fz={IsAboveMobile ? 52 : 'h2'}
               className="text-end"
             >
-              Outperform Everyone, Outspend No One
+              <TextAnimate
+                animation="blurInUp"
+                by="word"
+                startOnView
+                duration={0.5}
+                className=""
+              >
+                Outperform Everyone, Outspend No One
+              </TextAnimate>
             </Title>
 
             <Title
               order={2}
               fw={400}
-              fz={IsAboveMobile ? 'h2' : 'md'}
+              fz={IsAboveMobile ? 21 : 'md'}
               mt={'md'}
               className="text-end"
             >
-              From startups to global brands, launch cost-effective campaigns
-              that scale with your budget. <br /> Simple, fast, and built to
-              deliver unmatched ROI and best-in-class CPM. <br />
-              We represent modern advertising done right.
+              <TextAnimate
+                animation="blurInUp"
+                by="word"
+                startOnView
+                duration={0.5}
+                className=""
+                delay={0.5}
+              >
+                From startups to global brands, launch cost-effective campaigns
+                that scale with your budget.
+              </TextAnimate>
+
+              <TextAnimate
+                animation="blurInUp"
+                by="word"
+                startOnView
+                duration={0.5}
+                className=""
+                delay={1}
+              >
+                Simple, fast, and built to deliver unmatched ROI and
+                best-in-class CPM.
+              </TextAnimate>
+
+              <TextAnimate
+                animation="blurInUp"
+                by="word"
+                startOnView
+                duration={0.5}
+                className=""
+                delay={1.5}
+              >
+                We represent modern advertising done right.
+              </TextAnimate>
             </Title>
           </Box>
         </Box>
