@@ -39,7 +39,7 @@ const DriveAfterHeroSection: React.FC = () => {
             </Title>
 
             <Box className="mt-6 flex flex-wrap gap-4 lg:flex-col xl:flex-row">
-              <Link href={'/signup/driver'}>
+              <Link href={'/drive#signUpDriver'}>
                 <PrimaryBtn btnText="Learn More" />
               </Link>
             </Box>

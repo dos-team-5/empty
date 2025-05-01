@@ -45,6 +45,7 @@ const PricingCards = () => {
       mx="auto"
       mt={100}
       className="relative px-4 sm:px-8 md:px-16 lg:px-20 xl:px-24 2xl:px-32"
+      id='pricingSection'
     >
       <div className="mb-12 space-y-6 rounded-3xl text-center">
         <Title order={1} fw={500} fz={IsAboveMobile ? 56 : 'h2'}>

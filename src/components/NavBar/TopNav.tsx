@@ -1,9 +1,11 @@
 'use client';
 import { Box, Burger, Button, Drawer, Group } from '@mantine/core';
 import Link from 'next/link';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Image from 'next/image';
 import MobileNav from './MobileNav';
+import { useMediaQuery } from '@mantine/hooks';
+import { X } from 'lucide-react';
 
 const rightNavLinks = [
   { href: '/', label: 'Advertise' },
@@ -15,10 +17,17 @@ const rightNavLinks = [
 
 const TopNav = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const IsAboveMobile = useMediaQuery('(min-width: 1280px)');
 
   const toggleMobileMenu = () => {
     setMobileMenuOpen(!mobileMenuOpen);
   };
+
+  useEffect(() => {
+    document.onkeydown = function () {
+      return false;
+    };
+  }, []);
 
   return (
     <>
@@ -39,38 +48,42 @@ const TopNav = () => {
                 width={1000}
                 height={1000}
                 alt="logo"
-                className="w-40 md:w-48"
+                className="w-40 xl:w-48"
               />
             </Link>
           </Group>
 
           <Group className="group">
             {rightNavLinks.map((link, index) => (
-              <Box key={index}>
+              <Box key={index} onKeyDown={(e) => e.preventDefault()}>
                 {typeof link.label === 'string' ? (
                   <Link
                     href={link.href}
-                    className="text-text mx-1 hidden text-xl font-medium transition-opacity group-hover:opacity-50 hover:opacity-100 md:block"
+                    className="text-text mx-1 hidden text-lg font-medium transition-opacity group-hover:opacity-50 hover:opacity-100 lg:block xl:text-xl"
                   >
                     {link.label}
                   </Link>
                 ) : (
-                  <div className="text-text mx-1 hidden text-sm font-medium transition-opacity group-hover:opacity-50 hover:opacity-100 md:block">
+                  <div className="text-text mx-1 hidden text-lg font-medium transition-opacity group-hover:opacity-50 hover:opacity-100 lg:block xl:text-xl">
                     {link.label}
                   </div>
                 )}
               </Box>
             ))}
-            <Burger
-              opened={mobileMenuOpen}
-              onClick={toggleMobileMenu}
-              className="md:hidden"
-              size={'sm'}
-            />
           </Group>
-          <Button className="" size="lg" radius={15}>
+          <Button
+            className="!hidden lg:!block"
+            size={IsAboveMobile ? 'lg' : 'md'}
+            radius={15}
+          >
             Book A Call
           </Button>
+          <Burger
+            opened={mobileMenuOpen}
+            onClick={toggleMobileMenu}
+            className="lg:hidden"
+            size={'md'}
+          />
         </Group>
       </Group>
 
@@ -81,6 +94,10 @@ const TopNav = () => {
         size={'100%'}
         position="right"
         withCloseButton={true}
+        closeButtonProps={{
+          icon: <X size={32} color="white"  />,
+          mr:'xl'
+        }}
       >
         <MobileNav onClose={toggleMobileMenu} />
       </Drawer>

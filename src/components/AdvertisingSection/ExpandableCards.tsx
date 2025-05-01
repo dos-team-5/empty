@@ -1,8 +1,8 @@
-// components/ExpandableCardDemo.tsx
 'use client';
 import { JSX, useEffect, useId, useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { Box } from '@mantine/core';
+import { Plus } from 'lucide-react';
 
 interface Card {
   title: string;
@@ -98,7 +98,7 @@ export function ExpandableCardDemo() {
           <div className="fixed inset-0 z-[100] grid place-items-center p-4">
             <motion.div
               layoutId={`card-${active.title}-${id}`}
-              className="relative flex h-full w-full max-w-[500px] flex-col rounded-3xl bg-[var(--color-default)] md:h-fit md:max-h-[90%]"
+              className="relative flex h-full w-full max-w-[500px] flex-col overflow-hidden rounded-3xl bg-[var(--color-default)] md:h-fit md:max-h-[90%]"
             >
               <motion.button
                 key={`button-${active.title}-${id}`}
@@ -146,7 +146,7 @@ export function ExpandableCardDemo() {
           <motion.div
             layoutId={`card-${card.title}-${id}`}
             key={card.title}
-            className="flex flex-col rounded-lg bg-[var(--color-default)]"
+            className="flex flex-col rounded-lg bg-[var(--color-default)] duration-150 ease-in hover:contrast-85"
           >
             <motion.div layoutId={`image-${card.title}-${id}`} className="h-60">
               <img
@@ -157,10 +157,10 @@ export function ExpandableCardDemo() {
                 className="h-60 w-full rounded-t-lg object-contain object-top"
               />
             </motion.div>
-            <div className="relative flex items-center justify-between p-4">
+            <div className="relative flex h-full items-center justify-between p-4">
               <motion.h3
                 layoutId={`title-${card.title}-${id}`}
-                className="w-[90%] text-base font-medium text-[var(--color-text)]"
+                className="w-[84%] text-base font-medium text-[var(--color-text)]"
               >
                 {card.title}
               </motion.h3>
@@ -169,7 +169,7 @@ export function ExpandableCardDemo() {
                 onClick={() => setActive(card)}
                 className="flex h-6 w-6 cursor-pointer items-center justify-center rounded-full bg-[var(--color-primary)] text-[var(--color-text)] hover:bg-[var(--color-primary)]/80"
               >
-                +
+                <Plus size={16} />
               </motion.button>
             </div>
           </motion.div>

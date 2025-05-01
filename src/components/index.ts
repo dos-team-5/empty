@@ -10,6 +10,7 @@ import DriveAfterHeroSection from './DriveAfterHero';
 import DriveQualificationSection from './DriveQualification';
 import Footer from './Footer';
 import Faq from './FAQ/Faq';
+import DriverSignupSection from './signupFormDriver';
 
 export {
   ToggleModeSwitch,
@@ -24,4 +25,5 @@ export {
   DriveAfterHeroSection,
   DriveQualificationSection,
   Footer,
+  DriverSignupSection,
 };

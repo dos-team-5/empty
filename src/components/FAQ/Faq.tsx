@@ -57,52 +57,33 @@ const Faq = () => {
         chevron={false}
         value={openItem}
         onChange={setOpenItem}
-        transitionDuration={300}
         variant="separated"
-        radius={0}
-        className="!rounded-none"
-
-        // styles={{
-        //   item: {
-        //     marginBottom: rem(8),
-        //     border: '1px solid var(--mantine-color-gray-3)',
-        //   },
-        //   control: {
-        //     padding: `${rem(16)} ${rem(20)}`,
-        //     radius: rem(24),
-        //     backgroundColor: 'white',
-        //     color: 'black',
-        //     '&:hover': {
-        //       backgroundColor: 'white',
-        //     },
-        //   },
-        //   panel: {
-        //     padding: rem(20),
-        //     fontSize: rem(14),
-        //     lineHeight: 1.6,
-        //   },
-        // }}
+        transitionDuration={200}
       >
         {faqData.map((item) => (
-          <Accordion.Item key={item.id} value={item.id}>
-            <Accordion.Control className="!border-dimmed !border-2 !px-0 !py-2">
+          <Accordion.Item
+            key={item.id}
+            value={item.id}
+            className="!border-none"
+          >
+            <Accordion.Control className="!border-dimmed rounded-lg !border-2 !px-0 !py-2">
               <Box
                 className="flex items-center justify-between pl-4"
                 style={{ width: '100%' }}
               >
                 {item.question}
                 {openItem === item.id ? (
-                  <Box className="bg-primary !rounded-none p-1 text-white">
+                  <Box className="bg-primary rounded-full p-1 text-white">
                     <Minus size={16} />
                   </Box>
                 ) : (
-                  <Box className="bg-primary !rounded-none p-1 text-white">
+                  <Box className="bg-primary rounded-full p-1 text-white">
                     <Plus size={16} />
                   </Box>
                 )}
               </Box>
             </Accordion.Control>
-            <Accordion.Panel className="!border-dimmed !border-2 !border-t-0 !px-0 !py-2">
+            <Accordion.Panel className="!border-dimmed rounded-lg !border-2 !border-t-0 !px-0 !py-2">
               {item.answer}
             </Accordion.Panel>
           </Accordion.Item>
