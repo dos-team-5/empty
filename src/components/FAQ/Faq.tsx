@@ -2,7 +2,7 @@
 import { Accordion, Box, Title } from '@mantine/core';
 import { useMediaQuery } from '@mantine/hooks';
 import { Minus, Plus } from 'lucide-react';
-import { useState } from 'react';
+import { memo, useMemo, useState } from 'react';
 import { TextAnimate } from '../TextAnimation';
 
 const faqData = [
@@ -38,18 +38,13 @@ const faqData = [
   },
 ];
 
-const Faq = () => {
+const Faq = memo(() => {
   const IsAboveMobile = useMediaQuery('(min-width: 768px)');
   const [openItem, setOpenItem] = useState<string | null>(null);
 
-  return (
-    <Box
-      mt={100}
-      maw={1400}
-      mx={'auto'}
-      className="mb-16 px-4 sm:px-8 md:px-16 lg:px-20 xl:px-24 2xl:px-32"
-    >
-      <Title order={1} ta={'center'} fw={500} fz={IsAboveMobile ? 52 : 'h2'}>
+  const titleContent = useMemo(
+    () => (
+      <>
         <TextAnimate
           animation="blurInUp"
           by="word"
@@ -60,7 +55,6 @@ const Faq = () => {
         >
           Got Questions!
         </TextAnimate>
-
         <TextAnimate
           animation="blurInUp"
           by="word"
@@ -72,6 +66,21 @@ const Faq = () => {
         >
           We Got Answers
         </TextAnimate>
+      </>
+    ),
+    []
+  );
+
+  return (
+    <Box
+      mt={100}
+      maw={1400}
+      mx="auto"
+      className="mb-16 px-4 sm:px-8 md:px-16 lg:px-20 xl:px-24 2xl:px-32"
+      style={{ minHeight: '600px' }}
+    >
+      <Title order={1} ta="center" fw={500} fz={IsAboveMobile ? 52 : 'h2'}>
+        {titleContent}
       </Title>
 
       <Accordion
@@ -82,8 +91,8 @@ const Faq = () => {
         variant="separated"
         transitionDuration={200}
         maw={800}
-        mx={'auto'}
-        className=""
+        mx="auto"
+        className="transition-all duration-200 ease-in-out"
       >
         {faqData.map((item) => (
           <Accordion.Item
@@ -92,10 +101,7 @@ const Faq = () => {
             className="!border-none bg-neutral-950 bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(120,119,198,0.3),rgba(255,255,255,0))]"
           >
             <Accordion.Control className="!border-dimmed rounded-lg !border-2 !px-0 !py-2">
-              <Box
-                className="flex items-center justify-between pl-4"
-                style={{ width: '100%' }}
-              >
+              <Box className="flex items-center justify-between pl-4" style={{ width: '100%' }}>
                 {item.question}
                 {openItem === item.id ? (
                   <Box className="bg-primary rounded-full p-1 text-white">
@@ -116,6 +122,6 @@ const Faq = () => {
       </Accordion>
     </Box>
   );
-};
+});
 
 export default Faq;

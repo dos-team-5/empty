@@ -1,34 +1,39 @@
 'use client';
 
-import { useEffect, useId, useState } from 'react';
+import { useEffect, useId } from 'react';
 import { AnimatePresence, motion } from 'motion/react';
 import { useClickOutside } from '@mantine/hooks';
 import { PlusIcon } from 'lucide-react';
+import React from 'react';
 
-export function ExpandableCardDemo() {
-  const [active, setActive] = useState<(typeof cards)[number] | boolean | null>(
-    null
-  );
+export const ExpandableCardDemo = React.memo(function ExpandableCardDemo() {
+  const [active, setActive] = React.useState<
+    (typeof cards)[number] | boolean | null
+  >(null);
   const id = useId();
+  const ref = useClickOutside(() => setActive(false));
 
   useEffect(() => {
-    function onKeyDown(event: KeyboardEvent) {
-      if (event.key === 'Escape') {
-        setActive(false);
-      }
-    }
+    // Preload images
+    cards.forEach((card) => {
+      const img = new Image();
+      img.src = card.src;
+    });
+  }, []);
 
-    if (active && typeof active === 'object') {
-      document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = 'auto';
-    }
+  useEffect(() => {
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') setActive(false);
+    };
 
+    document.body.style.overflow =
+      active && typeof active === 'object' ? 'hidden' : 'auto';
     window.addEventListener('keydown', onKeyDown);
-    return () => window.removeEventListener('keydown', onKeyDown);
+    return () => {
+      window.removeEventListener('keydown', onKeyDown);
+      document.body.style.overflow = 'auto';
+    };
   }, [active]);
-
-  const ref = useClickOutside(() => setActive(false));
 
   return (
     <>
@@ -38,6 +43,7 @@ export function ExpandableCardDemo() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
+            transition={{ duration: 0.2 }}
             className="fixed inset-0 z-10 h-full w-full bg-black/20"
           />
         )}
@@ -48,25 +54,16 @@ export function ExpandableCardDemo() {
             <motion.div
               layoutId={`card-${active.title}-${id}`}
               ref={ref}
-              className="relative flex h-full w-full max-w-[500px] flex-col overflow-hidden bg-neutral-950 bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(120,119,198,0.3),rgba(255,255,255,0))] sm:rounded-3xl md:h-fit md:max-h-[90%]"
+              transition={{ duration: 0.3, ease: 'easeInOut' }}
+              className="relative flex h-fit w-full max-w-[500px] flex-col overflow-hidden rounded-3xl border bg-neutral-950 bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(120,119,198,0.3),rgba(255,255,255,0))]"
+              style={{ willChange: 'transform, opacity' }}
             >
-              {' '}
               <motion.button
-                key={`button-${active.title}-${id}`}
-                layout
-                initial={{
-                  opacity: 0,
-                }}
-                animate={{
-                  opacity: 1,
-                }}
-                exit={{
-                  opacity: 0,
-                  transition: {
-                    duration: 0.05,
-                  },
-                }}
-                className="absolute top-2 right-2 flex h-6 w-6 cursor-pointer items-center justify-center rounded-full bg-white"
+                initial={{ opacity: 0, scale: 0.8 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.8 }}
+                transition={{ duration: 0.2 }}
+                className="absolute top-4 right-4 flex h-6 w-6 cursor-pointer items-center justify-center rounded-full bg-white"
                 onClick={() => setActive(null)}
               >
                 <CloseIcon />
@@ -77,27 +74,26 @@ export function ExpandableCardDemo() {
                   height={200}
                   src={active.src}
                   alt={active.title}
-                  className="h-80 w-full object-contain object-center sm:rounded-tl-lg sm:rounded-tr-lg lg:h-80"
+                  className="h-80 w-full rounded-t-lg object-contain object-center"
                 />
               </motion.div>
               <div>
                 <div className="flex items-start justify-between p-4">
-                  <div className="">
-                    <motion.h3
-                      layoutId={`title-${active.title}-${id}`}
-                      className="text-base font-medium text-neutral-700 dark:text-neutral-200"
-                    >
-                      {active.title}
-                    </motion.h3>
-                  </div>
+                  <motion.h3
+                    layoutId={`title-${active.title}-${id}`}
+                    transition={{ duration: 0.3, ease: 'easeInOut' }}
+                    className="text-base font-medium text-neutral-200"
+                  >
+                    {active.title}
+                  </motion.h3>
                 </div>
                 <div className="relative px-4 pt-4">
                   <motion.div
-                    layout
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     exit={{ opacity: 0 }}
-                    className="flex h-40 flex-col items-start gap-4 overflow-auto pb-10 text-xs text-neutral-600 [-ms-overflow-style:none] [-webkit-overflow-scrolling:touch] [mask:linear-gradient(to_bottom,white,white,transparent)] [scrollbar-width:none] md:h-fit md:text-sm lg:text-base dark:text-neutral-400"
+                    transition={{ duration: 0.2 }}
+                    className="flex h-40 flex-col items-start gap-4 overflow-auto pb-10 text-sm text-neutral-400"
                   >
                     {typeof active.content === 'function'
                       ? active.content()
@@ -110,12 +106,13 @@ export function ExpandableCardDemo() {
         ) : null}
       </AnimatePresence>
       <ul className="grid w-full grid-cols-1 items-start gap-4 md:grid-cols-2 xl:grid-cols-4">
-        {cards.map((card, index) => (
+        {cards.map((card) => (
           <motion.div
             layoutId={`card-${card.title}-${id}`}
             key={card.title}
             onClick={() => setActive(card)}
-            className="flex transform cursor-pointer flex-col rounded-xl bg-neutral-950 bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(120,119,198,0.3),rgba(255,255,255,0))] p-4 duration-150 hover:contrast-95"
+            transition={{ duration: 0.3, ease: 'easeInOut' }}
+            className="flex cursor-pointer flex-col rounded-xl border bg-neutral-950 bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(120,119,198,0.3),rgba(255,255,255,0))] p-4 hover:brightness-160"
           >
             <div className="flex w-full flex-col gap-4">
               <motion.div layoutId={`image-${card.title}-${id}`}>
@@ -130,7 +127,7 @@ export function ExpandableCardDemo() {
               <div className="relative flex h-16 items-center justify-between px-2">
                 <motion.h3
                   layoutId={`title-${card.title}-${id}`}
-                  className="w-[85%] text-left text-lg font-medium text-neutral-800 dark:text-neutral-200"
+                  className="w-[85%] text-left text-lg font-medium text-neutral-200"
                 >
                   {card.title}
                 </motion.h3>
@@ -144,23 +141,14 @@ export function ExpandableCardDemo() {
       </ul>
     </>
   );
-}
+});
 
-export const CloseIcon = () => {
+export const CloseIcon = React.memo(function CloseIcon() {
   return (
     <motion.svg
-      initial={{
-        opacity: 0,
-      }}
-      animate={{
-        opacity: 1,
-      }}
-      exit={{
-        opacity: 0,
-        transition: {
-          duration: 0.05,
-        },
-      }}
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0, transition: { duration: 0.05 } }}
       xmlns="http://www.w3.org/2000/svg"
       width="24"
       height="24"
@@ -177,7 +165,7 @@ export const CloseIcon = () => {
       <path d="M6 6l12 12" />
     </motion.svg>
   );
-};
+});
 
 const cards = [
   {

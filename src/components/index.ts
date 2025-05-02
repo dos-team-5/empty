@@ -11,6 +11,7 @@ import DriveQualificationSection from './DriveQualification';
 import Footer from './Footer';
 import Faq from './FAQ/Faq';
 import DriverSignupSection from './signupFormDriver';
+import Meeting from './Book-a-call';
 
 export {
   ToggleModeSwitch,
@@ -26,4 +27,5 @@ export {
   DriveQualificationSection,
   Footer,
   DriverSignupSection,
+  Meeting,
 };

@@ -13,6 +13,7 @@ import { useForm, zodResolver } from '@mantine/form';
 import { z } from 'zod';
 import { ArrowRight } from 'lucide-react';
 import { useMediaQuery } from '@mantine/hooks';
+import { TextAnimate } from '../TextAnimation';
 
 // Zod schema for driver validation
 const driverSchema = z.object({
@@ -69,7 +70,7 @@ const DriverSignupSection: React.FC = () => {
       maw={1800}
       mx="auto"
       className="px-4 sm:px-8 md:px-16 lg:px-20 xl:px-24 2xl:px-32"
-      id='signUpDriver'
+      id="signUpDriver"
     >
       <Box className="flex min-h-dvh flex-col justify-start">
         <Box className="pt-40">
@@ -83,7 +84,15 @@ const DriverSignupSection: React.FC = () => {
             }}
             className="max-w-5xl"
           >
-            Join our growing network of drivers today
+            <TextAnimate
+              animation="blurInUp"
+              by="word"
+              startOnView
+              duration={0.5}
+              once
+            >
+              Join our growing network of drivers today
+            </TextAnimate>
           </Title>
           <Title
             order={2}
@@ -96,10 +105,24 @@ const DriverSignupSection: React.FC = () => {
             }}
             className="max-w-3xl"
           >
-            After registration, we’ll provide a comprehensive overview of the
-            platform and applicable terms
+            <TextAnimate
+              animation="blurInUp"
+              by="word"
+              startOnView
+              duration={0.5}
+              delay={0.5}
+              once
+            >
+              After registration, we’ll provide a comprehensive overview of the
+              platform and applicable terms
+            </TextAnimate>
           </Title>
-          <Box className="mt-6">
+          <Box
+            className="my-6 rounded-2xl border bg-neutral-950 bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(120,119,198,0.3),rgba(255,255,255,0))]"
+            p="lg"
+            mx="auto"
+            maw={500}
+          >
             <form
               onSubmit={form.onSubmit(handleSubmit)}
               onKeyDown={(e) => {
@@ -111,7 +134,7 @@ const DriverSignupSection: React.FC = () => {
                 label="Name"
                 placeholder="Enter your name"
                 required
-                size={isAboveMobile ? 'xl' : 'md'}
+                size={'md'}
                 {...form.getInputProps('name')}
                 mb="sm"
                 styles={{
@@ -127,7 +150,7 @@ const DriverSignupSection: React.FC = () => {
                 label="Car Model"
                 placeholder="Enter car model"
                 required
-                size={isAboveMobile ? 'xl' : 'md'}
+                size={'md'}
                 {...form.getInputProps('car')}
                 mb="sm"
                 styles={{
@@ -143,7 +166,7 @@ const DriverSignupSection: React.FC = () => {
                 label="Hours Driven Per Week"
                 placeholder="Enter hours"
                 required
-                size={isAboveMobile ? 'xl' : 'md'}
+                size={'md'}
                 min={1}
                 {...form.getInputProps('hoursPerWeek')}
                 mb="sm"
@@ -160,7 +183,7 @@ const DriverSignupSection: React.FC = () => {
                 label="Preferred Time"
                 placeholder="Select time"
                 required
-                size={isAboveMobile ? 'xl' : 'md'}
+                size={'md'}
                 data={['Day', 'Night', 'Both']}
                 {...form.getInputProps('preferredTime')}
                 mb="sm"
@@ -181,7 +204,7 @@ const DriverSignupSection: React.FC = () => {
                 label="Phone Number"
                 placeholder="Enter phone number"
                 required
-                size={isAboveMobile ? 'xl' : 'md'}
+                size={'md'}
                 {...form.getInputProps('phone')}
                 mb="sm"
                 styles={{
@@ -197,7 +220,7 @@ const DriverSignupSection: React.FC = () => {
                 label="Email"
                 placeholder="Enter email"
                 required
-                size={isAboveMobile ? 'xl' : 'md'}
+                size={'md'}
                 type="email"
                 {...form.getInputProps('email')}
                 mb="md"
