@@ -60,7 +60,7 @@ const HeroSection: React.FC = () => {
                   filter: 'blur(0px)',
                   y: 0,
                 }}
-                
+                viewport={{ once: true }}
                 transition={{ duration: 0.4, delay: 1 }}
               >
                 <Link href={'/#pricingSection'}>
@@ -75,6 +75,7 @@ const HeroSection: React.FC = () => {
                   filter: 'blur(0px)',
                   y: 0,
                 }}
+                viewport={{ once: true }}
                 transition={{ duration: 0.4, delay: 1.4 }}
               >
                 <Link href={'/drive'}>

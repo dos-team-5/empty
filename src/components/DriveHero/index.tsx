@@ -60,7 +60,7 @@ const DriveHeroSection: React.FC = () => {
                 startOnView
                 duration={0.5}
                 delay={1}
-                className="max-w-5xl"
+                className="max-w-3xl"
                 once
               >
                 Get paid up to $300/month to display ads on your car’s front
@@ -76,6 +76,7 @@ const DriveHeroSection: React.FC = () => {
                   filter: 'blur(0px)',
                   y: 0,
                 }}
+                viewport={{ once: true }}
                 transition={{ duration: 0.4, delay: 1.5 }}
               >
                 <Link href={'/drive#signUpDriver'}>

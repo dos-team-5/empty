@@ -70,13 +70,15 @@ const TopNav = () => {
                 )}
               </Box>
             ))}
-            <Button
-              className="!bg-primary-400 hover:!bg-primary !hidden lg:!block"
-              size={IsAboveMobile ? 'lg' : 'md'}
-              radius={15}
-            >
-              Book A Call
-            </Button>
+            <Link href={'/contact'}>
+              <Button
+                className="!bg-primary-400 hover:!bg-primary !hidden lg:!block"
+                size={IsAboveMobile ? 'lg' : 'md'}
+                radius={15}
+              >
+                Book A Call
+              </Button>
+            </Link>
           </Group>
 
           <Burger
@@ -97,7 +99,8 @@ const TopNav = () => {
         withCloseButton={true}
         closeButtonProps={{
           icon: <X size={32} color="white" />,
-          mr: 'xl',
+          mr: 'sm',
+          mt: 'xs',
         }}
       >
         <MobileNav onClose={toggleMobileMenu} />
