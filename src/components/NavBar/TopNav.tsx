@@ -53,6 +53,7 @@ const TopNav = () => {
                 height={1000}
                 alt="logo"
                 className="w-32 xl:w-36"
+                priority
               />
             </Link>
           </Group>
@@ -74,7 +75,7 @@ const TopNav = () => {
                 )}
               </Box>
             ))}
-            <Link href={'/contact'}>
+            <Link href={'/contact'} className="hidden lg:block">
               {/* <Button
                 className="!text-primary-400 hover:!bg-primary !hidden !bg-white lg:!block"
                 size={IsAboveMobile ? 'lg' : 'md'}
@@ -121,7 +122,7 @@ const TopNav = () => {
         position="right"
         withCloseButton={true}
         closeButtonProps={{
-          icon: <X size={32} color="white" />,
+          icon: <X size={32} className="text-default-color" />,
           mr: 'sm',
           mt: 'xs',
         }}

@@ -5,26 +5,27 @@ import Image from 'next/image';
 import { motion } from 'motion/react';
 
 const Advertisement = () => {
+  const checkItemVariants = {
+    hidden: { opacity: 0, x: -50 },
+    visible: { opacity: 1, x: 0 },
+  };
+
   return (
-    <Box className="relative h-[80dvh] overflow-hidden">
+    <Box className="relative h-dvh overflow-hidden">
       <motion.div
-        initial={{ x: '734px', scale: 0.7 }}
-        whileInView={{ x: 0, scale: 1 }}
+        initial={{ x: '82%', scale: 0.7, y: '-8%' }}
+        whileInView={{ x: 0, scale: 1, y: 0 }}
         transition={{ duration: 1, ease: 'easeOut' }}
         viewport={{ once: true }}
-        style={{
-          position: 'absolute',
-          right: 0,
-          bottom: 0,
-          width: '900px',
-        }}
+        className="md: absolute right-0 bottom-4 z-20 md:bottom-24 lg:bottom-0"
       >
         <Image
           src={'/R2.png'}
           alt=""
           width={1000}
           height={1000}
-          className="h-auto w-full"
+          className="w-full origin-bottom-right 2xl:scale-125"
+          priority
         />
       </motion.div>
       <Box
@@ -40,7 +41,7 @@ const Advertisement = () => {
                 by="word"
                 startOnView
                 duration={0.5}
-                className="text-[40px]"
+                className="text-center text-3xl sm:text-start md:text-4xl lg:text-[40px] 2xl:text-5xl"
                 once
               >
                 Outperform Everyone,
@@ -51,27 +52,35 @@ const Advertisement = () => {
                 startOnView
                 duration={0.5}
                 delay={0.5}
-                className="text-[40px]"
+                className="text-center text-3xl sm:text-start md:text-4xl lg:text-[40px] 2xl:text-5xl"
                 once
               >
                 Outspend No One
               </TextAnimate>
             </Title>
-            <div className="mt-8 flex gap-2">
+            <div className="mt-8 flex flex-wrap justify-center gap-4 sm:justify-start">
               {[
                 'From startups to global brands, launch cost-effective campaigns that scale with your budget.',
                 'Simple, fast, and built to deliver unmatched ROI and best-in-class CPM.',
                 'We represent modern advertising done right.',
               ].map((item, index) => (
-                <div
+                <motion.div
                   key={index}
-                  className="group relative w-40 transform overflow-hidden rounded-xl bg-transparent shadow-md transition-all duration-500 hover:scale-105 hover:shadow-lg"
+                  variants={checkItemVariants}
+                  initial="hidden"
+                  whileInView="visible"
+                  viewport={{ once: true }}
+                  transition={{ delay: (index + 1) * 0.6 }}
+                  className="group relative max-h-40 min-h-36 w-72 overflow-hidden rounded-xl bg-transparent !shadow-[20px_20px_60px_#bebebe,-20px_-20px_60px_#ffffff]"
                 >
-                  <div className="from-primary-100 to-primary absolute inset-0 bg-gradient-to-br opacity-30 blur-md transition-opacity duration-500 group-hover:opacity-30"></div>
                   <div className="relative z-10 p-4">
-                    <p className="text-text mt-2 text-xs">{item}</p>
+                    <Title order={2} fw={400} className="text-start">
+                      <p className="text-text mt-2 text-base md:text-lg">
+                        {item}
+                      </p>
+                    </Title>
                   </div>
-                </div>
+                </motion.div>
               ))}
             </div>
           </Box>

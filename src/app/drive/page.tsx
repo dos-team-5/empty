@@ -1,6 +1,7 @@
 import {
   DriveAfterHeroSection,
   DriveHeroSection,
+  DriveQualificationSection,
   DriverSignupSection,
 } from '@/components';
 import { Box } from '@mantine/core';
@@ -10,8 +11,8 @@ const Drive = () => {
     <Box className="">
       <DriveHeroSection />
       <DriveAfterHeroSection />
-      {/* <DriveQualificationSection />
-      <Faq /> */}
+      <DriveQualificationSection />
+      {/* <Faq /> */}
       <DriverSignupSection />
     </Box>
   );

@@ -35,7 +35,9 @@ export default function RootLayout({
           content="width=device-width, initial-scale=1, maximum-scale=1"
         />
       </head>
-      <body className={`${poppins.variable} relative antialiased`}>
+      <body
+        className={`${poppins.variable} relative overflow-hidden antialiased`}
+      >
         <Providers>
           <Box maw={2000} mx={'auto'} className="">
             <Navbar />

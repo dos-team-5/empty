@@ -1,4 +1,3 @@
-// components/DriverSignupSection.tsx
 'use client';
 import React from 'react';
 import {
@@ -14,6 +13,7 @@ import { z } from 'zod';
 import { ArrowRight } from 'lucide-react';
 import { TextAnimate } from '../TextAnimation';
 import { motion } from 'motion/react';
+import { memo } from 'react';
 
 // Zod schema for driver validation
 const driverSchema = z.object({
@@ -39,6 +39,76 @@ const driverSchema = z.object({
 
 type DriverFormValues = z.infer<typeof driverSchema>;
 
+// Memoized TitleSection to prevent re-rendering
+const TitleSection = memo(() => (
+  <div className="-mt-20 w-full lg:w-1/2">
+    <Title
+      order={1}
+      fw={500}
+      style={{
+        color: 'var(--color-text)',
+        fontFamily: 'var(--font-poppins)',
+      }}
+    >
+      <TextAnimate
+        animation="blurInUp"
+        by="word"
+        startOnView
+        duration={0.5}
+        once
+        className="text-center text-3xl md:text-4xl lg:text-start lg:text-[40px] 2xl:text-5xl"
+      >
+        Join our growing network
+      </TextAnimate>
+      <TextAnimate
+        animation="blurInUp"
+        by="word"
+        startOnView
+        duration={0.5}
+        once
+        className="text-center text-3xl md:text-4xl lg:text-start lg:text-[40px] 2xl:text-5xl"
+      >
+        of drivers today
+      </TextAnimate>
+    </Title>
+    <Title
+      order={2}
+      fw={400}
+      mt="md"
+      style={{
+        color: 'var(--color-text)',
+        fontFamily: 'var(--font-poppins)',
+      }}
+      className="text-lg"
+    >
+      <TextAnimate
+        animation="blurInUp"
+        by="word"
+        startOnView
+        duration={0.5}
+        delay={0.5}
+        once
+        className="text-center text-base md:text-lg lg:text-start lg:text-xl 2xl:text-2xl"
+      >
+        After registration, we’ll provide a comprehensive
+      </TextAnimate>
+      <TextAnimate
+        animation="blurInUp"
+        by="word"
+        startOnView
+        duration={0.5}
+        delay={0.5}
+        once
+        className="text-center text-base md:text-lg lg:text-start lg:text-xl 2xl:text-2xl"
+      >
+        overview of the platform and applicable terms
+      </TextAnimate>
+    </Title>
+  </div>
+));
+
+TitleSection.displayName = 'TitleSection';
+
 const DriverSignupSection: React.FC = () => {
   // Form setup with Zod validation
   const form = useForm<DriverFormValues>({
@@ -60,10 +130,7 @@ const DriverSignupSection: React.FC = () => {
   };
 
   return (
-    <Box
-      className="relative"
-      // className="from-default to-primary-100 relative h-dvh bg-gradient-to-b from-55%"
-    >
+    <Box className="relative">
       <Box
         maw={1800}
         mx="auto"
@@ -71,71 +138,8 @@ const DriverSignupSection: React.FC = () => {
         id="signUpDriver"
       >
         <Box className="flex min-h-dvh flex-col justify-start">
-          <Box className="relative flex items-center justify-between pt-16">
-            <div className="-mt-20 w-1/2">
-              <Title
-                order={1}
-                fw={500}
-                style={{
-                  color: 'var(--color-text)',
-                  fontFamily: 'var(--font-poppins)',
-                }}
-              >
-                <TextAnimate
-                  animation="blurInUp"
-                  by="word"
-                  startOnView
-                  duration={0.5}
-                  once
-                  className="text-start text-[40px]"
-                >
-                  Join our growing network
-                </TextAnimate>
-                <TextAnimate
-                  animation="blurInUp"
-                  by="word"
-                  startOnView
-                  duration={0.5}
-                  once
-                  className="text-start text-[40px]"
-                >
-                  of drivers today
-                </TextAnimate>
-              </Title>
-              <Title
-                order={2}
-                fw={400}
-                mt="md"
-                style={{
-                  color: 'var(--color-text)',
-                  fontFamily: 'var(--font-poppins)',
-                }}
-                className="text-lg"
-              >
-                <TextAnimate
-                  animation="blurInUp"
-                  by="word"
-                  startOnView
-                  duration={0.5}
-                  delay={0.5}
-                  once
-                  className="text-start text-lg"
-                >
-                  After registration, we’ll provide a comprehensive
-                </TextAnimate>
-                <TextAnimate
-                  animation="blurInUp"
-                  by="word"
-                  startOnView
-                  duration={0.5}
-                  delay={0.5}
-                  once
-                  className="text-start text-lg"
-                >
-                  overview of the platform and applicable terms
-                </TextAnimate>
-              </Title>
-            </div>
+          <Box className="relative flex flex-col items-center justify-center pt-16 lg:flex-row lg:justify-between">
+            <TitleSection /> {/* Render memoized title section */}
             <motion.div
               initial={{ scale: 0.3, opacity: 0 }}
               whileInView={{
@@ -148,7 +152,7 @@ const DriverSignupSection: React.FC = () => {
                 },
               }}
               viewport={{ once: true }}
-              className="w-1/2"
+              className="w-full lg:w-1/2"
             >
               <Box
                 className="mt-12 mb-16 rounded-2xl !shadow-[20px_20px_60px_#bebebe,-20px_-20px_60px_#ffffff]"
@@ -285,7 +289,7 @@ const DriverSignupSection: React.FC = () => {
                     Submit
                   </Button>
                 </form>
-              </Box>{' '}
+              </Box>
             </motion.div>
           </Box>
         </Box>

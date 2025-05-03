@@ -4,23 +4,38 @@ import { Title, Box } from '@mantine/core';
 import { motion } from 'motion/react';
 import PrimaryBtn from '../PrimaryBtn';
 
-import Link from 'next/link';
 import { TextAnimate } from '../TextAnimation';
 import Image from 'next/image';
 
 const DriveAfterHeroSection: React.FC = () => {
+  const handleSignUpClick = () => {
+    const target = document.querySelector('#driveQualification');
+    if (target) {
+      target.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   return (
     <Box
-      className="relative h-dvh"
+      className="relative h-dvh overflow-hidden"
       // className="from-default to-primary-100 relative h-dvh bg-gradient-to-b from-55%"
     >
-      <Image
-        src={'/he.png'}
-        alt=""
-        width={1000}
-        height={1000}
-        className="absolute right-0 bottom-0 w-[900px]"
-      />
+      <motion.div
+        initial={{ x: '-100dvw', y: '30dvh', scale: 1.7, opacity: 0 }}
+        whileInView={{ x: 0, y: 0, scale: 1, opacity: 1 }}
+        transition={{ duration: 1, ease: 'easeOut' }}
+        viewport={{ once: true }}
+        className="md: absolute right-0 bottom-24 z-20 lg:bottom-0"
+      >
+        <Image
+          src={'/he.png'}
+          alt=""
+          width={1000}
+          height={1000}
+          className="w-full origin-bottom-right 2xl:scale-125"
+          priority
+        />
+      </motion.div>
       <Box
         maw={1800}
         mx={'auto'}
@@ -35,7 +50,7 @@ const DriveAfterHeroSection: React.FC = () => {
                 startOnView
                 duration={0.5}
                 once
-                className="text-[40px]"
+                className="text-3xl md:text-4xl lg:text-[40px] 2xl:text-5xl"
               >
                 Easily installable and removable
               </TextAnimate>
@@ -46,7 +61,7 @@ const DriveAfterHeroSection: React.FC = () => {
                 duration={0.5}
                 delay={0.5}
                 once
-                className="text-[40px]"
+                className="text-3xl md:text-4xl lg:text-[40px] 2xl:text-5xl"
               >
                 decals, reducing your commitment.
               </TextAnimate>
@@ -59,7 +74,7 @@ const DriveAfterHeroSection: React.FC = () => {
                 duration={0.5}
                 delay={1}
                 once
-                className="text-lg"
+                className="text-base md:text-lg lg:text-xl 2xl:text-2xl"
               >
                 We mail it. You install it, snap a photo, and start earning.
               </TextAnimate>
@@ -70,7 +85,7 @@ const DriveAfterHeroSection: React.FC = () => {
                 duration={0.5}
                 delay={1.5}
                 once
-                className="text-lg"
+                className="text-base md:text-lg lg:text-xl 2xl:text-2xl"
               >
                 It’s that easy—no hidden costs, no BS.
               </TextAnimate>
@@ -87,9 +102,9 @@ const DriveAfterHeroSection: React.FC = () => {
                 viewport={{ once: true }}
                 transition={{ duration: 0.4, delay: 1.5 }}
               >
-                <Link href={'/drive#signUpDriver'}>
+                <Box onClick={handleSignUpClick} className="cursor-pointer">
                   <PrimaryBtn btnText="Learn More" />
-                </Link>
+                </Box>
               </motion.div>
             </Box>
           </Box>

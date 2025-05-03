@@ -5,9 +5,14 @@ import { ExpandableCardDemo } from './ExpandableCards';
 import { TextAnimate } from '../TextAnimation';
 
 const FeatureSection: React.FC = () => {
+  const checkItemVariants = {
+    hidden: { opacity: 0, x: -50 },
+    visible: { opacity: 1, x: 0 },
+  };
+
   return (
     <Box
-      className="relative h-dvh"
+      className="relative"
       // className="from-default to-primary-100 relative h-dvh bg-gradient-to-b from-55%"
     >
       <Box
@@ -22,7 +27,7 @@ const FeatureSection: React.FC = () => {
               by="word"
               startOnView
               duration={0.5}
-              className="text-[40px]"
+              className="text-3xl md:text-4xl lg:text-[40px] 2xl:text-5xl"
               once
             >
               Billboards Don’t Move.
@@ -34,7 +39,7 @@ const FeatureSection: React.FC = () => {
               startOnView
               duration={0.5}
               delay={1}
-              className="text-[40px]"
+              className="text-3xl md:text-4xl lg:text-[40px] 2xl:text-5xl"
               once
             >
               Your Customers Do.
