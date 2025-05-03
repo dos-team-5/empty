@@ -44,7 +44,7 @@ export const ExpandableCardDemo = React.memo(function ExpandableCardDemo() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.2, delay: 0.1 }}
-            className="fixed inset-0 z-10 h-full w-full bg-black/20"
+            className="fixed inset-0 z-10 h-full w-full bg-black/20 backdrop-blur-[2px]"
           />
         )}
       </AnimatePresence>
@@ -55,7 +55,7 @@ export const ExpandableCardDemo = React.memo(function ExpandableCardDemo() {
               layoutId={`card-${active.title}-${id}`}
               ref={ref}
               transition={{ duration: 0.3, ease: 'easeInOut', delay: 0.05 }}
-              className="bg-default relative flex h-fit w-full max-w-[500px] flex-col overflow-hidden rounded-3xl border"
+              className="bg-default relative flex h-fit w-full max-w-[500px] flex-col overflow-hidden rounded-3xl !shadow-[20px_20px_60px_#bebebe,-20px_-20px_60px_#ffffff]"
               style={{ willChange: 'transform, opacity' }}
             >
               <motion.button
@@ -63,7 +63,7 @@ export const ExpandableCardDemo = React.memo(function ExpandableCardDemo() {
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0, scale: 0.8 }}
                 transition={{ duration: 0.2 }}
-                className="bg-default absolute top-4 right-4 flex h-6 w-6 cursor-pointer items-center justify-center rounded-full"
+                className="bg-default absolute top-4 right-4 z-40 flex h-6 w-6 cursor-pointer items-center justify-center rounded-full"
                 onClick={() => setActive(null)}
               >
                 <CloseIcon />
@@ -118,15 +118,17 @@ export const ExpandableCardDemo = React.memo(function ExpandableCardDemo() {
             layoutId={`card-${card.title}-${id}`}
             key={card.title}
             onClick={() => setActive(card)}
-            initial={{ scale: 0.3, opacity: 0 }}
+            initial={{ x: -50, opacity: 0 }}
             whileInView={{
-              scale: 1,
+              x: 0,
               opacity: 1,
-              transition: { duration: 0.4, delay: i * 0.3, ease: 'easeInOut' },
+              transition: {
+                delay: (i + 1) * 0.6,
+              },
             }}
             viewport={{ once: true }}
             transition={{ duration: 0.4, ease: [0.4, 0, 0.2, 1] }}
-            className="hover:bg-primary-50 bg-default flex cursor-pointer flex-col rounded-xl border p-4 transition-colors duration-150"
+            className="hover:bg-primary-50 flex cursor-pointer flex-col overflow-hidden rounded-xl bg-transparent p-4 !shadow-[20px_20px_60px_#bebebe,-20px_-20px_60px_#ffffff] transition-colors duration-150"
           >
             <div className="flex w-full flex-col gap-4">
               <motion.div
@@ -173,7 +175,8 @@ export const CloseIcon = React.memo(function CloseIcon() {
       strokeWidth="2"
       strokeLinecap="round"
       strokeLinejoin="round"
-      className="h-4 w-4"
+      className="z-40 h-4 w-4"
+      color={'#000000'}
     >
       <path stroke="none" d="M0 0h24v24H0z" fill="none" />
       <path d="M18 6l-12 12" />

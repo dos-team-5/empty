@@ -50,7 +50,7 @@ const Faq = memo(() => {
           by="word"
           startOnView
           duration={0.5}
-          className="text-[40px]"
+          className="text-3xl md:text-4xl lg:text-[40px] 2xl:text-5xl"
           once
         >
           Got Questions!
@@ -60,7 +60,7 @@ const Faq = memo(() => {
           by="word"
           startOnView
           duration={0.5}
-          className="text-[40px]"
+          className="text-3xl md:text-4xl lg:text-[40px] 2xl:text-5xl"
           delay={1}
           once
         >

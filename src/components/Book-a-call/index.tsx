@@ -24,9 +24,7 @@ const Meeting = () => {
             <TextAnimate
               animation="blurInUp"
               by="word"
-              startOnView
               duration={0.5}
-              once
               className="text-[40px] lg:text-[40]"
             >
               See how fast-moving brands are turning city streets into
@@ -37,10 +35,8 @@ const Meeting = () => {
             <TextAnimate
               animation="blurInUp"
               by="word"
-              startOnView
               duration={0.5}
               delay={0.5}
-              once
               className="text-lg"
             >
               In 20 minutes, we’ll show you how our mobile OOH ads help brands
@@ -52,10 +48,8 @@ const Meeting = () => {
             <TextAnimate
               animation="blurInUp"
               by="word"
-              startOnView
               duration={0.5}
               delay={1}
-              once
               className="text-lg"
             >
               You'll discover how to:

@@ -6,27 +6,27 @@ import Link from 'next/link';
 import { TextAnimate } from '../TextAnimation';
 import { motion } from 'framer-motion'; // Ensure correct import
 import Image from 'next/image';
+import { useMediaQuery } from '@mantine/hooks';
 
 const HeroSection: React.FC = () => {
+  const md = useMediaQuery('(min-width: 768px)');
+  const lg = useMediaQuery('(min-width: 1024px)');
+  const xl = useMediaQuery('(min-width: 1280px)');
+  const xxl = useMediaQuery('(min-width: 1536px)');
   return (
     <Box className="relative h-dvh overflow-hidden">
       <motion.div
-        initial={{ x: '100vw' }}
-        animate={{ x: 0 }}
+        initial={{ x: lg ? '100%' : md ? '180%' : '200%' }}
+        animate={{ x: xxl ? '6%' : xl ? 0 : lg ? '2%' : md ? '60%' : '100%' }}
         transition={{ duration: 2.7, ease: 'easeOut' }}
-        style={{
-          position: 'absolute',
-          right: 0,
-          bottom: 20,
-          width: '900px',
-        }}
+        className="absolute right-0 bottom-16 md:bottom-24 lg:bottom-16"
       >
         <Image
           src={'/R3.png'}
-          alt=""
+          alt="car1"
           width={1000}
           height={1000}
-          className="ml- h-auto w-full origin-bottom-right scale-125"
+          className="w-[900px] origin-bottom-right scale-210 md:scale-160 lg:scale-110 xl:scale-150 2xl:scale-172"
         />
       </motion.div>
 
@@ -43,7 +43,7 @@ const HeroSection: React.FC = () => {
                 by="word"
                 startOnView
                 duration={0.5}
-                className="text-[40px]"
+                className="text-3xl md:text-4xl lg:text-[40px] 2xl:text-5xl"
                 once
               >
                 Advertise on rideshare vehicles
@@ -54,7 +54,7 @@ const HeroSection: React.FC = () => {
                 startOnView
                 duration={0.5}
                 delay={0.5}
-                className="text-[40px]"
+                className="text-3xl md:text-4xl lg:text-[40px] 2xl:text-5xl"
                 once
               >
                 in high-traffic areas
@@ -68,7 +68,7 @@ const HeroSection: React.FC = () => {
                 duration={0.5}
                 delay={1}
                 once
-                className="text-lg"
+                className="text-base md:text-lg lg:text-xl 2xl:text-2xl"
               >
                 Unbeatable visibility and returns that
               </TextAnimate>
@@ -79,7 +79,7 @@ const HeroSection: React.FC = () => {
                 duration={0.5}
                 delay={1.5}
                 once
-                className="text-lg"
+                className="text-base md:text-lg lg:text-xl 2xl:text-2xl"
               >
                 stationary ads can’t match
               </TextAnimate>
