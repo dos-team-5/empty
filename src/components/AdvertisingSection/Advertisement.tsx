@@ -8,8 +8,8 @@ const Advertisement = () => {
   return (
     <Box className="relative h-[80dvh] overflow-hidden">
       <motion.div
-        initial={{ x: '700px', scale: 0.7 }}
-        // whileInView={{ x: 0, scale: 1 }}
+        initial={{ x: '734px', scale: 0.7 }}
+        whileInView={{ x: 0, scale: 1 }}
         transition={{ duration: 1, ease: 'easeOut' }}
         viewport={{ once: true }}
         style={{
