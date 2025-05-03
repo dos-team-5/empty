@@ -4,6 +4,7 @@ import { useMediaQuery } from '@mantine/hooks';
 import { Minus, Plus } from 'lucide-react';
 import { memo, useMemo, useState } from 'react';
 import { TextAnimate } from '../TextAnimation';
+import { motion } from 'motion/react';
 
 const faqData = [
   {
@@ -99,33 +100,46 @@ const Faq = memo(() => {
           mx="auto"
           className="transition-all duration-200 ease-in-out"
         >
-          {faqData.map((item) => (
-            <Accordion.Item
+          {faqData.map((item, i) => (
+            <motion.div
               key={item.id}
-              value={item.id}
-              className="from-default to-primary-50 from-55%] !border-none bg-gradient-to-b"
+              initial={{ y: -50, opacity: 0 }}
+              whileInView={{
+                y: 0,
+                opacity: 1,
+                transition: {
+                  delay: (i + 1) * 0.5,
+                },
+              }}
+              viewport={{ once: true }}
+              className='mb-4'
             >
-              <Accordion.Control className="rounded-lg !px-0 !py-2 !shadow-[20px_20px_60px_#bebebe,-20px_-20px_60px_#ffffff]">
-                <Box
-                  className="flex items-center justify-between pl-4"
-                  style={{ width: '100%' }}
-                >
-                  {item.question}
-                  {openItem === item.id ? (
-                    <Box className="bg-primary rounded-full p-1 text-white">
-                      <Minus size={16} />
-                    </Box>
-                  ) : (
-                    <Box className="bg-primary rounded-full p-1 text-white">
-                      <Plus size={16} />
-                    </Box>
-                  )}
-                </Box>
-              </Accordion.Control>
-              <Accordion.Panel className="from-default to-primary-50 rounded-lg bg-gradient-to-b from-55% !px-0 !py-2 !shadow-[20px_20px_60px_#bebebe,-20px_-20px_60px_#ffffff]">
-                {item.answer}
-              </Accordion.Panel>
-            </Accordion.Item>
+              <Accordion.Item
+                value={item.id}
+                className="from-default to-primary-50 from-55%] !border-none bg-gradient-to-b"
+              >
+                <Accordion.Control className="rounded-lg !px-0 !py-2 !shadow-[20px_20px_60px_#bebebe,-20px_-20px_60px_#ffffff]">
+                  <Box
+                    className="flex items-center justify-between pl-4"
+                    style={{ width: '100%' }}
+                  >
+                    {item.question}
+                    {openItem === item.id ? (
+                      <Box className="bg-primary rounded-full p-1 text-white">
+                        <Minus size={16} />
+                      </Box>
+                    ) : (
+                      <Box className="bg-primary rounded-full p-1 text-white">
+                        <Plus size={16} />
+                      </Box>
+                    )}
+                  </Box>
+                </Accordion.Control>
+                <Accordion.Panel className="from-default to-primary-50 rounded-lg bg-gradient-to-b from-55% !px-0 !py-2 !shadow-[20px_20px_60px_#bebebe,-20px_-20px_60px_#ffffff]">
+                  {item.answer}
+                </Accordion.Panel>
+              </Accordion.Item>
+            </motion.div>
           ))}
         </Accordion>
       </Box>

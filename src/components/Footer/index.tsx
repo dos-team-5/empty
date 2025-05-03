@@ -18,10 +18,11 @@ const links = [
 const Footer = () => {
   const items = links.map((link) => (
     <Anchor
+      component={Link}
       key={link.label}
       href={link.link}
       lh={1}
-      onClick={(event) => event.preventDefault()}
+      // onClick={(event) => event.preventDefault()}
       size="sm"
       className="!text-text"
     >

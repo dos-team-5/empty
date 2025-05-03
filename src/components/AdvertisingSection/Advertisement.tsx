@@ -13,8 +13,8 @@ const Advertisement = () => {
   return (
     <Box className="relative h-dvh overflow-hidden">
       <motion.div
-        initial={{ x: '82%', scale: 0.7 }}
-        whileInView={{ x: 0, scale: 1 }}
+        initial={{ x: '82%', scale: 0.7, y: '-8%' }}
+        whileInView={{ x: 0, scale: 1, y: 0 }}
         transition={{ duration: 1, ease: 'easeOut' }}
         viewport={{ once: true }}
         className="md: absolute right-0 bottom-4 z-20 md:bottom-24 lg:bottom-0"
@@ -25,6 +25,7 @@ const Advertisement = () => {
           width={1000}
           height={1000}
           className="w-full origin-bottom-right 2xl:scale-125"
+          priority
         />
       </motion.div>
       <Box
@@ -68,13 +69,13 @@ const Advertisement = () => {
                   variants={checkItemVariants}
                   initial="hidden"
                   whileInView="visible"
-                  viewport={{once:true}}
+                  viewport={{ once: true }}
                   transition={{ delay: (index + 1) * 0.6 }}
                   className="group relative max-h-40 min-h-36 w-72 overflow-hidden rounded-xl bg-transparent !shadow-[20px_20px_60px_#bebebe,-20px_-20px_60px_#ffffff]"
                 >
                   <div className="relative z-10 p-4">
                     <Title order={2} fw={400} className="text-start">
-                      <p className="text-text mt-2 text-base md:text-lg ">
+                      <p className="text-text mt-2 text-base md:text-lg">
                         {item}
                       </p>
                     </Title>

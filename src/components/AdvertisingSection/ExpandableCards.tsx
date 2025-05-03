@@ -142,6 +142,7 @@ export const ExpandableCardDemo = React.memo(function ExpandableCardDemo() {
                   src={card.src}
                   alt={card.title}
                   className="h-80 w-full rounded-lg object-cover object-top pb-10"
+                  
                 />
               </motion.div>
               <div className="relative flex h-24 items-center justify-between px-2">

@@ -4,22 +4,28 @@ import { Title, Box } from '@mantine/core';
 import { motion } from 'motion/react';
 import PrimaryBtn from '../PrimaryBtn';
 
-import Link from 'next/link';
 import { TextAnimate } from '../TextAnimation';
 import Image from 'next/image';
 
 const DriveAfterHeroSection: React.FC = () => {
+  const handleSignUpClick = () => {
+    const target = document.querySelector('#driveQualification');
+    if (target) {
+      target.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   return (
     <Box
       className="relative h-dvh overflow-hidden"
       // className="from-default to-primary-100 relative h-dvh bg-gradient-to-b from-55%"
     >
       <motion.div
-        initial={{ x: '82%', scale: 0.7 }}
-        whileInView={{ x: 0, scale: 1 }}
+        initial={{ x: '-100dvw', y: '30dvh', scale: 1.7, opacity: 0 }}
+        whileInView={{ x: 0, y: 0, scale: 1, opacity: 1 }}
         transition={{ duration: 1, ease: 'easeOut' }}
         viewport={{ once: true }}
-        className="md: absolute right-0 bottom-24 lg:bottom-0 z-20 "
+        className="md: absolute right-0 bottom-24 z-20 lg:bottom-0"
       >
         <Image
           src={'/he.png'}
@@ -27,6 +33,7 @@ const DriveAfterHeroSection: React.FC = () => {
           width={1000}
           height={1000}
           className="w-full origin-bottom-right 2xl:scale-125"
+          priority
         />
       </motion.div>
       <Box
@@ -95,9 +102,9 @@ const DriveAfterHeroSection: React.FC = () => {
                 viewport={{ once: true }}
                 transition={{ duration: 0.4, delay: 1.5 }}
               >
-                <Link href={'/drive#signUpDriver'}>
+                <Box onClick={handleSignUpClick} className="cursor-pointer">
                   <PrimaryBtn btnText="Learn More" />
-                </Link>
+                </Box>
               </motion.div>
             </Box>
           </Box>

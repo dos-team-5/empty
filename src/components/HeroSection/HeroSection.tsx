@@ -4,21 +4,42 @@ import { Title, Box } from '@mantine/core';
 import PrimaryBtn from '../PrimaryBtn';
 import Link from 'next/link';
 import { TextAnimate } from '../TextAnimation';
-import { motion } from 'framer-motion'; // Ensure correct import
+import { motion, useAnimationControls } from 'motion/react';
 import Image from 'next/image';
 import { useMediaQuery } from '@mantine/hooks';
+import { useEffect, useRef } from 'react';
 
 const HeroSection: React.FC = () => {
   const md = useMediaQuery('(min-width: 768px)');
   const lg = useMediaQuery('(min-width: 1024px)');
   const xl = useMediaQuery('(min-width: 1280px)');
   const xxl = useMediaQuery('(min-width: 1536px)');
+
+  const rootRef = useRef<HTMLDivElement>(null);
+  const imageControls = useAnimationControls();
+
+  const getAnimationProps = () => {
+    if (xxl) return { initialX: '100%', animateX: '6%' };
+    if (xl) return { initialX: '100%', animateX: '0%' };
+    if (lg) return { initialX: '100%', animateX: '2%' };
+    if (md) return { initialX: '180%', animateX: '60%' };
+    return { initialX: '200%', animateX: '100%' };
+  };
+
+  const { initialX, animateX } = getAnimationProps();
+
+  useEffect(() => {
+    imageControls.start({ x: animateX });
+  }, [imageControls, animateX]);
+
   return (
-    <Box className="relative h-dvh overflow-hidden">
+    <Box className="relative h-dvh overflow-hidden" ref={rootRef}>
       <motion.div
-        initial={{ x: lg ? '100%' : md ? '180%' : '200%' }}
-        animate={{ x: xxl ? '6%' : xl ? 0 : lg ? '2%' : md ? '60%' : '100%' }}
-        transition={{ duration: 2.7, ease: 'easeOut' }}
+        initial={{ x: initialX }}
+        animate={imageControls}
+        transition={{
+          duration: 2.7,
+        }}
         className="absolute right-0 bottom-16 md:bottom-24 lg:bottom-16"
       >
         <Image
@@ -43,7 +64,7 @@ const HeroSection: React.FC = () => {
                 by="word"
                 startOnView
                 duration={0.5}
-                className="text-3xl md:text-4xl lg:text-[40px] 2xl:text-5xl"
+                className="text- seizing md:text-4xl lg:text-[40px] 2xl:text-5xl"
                 once
               >
                 Advertise on rideshare vehicles

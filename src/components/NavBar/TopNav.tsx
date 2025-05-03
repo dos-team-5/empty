@@ -53,6 +53,7 @@ const TopNav = () => {
                 height={1000}
                 alt="logo"
                 className="w-32 xl:w-36"
+                priority
               />
             </Link>
           </Group>
