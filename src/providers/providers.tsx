@@ -1,10 +1,11 @@
 import { ReactLenis, theme } from '@/lib';
 import { MantineProvider } from '@mantine/core';
+import AnimatedGradient from './AnimatedGradient';
 
 const Providers = ({ children }: { children: React.ReactNode }) => {
   return (
     <MantineProvider theme={theme} forceColorScheme="light">
-      <ReactLenis
+      {/* <ReactLenis
         root
         options={{
           duration: 1.2, // Smooth and natural scroll duration
@@ -12,9 +13,10 @@ const Providers = ({ children }: { children: React.ReactNode }) => {
           syncTouch: true, // Sync touch for better mobile experience
           overscroll: false, // Disable overscroll for a cleaner feel
         }}
-      >
+      > */}
         {children}
-      </ReactLenis>
+      {/* </ReactLenis> */}
+      <AnimatedGradient />
     </MantineProvider>
   );
 };

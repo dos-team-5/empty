@@ -5,12 +5,17 @@ import PrimaryBtn from '../PrimaryBtn';
 import { TextAnimate } from '../TextAnimation';
 import { motion } from 'motion/react';
 import Image from 'next/image';
+import { useMediaQuery } from '@mantine/hooks';
 
 const DriveHeroSection: React.FC = () => {
   const ref = useRef<HTMLDivElement>(null);
 
+  const md = useMediaQuery('(min-width: 768px)');
+  const lg = useMediaQuery('(min-width: 1024px)');
+  const xl = useMediaQuery('(min-width: 1280px)');
+  const xxl = useMediaQuery('(min-width: 1536px)');
+
   const handleSignUpClick = () => {
-    // Smoothly scroll to #signUpDriver
     const target = document.querySelector('#signUpDriver');
     if (target) {
       target.scrollIntoView({ behavior: 'smooth' });
@@ -20,22 +25,17 @@ const DriveHeroSection: React.FC = () => {
   return (
     <Box ref={ref} className="relative h-dvh overflow-hidden">
       <motion.div
-        initial={{ x: '100vw' }}
-        animate={{ x: '20vw', scale:1.4 }}
+        initial={{ x: lg ? '100%' : md ? '180%' : '200%' }}
+        animate={{ x: xxl ? '72%' : xl ? '56%' : lg ? '48%' : md ? '60%' : '80%' }}
         transition={{ duration: 2.7, ease: 'easeOut' }}
-        style={{
-          position: 'absolute',
-          right: 0,
-          bottom: 0,
-          width: '900px',
-        }}
+        className="absolute right-0 bottom-0"
       >
         <Image
           src={'/r5c.png'}
-          alt=""
+          alt="car2"
           width={1000}
           height={1000}
-          className="h-auto w-full origin-bottom-right"
+          className="w-[900px] origin-bottom-right scale-180 md:scale-160 lg:scale-140 xl:scale-150 2xl:scale-172"
         />
       </motion.div>
       <Box
@@ -51,7 +51,7 @@ const DriveHeroSection: React.FC = () => {
                 by="word"
                 startOnView
                 duration={0.5}
-                className="text-[40px]"
+                className="text-3xl md:text-4xl lg:text-[40px] 2xl:text-5xl"
                 once
               >
                 Generate revenue every month
@@ -62,7 +62,7 @@ const DriveHeroSection: React.FC = () => {
                 startOnView
                 duration={0.5}
                 delay={0.5}
-                className="text-[40px]"
+                className="text-3xl md:text-4xl lg:text-[40px] 2xl:text-5xl"
                 once
               >
                 without doing more work.
@@ -76,7 +76,7 @@ const DriveHeroSection: React.FC = () => {
                 startOnView
                 duration={0.5}
                 delay={1}
-                className="text-lg"
+                className="text-base md:text-lg lg:text-xl 2xl:text-2xl"
                 once
               >
                 Get paid up to $300/month to display ads on your car’s front

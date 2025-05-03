@@ -11,16 +11,24 @@ import Image from 'next/image';
 const DriveAfterHeroSection: React.FC = () => {
   return (
     <Box
-      className="relative h-dvh"
+      className="relative h-dvh overflow-hidden"
       // className="from-default to-primary-100 relative h-dvh bg-gradient-to-b from-55%"
     >
-      <Image
-        src={'/he.png'}
-        alt=""
-        width={1000}
-        height={1000}
-        className="absolute right-0 bottom-0 w-[900px]"
-      />
+      <motion.div
+        initial={{ x: '82%', scale: 0.7 }}
+        whileInView={{ x: 0, scale: 1 }}
+        transition={{ duration: 1, ease: 'easeOut' }}
+        viewport={{ once: true }}
+        className="md: absolute right-0 bottom-24 lg:bottom-0 z-20 "
+      >
+        <Image
+          src={'/he.png'}
+          alt=""
+          width={1000}
+          height={1000}
+          className="w-full origin-bottom-right 2xl:scale-125"
+        />
+      </motion.div>
       <Box
         maw={1800}
         mx={'auto'}
@@ -35,7 +43,7 @@ const DriveAfterHeroSection: React.FC = () => {
                 startOnView
                 duration={0.5}
                 once
-                className="text-[40px]"
+                className="text-3xl md:text-4xl lg:text-[40px] 2xl:text-5xl"
               >
                 Easily installable and removable
               </TextAnimate>
@@ -46,7 +54,7 @@ const DriveAfterHeroSection: React.FC = () => {
                 duration={0.5}
                 delay={0.5}
                 once
-                className="text-[40px]"
+                className="text-3xl md:text-4xl lg:text-[40px] 2xl:text-5xl"
               >
                 decals, reducing your commitment.
               </TextAnimate>
@@ -59,7 +67,7 @@ const DriveAfterHeroSection: React.FC = () => {
                 duration={0.5}
                 delay={1}
                 once
-                className="text-lg"
+                className="text-base md:text-lg lg:text-xl 2xl:text-2xl"
               >
                 We mail it. You install it, snap a photo, and start earning.
               </TextAnimate>
@@ -70,7 +78,7 @@ const DriveAfterHeroSection: React.FC = () => {
                 duration={0.5}
                 delay={1.5}
                 once
-                className="text-lg"
+                className="text-base md:text-lg lg:text-xl 2xl:text-2xl"
               >
                 It’s that easy—no hidden costs, no BS.
               </TextAnimate>

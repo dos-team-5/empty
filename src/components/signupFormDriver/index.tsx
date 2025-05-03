@@ -71,8 +71,8 @@ const DriverSignupSection: React.FC = () => {
         id="signUpDriver"
       >
         <Box className="flex min-h-dvh flex-col justify-start">
-          <Box className="relative flex items-center justify-between pt-16">
-            <div className="-mt-20 w-1/2">
+          <Box className="relative flex flex-col items-center justify-center pt-16 lg:flex-row lg:justify-between">
+            <div className="-mt-20 w-full lg:w-1/2">
               <Title
                 order={1}
                 fw={500}
@@ -87,7 +87,7 @@ const DriverSignupSection: React.FC = () => {
                   startOnView
                   duration={0.5}
                   once
-                  className="text-start text-[40px]"
+                  className="text-center text-3xl md:text-4xl lg:text-start lg:text-[40px] 2xl:text-5xl"
                 >
                   Join our growing network
                 </TextAnimate>
@@ -97,7 +97,7 @@ const DriverSignupSection: React.FC = () => {
                   startOnView
                   duration={0.5}
                   once
-                  className="text-start text-[40px]"
+                  className="text-center text-3xl md:text-4xl lg:text-start lg:text-[40px] 2xl:text-5xl"
                 >
                   of drivers today
                 </TextAnimate>
@@ -119,7 +119,7 @@ const DriverSignupSection: React.FC = () => {
                   duration={0.5}
                   delay={0.5}
                   once
-                  className="text-start text-lg"
+                  className="text-center text-base md:text-lg lg:text-start lg:text-xl 2xl:text-2xl"
                 >
                   After registration, we’ll provide a comprehensive
                 </TextAnimate>
@@ -130,7 +130,7 @@ const DriverSignupSection: React.FC = () => {
                   duration={0.5}
                   delay={0.5}
                   once
-                  className="text-start text-lg"
+                  className="text-center text-base md:text-lg lg:text-start lg:text-xl 2xl:text-2xl"
                 >
                   overview of the platform and applicable terms
                 </TextAnimate>
@@ -148,7 +148,7 @@ const DriverSignupSection: React.FC = () => {
                 },
               }}
               viewport={{ once: true }}
-              className="w-1/2"
+              className="w-full lg:w-1/2"
             >
               <Box
                 className="mt-12 mb-16 rounded-2xl !shadow-[20px_20px_60px_#bebebe,-20px_-20px_60px_#ffffff]"
