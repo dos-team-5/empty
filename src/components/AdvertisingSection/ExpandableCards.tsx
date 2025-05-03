@@ -43,7 +43,7 @@ export const ExpandableCardDemo = React.memo(function ExpandableCardDemo() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            transition={{ duration: 0.2 }}
+            transition={{ duration: 0.2, delay: 0.1 }}
             className="fixed inset-0 z-10 h-full w-full bg-black/20"
           />
         )}
@@ -54,8 +54,8 @@ export const ExpandableCardDemo = React.memo(function ExpandableCardDemo() {
             <motion.div
               layoutId={`card-${active.title}-${id}`}
               ref={ref}
-              transition={{ duration: 0.3, ease: 'easeInOut' }}
-              className="relative flex h-fit w-full max-w-[500px] flex-col overflow-hidden rounded-3xl border bg-neutral-950 bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(120,119,198,0.3),rgba(255,255,255,0))]"
+              transition={{ duration: 0.3, ease: 'easeInOut', delay: 0.05 }}
+              className="bg-default relative flex h-fit w-full max-w-[500px] flex-col overflow-hidden rounded-3xl border"
               style={{ willChange: 'transform, opacity' }}
             >
               <motion.button
@@ -63,26 +63,29 @@ export const ExpandableCardDemo = React.memo(function ExpandableCardDemo() {
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0, scale: 0.8 }}
                 transition={{ duration: 0.2 }}
-                className="absolute top-4 right-4 flex h-6 w-6 cursor-pointer items-center justify-center rounded-full bg-white"
+                className="bg-default absolute top-4 right-4 flex h-6 w-6 cursor-pointer items-center justify-center rounded-full"
                 onClick={() => setActive(null)}
               >
                 <CloseIcon />
               </motion.button>
-              <motion.div layoutId={`image-${active.title}-${id}`}>
+              <motion.div
+                layoutId={`image-${active.title}-${id}`}
+                layout
+                style={{ willChange: 'transform' }}
+              >
                 <img
-                  width={200}
-                  height={200}
+                  width={500}
+                  height={400}
                   src={active.src}
                   alt={active.title}
-                  className="h-80 w-full rounded-t-lg object-contain object-center"
+                  className="h-100 w-full rounded-t-lg object-cover object-center"
                 />
               </motion.div>
               <div>
                 <div className="flex items-start justify-between p-4">
                   <motion.h3
-                    layoutId={`title-${active.title}-${id}`}
                     transition={{ duration: 0.3, ease: 'easeInOut' }}
-                    className="text-base font-medium text-neutral-200"
+                    className="text-text text-base font-medium"
                   >
                     {active.title}
                   </motion.h3>
@@ -93,7 +96,8 @@ export const ExpandableCardDemo = React.memo(function ExpandableCardDemo() {
                     animate={{ opacity: 1 }}
                     exit={{ opacity: 0 }}
                     transition={{ duration: 0.2 }}
-                    className="flex h-40 flex-col items-start gap-4 overflow-auto pb-10 text-sm text-neutral-400"
+                    className="text-text flex h-40 flex-col items-start gap-4 overflow-auto pb-10 text-sm"
+                    style={{ willChange: 'opacity' }}
                   >
                     {typeof active.content === 'function'
                       ? active.content()
@@ -105,40 +109,51 @@ export const ExpandableCardDemo = React.memo(function ExpandableCardDemo() {
           </div>
         ) : null}
       </AnimatePresence>
-      <ul className="grid w-full grid-cols-1 items-start gap-4 md:grid-cols-2 xl:grid-cols-4">
-        {cards.map((card) => (
+      <motion.ul
+        layout
+        className="grid w-full grid-cols-1 items-start gap-4 md:grid-cols-2 xl:grid-cols-4"
+      >
+        {cards.map((card, i) => (
           <motion.div
             layoutId={`card-${card.title}-${id}`}
             key={card.title}
             onClick={() => setActive(card)}
-            transition={{ duration: 0.3, ease: 'easeInOut' }}
-            className="flex cursor-pointer flex-col rounded-xl border bg-neutral-950 bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(120,119,198,0.3),rgba(255,255,255,0))] p-4 hover:brightness-160"
+            initial={{ scale: 0.3, opacity: 0 }}
+            whileInView={{
+              scale: 1,
+              opacity: 1,
+              transition: { duration: 0.4, delay: i * 0.3, ease: 'easeInOut' },
+            }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.4, ease: [0.4, 0, 0.2, 1] }}
+            className="hover:bg-primary-50 bg-default flex cursor-pointer flex-col rounded-xl border p-4 transition-colors duration-150"
           >
             <div className="flex w-full flex-col gap-4">
-              <motion.div layoutId={`image-${card.title}-${id}`}>
+              <motion.div
+                layoutId={`image-${card.title}-${id}`}
+                layout
+                style={{ willChange: 'transform' }}
+              >
                 <img
-                  width={100}
-                  height={100}
+                  width={300}
+                  height={320}
                   src={card.src}
                   alt={card.title}
-                  className="h-60 w-full rounded-lg object-contain object-top"
+                  className="h-80 w-full rounded-lg object-cover object-top pb-10"
                 />
               </motion.div>
-              <div className="relative flex h-16 items-center justify-between px-2">
-                <motion.h3
-                  layoutId={`title-${card.title}-${id}`}
-                  className="w-[85%] text-left text-lg font-medium text-neutral-200"
-                >
+              <div className="relative flex h-24 items-center justify-between px-2">
+                <motion.h3 className="text-text w-[85%] text-left text-lg">
                   {card.title}
                 </motion.h3>
-                <div className="bg-primary rounded-full">
+                <div className="bg-primary-400 !text-default rounded-full p-1">
                   <PlusIcon />
                 </div>
               </div>
             </div>
           </motion.div>
         ))}
-      </ul>
+      </motion.ul>
     </>
   );
 });
@@ -158,7 +173,7 @@ export const CloseIcon = React.memo(function CloseIcon() {
       strokeWidth="2"
       strokeLinecap="round"
       strokeLinejoin="round"
-      className="h-4 w-4 text-black"
+      className="h-4 w-4"
     >
       <path stroke="none" d="M0 0h24v24H0z" fill="none" />
       <path d="M18 6l-12 12" />
@@ -170,8 +185,7 @@ export const CloseIcon = React.memo(function CloseIcon() {
 const cards = [
   {
     title: 'Unlock the Untapped Potential of Rideshare Advertising',
-    src: '/1.png',
-
+    src: '/1.jpg',
     content: () => {
       return (
         <p>
@@ -187,8 +201,7 @@ const cards = [
   },
   {
     title: 'From Preview to Live in a Few Days',
-    src: '/2.png',
-
+    src: '/2.jpg',
     content: () => {
       return (
         <p>
@@ -201,11 +214,9 @@ const cards = [
       );
     },
   },
-
   {
     title: 'Any sized fleet, as per your needs.',
-    src: '/3.png',
-
+    src: '/3.jpg',
     content: () => {
       return (
         <p>
@@ -221,8 +232,7 @@ const cards = [
   },
   {
     title: 'Precision Targeting, Real-Time Insights',
-    src: '/4.png',
-
+    src: '/4.jpg',
     content: () => {
       return (
         <p>
@@ -236,3 +246,5 @@ const cards = [
     },
   },
 ];
+
+export default ExpandableCardDemo;

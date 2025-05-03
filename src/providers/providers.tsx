@@ -3,14 +3,14 @@ import { MantineProvider } from '@mantine/core';
 
 const Providers = ({ children }: { children: React.ReactNode }) => {
   return (
-    <MantineProvider theme={theme} defaultColorScheme="dark">
+    <MantineProvider theme={theme} forceColorScheme="light">
       <ReactLenis
         root
         options={{
-          duration: 0.3,
-          wheelMultiplier: 0.7,
-          syncTouch: false,
-          overscroll: false,
+          duration: 1.2, // Smooth and natural scroll duration
+          wheelMultiplier: 0.8, // Slightly slower scroll for better control
+          syncTouch: true, // Sync touch for better mobile experience
+          overscroll: false, // Disable overscroll for a cleaner feel
         }}
       >
         {children}

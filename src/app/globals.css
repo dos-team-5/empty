@@ -8,7 +8,7 @@ body {
   font-family: var(--font-poppins);
 }
 
-@theme {
+@theme inline {
   /* Accent colors */
   --color-primary: var(--mantine-primary-color-5);
   --color-primary-50: var(--mantine-primary-color-0);
@@ -48,12 +48,57 @@ body {
   ); /* Border color of default variant */
 
   --animate-slide-in: slide-in 0.15s ease-in-out;
+  --animate-shimmer-slide: shimmer-slide var(--speed) ease-in-out infinite
+    alternate;
+  --animate-spin-around: spin-around calc(var(--speed) * 2) infinite linear;
+  --animate-infinite-tilt: infinite-tilt 2s ease-in-out infinite;
+
   @keyframes slide-in {
     0% {
       transform: translateX(-100%);
     }
     100% {
       transform: translateX(0);
+    }
+  }
+
+  @keyframes shimmer-slide {
+    to {
+      transform: translate(calc(100cqw - 100%), 0);
+    }
+  }
+  @keyframes spin-around {
+    0% {
+      transform: translateZ(0) rotate(0);
+    }
+    15%,
+    35% {
+      transform: translateZ(0) rotate(90deg);
+    }
+    65%,
+    85% {
+      transform: translateZ(0) rotate(270deg);
+    }
+    100% {
+      transform: translateZ(0) rotate(360deg);
+    }
+  }
+
+  @keyframes infinite-tilt {
+    0% {
+      transform: translate(0, 0) rotate(0deg);
+      opacity: 0.7;
+      inset: -1px;
+    }
+    50% {
+      transform: translate(2px, 2px) rotate(1deg);
+      opacity: 1;
+      inset: -2px;
+    }
+    100% {
+      transform: translate(0, 0) rotate(0deg);
+      opacity: 0.7;
+      inset: -1px;
     }
   }
 }

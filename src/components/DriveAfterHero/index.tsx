@@ -1,24 +1,26 @@
 'use client';
 import React from 'react';
-import { Title, BackgroundImage, Box } from '@mantine/core';
+import { Title, Box } from '@mantine/core';
 import { motion } from 'motion/react';
 import PrimaryBtn from '../PrimaryBtn';
-import { useMediaQuery } from '@mantine/hooks';
 
 import Link from 'next/link';
 import { TextAnimate } from '../TextAnimation';
+import Image from 'next/image';
 
 const DriveAfterHeroSection: React.FC = () => {
-  const mobile = useMediaQuery('(max-width: 1024px)');
-  const IsAboveMobile = useMediaQuery('(min-width: 768px)');
-  const mobileBanner = 'polestar-banner-2.png';
-  const desktopBanner = 'polestar-banner-1.png';
-  const banner = mobile ? mobileBanner : desktopBanner;
   return (
-    <BackgroundImage
-      src={banner}
-      className="h-dvh bg-contain bg-center lg:bg-cover"
+    <Box
+      className="relative h-dvh"
+      // className="from-default to-primary-100 relative h-dvh bg-gradient-to-b from-55%"
     >
+      <Image
+        src={'/he.png'}
+        alt=""
+        width={1000}
+        height={1000}
+        className="absolute right-0 bottom-0 w-[900px]"
+      />
       <Box
         maw={1800}
         mx={'auto'}
@@ -26,15 +28,16 @@ const DriveAfterHeroSection: React.FC = () => {
       >
         <Box className="flex h-full flex-col justify-start">
           <Box className="pt-16 md:pt-20">
-            <Title order={1} fw={500} fz={IsAboveMobile ? 52 : 'h2'}>
+            <Title order={1} fw={500}>
               <TextAnimate
                 animation="blurInUp"
                 by="word"
                 startOnView
                 duration={0.5}
                 once
+                className="text-[40px]"
               >
-                Easily installable and removable decals,
+                Easily installable and removable
               </TextAnimate>
               <TextAnimate
                 animation="blurInUp"
@@ -43,16 +46,12 @@ const DriveAfterHeroSection: React.FC = () => {
                 duration={0.5}
                 delay={0.5}
                 once
+                className="text-[40px]"
               >
-                reducing your commitment.
+                decals, reducing your commitment.
               </TextAnimate>
             </Title>
-            <Title
-              order={2}
-              fw={400}
-              fz={IsAboveMobile ? 'h2' : 'md'}
-              mt={'md'}
-            >
+            <Title order={2} fw={400} mt={'md'}>
               <TextAnimate
                 animation="blurInUp"
                 by="word"
@@ -60,9 +59,19 @@ const DriveAfterHeroSection: React.FC = () => {
                 duration={0.5}
                 delay={1}
                 once
-                className="max-w-3xl"
+                className="text-lg"
               >
                 We mail it. You install it, snap a photo, and start earning.
+              </TextAnimate>
+              <TextAnimate
+                animation="blurInUp"
+                by="word"
+                startOnView
+                duration={0.5}
+                delay={1.5}
+                once
+                className="text-lg"
+              >
                 It’s that easy—no hidden costs, no BS.
               </TextAnimate>
             </Title>
@@ -86,7 +95,7 @@ const DriveAfterHeroSection: React.FC = () => {
           </Box>
         </Box>
       </Box>
-    </BackgroundImage>
+    </Box>
   );
 };
 
