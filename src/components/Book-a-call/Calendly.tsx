@@ -6,7 +6,7 @@ const Calendly = () => {
   return (
     <div className="w-full">
       <InlineWidget
-        styles={{ height: '1020px' }}
+        styles={{ height: '1024px' }}
         url="https://calendly.com/trixtent/30min"
       />
     </div>

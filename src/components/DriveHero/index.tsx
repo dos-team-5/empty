@@ -1,37 +1,57 @@
 'use client';
-import React from 'react';
-import { Title, BackgroundImage, Box } from '@mantine/core';
+import { useRef } from 'react';
+import { Title, Box } from '@mantine/core';
 import PrimaryBtn from '../PrimaryBtn';
-import { useMediaQuery } from '@mantine/hooks';
-import Link from 'next/link';
 import { TextAnimate } from '../TextAnimation';
 import { motion } from 'motion/react';
+import Image from 'next/image';
 
 const DriveHeroSection: React.FC = () => {
-  const mobile = useMediaQuery('(max-width: 1024px)');
-  const IsAboveMobile = useMediaQuery('(min-width: 768px)');
-  const mobileBanner = 'polestar-banner-2.png';
-  const desktopBanner = 'polestar-banner-1.png';
-  const banner = mobile ? mobileBanner : desktopBanner;
+  const ref = useRef<HTMLDivElement>(null);
+
+  const handleSignUpClick = () => {
+    // Smoothly scroll to #signUpDriver
+    const target = document.querySelector('#signUpDriver');
+    if (target) {
+      target.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   return (
-    <BackgroundImage
-      src={banner}
-      className="h-dvh bg-contain bg-center lg:bg-cover"
-    >
+    <Box ref={ref} className="relative h-dvh overflow-hidden">
+      <motion.div
+        initial={{ x: '100vw' }}
+        animate={{ x: '20vw', scale:1.4 }}
+        transition={{ duration: 2.7, ease: 'easeOut' }}
+        style={{
+          position: 'absolute',
+          right: 0,
+          bottom: 0,
+          width: '900px',
+        }}
+      >
+        <Image
+          src={'/r5c.png'}
+          alt=""
+          width={1000}
+          height={1000}
+          className="h-auto w-full origin-bottom-right"
+        />
+      </motion.div>
       <Box
         maw={1800}
         mx={'auto'}
         className="px-4 sm:px-8 md:px-16 lg:px-20 xl:px-24 2xl:px-32"
       >
         <Box className="flex h-full flex-col justify-start">
-          <Box className="pt-40">
-            <Title order={1} fw={500} fz={IsAboveMobile ? 52 : 'h2'}>
+          <Box className="pt-32">
+            <Title order={1} fw={500}>
               <TextAnimate
                 animation="blurInUp"
                 by="word"
                 startOnView
                 duration={0.5}
-                className="max-w-5xl"
+                className="text-[40px]"
                 once
               >
                 Generate revenue every month
@@ -42,25 +62,21 @@ const DriveHeroSection: React.FC = () => {
                 startOnView
                 duration={0.5}
                 delay={0.5}
+                className="text-[40px]"
                 once
               >
                 without doing more work.
               </TextAnimate>
             </Title>
 
-            <Title
-              order={2}
-              fw={400}
-              fz={IsAboveMobile ? 'h2' : 'md'}
-              mt={'md'}
-            >
+            <Title order={2} fw={400} mt={'md'}>
               <TextAnimate
                 animation="blurInUp"
                 by="word"
                 startOnView
                 duration={0.5}
                 delay={1}
-                className="max-w-3xl"
+                className="text-lg"
                 once
               >
                 Get paid up to $300/month to display ads on your car’s front
@@ -79,15 +95,15 @@ const DriveHeroSection: React.FC = () => {
                 viewport={{ once: true }}
                 transition={{ duration: 0.4, delay: 1.5 }}
               >
-                <Link href={'/drive#signUpDriver'}>
+                <Box onClick={handleSignUpClick} className="cursor-pointer">
                   <PrimaryBtn btnText="Sign Up" />
-                </Link>
+                </Box>
               </motion.div>
             </Box>
           </Box>
         </Box>
       </Box>
-    </BackgroundImage>
+    </Box>
   );
 };
 

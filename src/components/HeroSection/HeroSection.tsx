@@ -1,54 +1,87 @@
 'use client';
 import React from 'react';
-import { Title, BackgroundImage, Box } from '@mantine/core';
+import { Title, Box } from '@mantine/core';
 import PrimaryBtn from '../PrimaryBtn';
-import { useMediaQuery } from '@mantine/hooks';
 import Link from 'next/link';
 import { TextAnimate } from '../TextAnimation';
-import { motion } from 'motion/react';
+import { motion } from 'framer-motion'; // Ensure correct import
+import Image from 'next/image';
 
 const HeroSection: React.FC = () => {
-  const mobile = useMediaQuery('(max-width: 1024px)');
-  const IsAboveMobile = useMediaQuery('(min-width: 768px)');
-  const mobileBanner = 'polestar-banner-2.png';
-  const desktopBanner = 'polestar-banner-1.png';
-  const banner = mobile ? mobileBanner : desktopBanner;
   return (
-    <BackgroundImage
-      src={banner}
-      className="h-dvh bg-contain bg-center lg:bg-cover"
-    >
+    <Box className="relative h-dvh overflow-hidden">
+      <motion.div
+        initial={{ x: '100vw' }}
+        animate={{ x: 0 }}
+        transition={{ duration: 2.7, ease: 'easeOut' }}
+        style={{
+          position: 'absolute',
+          right: 0,
+          bottom: 20,
+          width: '900px',
+        }}
+      >
+        <Image
+          src={'/R3.png'}
+          alt=""
+          width={1000}
+          height={1000}
+          className="ml- h-auto w-full origin-bottom-right scale-125"
+        />
+      </motion.div>
+
       <Box
         maw={1800}
         mx={'auto'}
         className="px-4 sm:px-8 md:px-16 lg:px-20 xl:px-24 2xl:px-32"
       >
         <Box className="flex h-full flex-col justify-start">
-          <Box className="pt-40">
-            <Title order={1} fw={500} fz={IsAboveMobile ? 52 : 'h2'}>
+          <Box className="pt-32">
+            <Title order={1} fw={500}>
               <TextAnimate
                 animation="blurInUp"
                 by="word"
                 startOnView
                 duration={0.5}
-                className="max-w-5xl"
+                className="text-[40px]"
                 once
               >
-                Advertise on rideshare vehicles in high-traffic areas
+                Advertise on rideshare vehicles
               </TextAnimate>
-            </Title>
-            <Title order={2} fw={400} fz={IsAboveMobile ? 21 : 'md'} mt={'md'}>
               <TextAnimate
                 animation="blurInUp"
                 by="word"
                 startOnView
                 duration={0.5}
                 delay={0.5}
-                className="max-w-3xl"
+                className="text-[40px]"
                 once
               >
-                Unbeatable visibility and returns that stationary ads can’t
-                match
+                in high-traffic areas
+              </TextAnimate>
+            </Title>
+            <Title order={2} fw={400} mt={'md'}>
+              <TextAnimate
+                animation="blurInUp"
+                by="word"
+                startOnView
+                duration={0.5}
+                delay={1}
+                once
+                className="text-lg"
+              >
+                Unbeatable visibility and returns that
+              </TextAnimate>
+              <TextAnimate
+                animation="blurInUp"
+                by="word"
+                startOnView
+                duration={0.5}
+                delay={1.5}
+                once
+                className="text-lg"
+              >
+                stationary ads can’t match
               </TextAnimate>
             </Title>
 
@@ -61,7 +94,7 @@ const HeroSection: React.FC = () => {
                   y: 0,
                 }}
                 viewport={{ once: true }}
-                transition={{ duration: 0.4, delay: 1 }}
+                transition={{ duration: 0.4, delay: 2 }}
               >
                 <Link href={'/#pricingSection'}>
                   <PrimaryBtn btnText="Advertise" />
@@ -76,7 +109,7 @@ const HeroSection: React.FC = () => {
                   y: 0,
                 }}
                 viewport={{ once: true }}
-                transition={{ duration: 0.4, delay: 1.4 }}
+                transition={{ duration: 0.4, delay: 2.4 }}
               >
                 <Link href={'/drive'}>
                   <PrimaryBtn btnText="Drive" />
@@ -86,7 +119,7 @@ const HeroSection: React.FC = () => {
           </Box>
         </Box>
       </Box>
-    </BackgroundImage>
+    </Box>
   );
 };
 

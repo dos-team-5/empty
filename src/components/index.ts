@@ -12,6 +12,8 @@ import Footer from './Footer';
 import Faq from './FAQ/Faq';
 import DriverSignupSection from './signupFormDriver';
 import Meeting from './Book-a-call';
+import { ShimmerButton } from './ShimmerButton';
+import UiverseButton from './animatedBtn';
 
 export {
   ToggleModeSwitch,
@@ -28,4 +30,6 @@ export {
   Footer,
   DriverSignupSection,
   Meeting,
+  ShimmerButton,
+  UiverseButton,
 };

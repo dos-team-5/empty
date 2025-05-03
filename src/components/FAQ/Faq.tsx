@@ -50,7 +50,7 @@ const Faq = memo(() => {
           by="word"
           startOnView
           duration={0.5}
-          className=""
+          className="text-[40px]"
           once
         >
           Got Questions!
@@ -60,7 +60,7 @@ const Faq = memo(() => {
           by="word"
           startOnView
           duration={0.5}
-          className=""
+          className="text-[40px]"
           delay={1}
           once
         >
@@ -73,53 +73,62 @@ const Faq = memo(() => {
 
   return (
     <Box
-      mt={100}
-      maw={1400}
-      mx="auto"
-      className="mb-16 px-4 sm:px-8 md:px-16 lg:px-20 xl:px-24 2xl:px-32"
-      style={{ minHeight: '600px' }}
+      className="relative"
+      // className="from-default to-primary-100 relative h-dvh bg-gradient-to-b from-55%"
     >
-      <Title order={1} ta="center" fw={500} fz={IsAboveMobile ? 52 : 'h2'}>
-        {titleContent}
-      </Title>
-
-      <Accordion
-        mt={40}
-        chevron={false}
-        value={openItem}
-        onChange={setOpenItem}
-        variant="separated"
-        transitionDuration={200}
-        maw={800}
+      <Box
+        mt={50}
+        maw={1400}
         mx="auto"
-        className="transition-all duration-200 ease-in-out"
+        className="px-4 sm:px-8 md:px-16 lg:px-20 xl:px-24 2xl:px-32"
+        style={{ minHeight: '600px' }}
       >
-        {faqData.map((item) => (
-          <Accordion.Item
-            key={item.id}
-            value={item.id}
-            className="!border-none bg-neutral-950 bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(120,119,198,0.3),rgba(255,255,255,0))]"
-          >
-            <Accordion.Control className="!border-dimmed rounded-lg !border-2 !px-0 !py-2">
-              <Box className="flex items-center justify-between pl-4" style={{ width: '100%' }}>
-                {item.question}
-                {openItem === item.id ? (
-                  <Box className="bg-primary rounded-full p-1 text-white">
-                    <Minus size={16} />
-                  </Box>
-                ) : (
-                  <Box className="bg-primary rounded-full p-1 text-white">
-                    <Plus size={16} />
-                  </Box>
-                )}
-              </Box>
-            </Accordion.Control>
-            <Accordion.Panel className="!border-dimmed rounded-lg !border-2 !border-t-0 bg-neutral-950 bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(120,119,198,0.3),rgba(255,255,255,0))] !px-0 !py-2">
-              {item.answer}
-            </Accordion.Panel>
-          </Accordion.Item>
-        ))}
-      </Accordion>
+        <Title order={1} ta="center" fw={500} fz={IsAboveMobile ? 52 : 'h2'}>
+          {titleContent}
+        </Title>
+
+        <Accordion
+          mt={40}
+          pb={20}
+          chevron={false}
+          value={openItem}
+          onChange={setOpenItem}
+          variant="separated"
+          transitionDuration={200}
+          maw={450}
+          mx="auto"
+          className="transition-all duration-200 ease-in-out"
+        >
+          {faqData.map((item) => (
+            <Accordion.Item
+              key={item.id}
+              value={item.id}
+              className="from-default to-primary-50 from-55%] !border-none bg-gradient-to-b"
+            >
+              <Accordion.Control className="rounded-lg !px-0 !py-2 !shadow-[20px_20px_60px_#bebebe,-20px_-20px_60px_#ffffff]">
+                <Box
+                  className="flex items-center justify-between pl-4"
+                  style={{ width: '100%' }}
+                >
+                  {item.question}
+                  {openItem === item.id ? (
+                    <Box className="bg-primary rounded-full p-1 text-white">
+                      <Minus size={16} />
+                    </Box>
+                  ) : (
+                    <Box className="bg-primary rounded-full p-1 text-white">
+                      <Plus size={16} />
+                    </Box>
+                  )}
+                </Box>
+              </Accordion.Control>
+              <Accordion.Panel className="from-default to-primary-50 rounded-lg bg-gradient-to-b from-55% !px-0 !py-2 !shadow-[20px_20px_60px_#bebebe,-20px_-20px_60px_#ffffff]">
+                {item.answer}
+              </Accordion.Panel>
+            </Accordion.Item>
+          ))}
+        </Accordion>
+      </Box>
     </Box>
   );
 });
