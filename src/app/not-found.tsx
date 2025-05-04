@@ -4,7 +4,7 @@ import Link from 'next/link';
 
 const NotFoundPage = () => {
   return (
-    <div className="flex h-[88dvh] flex-col">
+    <div className="flex h-dvh flex-col">
       <div className="flex flex-grow items-center justify-center">
         <div className="text-center">
           <h1

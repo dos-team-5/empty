@@ -12,7 +12,6 @@ const Drive = () => {
       <DriveHeroSection />
       <DriveAfterHeroSection />
       <DriveQualificationSection />
-      {/* <Faq /> */}
       <DriverSignupSection />
     </Box>
   );

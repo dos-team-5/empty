@@ -28,7 +28,7 @@ const DriveHeroSection: React.FC = () => {
           alt="car2"
           width={1000}
           height={1000}
-          className="w-[900px] origin-bottom-left 2xl:scale-125"
+          className="w-[900px] origin-bottom-left lg:scale-88 xl:scale-100 2xl:scale-125"
           priority
         />
       </motion.div>

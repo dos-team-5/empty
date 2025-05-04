@@ -17,7 +17,7 @@ const DriveAfterHeroSection: React.FC = () => {
 
   return (
     <Box
-      className="relative h-dvh overflow-hidden"
+      className="relative h-dvh"
       // className="from-default to-primary-100 relative h-dvh bg-gradient-to-b from-55%"
     >
       <motion.div
@@ -25,7 +25,7 @@ const DriveAfterHeroSection: React.FC = () => {
         whileInView={{ x: 0, y: 0, scale: 1, opacity: 1 }}
         transition={{ duration: 1, ease: 'easeOut' }}
         viewport={{ once: true }}
-        className="md: absolute right-0 bottom-24 z-20 lg:bottom-0"
+        className="md: absolute right-0 bottom-24 z-30 lg:bottom-0"
       >
         <Image
           src={'/he.png'}

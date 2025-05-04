@@ -4,8 +4,29 @@
   --font-poppins: 'Poppins', sans-serif;
 }
 
+html,
 body {
   font-family: var(--font-poppins);
+  overflow: auto !important; /* Ensure scrollbar is always visible */
+  scrollbar-width: auto; /* Firefox */
+  scrollbar-color: var(--mantine-color-gray-4) var(--mantine-color-white); /* Firefox */
+}
+
+::-webkit-scrollbar {
+  width: 12px; /* Scrollbar width for WebKit browsers */
+}
+
+::-webkit-scrollbar-track {
+  background: var(--mantine-color-white); /* Scrollbar track color */
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--mantine-color-gray-4); /* Scrollbar thumb color */
+  border-radius: 6px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--mantine-color-gray-6); /* Scrollbar thumb hover color */
 }
 
 @theme inline {
