@@ -13,21 +13,21 @@ const DriveQualificationSection: React.FC = () => {
   };
 
   return (
-    <Box className="relative min-h-dvh overflow-hidden">
+    <Box className="relative min-h-dvh">
       <motion.div
         initial={{ x: '-132%' }}
         animate={{
           x: 0,
         }}
         transition={{ duration: 2.7, ease: 'easeOut' }}
-        className="absolute bottom-16 left-0 hidden lg:-bottom-4 lg:block"
+        className="absolute bottom-16 left-0 hidden lg:-bottom-40 lg:block"
       >
         <Image
           src={'/CC2.png'}
           alt="car2"
           width={1000}
           height={1000}
-          className="w-[900px] origin-bottom-left lg:scale-110 2xl:scale-120"
+          className="w-[900px] origin-bottom-left scale-50 xl:scale-75 2xl:scale-120"
           priority
         />
       </motion.div>

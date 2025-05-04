@@ -50,12 +50,12 @@ export const ExpandableCardDemo = React.memo(function ExpandableCardDemo() {
       </AnimatePresence>
       <AnimatePresence>
         {active && typeof active === 'object' ? (
-          <div className="fixed inset-0 z-[100] grid place-items-center">
+          <div className="fixed inset-2 z-[100] grid place-items-center">
             <motion.div
               layoutId={`card-${active.title}-${id}`}
               ref={ref}
               transition={{ duration: 0.3, ease: 'easeInOut', delay: 0.05 }}
-              className="bg-default relative flex h-fit w-full max-w-[500px] flex-col overflow-hidden rounded-3xl !shadow-[20px_20px_60px_#bebebe,-20px_-20px_60px_#ffffff]"
+              className="bg-default relative flex h-fit w-full max-w-[500px] flex-col overflow-hidden rounded-3xl  !shadow-[20px_20px_60px_#bebebe,-20px_-20px_60px_#ffffff]"
               style={{ willChange: 'transform, opacity' }}
             >
               <motion.button

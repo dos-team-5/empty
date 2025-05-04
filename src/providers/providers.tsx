@@ -5,17 +5,17 @@ import AnimatedGradient from './AnimatedGradient';
 const Providers = ({ children }: { children: React.ReactNode }) => {
   return (
     <MantineProvider theme={theme} forceColorScheme="light">
-      {/* <ReactLenis
+      <ReactLenis
         root
         options={{
           duration: 1.2, // Smooth and natural scroll duration
           wheelMultiplier: 0.8, // Slightly slower scroll for better control
-          syncTouch: true, // Sync touch for better mobile experience
+          syncTouch: false, // Sync touch for better mobile experience
           overscroll: false, // Disable overscroll for a cleaner feel
         }}
-      > */}
+      >
         {children}
-      {/* </ReactLenis> */}
+      </ReactLenis>
       <AnimatedGradient />
     </MantineProvider>
   );

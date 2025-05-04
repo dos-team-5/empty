@@ -56,7 +56,7 @@ const Meeting = () => {
             </TextAnimate>
           </Title>
 
-          <div className="mt-2 grid grid-cols-2 gap-2 2xl:grid-cols-4">
+          <div className="mt-2 grid grid-cols-1 md:grid-cols-2 gap-2 2xl:grid-cols-4">
             {[
               {
                 title: 'Launch in under a week',

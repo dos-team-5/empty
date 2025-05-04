@@ -20,8 +20,8 @@ const HeroSection: React.FC = () => {
 
   const getAnimationProps = () => {
     if (xxl) return { initialX: '100%', animateX: '6%' };
-    if (xl) return { initialX: '100%', animateX: '0%' };
-    if (lg) return { initialX: '100%', animateX: '2%' };
+    if (xl) return { initialX: '100%', animateX: '3%' };
+    if (lg) return { initialX: '100%', animateX: '3%' };
     if (md) return { initialX: '180%', animateX: '60%' };
     return { initialX: '200%', animateX: '100%' };
   };
@@ -40,14 +40,14 @@ const HeroSection: React.FC = () => {
         transition={{
           duration: 2.7,
         }}
-        className="absolute right-0 bottom-16 md:bottom-24 lg:bottom-16"
+        className="absolute right-0 bottom-16 md:bottom-24 lg:bottom-0 xl:bottom-16"
       >
         <Image
           src={'/R3.png'}
           alt="car1"
           width={1000}
           height={1000}
-          className="w-[900px] origin-bottom-right scale-210 md:scale-160 lg:scale-110 xl:scale-150 2xl:scale-172"
+          className="w-[900px] origin-bottom-right scale-200 md:scale-160 lg:scale-100 xl:scale-130 2xl:scale-172"
         />
       </motion.div>
 

@@ -24,7 +24,7 @@ const Advertisement = () => {
           alt=""
           width={1000}
           height={1000}
-          className="w-full origin-bottom-right 2xl:scale-125"
+          className="w-full origin-bottom-right lg:scale-75 xl:scale-100 2xl:scale-125"
           priority
         />
       </motion.div>
