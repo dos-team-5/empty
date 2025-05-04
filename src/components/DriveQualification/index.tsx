@@ -29,7 +29,7 @@ const DriveQualificationSection: React.FC = () => {
           alt="car2"
           width={1000}
           height={1000}
-          className="w-[900px] origin-bottom-left scale-50 xl:scale-75 2xl:scale-120"
+          className="w-[900px] origin-bottom-left scale-50 xl:scale-75 2xl:scale-100"
           priority
         />
       </motion.div>

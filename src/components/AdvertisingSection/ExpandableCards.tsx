@@ -78,7 +78,7 @@ export const ExpandableCardDemo = React.memo(function ExpandableCardDemo() {
                   height={400}
                   src={active.src}
                   alt={active.title}
-                  className="h-100 w-full rounded-t-lg object-cover object-center"
+                  className="h-100 w-full rounded-t-lg object-fill object-center"
                 />
               </motion.div>
               <div>
