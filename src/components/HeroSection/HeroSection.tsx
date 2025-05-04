@@ -32,6 +32,13 @@ const HeroSection: React.FC = () => {
     imageControls.start({ x: animateX });
   }, [imageControls, animateX]);
 
+  const handleAdvertiseClick = () => {
+    const target = document.querySelector('#pricingSection');
+    if (target) {
+      target.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   return (
     <Box className="relative h-dvh overflow-hidden" ref={rootRef}>
       <motion.div
@@ -117,9 +124,9 @@ const HeroSection: React.FC = () => {
                 viewport={{ once: true }}
                 transition={{ duration: 0.4, delay: 2 }}
               >
-                <Link href={'/#pricingSection'}>
+                <Box onClick={handleAdvertiseClick}>
                   <PrimaryBtn btnText="Advertise" />
-                </Link>
+                </Box>
               </motion.div>
 
               <motion.div

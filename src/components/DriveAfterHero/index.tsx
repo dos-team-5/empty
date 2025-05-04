@@ -8,7 +8,7 @@ import { TextAnimate } from '../TextAnimation';
 import Image from 'next/image';
 
 const DriveAfterHeroSection: React.FC = () => {
-  const handleSignUpClick = () => {
+  const handleQualificationClick = () => {
     const target = document.querySelector('#driveQualification');
     if (target) {
       target.scrollIntoView({ behavior: 'smooth' });
@@ -102,7 +102,7 @@ const DriveAfterHeroSection: React.FC = () => {
                 viewport={{ once: true }}
                 transition={{ duration: 0.4, delay: 1.5 }}
               >
-                <Box onClick={handleSignUpClick} className="cursor-pointer">
+                <Box onClick={handleQualificationClick} className="cursor-pointer">
                   <PrimaryBtn btnText="Learn More" />
                 </Box>
               </motion.div>
