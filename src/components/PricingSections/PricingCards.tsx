@@ -129,7 +129,7 @@ const PricingCards = () => {
       <Box
         maw={1800}
         mx="auto"
-        className="px-4 pt-10 pb-20 sm:px-8 md:px-16 lg:px-20 xl:px-24 2xl:px-32"
+        className="px-4 pt-20 pb-20 sm:px-8 md:px-16 lg:px-20 xl:px-24 2xl:px-32"
         id="pricingSection"
       >
         <TitleSection /> {/* Render memoized title section */}
