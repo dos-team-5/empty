@@ -65,6 +65,7 @@ const TitleSection = memo(() => (
         by="word"
         startOnView
         duration={0.5}
+        delay={0.5}
         once
         className="text-center text-3xl md:text-4xl lg:text-start lg:text-[40px] 2xl:text-5xl"
       >
@@ -86,7 +87,7 @@ const TitleSection = memo(() => (
         by="word"
         startOnView
         duration={0.5}
-        delay={0.5}
+        delay={1}
         once
         className="text-center text-base md:text-lg lg:text-start lg:text-xl 2xl:text-2xl"
       >
@@ -97,7 +98,7 @@ const TitleSection = memo(() => (
         by="word"
         startOnView
         duration={0.5}
-        delay={0.5}
+        delay={1.5}
         once
         className="text-center text-base md:text-lg lg:text-start lg:text-xl 2xl:text-2xl"
       >
