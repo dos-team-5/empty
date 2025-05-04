@@ -18,7 +18,7 @@ const Meeting = () => {
       mx={'auto'}
       className="px-4 sm:px-8 md:px-16 lg:px-20 xl:px-24 2xl:px-32"
     >
-      <div className="mx-auto mt-4 justify-between gap-2 lg:flex lg:px-0">
+      <div className="mx-auto mt-20 justify-between gap-2 lg:flex lg:px-0">
         <div className="pb-4 lg:w-1/2 lg:pt-30 lg:pb-0">
           <Title order={1} fw={500} mt="lg">
             <TextAnimate
