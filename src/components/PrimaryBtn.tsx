@@ -16,7 +16,7 @@ const PrimaryBtn = ({
   const IsAboveMobile = useMediaQuery('(min-width: 768px)');
 
   return (
-    <div className="group relative z-50 inline-flex shadow-xl hover:shadow-2xl">
+    <div className="group relative z-20 inline-flex shadow-xl hover:shadow-2xl cursor-pointer">
       {glow && (
         <div className="from-primary-800 to-primary-800 via-primary animate-infinite-tilt absolute -inset-px rounded-xl bg-gradient-to-r opacity-70 blur-lg"></div>
       )}

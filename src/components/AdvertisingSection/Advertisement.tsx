@@ -3,6 +3,7 @@ import { Box, Title } from '@mantine/core';
 import { TextAnimate } from '../TextAnimation';
 import Image from 'next/image';
 import { motion } from 'motion/react';
+import { CheckCircle } from 'lucide-react';
 
 const Advertisement = () => {
   const checkItemVariants = {
@@ -11,7 +12,7 @@ const Advertisement = () => {
   };
 
   return (
-    <Box className="relative h-dvh overflow-hidden">
+    <Box className="relative h-dvh overflow-hidden sm:h-dvh">
       <motion.div
         initial={{ x: '82%', scale: 0.7, y: '-8%' }}
         whileInView={{ x: 0, scale: 1, y: 0 }}
@@ -41,7 +42,7 @@ const Advertisement = () => {
                 by="word"
                 startOnView
                 duration={0.5}
-                className="text-center text-3xl sm:text-start md:text-4xl lg:text-[40px] 2xl:text-5xl"
+                className="text-start text-3xl sm:text-start md:text-4xl lg:text-[40px] 2xl:text-5xl"
                 once
               >
                 Outperform Everyone,
@@ -52,13 +53,13 @@ const Advertisement = () => {
                 startOnView
                 duration={0.5}
                 delay={0.5}
-                className="text-center text-3xl sm:text-start md:text-4xl lg:text-[40px] 2xl:text-5xl"
+                className="text-start text-3xl sm:text-start md:text-4xl lg:text-[40px] 2xl:text-5xl"
                 once
               >
                 Outspend No One
               </TextAnimate>
             </Title>
-            <div className="mt-8 flex flex-wrap justify-center gap-4 sm:justify-start">
+            <div className="mt-8 flex flex-wrap justify-start gap-4 sm:justify-start">
               {[
                 'From startups to global brands, launch cost-effective campaigns that scale with your budget.',
                 'Simple, fast, and built to deliver unmatched ROI and best-in-class CPM.',
@@ -71,15 +72,14 @@ const Advertisement = () => {
                   whileInView="visible"
                   viewport={{ once: true }}
                   transition={{ delay: (index + 1) * 0.6 }}
-                  className="group relative max-h-40 min-h-36 w-72 overflow-hidden rounded-xl bg-transparent !shadow-[20px_20px_60px_#bebebe,-20px_-20px_60px_#ffffff]"
+                  className="items-end-start flex justify-start gap-x-4 py-2 lg:min-w-auto"
                 >
-                  <div className="relative z-10 p-4">
-                    <Title order={2} fw={400} className="text-start">
-                      <p className="text-text mt-2 text-base md:text-lg">
-                        {item}
-                      </p>
-                    </Title>
-                  </div>
+                  <CheckCircle className="text-primary-400 flex-shrink-0 rounded-md text-xl" />
+                  <Title order={2} fw={400} className="!max-w-3xs">
+                    <div className="mb-0.5 text-base md:text-lg lg:text-xl 2xl:text-2xl">
+                      {item}
+                    </div>
+                  </Title>
                 </motion.div>
               ))}
             </div>
