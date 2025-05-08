@@ -54,7 +54,7 @@ const HeroSection: React.FC = () => {
           alt="car1"
           width={1000}
           height={1000}
-          className="w-[900px] origin-bottom-right scale-200 md:scale-160 lg:scale-90 xl:scale-100 2xl:scale-172"
+          className="w-[900px] origin-bottom-right scale-200 md:scale-160 lg:scale-90 xl:scale-130 2xl:scale-172"
         />
       </motion.div>
 
