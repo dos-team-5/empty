@@ -125,7 +125,7 @@ const HeroSection: React.FC = () => {
                 transition={{ duration: 0.4, delay: 2 }}
               >
                 <Box onClick={handleAdvertiseClick}>
-                  <PrimaryBtn btnText="Advertise" />
+                  <PrimaryBtn btnText="Advertise" glowOnHover />
                 </Box>
               </motion.div>
 
@@ -140,7 +140,7 @@ const HeroSection: React.FC = () => {
                 transition={{ duration: 0.4, delay: 2.4 }}
               >
                 <Link href={'/drive'}>
-                  <PrimaryBtn btnText="Drive" />
+                  <PrimaryBtn btnText="Drive" glowOnHover />
                 </Link>
               </motion.div>
             </Box>

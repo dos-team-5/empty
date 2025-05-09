@@ -1,28 +1,42 @@
 'use client';
-import { useMediaQuery } from '@mantine/hooks';
 import { ArrowRight } from 'lucide-react';
+import { useState } from 'react';
+import{motion, AnimatePresence} from 'motion/react'
 
 interface PrimaryBtnProps {
   btnText?: string;
   glow?: boolean;
+  glowOnHover?: boolean;
   arrow?: boolean;
 }
 
 const PrimaryBtn = ({
   btnText = 'Primary btn',
   glow = false,
+  glowOnHover = false,
   arrow = true,
 }: PrimaryBtnProps) => {
-  const IsAboveMobile = useMediaQuery('(min-width: 768px)');
+  const [btnHovered, setBtnHovered] = useState(false);
 
   return (
-    <div className="group relative z-20 inline-flex shadow-xl hover:shadow-2xl cursor-pointer">
+    <div
+      onMouseEnter={() => setBtnHovered(true)}
+      onMouseLeave={() => setBtnHovered(false)}
+      className="group relative z-20 inline-flex cursor-pointer"
+    >
       {glow && (
-        <div className="from-primary-800 to-primary-800 via-primary animate-infinite-tilt absolute -inset-px rounded-xl bg-gradient-to-r opacity-70 blur-lg"></div>
+        <div className="from-primary-900 to-primary-800 via-primary animate-infinite-tilt absolute -inset-px rounded-xl bg-gradient-to-r opacity-70 blur-lg"></div>
       )}
 
+<AnimatePresence>
+
+      {glowOnHover && btnHovered && (
+        <motion.div initial={{opacity:0}} animate={{opacity:1}} transition={{duration:0.7}} exit={{opacity:0}} className="from-primary-900 to-primary-800 via-primary animate-infinite-tilt absolute -inset-px rounded-xl bg-gradient-to-r opacity-0 blur-lg transition-opacity duration-200 group-hover:opacity-70"/>
+      )}
+</AnimatePresence>
+
       <div
-        className="font-pj bg-primary-400 hover:bg-primary-400 text-default hover:border-default-color border-primary-400 relative inline-flex items-center justify-center rounded-xl border-2 px-3 py-2 text-base font-medium transition-all duration-200 "
+        className="font-pj bg-primary-400 hover:bg-primary-400 text-default border-primary-400 relative inline-flex items-center justify-center rounded-xl border-2 px-3 py-2 text-base font-medium transition-all duration-200"
         role="button"
       >
         {btnText}

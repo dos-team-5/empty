@@ -16,8 +16,8 @@ const images = [
 const AdTracker = () => {
   return (
     <div className="flex min-h-dvh flex-col overflow-hidden">
-      <div className="relative flex flex-col items-center justify-center bg-[#FDFEFD]">
-        <div className="mt-24 text-center">
+      <div className="relative flex flex-col-reverse items-center justify-center bg-[#FDFEFD]">
+        <div className="my-24 text-center">
           <motion.h1
             className="text-primary-400 mb-4 text-5xl font-bold 2xl:text-7xl"
             initial={{ opacity: 0, y: 50 }}
