@@ -21,9 +21,9 @@ const DriveAfterHeroSection: React.FC = () => {
       // className="from-default to-primary-100 relative h-dvh bg-gradient-to-b from-55%"
     >
       <motion.div
-        initial={{ x: '-100dvw', y: '30dvh', scale: 1.7, opacity: 0 }}
+        initial={{ x: 300, y: -100, scale: 0.7, opacity: 0 }}
         whileInView={{ x: 0, y: 0, scale: 1, opacity: 1 }}
-        transition={{ duration: 1, ease: 'easeOut' }}
+        transition={{ duration: 0.7, ease: 'easeOut' }}
         viewport={{ once: true }}
         className="md: absolute right-0 bottom-24 z-30 lg:bottom-0"
       >

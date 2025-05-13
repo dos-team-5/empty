@@ -4,7 +4,7 @@ import { useRouter } from 'next/navigation';
 import { useSearchParams } from 'next/navigation';
 import { useEffect } from 'react';
 
-export default function Success() {
+export default function PaymentResult() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const session_id = searchParams.get('session_id');

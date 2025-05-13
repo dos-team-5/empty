@@ -15,8 +15,8 @@ const images = [
 
 const AdTracker = () => {
   return (
-    <div className="flex min-h-dvh flex-col overflow-hidden">
-      <div className="relative flex flex-col-reverse items-center justify-center bg-[#FDFEFD]">
+    <div className="flex min-h-dvh flex-col">
+      <div className="relative flex flex-col-reverse items-center justify-center bg-[#FDFEFD] transform-3d">
         <div className="my-24 text-center">
           <motion.h1
             className="text-primary-400 mb-4 text-5xl font-bold 2xl:text-7xl"
@@ -51,7 +51,7 @@ const AdTracker = () => {
             </Link>
           </motion.div>
         </div>
-        <div className="relative z-10 rotate-324 rotate-x-47 rotate-y-31 border-t border-l backface-hidden transform-3d md:ml-40 md:scale-150 lg:scale-120 xl:scale-130 border-black/20 pt-8 rounded-2xl">
+        <div className="relative z-10 translate-z-100 rotate-x-60 rotate-y-0 -rotate-z-35 rounded-2xl border-t border-l border-black/20 pt-8 backface-hidden transform-3d md:ml-40 md:scale-150 lg:scale-120 xl:scale-130">
           {images.map((image, i) => (
             <motion.div
               key={i}
