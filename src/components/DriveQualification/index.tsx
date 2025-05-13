@@ -15,7 +15,7 @@ const DriveQualificationSection: React.FC = () => {
   return (
     <Box className="relative min-h-dvh">
       <motion.div
-        initial={{ x: '-40dvw', y: '-40dvh', opacity: 0, scale: 0.5 }}
+        initial={{ x: -300, y: -400, opacity: 0, scale: 0.5 }}
         whileInView={{
           x: 0,
           y: 0,

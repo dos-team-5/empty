@@ -16,8 +16,8 @@ const images = [
 const AdTracker = () => {
   return (
     <div className="flex min-h-dvh flex-col">
-      <div className="relative flex flex-col-reverse items-center justify-center bg-[#FDFEFD] transform-3d">
-        <div className="my-24 text-center">
+      <div className="relative flex flex-col items-center justify-center bg-[#FDFEFD] transform-3d">
+        <div className="mt-24 text-center">
           <motion.h1
             className="text-primary-400 mb-4 text-5xl font-bold 2xl:text-7xl"
             initial={{ opacity: 0, y: 50 }}
@@ -51,7 +51,7 @@ const AdTracker = () => {
             </Link>
           </motion.div>
         </div>
-        <div className="relative z-10 translate-z-100 rotate-x-60 rotate-y-0 -rotate-z-35 rounded-2xl border-t border-l border-black/20 pt-8 backface-hidden transform-3d md:ml-40 md:scale-150 lg:scale-120 xl:scale-130">
+        <div className="relative z-10 translate-z-100 rotate-324 rotate-x-47 rotate-y-31 rounded-2xl border-t border-l border-black/20 pt-8 backface-hidden transform-3d md:ml-40 md:scale-150 lg:scale-120 xl:scale-130">
           {images.map((image, i) => (
             <motion.div
               key={i}
@@ -71,19 +71,18 @@ const AdTracker = () => {
                 height={1000}
                 className="rounded-2xl"
               />
-
-              <motion.div
-                className="absolute inset-0 rounded-lg bg-radial-[at_25%_25%] from-transparent to-[#FDFEFD] to-65%"
-                initial={{ opacity: 0, z: 100, x: 100 }}
-                animate={{ opacity: 1, z: 0, x: 0 }}
-                transition={{
-                  duration: 2.4,
-                  ease: [0.22, 1, 0.36, 1],
-                  delay: 1.2 + i * 0.1,
-                }}
-              />
             </motion.div>
           ))}
+          <motion.div
+            className="absolute inset-0 rounded-lg bg-radial-[at_30%_30%] from-transparent to-[#FDFEFD] to-65%"
+            initial={{ opacity: 0, z: 100, x: 100 }}
+            animate={{ opacity: 1, z: 0, x: 0 }}
+            transition={{
+              duration: 2.4,
+              ease: [0.22, 1, 0.36, 1],
+              delay: 1.2,
+            }}
+          />
         </div>
       </div>
     </div>
