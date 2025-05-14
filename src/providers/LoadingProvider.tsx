@@ -9,7 +9,7 @@ const LoadingProvider = ({ children }: { children: React.ReactNode }) => {
   useEffect(() => {
     const timer = setTimeout(() => {
       setIsLoading(false);
-    }, 5000);
+    }, 3500);
 
     return () => clearTimeout(timer); // Cleanup on unmount
   }, []);
