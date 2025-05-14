@@ -53,15 +53,21 @@ export async function POST(request: Request) {
       ],
       payment_method_types: ['card'],
       mode: 'subscription', // Adjust if one-time payment
+      phone_number_collection: { enabled: true }, // Enable phone number collection
       automatic_tax: { enabled: false },
       success_url: `${process.env.NEXT_PUBLIC_BASE_URL}/paymentResult?session_id={CHECKOUT_SESSION_ID}`,
-      cancel_url: `${process.env.NEXT_PUBLIC_BASE_URL}/pricing`,
+      cancel_url: `${process.env.NEXT_PUBLIC_BASE_URL}/`,
     });
 
-    return NextResponse.json({
-      id: session.id,
-      client_secret: session.client_secret,
-    });
+    // Return the redirect URL for the Stripe checkout
+    if (session.url) {
+      return NextResponse.json({ redirectUrl: session.url });
+    } else {
+      return NextResponse.json(
+        { error: 'Failed to generate checkout URL' },
+        { status: 500 }
+      );
+    }
   } catch (error) {
     console.error('Error creating checkout session:', error);
     return NextResponse.json(

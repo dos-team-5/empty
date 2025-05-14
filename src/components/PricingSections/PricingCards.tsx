@@ -18,7 +18,6 @@ import { TextAnimate } from '../TextAnimation';
 import { motion } from 'framer-motion'; // Correct import
 import { memo } from 'react';
 import { useDisclosure } from '@mantine/hooks';
-import CheckoutModal from '../checkout/Index';
 import { loadStripe } from '@stripe/stripe-js';
 import { useRouter } from 'next/navigation';
 
@@ -103,23 +102,22 @@ const PricingCards = () => {
       });
       const data = await response.json();
       console.log('API response:', data); // Log for debugging
-      if (!data.client_secret) {
-        throw new Error('Missing client secret in response');
+      // if (!data.client_secret) {
+      //   throw new Error('Missing client secret in response');
+      // }
+      // return data.client_secret;
+      if (data.redirectUrl) {
+        // Redirect to Stripe checkout
+        window.location.href = data.redirectUrl;
+      } else {
+        console.error('Error:', data.error);
+        // Handle error (e.g., show a message to the user)
       }
-      return data.client_secret;
     } catch (error) {
       console.error('Error fetching client secret:', error);
       throw error;
     }
   }, [selectedOption]);
-
-  const options = {
-    fetchClientSecret,
-    onComplete: () => {
-      close();
-      router.push('/paymentResult?success=true');
-    },
-  };
 
   return (
     <Box className="relative">
@@ -129,12 +127,12 @@ const PricingCards = () => {
         className="px-4 pt-20 pb-20 sm:px-8 md:px-16 lg:px-20 xl:px-24 2xl:px-32"
         id="pricingSection"
       >
-        <CheckoutModal
+        {/* <CheckoutModal
           opened={opened}
           close={close}
           options={options}
           stripePromise={stripePromise}
-        />
+        /> */}
         <TitleSection /> {/* Render memoized title section */}
         <Box mx="auto" maw={400}>
           {plans.map((plan, i) => (
@@ -217,7 +215,7 @@ const PricingCards = () => {
                     onClick={
                       selectedOption.price === null
                         ? () => router.push('/contact')
-                        : open
+                        : () => fetchClientSecret()
                     }
                   >
                     {selectedOption.price !== null ? 'Checkout' : 'Book A Call'}
