@@ -75,7 +75,7 @@ const TopNav = () => {
                 )}
               </Box>
             ))}
-            <Link href={'/contact'} className="hidden lg:block">
+            <Link href={'/contact'} className="hidden lg:block ml-8">
               {/* <Button
                 className="!text-primary-400 hover:!bg-primary !hidden !bg-white lg:!block"
                 size={IsAboveMobile ? 'lg' : 'md'}

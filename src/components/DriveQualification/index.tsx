@@ -15,13 +15,15 @@ const DriveQualificationSection: React.FC = () => {
   return (
     <Box className="relative min-h-dvh">
       <motion.div
-        initial={{ x: '-40dvw', y: '30dvh', opacity: 0 }}
+        initial={{ x: -300, y: -400, opacity: 0, scale: 0.5 }}
         whileInView={{
           x: 0,
           y: 0,
           opacity: 1,
+          scale: 1,
         }}
         transition={{ duration: 1.2, ease: 'easeOut' }}
+        viewport={{ once: true }}
         className="absolute bottom-16 left-0 hidden lg:-bottom-40 lg:block"
       >
         <Image

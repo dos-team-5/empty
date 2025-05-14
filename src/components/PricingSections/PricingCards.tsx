@@ -13,13 +13,13 @@ import {
   Button,
 } from '@mantine/core';
 import { Check } from 'lucide-react';
-import { useState, useCallback } from 'react';
+import { useCallback, useState } from 'react';
 import { TextAnimate } from '../TextAnimation';
-import getStripe from '@/lib/getStripe';
-import { notifications } from '@mantine/notifications';
-import { useRouter } from 'next/navigation';
 import { motion } from 'framer-motion'; // Correct import
 import { memo } from 'react';
+import { useDisclosure } from '@mantine/hooks';
+import { loadStripe } from '@stripe/stripe-js';
+import { useRouter } from 'next/navigation';
 
 // Separate TitleSection to prevent re-rendering
 const TitleSection = memo(() => (
@@ -72,19 +72,23 @@ const carOptions = [
 ];
 
 const PricingCards = () => {
+  const [opened, { open, close }] = useDisclosure(false);
   const [selectedIndex, setSelectedIndex] = useState(0);
-  const [loading, setLoading] = useState(false);
-
   const router = useRouter();
+
   const selectedOption = carOptions[selectedIndex];
 
-  const handleCheckout = useCallback(async () => {
-    if (selectedOption.price === null) {
-      router.push('/contact');
-      return;
-    }
+  if (!process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY) {
+    throw new Error('Stripe publishable key is not defined');
+  }
+  const stripePromise = loadStripe(
+    process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY
+  );
 
-    setLoading(true);
+  const fetchClientSecret = useCallback(async () => {
+    if (selectedOption.price === null) {
+      throw new Error('Price not available for selected option');
+    }
     try {
       const response = await fetch('/api/create-checkout-session', {
         method: 'POST',
@@ -96,33 +100,24 @@ const PricingCards = () => {
           cars: selectedOption.cars,
         }),
       });
-
-      const { sessionId } = await response.json();
-
-      if (!response.ok) {
-        throw new Error('Failed to create checkout session');
-      }
-
-      const stripe = await getStripe();
-      if (!stripe) {
-        throw new Error('Stripe failed to initialize');
-      }
-
-      const { error } = await stripe.redirectToCheckout({ sessionId });
-      if (error) {
-        throw new Error(error.message);
+      const data = await response.json();
+      console.log('API response:', data); // Log for debugging
+      // if (!data.client_secret) {
+      //   throw new Error('Missing client secret in response');
+      // }
+      // return data.client_secret;
+      if (data.redirectUrl) {
+        // Redirect to Stripe checkout
+        window.location.href = data.redirectUrl;
+      } else {
+        console.error('Error:', data.error);
+        // Handle error (e.g., show a message to the user)
       }
     } catch (error) {
-      console.error('Checkout error:', error);
-      notifications.show({
-        title: 'Error',
-        message: 'Failed to initiate checkout. Please try again.',
-        color: 'red',
-      });
-    } finally {
-      setLoading(false);
+      console.error('Error fetching client secret:', error);
+      throw error;
     }
-  }, [selectedOption, router]);
+  }, [selectedOption]);
 
   return (
     <Box className="relative">
@@ -132,6 +127,12 @@ const PricingCards = () => {
         className="px-4 pt-20 pb-20 sm:px-8 md:px-16 lg:px-20 xl:px-24 2xl:px-32"
         id="pricingSection"
       >
+        {/* <CheckoutModal
+          opened={opened}
+          close={close}
+          options={options}
+          stripePromise={stripePromise}
+        /> */}
         <TitleSection /> {/* Render memoized title section */}
         <Box mx="auto" maw={400}>
           {plans.map((plan, i) => (
@@ -211,9 +212,11 @@ const PricingCards = () => {
                     className="!bg-primary-400 hover:!bg-primary mt-12 w-fit"
                     size="md"
                     radius={15}
-                    onClick={handleCheckout}
-                    loading={loading}
-                    disabled={loading}
+                    onClick={
+                      selectedOption.price === null
+                        ? () => router.push('/contact')
+                        : () => fetchClientSecret()
+                    }
                   >
                     {selectedOption.price !== null ? 'Checkout' : 'Book A Call'}
                   </Button>
