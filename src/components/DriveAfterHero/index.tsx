@@ -28,7 +28,7 @@ const DriveAfterHeroSection: React.FC = () => {
         className="md: absolute right-0 bottom-24 z-30 lg:bottom-0"
       >
         <Image
-          src={'/he.png'}
+          src={'/hee.png'}
           alt=""
           width={1000}
           height={1000}

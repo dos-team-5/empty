@@ -1,6 +1,7 @@
 import { ReactLenis, theme } from '@/lib';
 import { MantineProvider } from '@mantine/core';
 import AnimatedGradient from './AnimatedGradient';
+import LoadingProvider from './LoadingProvider';
 
 const Providers = ({ children }: { children: React.ReactNode }) => {
   return (
@@ -14,7 +15,7 @@ const Providers = ({ children }: { children: React.ReactNode }) => {
           overscroll: false, // Disable overscroll for a cleaner feel
         }}
       >
-        {children}
+        <LoadingProvider>{children}</LoadingProvider>
       </ReactLenis>
       <AnimatedGradient />
     </MantineProvider>

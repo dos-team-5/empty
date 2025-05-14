@@ -27,7 +27,7 @@ const DriveQualificationSection: React.FC = () => {
         className="absolute bottom-16 left-0 hidden lg:-bottom-40 lg:block"
       >
         <Image
-          src={'/CC2.png'}
+          src={'/CCC2.png'}
           alt="car2"
           width={1000}
           height={1000}
