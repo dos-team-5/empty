@@ -21,7 +21,7 @@ const Advertisement = () => {
         className="absolute top-auto bottom-0 left-0 z-20 lg:top-[24dvh]"
       >
         <Image
-          src={'/R2.png'}
+          src={'/R22.png'}
           alt=""
           width={1000}
           height={1000}
