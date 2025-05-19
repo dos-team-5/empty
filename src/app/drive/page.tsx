@@ -1,17 +1,12 @@
-import {
-  DriveAfterHeroSection,
-  DriveHeroSection,
-  DriveQualificationSection,
-  DriverSignupSection,
-} from '@/components';
+import { DriveHeroSection, DriverSignupSection } from '@/components';
 import { Box } from '@mantine/core';
 
 const Drive = () => {
   return (
     <Box className="">
       <DriveHeroSection />
-      <DriveAfterHeroSection />
-      <DriveQualificationSection />
+      {/* <DriveAfterHeroSection /> */}
+      {/* <DriveQualificationSection /> */}
       <DriverSignupSection />
     </Box>
   );

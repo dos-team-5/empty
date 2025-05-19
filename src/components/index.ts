@@ -14,6 +14,7 @@ import DriverSignupSection from './signupFormDriver';
 import Meeting from './Book-a-call';
 import { ShimmerButton } from './ShimmerButton';
 import UiverseButton from './animatedBtn';
+import HeroCar from './Icons/HeroCar';
 
 export {
   ToggleModeSwitch,
@@ -32,4 +33,5 @@ export {
   Meeting,
   ShimmerButton,
   UiverseButton,
+  HeroCar,
 };

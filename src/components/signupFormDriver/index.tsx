@@ -17,7 +17,7 @@ import { memo } from 'react';
 
 // Zod schema for driver validation
 const driverSchema = z.object({
-  name: z.string().min(1, { message: 'Name is required' }),
+  name: z.string().min(1, { message: 'Full Name is required' }),
   car: z.string().min(1, { message: 'Car model is required' }),
   hoursPerWeek: z
     .number()
@@ -35,6 +35,12 @@ const driverSchema = z.object({
       { message: 'Phone number must contain 10–15 digits' }
     ),
   email: z.string().email({ message: 'Invalid email address' }),
+  shippingAddress: z
+    .string()
+    .min(1, { message: 'Shipping address is required' }),
+  cityOfOperation: z
+    .string()
+    .min(1, { message: 'City of operation is required' }),
 });
 
 type DriverFormValues = z.infer<typeof driverSchema>;
@@ -121,6 +127,8 @@ const DriverSignupSection: React.FC = () => {
       preferredTime: '',
       phone: '',
       email: '',
+      shippingAddress: '',
+      cityOfOperation: '',
     },
   });
 
@@ -170,12 +178,12 @@ const DriverSignupSection: React.FC = () => {
                   className="mx-auto max-w-3xl rounded-lg pt-2 pb-6"
                 >
                   <TextInput
-                    label="Name"
-                    placeholder="Enter your name"
+                    label="Full Name"
+                    placeholder="Enter your full name"
                     required
-                    size={'md'}
+                    size={'xs'}
                     {...form.getInputProps('name')}
-                    mb="sm"
+                    mb="xs"
                     styles={{
                       label: { color: 'var(--color-text)' },
                       error: { color: 'var(--color-error)' },
@@ -186,12 +194,12 @@ const DriverSignupSection: React.FC = () => {
                     }}
                   />
                   <TextInput
-                    label="Car Model"
+                    label="Car Model (Brand, Model, Year)"
                     placeholder="Enter car model"
                     required
-                    size={'md'}
+                    size={'xs'}
                     {...form.getInputProps('car')}
-                    mb="sm"
+                    mb="xs"
                     styles={{
                       label: { color: 'var(--color-text)' },
                       error: { color: 'var(--color-error)' },
@@ -205,10 +213,10 @@ const DriverSignupSection: React.FC = () => {
                     label="Hours Driven Per Week"
                     placeholder="Enter hours"
                     required
-                    size={'md'}
+                    size={'xs'}
                     min={1}
                     {...form.getInputProps('hoursPerWeek')}
-                    mb="sm"
+                    mb="xs"
                     styles={{
                       label: { color: 'var(--color-text)' },
                       error: { color: 'var(--color-error)' },
@@ -222,10 +230,10 @@ const DriverSignupSection: React.FC = () => {
                     label="Preferred Time"
                     placeholder="Select time"
                     required
-                    size={'md'}
+                    size={'xs'}
                     data={['Day', 'Night', 'Both']}
                     {...form.getInputProps('preferredTime')}
-                    mb="sm"
+                    mb="xs"
                     styles={{
                       label: { color: 'var(--color-text)' },
                       error: { color: 'var(--color-error)' },
@@ -240,12 +248,44 @@ const DriverSignupSection: React.FC = () => {
                     }}
                   />
                   <TextInput
+                    label="Shipping Address"
+                    placeholder="Enter shipping address"
+                    required
+                    size={'xs'}
+                    {...form.getInputProps('shippingAddress')}
+                    mb="xs"
+                    styles={{
+                      label: { color: 'var(--color-text)' },
+                      error: { color: 'var(--color-error)' },
+                      input: {
+                        backgroundColor: 'var(--color-default)',
+                        color: 'var(--color-text)',
+                      },
+                    }}
+                  />
+                  <TextInput
+                    label="City of Operation"
+                    placeholder="Enter city of operation"
+                    required
+                    size={'xs'}
+                    {...form.getInputProps('cityOfOperation')}
+                    mb="xs"
+                    styles={{
+                      label: { color: 'var(--color-text)' },
+                      error: { color: 'var(--color-error)' },
+                      input: {
+                        backgroundColor: 'var(--color-default)',
+                        color: 'var(--color-text)',
+                      },
+                    }}
+                  />
+                  <TextInput
                     label="Phone Number"
                     placeholder="Enter phone number"
                     required
-                    size={'md'}
+                    size={'xs'}
                     {...form.getInputProps('phone')}
-                    mb="sm"
+                    mb="xs"
                     styles={{
                       label: { color: 'var(--color-text)' },
                       error: { color: 'var(--color-error)' },
@@ -259,10 +299,10 @@ const DriverSignupSection: React.FC = () => {
                     label="Email"
                     placeholder="Enter email"
                     required
-                    size={'md'}
+                    size={'xs'}
                     type="email"
                     {...form.getInputProps('email')}
-                    mb="md"
+                    mb="xs"
                     styles={{
                       label: { color: 'var(--color-text)' },
                       error: { color: 'var(--color-error)' },
@@ -272,6 +312,7 @@ const DriverSignupSection: React.FC = () => {
                       },
                     }}
                   />
+
                   <Button
                     mt="xs"
                     type="submit"

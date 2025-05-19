@@ -12,7 +12,7 @@ const rightNavLinks = [
   { href: '/', label: 'Advertise' },
   { href: '/drive', label: 'Drive' },
   { href: '/ad-tracker', label: 'AdTracker(beta)' },
-  { href: '/contact', label: 'Contact Us' },
+  // { href: '/contact', label: 'Contact Us' },
   // { href: '#', label: <ToggleModeSwitch /> },
 ];
 
@@ -38,7 +38,7 @@ const TopNav = () => {
       <Group
         w={'full'}
         mx={'auto'}
-        className={`bg-default/70 fixed top-0 right-0 left-0 z-50 shadow-lg backdrop-blur-md`}
+        className={`bg-default/80 fixed top-0 right-0 left-0 z-50 shadow-lg backdrop-blur-md`}
       >
         <Group
           maw={1800}
