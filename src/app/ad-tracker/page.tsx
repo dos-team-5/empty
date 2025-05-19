@@ -75,13 +75,13 @@ const AdTracker = () => {
           ))}
           <motion.div
             className="absolute inset-0 rounded-lg bg-radial-[at_30%_30%] from-transparent to-[#FDFEFD] to-65%"
-            initial={{ opacity: 0, z: 100, x: 100 }}
-            animate={{ opacity: 1, z: 0, x: 0 }}
-            transition={{
-              duration: 2.4,
-              ease: [0.22, 1, 0.36, 1],
-              delay: 1.2,
-            }}
+            // initial={{ opacity: 0, z: 100, x: 100 }}
+            // animate={{ opacity: 1, z: 0, x: 0 }}
+            // transition={{
+            //   duration: 2.4,
+            //   ease: [0.22, 1, 0.36, 1],
+            //   delay: 1.2,
+            // }}
           />
         </div>
       </div>
