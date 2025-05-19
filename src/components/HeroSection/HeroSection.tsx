@@ -5,9 +5,9 @@ import PrimaryBtn from '../PrimaryBtn';
 import Link from 'next/link';
 import { TextAnimate } from '../TextAnimation';
 import { motion, useAnimationControls } from 'motion/react';
-import Image from 'next/image';
 import { useMediaQuery } from '@mantine/hooks';
 import { useEffect, useRef } from 'react';
+import HeroCar from '../Icons/HeroCar';
 
 const HeroSection: React.FC = () => {
   const md = useMediaQuery('(min-width: 768px)');
@@ -19,11 +19,11 @@ const HeroSection: React.FC = () => {
   const imageControls = useAnimationControls();
 
   const getAnimationProps = () => {
-    if (xxl) return { initialX: '100%', animateX: '6%' };
-    if (xl) return { initialX: '100%', animateX: '3%' };
-    if (lg) return { initialX: '100%', animateX: '3%' };
-    if (md) return { initialX: '180%', animateX: '60%' };
-    return { initialX: '200%', animateX: '100%' };
+    if (xxl) return { initialX: '100%', animateX: '0%' };
+    if (xl) return { initialX: '100%', animateX: '0%' };
+    if (lg) return { initialX: '100%', animateX: '0%' };
+    if (md) return { initialX: '100%', animateX: '0%' };
+    return { initialX: '200%', animateX: '36%' };
   };
 
   const { initialX, animateX } = getAnimationProps();
@@ -47,14 +47,17 @@ const HeroSection: React.FC = () => {
         transition={{
           duration: 2.7,
         }}
-        className="absolute right-0 bottom-16 md:bottom-24 lg:bottom-0 xl:bottom-16"
+        className="absolute right-0 bottom-[-38%] md:bottom-[-20%] lg:bottom-[-40%] xl:bottom-[-42%] 2xl:bottom-[-40%]"
       >
-        <Image
+        {/* <Image
           src={'/R3.png'}
           alt="car1"
           width={1000}
           height={1000}
           className="w-[900px] origin-bottom-right scale-200 md:scale-160 lg:scale-90 xl:scale-130 2xl:scale-172"
+        /> */}
+        <HeroCar
+          className={'w-[900px] origin-bottom-right scale-75 xl:scale-100'}
         />
       </motion.div>
 
