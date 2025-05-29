@@ -1,4 +1,8 @@
-import { DriveHeroSection, DriverSignupSection } from '@/components';
+import {
+  DriveHeroSection,
+  DriverSignupSection,
+  TimelineSectionDrive,
+} from '@/components';
 import { Box } from '@mantine/core';
 
 const Drive = () => {
@@ -7,6 +11,7 @@ const Drive = () => {
       <DriveHeroSection />
       {/* <DriveAfterHeroSection /> */}
       {/* <DriveQualificationSection /> */}
+      <TimelineSectionDrive />
       <DriverSignupSection />
     </Box>
   );

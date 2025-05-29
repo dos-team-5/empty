@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@emailjs/browser": "^4.4.1",
     "@mantine/core": "^7.17.3",
     "@mantine/form": "^7.17.5",
     "@mantine/hooks": "^7.17.3",

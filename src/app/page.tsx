@@ -4,6 +4,7 @@ import {
   FeatureSection,
   HeroSection,
   PricingCards,
+  TimelineSectionAd,
 } from '@/components';
 
 export default function Home() {
@@ -12,6 +13,7 @@ export default function Home() {
       <HeroSection />
       <Advertisement />
       <FeatureSection />
+      <TimelineSectionAd />
       <PricingCards />
       <Faq />
     </main>

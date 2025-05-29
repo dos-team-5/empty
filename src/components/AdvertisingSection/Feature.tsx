@@ -18,19 +18,24 @@ const FeatureSection: React.FC = () => {
       <Box
         maw={1800}
         mx={'auto'}
-        className="px-4 pb-32 sm:px-8 md:px-16 lg:px-20 xl:px-24 2xl:px-32"
+        className="px-4 mt-16 sm:px-8 md:px-16 lg:px-20 2xl:py-16 xl:px-24 2xl:px-32"
       >
-        <div className="mb-12 flex items-center">
-          <Title className="text-base" order={1} fw={500}>
+        <div className="my-8 flex items-center md:my-12">
+          <Title
+            order={1}
+            fw={700}
+            ff={'var(--font-poppins)'}
+            className="text-start capitalize"
+          >
             <TextAnimate
               animation="blurInUp"
               by="word"
               startOnView
               duration={0.5}
-              className="text-3xl md:text-4xl lg:text-[40px] 2xl:text-5xl"
+              className="md:text-[52px] lg:text-[48px] xl:text-[52px] 2xl:text-[64px]"
               once
             >
-              Billboards Don’t Move.
+              Billboards Don’t Move,
             </TextAnimate>
 
             <TextAnimate
@@ -39,7 +44,7 @@ const FeatureSection: React.FC = () => {
               startOnView
               duration={0.5}
               delay={1}
-              className="text-3xl md:text-4xl lg:text-[40px] 2xl:text-5xl"
+              className="md:text-[52px] lg:text-[48px] xl:text-[52px] 2xl:text-[64px]"
               once
             >
               Your Customers Do.

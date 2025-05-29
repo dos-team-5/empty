@@ -1,6 +1,7 @@
 'use client';
-import { Box, Button } from '@mantine/core';
+import { Box } from '@mantine/core';
 import Link from 'next/link';
+import PrimaryBtn from '../PrimaryBtn';
 
 interface MobileNavProps {
   onClose: () => void;
@@ -10,7 +11,7 @@ const rightNavLinks = [
   { href: '/', label: 'Advertise' },
   { href: '/drive', label: 'Drive' },
   { href: '/ad-tracker', label: 'AdTracker (beta)' },
-  { href: '/contact', label: 'Contact US' },
+  // { href: '/contact', label: 'Contact US' },
   // { href: '#', label: <ToggleModeSwitch /> },
 ];
 
@@ -32,16 +33,10 @@ const MobileNav = ({ onClose }: MobileNavProps) => {
           )}
         </div>
       ))}
-      <Link href={'/contact'}>
-        <Button
-          className="!bg-primary-400 hover:!bg-primary"
-          size={'md'}
-          mt={'sm'}
-          radius={15}
-          onClick={onClose}
-        >
-          Book A Call
-        </Button>
+      <Link href={'/contact'} className="">
+        <div onClick={onClose} className="mt-5">
+          <PrimaryBtn btnText="Book A Call" glow arrow={false} />
+        </div>
       </Link>
     </Box>
   );

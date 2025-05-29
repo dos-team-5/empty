@@ -20,25 +20,39 @@ const Meeting = () => {
     >
       <div className="mx-auto mt-20 justify-between gap-2 lg:mt-4 lg:flex lg:px-0">
         <div className="pb-4 lg:w-1/2 lg:pt-30 lg:pb-0">
-          <Title order={1} fw={500} mt="lg">
+          <Title
+            order={1}
+            fw={700}
+            c="#333333"
+            ff={'var(--font-poppins)'}
+            className="capitalize"
+            mt="lg"
+          >
             <TextAnimate
               animation="blurInUp"
               by="word"
               duration={0.5}
-              className="text-[40px] lg:text-[40]"
+              className="md:text-[52px] lg:text-[48px] xl:text-[52px] 2xl:text-[64px]"
               once
             >
               See how fast-moving brands are turning city streets into
               high-impact, ad space
             </TextAnimate>
           </Title>
-          <Title order={2} fw={400} mt={'md'}>
+          <Title
+            order={2}
+            fw={700}
+            c="#5E5E5E"
+            ff={'var(--font-poppins)'}
+            className="capitalize"
+            mt={'lg'}
+          >
             <TextAnimate
               animation="blurInUp"
               by="word"
               duration={0.5}
               delay={0.5}
-              className="text-lg"
+              className="text-lg md:text-2xl lg:text-xl xl:text-2xl 2xl:text-3xl"
               once
             >
               In 20 minutes, we’ll show you how our mobile OOH ads help brands
@@ -46,20 +60,26 @@ const Meeting = () => {
               without the hassle of traditional media buying.
             </TextAnimate>
           </Title>
-          <Title order={2} fw={700} className="!mt-24">
+          <Title
+            order={2}
+            fw={700}
+            c="#5E5E5E"
+            ff={'var(--font-poppins)'}
+            className="!mt-16 capitalize"
+          >
             <TextAnimate
               animation="blurInUp"
               by="word"
               duration={0.5}
               delay={1}
-              className="text-lg"
+              className="text-lg md:text-2xl lg:text-xl xl:text-2xl 2xl:text-3xl"
               once
             >
               You'll discover how to:
             </TextAnimate>
           </Title>
 
-          <div className="mt-2 grid grid-cols-1 gap-2 md:grid-cols-2 2xl:grid-cols-4">
+          <div className="mt-2 grid grid-cols-1 gap-2 md:grid-cols-2">
             {[
               {
                 title: 'Launch in under a week',
@@ -89,8 +109,12 @@ const Meeting = () => {
               >
                 <CheckCircle className="text-primary-400 flex-shrink-0 rounded-md text-xl" />
                 <ul className="max-w-max">
-                  <h3 className="mb-0.5 text-sm font-bold">{item.title}</h3>
-                  <div className="text-sm">{item.description}</div>
+                  <h3 className="mb-0.5 text-lg font-medium xl:text-xl 2xl:text-2xl">
+                    {item.title}
+                  </h3>
+                  <div className="text-base font-normal text-[#5E5E5E] xl:text-lg 2xl:text-xl">
+                    {item.description}
+                  </div>
                 </ul>
               </motion.div>
             ))}
