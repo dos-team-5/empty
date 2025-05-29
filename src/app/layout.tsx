@@ -36,7 +36,7 @@ export default function RootLayout({
         />
       </head>
       <body
-        className={`${poppins.variable} relative overflow-hidden antialiased`}
+        className={`${poppins.variable} relative overflow-clip antialiased`}
       >
         <Providers>
           <Box maw={2000} mx={'auto'} className="">

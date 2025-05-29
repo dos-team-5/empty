@@ -1,5 +1,5 @@
 'use client';
-import React from 'react';
+import React, { useState } from 'react';
 import {
   Box,
   Title,
@@ -7,6 +7,11 @@ import {
   Select,
   NumberInput,
   Button,
+  Space,
+  Modal,
+  Text,
+  List,
+  Notification,
 } from '@mantine/core';
 import { useForm, zodResolver } from '@mantine/form';
 import { z } from 'zod';
@@ -14,6 +19,7 @@ import { ArrowRight } from 'lucide-react';
 import { TextAnimate } from '../TextAnimation';
 import { motion } from 'motion/react';
 import { memo } from 'react';
+import emailjs from '@emailjs/browser';
 
 // Zod schema for driver validation
 const driverSchema = z.object({
@@ -50,11 +56,10 @@ const TitleSection = memo(() => (
   <div className="-mt-20 w-full lg:w-1/2">
     <Title
       order={1}
-      fw={500}
-      style={{
-        color: 'var(--color-text)',
-        fontFamily: 'var(--font-poppins)',
-      }}
+      fw={700}
+      c="#333333"
+      ff={'var(--font-poppins)'}
+      className="capitalize"
     >
       <TextAnimate
         animation="blurInUp"
@@ -62,7 +67,7 @@ const TitleSection = memo(() => (
         startOnView
         duration={0.5}
         once
-        className="text-center text-3xl md:text-4xl lg:text-start lg:text-[40px] 2xl:text-5xl"
+        className="md:text-[52px] lg:text-[48px] xl:text-[52px] 2xl:text-[64px]"
       >
         Join our growing network
       </TextAnimate>
@@ -73,20 +78,18 @@ const TitleSection = memo(() => (
         duration={0.5}
         delay={0.5}
         once
-        className="text-center text-3xl md:text-4xl lg:text-start lg:text-[40px] 2xl:text-5xl"
+        className="md:text-[52px] lg:text-[48px] xl:text-[52px] 2xl:text-[64px]"
       >
         of drivers today
       </TextAnimate>
     </Title>
+    <Space className="h-4 md:h-6" />
     <Title
       order={2}
-      fw={400}
-      mt="md"
-      style={{
-        color: 'var(--color-text)',
-        fontFamily: 'var(--font-poppins)',
-      }}
-      className="text-lg"
+      fw={700}
+      c="#5E5E5E"
+      ff={'var(--font-poppins)'}
+      className="capitalize"
     >
       <TextAnimate
         animation="blurInUp"
@@ -95,7 +98,7 @@ const TitleSection = memo(() => (
         duration={0.5}
         delay={1}
         once
-        className="text-center text-base md:text-lg lg:text-start lg:text-xl 2xl:text-2xl"
+        className="text-lg md:text-2xl lg:text-xl xl:text-2xl 2xl:text-3xl"
       >
         After registration, we’ll provide a comprehensive
       </TextAnimate>
@@ -106,7 +109,7 @@ const TitleSection = memo(() => (
         duration={0.5}
         delay={1.5}
         once
-        className="text-center text-base md:text-lg lg:text-start lg:text-xl 2xl:text-2xl"
+        className="text-lg md:text-2xl lg:text-xl xl:text-2xl 2xl:text-3xl"
       >
         overview of the platform and applicable terms
       </TextAnimate>
@@ -132,10 +135,37 @@ const DriverSignupSection: React.FC = () => {
     },
   });
 
+  // State for controlling modal visibility and error notification
+  const [opened, setOpened] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+
+  // Initialize EmailJS with your Public Key
+  React.useEffect(() => {
+    emailjs.init('your_public_key'); // Replace with your EmailJS Public Key
+  }, []);
+
   // Handle form submission
-  const handleSubmit = (values: DriverFormValues) => {
-    console.log('Driver Signup Data:', values); // Replace with API call
-    form.reset();
+  const handleSubmit = async (values: DriverFormValues) => {
+    try {
+      // Send form data via EmailJS
+      await emailjs.send('service_xxxxxx', 'template_xxxxxx', {
+        name: values.name,
+        car: values.car,
+        hoursPerWeek: values.hoursPerWeek,
+        preferredTime: values.preferredTime,
+        phone: values.phone,
+        email: values.email,
+        shippingAddress: values.shippingAddress,
+        cityOfOperation: values.cityOfOperation,
+      });
+      console.log('Driver Signup Data:', values); // Keep for debugging
+      form.reset();
+      setOpened(true); // Open the modal on successful submission
+      setError(null); // Clear any previous errors
+    } catch (err) {
+      console.error('EmailJS error:', err);
+      setError('Failed to send submission. Please try again later.');
+    }
   };
 
   return (
@@ -164,7 +194,7 @@ const DriverSignupSection: React.FC = () => {
               className="w-full lg:w-1/2"
             >
               <Box
-                className="mt-12 mb-16 rounded-2xl !shadow-[20px_20px_60px_#bebebe,-20px_-20px_60px_#ffffff]"
+                className="mt-12 mb-16 rounded-2xl !shadow-[20px_20px_60px_#bebebe,-20px_-20px_60px_#ffffff] xl:scale-112 2xl:scale-120"
                 px="lg"
                 pt="md"
                 mx="auto"
@@ -180,7 +210,6 @@ const DriverSignupSection: React.FC = () => {
                   <TextInput
                     label="Full Name"
                     placeholder="Enter your full name"
-                    required
                     size={'xs'}
                     {...form.getInputProps('name')}
                     mb="xs"
@@ -196,7 +225,6 @@ const DriverSignupSection: React.FC = () => {
                   <TextInput
                     label="Car Model (Brand, Model, Year)"
                     placeholder="Enter car model"
-                    required
                     size={'xs'}
                     {...form.getInputProps('car')}
                     mb="xs"
@@ -212,7 +240,6 @@ const DriverSignupSection: React.FC = () => {
                   <NumberInput
                     label="Hours Driven Per Week"
                     placeholder="Enter hours"
-                    required
                     size={'xs'}
                     min={1}
                     {...form.getInputProps('hoursPerWeek')}
@@ -229,7 +256,6 @@ const DriverSignupSection: React.FC = () => {
                   <Select
                     label="Preferred Time"
                     placeholder="Select time"
-                    required
                     size={'xs'}
                     data={['Day', 'Night', 'Both']}
                     {...form.getInputProps('preferredTime')}
@@ -250,7 +276,6 @@ const DriverSignupSection: React.FC = () => {
                   <TextInput
                     label="Shipping Address"
                     placeholder="Enter shipping address"
-                    required
                     size={'xs'}
                     {...form.getInputProps('shippingAddress')}
                     mb="xs"
@@ -266,7 +291,6 @@ const DriverSignupSection: React.FC = () => {
                   <TextInput
                     label="City of Operation"
                     placeholder="Enter city of operation"
-                    required
                     size={'xs'}
                     {...form.getInputProps('cityOfOperation')}
                     mb="xs"
@@ -282,7 +306,6 @@ const DriverSignupSection: React.FC = () => {
                   <TextInput
                     label="Phone Number"
                     placeholder="Enter phone number"
-                    required
                     size={'xs'}
                     {...form.getInputProps('phone')}
                     mb="xs"
@@ -298,7 +321,6 @@ const DriverSignupSection: React.FC = () => {
                   <TextInput
                     label="Email"
                     placeholder="Enter email"
-                    required
                     size={'xs'}
                     type="email"
                     {...form.getInputProps('email')}
@@ -316,7 +338,7 @@ const DriverSignupSection: React.FC = () => {
                   <Button
                     mt="xs"
                     type="submit"
-                    radius={15}
+                    radius={6}
                     rightSection={
                       <span className="relative inline-block overflow-hidden">
                         <ArrowRight
@@ -326,16 +348,133 @@ const DriverSignupSection: React.FC = () => {
                       </span>
                     }
                     variant="filled"
-                    className="group !w-fit !border-2 !font-medium duration-150 ease-in-out"
+                    className="group !w-fit !border-2 !font-medium !uppercase duration-150 ease-in-out"
                   >
                     Submit
                   </Button>
                 </form>
+                {error && (
+                  <Notification
+                    color="red"
+                    title="Submission Error"
+                    mt="md"
+                    onClose={() => setError(null)}
+                  >
+                    {error}
+                  </Notification>
+                )}
               </Box>
             </motion.div>
           </Box>
         </Box>
       </Box>
+
+      {/* Modal for post-submission message */}
+      <Modal
+        opened={opened}
+        padding={'lg'}
+        onClose={() => setOpened(false)}
+        title={
+          <Text
+            fw={700}
+            c="#333333"
+            ff={'var(--font-poppins)'}
+            className="capitalize md:!text-[32px] lg:!text-[28px] xl:!text-[32px] 2xl:!text-[36px]"
+          >
+            Thank You for Signing Up!
+          </Text>
+        }
+        centered
+        size="xl"
+        styles={{
+          title: {
+            marginBottom: '0px',
+          },
+          content: {
+            borderRadius: '16px',
+            boxShadow: '20px 20px 60px #bebebe, -20px -20px 60px #ffffff',
+          },
+        }}
+      >
+        <Text
+          size="lg"
+          fw={700}
+          c="#5E5E5E"
+          ff={'var(--font-poppins)'}
+          className="!text-lg capitalize md:!text-xl lg:!text-lg xl:!text-xl 2xl:!text-2xl"
+        >
+          You’re almost done. Please check your email for the next steps. To
+          complete your onboarding, you’ll be asked to do the following:
+        </Text>
+        <List
+          withPadding
+          spacing="xs"
+          size="md"
+          mt="sm"
+          styles={{
+            item: {
+              color: '#333333',
+              fontFamily: 'var(--font-poppins)',
+              lineHeight: '1.5',
+            },
+          }}
+          className="!text-md lg:!text-md font-medium md:!text-lg xl:!text-lg 2xl:!text-xl"
+        >
+          <List.Item>
+            Confirm your identity (by uploading your driver’s license)
+          </List.Item>
+          <List.Item>
+            Provide proof that you drive for a rideshare platform (screenshot of
+            your rideshare profile and recent trip history)
+          </List.Item>
+          <List.Item>Confirm shipping address</List.Item>
+          <List.Item>Submit your banking details for direct deposit</List.Item>
+        </List>
+        <Text
+          size="md"
+          c="#5E5E5E"
+          ff={'var(--font-poppins)'}
+          mt="md"
+          className="!text-md lg:!text-md md:!text-lg xl:!text-lg 2xl:!text-xl"
+        >
+          You should receive the email within a few minutes. If it doesn’t
+          appear in your inbox, be sure to check your spam or promotions folder.
+        </Text>
+        <Text
+          size="md"
+          c="#5E5E5E"
+          ff={'var(--font-poppins)'}
+          mt="sm"
+          className="!text-md lg:!text-md md:!text-lg xl:!text-lg 2xl:!text-xl"
+        >
+          If you have any questions, feel free to contact us at any time by
+          reaching out to{' '}
+          <a
+            href="mailto:contact@emptyad.com"
+            style={{ color: '#007bff', textDecoration: 'underline' }}
+          >
+            contact@emptyad.com
+          </a>
+          .
+        </Text>
+        <Button
+          mt="lg"
+          onClick={() => setOpened(false)}
+          variant="filled"
+          radius={6}
+          className="group !w-fit !border-2 !font-medium !uppercase duration-150 ease-in-out"
+          rightSection={
+            <span className="relative inline-block overflow-hidden">
+              <ArrowRight
+                size={16}
+                className="group-hover:animate-slide-in transform stroke-[2.5]"
+              />
+            </span>
+          }
+        >
+          Close
+        </Button>
+      </Modal>
     </Box>
   );
 };

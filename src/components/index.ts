@@ -15,6 +15,9 @@ import Meeting from './Book-a-call';
 import { ShimmerButton } from './ShimmerButton';
 import UiverseButton from './animatedBtn';
 import HeroCar from './Icons/HeroCar';
+import QuestionSection from './QuestionSection';
+import TimelineSectionAd from './TimelineSectionAd';
+import TimelineSectionDrive from './TimelineSectionDrive';
 
 export {
   ToggleModeSwitch,
@@ -34,4 +37,7 @@ export {
   ShimmerButton,
   UiverseButton,
   HeroCar,
+  QuestionSection,
+  TimelineSectionAd,
+  TimelineSectionDrive,
 };

@@ -1,7 +1,7 @@
 'use client';
 import { Box, Burger, Drawer, Group } from '@mantine/core';
 import Link from 'next/link';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import Image from 'next/image';
 import MobileNav from './MobileNav';
 import { X } from 'lucide-react';
@@ -23,11 +23,11 @@ const TopNav = () => {
     setMobileMenuOpen(!mobileMenuOpen);
   };
 
-  useEffect(() => {
-    document.onkeydown = function () {
-      return false;
-    };
-  }, []);
+  // useEffect(() => {
+  //   document.onkeydown = function () {
+  //     return false;
+  //   };
+  // }, []);
 
   return (
     <motion.div
@@ -75,7 +75,7 @@ const TopNav = () => {
                 )}
               </Box>
             ))}
-            <Link href={'/contact'} className="hidden lg:block ml-8">
+            <Link href={'/contact'} className="ml-8 hidden lg:block">
               {/* <Button
                 className="!text-primary-400 hover:!bg-primary !hidden !bg-white lg:!block"
                 size={IsAboveMobile ? 'lg' : 'md'}

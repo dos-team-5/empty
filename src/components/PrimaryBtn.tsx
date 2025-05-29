@@ -1,7 +1,7 @@
 'use client';
 import { ArrowRight } from 'lucide-react';
 import { useState } from 'react';
-import{motion, AnimatePresence} from 'motion/react'
+import { motion, AnimatePresence } from 'motion/react';
 
 interface PrimaryBtnProps {
   btnText?: string;
@@ -28,15 +28,20 @@ const PrimaryBtn = ({
         <div className="from-primary-900 to-primary-800 via-primary animate-infinite-tilt absolute -inset-px rounded-xl bg-gradient-to-r opacity-70 blur-lg"></div>
       )}
 
-<AnimatePresence>
-
-      {glowOnHover && btnHovered && (
-        <motion.div initial={{opacity:0}} animate={{opacity:1}} transition={{duration:0.7}} exit={{opacity:0}} className="from-primary-900 to-primary-800 via-primary animate-infinite-tilt absolute -inset-px rounded-xl bg-gradient-to-r opacity-0 blur-lg transition-opacity duration-200 group-hover:opacity-70"/>
-      )}
-</AnimatePresence>
+      <AnimatePresence>
+        {glowOnHover && btnHovered && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.7 }}
+            exit={{ opacity: 0 }}
+            className="from-primary-900 to-primary-800 via-primary animate-infinite-tilt absolute -inset-px rounded-xl bg-gradient-to-r opacity-0 blur-lg transition-opacity duration-200 group-hover:opacity-70"
+          />
+        )}
+      </AnimatePresence>
 
       <div
-        className="font-pj bg-primary-400 hover:bg-primary-400 text-default border-primary-400 relative inline-flex items-center justify-center rounded-xl border-2 px-3 py-2 text-base font-medium transition-all duration-200"
+        className="bg-primary-400 hover:bg-primary-400 text-default border-primary-400 relative inline-flex items-center justify-center rounded-lg border-2 px-[25px] py-2.5 text-sm font-medium uppercase transition-all duration-200 md:text-base lg:text-sm xl:text-base 2xl:text-lg"
         role="button"
       >
         {btnText}

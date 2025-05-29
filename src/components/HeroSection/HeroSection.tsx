@@ -1,12 +1,11 @@
 'use client';
 import React from 'react';
-import { Title, Box } from '@mantine/core';
+import { Title, Box, Space } from '@mantine/core';
 import PrimaryBtn from '../PrimaryBtn';
 import Link from 'next/link';
 import { TextAnimate } from '../TextAnimation';
-import { motion, useAnimationControls } from 'motion/react';
+import { motion } from 'motion/react';
 import { useMediaQuery } from '@mantine/hooks';
-import { useEffect, useRef } from 'react';
 import HeroCar from '../Icons/HeroCar';
 
 const HeroSection: React.FC = () => {
@@ -15,22 +14,15 @@ const HeroSection: React.FC = () => {
   const xl = useMediaQuery('(min-width: 1280px)');
   const xxl = useMediaQuery('(min-width: 1536px)');
 
-  const rootRef = useRef<HTMLDivElement>(null);
-  const imageControls = useAnimationControls();
-
   const getAnimationProps = () => {
-    if (xxl) return { initialX: '100%', animateX: '0%' };
-    if (xl) return { initialX: '100%', animateX: '0%' };
-    if (lg) return { initialX: '100%', animateX: '0%' };
-    if (md) return { initialX: '100%', animateX: '0%' };
-    return { initialX: '200%', animateX: '36%' };
+    if (xxl) return { x: '0%' };
+    if (xl) return { x: '0%' };
+    if (lg) return { x: '0%' };
+    if (md) return { x: '36%' };
+    return { x: '36%' };
   };
 
-  const { initialX, animateX } = getAnimationProps();
-
-  useEffect(() => {
-    imageControls.start({ x: animateX });
-  }, [imageControls, animateX]);
+  const { x } = getAnimationProps();
 
   const handleAdvertiseClick = () => {
     const target = document.querySelector('#pricingSection');
@@ -40,26 +32,17 @@ const HeroSection: React.FC = () => {
   };
 
   return (
-    <Box className="relative h-dvh overflow-hidden" ref={rootRef}>
-      <motion.div
-        initial={{ x: initialX }}
-        animate={imageControls}
-        transition={{
-          duration: 2.7,
-        }}
-        className="absolute right-0 bottom-[-38%] md:bottom-[-20%] lg:bottom-[-40%] xl:bottom-[-42%] 2xl:bottom-[-40%]"
+    <Box className="relative h-dvh overflow-hidden">
+      <div
+        style={{ transform: `translateX(${x})` }}
+        className="absolute right-0 bottom-[-34%] md:bottom-[-30%] lg:bottom-[-28%] xl:bottom-[-20%]"
       >
-        {/* <Image
-          src={'/R3.png'}
-          alt="car1"
-          width={1000}
-          height={1000}
-          className="w-[900px] origin-bottom-right scale-200 md:scale-160 lg:scale-90 xl:scale-130 2xl:scale-172"
-        /> */}
         <HeroCar
-          className={'w-[900px] origin-bottom-right scale-75 xl:scale-100'}
+          className={
+            'h-dvh w-[156dvw] origin-bottom-right md:w-[152dvw] lg:w-[72dvw]'
+          }
         />
-      </motion.div>
+      </div>
 
       <Box
         maw={1800}
@@ -67,14 +50,20 @@ const HeroSection: React.FC = () => {
         className="px-4 sm:px-8 md:px-16 lg:px-20 xl:px-24 2xl:px-32"
       >
         <Box className="flex h-full flex-col justify-start">
-          <Box className="pt-32">
-            <Title order={1} fw={500}>
+          <Box className="pt-24 md:pt-32">
+            <Title
+              order={1}
+              fw={700}
+              c="#333333"
+              ff={'var(--font-poppins)'}
+              className="capitalize"
+            >
               <TextAnimate
                 animation="blurInUp"
                 by="word"
                 startOnView
                 duration={0.5}
-                className="text- seizing md:text-4xl lg:text-[40px] 2xl:text-5xl"
+                className="md:text-[52px] lg:text-[48px] xl:text-[52px] 2xl:text-[64px]"
                 once
               >
                 Advertise on rideshare vehicles
@@ -85,13 +74,20 @@ const HeroSection: React.FC = () => {
                 startOnView
                 duration={0.5}
                 delay={0.5}
-                className="text-3xl md:text-4xl lg:text-[40px] 2xl:text-5xl"
+                className="md:text-[52px] lg:text-[48px] xl:text-[52px] 2xl:text-[64px]"
                 once
               >
                 in high-traffic areas
               </TextAnimate>
             </Title>
-            <Title order={2} fw={400} mt={'md'}>
+            <Space className="h-6 md:h-8" />
+            <Title
+              order={2}
+              fw={700}
+              c="#5E5E5E"
+              ff={'var(--font-poppins)'}
+              className="capitalize"
+            >
               <TextAnimate
                 animation="blurInUp"
                 by="word"
@@ -99,7 +95,7 @@ const HeroSection: React.FC = () => {
                 duration={0.5}
                 delay={1}
                 once
-                className="text-base md:text-lg lg:text-xl 2xl:text-2xl"
+                className="text-lg md:text-2xl lg:text-xl xl:text-2xl 2xl:text-3xl"
               >
                 Unbeatable visibility and returns that
               </TextAnimate>
@@ -110,13 +106,14 @@ const HeroSection: React.FC = () => {
                 duration={0.5}
                 delay={1.5}
                 once
-                className="text-base md:text-lg lg:text-xl 2xl:text-2xl"
+                className="text-lg md:text-2xl lg:text-xl xl:text-2xl 2xl:text-3xl"
               >
-                stationary ads can’t match
+                stationary ads can’t match.
               </TextAnimate>
             </Title>
+            <Space className="h-4 md:h-6" />
 
-            <Box className="mt-6 flex flex-wrap gap-4">
+            <Box className="flex flex-wrap gap-4">
               <motion.div
                 initial={{ opacity: 0, filter: 'blur(10px)', y: 20 }}
                 whileInView={{

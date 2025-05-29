@@ -68,6 +68,8 @@ body {
     --mantine-color-default-border
   ); /* Border color of default variant */
 
+  --font-poppins: 'Poppins', sans-serif;
+
   --animate-slide-in: slide-in 0.15s ease-in-out;
   --animate-shimmer-slide: shimmer-slide var(--speed) ease-in-out infinite
     alternate;

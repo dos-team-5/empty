@@ -51,7 +51,7 @@ const Faq = memo(() => {
           by="word"
           startOnView
           duration={0.5}
-          className="text-3xl md:text-4xl lg:text-[40px] 2xl:text-5xl"
+          className="md:text-[52px] lg:text-[48px] xl:text-[52px] 2xl:text-[64px]"
           once
         >
           Got Questions!
@@ -61,7 +61,7 @@ const Faq = memo(() => {
           by="word"
           startOnView
           duration={0.5}
-          className="text-3xl md:text-4xl lg:text-[40px] 2xl:text-5xl"
+          className="md:text-[52px] lg:text-[48px] xl:text-[52px] 2xl:text-[64px]"
           delay={1}
           once
         >
@@ -84,7 +84,14 @@ const Faq = memo(() => {
         className="px-4 sm:px-8 md:px-16 lg:px-20 xl:px-24 2xl:px-32"
         style={{ minHeight: '600px' }}
       >
-        <Title order={1} ta="center" fw={500} fz={IsAboveMobile ? 52 : 'h2'}>
+        <Title
+          order={1}
+          ta="center"
+          fw={700}
+          c="#333333"
+          ff={'var(--font-poppins)'}
+          className="capitalize"
+        >
           {titleContent}
         </Title>
 
@@ -112,7 +119,7 @@ const Faq = memo(() => {
                 },
               }}
               viewport={{ once: true }}
-              className='mb-4'
+              className="mb-4"
             >
               <Accordion.Item
                 value={item.id}
@@ -120,7 +127,7 @@ const Faq = memo(() => {
               >
                 <Accordion.Control className="rounded-lg !px-0 !py-2 !shadow-[20px_20px_60px_#bebebe,-20px_-20px_60px_#ffffff]">
                   <Box
-                    className="flex items-center justify-between pl-4"
+                    className="flex items-center justify-between pl-4 text-lg font-medium text-[#333333] xl:text-xl 2xl:text-2xl"
                     style={{ width: '100%' }}
                   >
                     {item.question}
@@ -135,7 +142,7 @@ const Faq = memo(() => {
                     )}
                   </Box>
                 </Accordion.Control>
-                <Accordion.Panel className="from-default to-primary-50 rounded-lg bg-gradient-to-b from-55% !px-0 !py-2 !shadow-[20px_20px_60px_#bebebe,-20px_-20px_60px_#ffffff]">
+                <Accordion.Panel className="from-default to-primary-50 rounded-lg bg-gradient-to-b from-55% !px-0 !py-2 text-base font-normal text-[#5E5E5E] !shadow-[20px_20px_60px_#bebebe,-20px_-20px_60px_#ffffff] xl:text-lg 2xl:text-xl">
                   {item.answer}
                 </Accordion.Panel>
               </Accordion.Item>

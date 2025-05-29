@@ -55,7 +55,7 @@ export const ExpandableCardDemo = React.memo(function ExpandableCardDemo() {
               layoutId={`card-${active.title}-${id}`}
               ref={ref}
               transition={{ duration: 0.3, ease: 'easeInOut', delay: 0.05 }}
-              className="bg-default relative flex h-fit w-full max-w-[500px] flex-col overflow-hidden rounded-3xl  !shadow-[20px_20px_60px_#bebebe,-20px_-20px_60px_#ffffff]"
+              className="bg-default relative flex h-fit w-full max-w-[500px] flex-col overflow-hidden rounded-3xl !shadow-[20px_20px_60px_#bebebe,-20px_-20px_60px_#ffffff]"
               style={{ willChange: 'transform, opacity' }}
             >
               <motion.button
@@ -78,25 +78,25 @@ export const ExpandableCardDemo = React.memo(function ExpandableCardDemo() {
                   height={400}
                   src={active.src}
                   alt={active.title}
-                  className="h-100 w-full rounded-t-lg object-fill object-center"
+                  className="h-72 w-full rounded-t-lg object-fill object-center"
                 />
               </motion.div>
               <div>
-                <div className="flex items-start justify-between p-4">
+                <div className="flex items-start justify-between p-2">
                   <motion.h3
                     transition={{ duration: 0.3, ease: 'easeInOut' }}
-                    className="text-text text-base font-medium"
+                    className="text-lg font-medium text-[#333333] xl:text-xl 2xl:text-2xl"
                   >
                     {active.title}
                   </motion.h3>
                 </div>
-                <div className="relative px-4 pt-4">
+                <div className="relative px-2 py-4">
                   <motion.div
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     exit={{ opacity: 0 }}
                     transition={{ duration: 0.2 }}
-                    className="text-text flex h-40 flex-col items-start gap-4 overflow-auto pb-10 text-sm"
+                    className="flex min-h-40 flex-col items-start gap-4 text-base font-normal text-[#5E5E5E] xl:text-lg 2xl:text-xl"
                     style={{ willChange: 'opacity' }}
                   >
                     {typeof active.content === 'function'
@@ -111,7 +111,7 @@ export const ExpandableCardDemo = React.memo(function ExpandableCardDemo() {
       </AnimatePresence>
       <motion.ul
         layout
-        className="grid w-full grid-cols-1 items-start gap-4 md:grid-cols-2 xl:grid-cols-4"
+        className="grid w-full grid-cols-1 items-start gap-4 md:grid-cols-2 md:gap-y-16"
       >
         {cards.map((card, i) => (
           <motion.div
@@ -141,12 +141,11 @@ export const ExpandableCardDemo = React.memo(function ExpandableCardDemo() {
                   height={320}
                   src={card.src}
                   alt={card.title}
-                  className="h-80 w-full rounded-lg object-cover object-top pb-10"
-                  
+                  className="h-80 w-full rounded-lg object-cover object-top md:h-56 lg:h-72 2xl:h-112"
                 />
               </motion.div>
-              <div className="relative flex h-24 items-center justify-between px-2">
-                <motion.h3 className="text-text w-[85%] text-left text-lg">
+              <div className="relative flex h-20 items-center justify-between px-2">
+                <motion.h3 className="w-[85%] text-left text-lg font-medium text-[#333333] xl:text-xl 2xl:text-2xl">
                   {card.title}
                 </motion.h3>
                 <div className="bg-primary-400 !text-default rounded-full p-1">
@@ -188,7 +187,7 @@ export const CloseIcon = React.memo(function CloseIcon() {
 
 const cards = [
   {
-    title: 'Unlock the Untapped Potential of Rideshare Advertising',
+    title: 'Unlock the Untapped Potential of Rideshare Advertising.',
     src: '/1.jpg',
     content: () => {
       return (
@@ -204,7 +203,7 @@ const cards = [
     },
   },
   {
-    title: 'From Preview to Live in a Few Days',
+    title: 'From Preview to Live in a Few Days.',
     src: '/2.jpg',
     content: () => {
       return (
@@ -235,7 +234,7 @@ const cards = [
     },
   },
   {
-    title: 'Precision Targeting, Real-Time Insights',
+    title: 'Clear Insights, Comprehensive Reporting.',
     src: '/4.jpg',
     content: () => {
       return (
