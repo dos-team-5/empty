@@ -129,13 +129,16 @@ const Advertisement = () => {
             className="mt-8 w-full lg:mt-16 lg:w-[70%]"
           >
             <Image
-              src={'/R22.png'}
+              src={'/R23.png'}
               alt=""
               width={1000}
               height={1000}
               className="w-full"
               priority
             />
+
+ 
+
           </motion.div>
           <div className="mt-4 flex flex-col gap-4 md:mt-6">
             {[
