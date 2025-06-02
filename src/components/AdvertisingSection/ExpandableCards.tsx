@@ -219,7 +219,7 @@ const cards = [
   },
   {
     title: 'Any sized fleet, as per your needs.',
-    src: '/3.jpg',
+    src: '/31.jpg',
     content: () => {
       return (
         <p>
@@ -235,7 +235,7 @@ const cards = [
   },
   {
     title: 'Clear Insights, Comprehensive Reporting.',
-    src: '/4.jpg',
+    src: '/41.png',
     content: () => {
       return (
         <p>
