@@ -2,7 +2,6 @@
 import React, { useState } from 'react';
 import {
   Box,
-  Title,
   TextInput,
   Select,
   NumberInput,
@@ -12,11 +11,11 @@ import {
   Text,
   List,
   Notification,
+  Anchor,
 } from '@mantine/core';
 import { useForm, zodResolver } from '@mantine/form';
 import { z } from 'zod';
 import { ArrowRight } from 'lucide-react';
-import { TextAnimate } from '../TextAnimation';
 import { motion } from 'motion/react';
 import { memo } from 'react';
 import emailjs from '@emailjs/browser';
@@ -53,67 +52,46 @@ type DriverFormValues = z.infer<typeof driverSchema>;
 
 // Memoized TitleSection to prevent re-rendering
 const TitleSection = memo(() => (
-  <div className="-mt-20 w-full lg:w-1/2">
-    <Title
-      order={1}
-      fw={700}
+  <div className="-mt-16 w-full lg:w-1/2">
+    <Text
+      ff={'var(--font-poppins)'}
+      fw={400}
       c="#333333"
-      ff={'var(--font-poppins)'}
-      className="capitalize"
+      className="!text-sm xl:!text-base 2xl:!text-lg"
     >
-      <TextAnimate
-        animation="blurInUp"
-        by="word"
-        startOnView
-        duration={0.5}
-        once
-        className="md:text-[52px] lg:text-[48px] xl:text-[52px] 2xl:text-[64px]"
-      >
-        Join our growing network
-      </TextAnimate>
-      <TextAnimate
-        animation="blurInUp"
-        by="word"
-        startOnView
-        duration={0.5}
-        delay={0.5}
-        once
-        className="md:text-[52px] lg:text-[48px] xl:text-[52px] 2xl:text-[64px]"
-      >
-        of drivers today
-      </TextAnimate>
-    </Title>
+      Before you can begin earning passive income with our platform, we need to
+      verify your identity and banking information to ensure timely and secure
+      payments via direct deposit. <br /> <br />
+      Once your information is verified, you’ll be officially onboarded to our
+      network and eligible to receive advertising campaign offers, which you may
+      choose to accept or decline. <br /> <br />
+      Please note: the time it takes to be assigned to a campaign can vary from
+      as little as one day to several weeks or months. This depends on campaign
+      availability, location, and advertiser demand. Don’t worry if you’re not
+      placed immediately.
+    </Text>
     <Space className="h-4 md:h-6" />
-    <Title
-      order={2}
-      fw={700}
-      c="#5E5E5E"
-      ff={'var(--font-poppins)'}
-      className="capitalize"
+    <div
+      className={`font-poppins !text-sm font-bold !text-[#333333] xl:!text-base 2xl:!text-lg`}
     >
-      <TextAnimate
-        animation="blurInUp"
-        by="word"
-        startOnView
-        duration={0.5}
-        delay={1}
-        once
-        className="text-lg md:text-2xl lg:text-xl xl:text-2xl 2xl:text-3xl"
-      >
-        After registration, we’ll provide a comprehensive
-      </TextAnimate>
-      <TextAnimate
-        animation="blurInUp"
-        by="word"
-        startOnView
-        duration={0.5}
-        delay={1.5}
-        once
-        className="text-lg md:text-2xl lg:text-xl xl:text-2xl 2xl:text-3xl"
-      >
-        overview of the platform and applicable terms
-      </TextAnimate>
-    </Title>
+      Your Role: Drive as you normally do. We’ll provide a decal to place on
+      your car. <br />
+      <br />
+      Campaign Matching: We match you with advertisers based on your location
+      and driving habits.
+      <br />
+      <br />
+      Earnings: You’re paid monthly by direct deposit. Payment varies by
+      campaign.
+      <br />
+      <br />
+      Commitment: Once the decal is installed, you’ll be expected to provide
+      regular updates on its condition and keep your full-time driving hours
+      updated through your account dashboard on our website.{' '}
+      <Anchor variant="text" size="md" className="!ml-1 underline">
+        Sign In
+      </Anchor>
+    </div>
   </div>
 ));
 
@@ -177,7 +155,7 @@ const DriverSignupSection: React.FC = () => {
         id="signUpDriver"
       >
         <Box className="flex min-h-dvh flex-col justify-start">
-          <Box className="relative flex flex-col items-center justify-center pt-16 lg:flex-row lg:justify-between">
+          <Box className="relative flex flex-col items-center justify-center lg:flex-row lg:justify-between">
             <TitleSection /> {/* Render memoized title section */}
             <motion.div
               initial={{ scale: 0.3, opacity: 0 }}
@@ -194,7 +172,7 @@ const DriverSignupSection: React.FC = () => {
               className="w-full lg:w-1/2"
             >
               <Box
-                className="mt-12 mb-16 rounded-2xl !shadow-[20px_20px_60px_#bebebe,-20px_-20px_60px_#ffffff] xl:scale-112 2xl:scale-120"
+                className="mb-16 rounded-2xl !shadow-[20px_20px_60px_#bebebe,-20px_-20px_60px_#ffffff] xl:scale-112 2xl:scale-120"
                 px="lg"
                 pt="md"
                 mx="auto"

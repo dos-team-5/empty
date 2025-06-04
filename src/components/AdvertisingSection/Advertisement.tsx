@@ -3,13 +3,33 @@ import { Box, Title } from '@mantine/core';
 import { TextAnimate } from '../TextAnimation';
 import Image from 'next/image';
 import { motion } from 'motion/react';
-import { CheckCircle } from 'lucide-react';
+import { AnimatedTestimonials } from '../AnimatedTestimonials';
 
 const Advertisement = () => {
   const checkItemVariants = {
     hidden: { opacity: 0, y: -50 },
     visible: { opacity: 1, y: 0 },
   };
+
+  const testimonials = [
+    {
+      quote1:
+        'Get eye-level exposure for a fraction of the price. For the cost of one billboard, deploy a fleet of a dozen drivers generating hundreds of thousands more impressions.',
+      name1: '4x Cheaper Than a Billboard',
+      quote2:
+        'Your ads move with full-time rideshare drivers through key high-traffic areas: downtown, events, residential, and commercial areas.',
+      name2: 'Full-Time Mobile Visibility',
+    },
+
+    {
+      quote1:
+        'Test and optimize at any scale with no long-term contracts or commitments. Easily add or remove cars, update creatives, or expand to new cities whenever you want.',
+      name1: 'No Minimums, Scale on Your Terms',
+      quote2:
+        'Launch in 7 days and receive weekly reports with impressions, CPM, and photo verification that keep you fully informed on your campaign’s performance.',
+      name2: 'Get Clear, Measurable Results',
+    },
+  ];
 
   return (
     // <Box className="relative min-h-dvh">
@@ -120,7 +140,7 @@ const Advertisement = () => {
             Why Advertisers Choose EMPTY
           </TextAnimate>
         </Title>
-        <Box className="flex h-full flex-col-reverse items-start justify-start lg:mt-8 lg:flex-row lg:items-end lg:justify-between 2xl:mt-16">
+        <Box className="flex h-full flex-col-reverse items-start justify-start lg:mt-8 lg:flex-row lg:items-center lg:justify-between 2xl:mt-16">
           <motion.div
             initial={{ x: '-32%', scale: 0.7, y: '-8%' }}
             whileInView={{ x: 0, scale: 1, y: 0 }}
@@ -129,18 +149,16 @@ const Advertisement = () => {
             className="mt-8 w-full lg:mt-16 lg:w-[70%]"
           >
             <Image
-              src={'/R23.png'}
+              src={'/R24.png'}
               alt=""
               width={1000}
               height={1000}
               className="w-full"
               priority
             />
-
- 
-
           </motion.div>
-          <div className="mt-4 flex flex-col gap-4 md:mt-6">
+          <AnimatedTestimonials testimonials={testimonials} />
+          {/* <div className="mt-4 flex flex-col gap-4 md:mt-6">
             {[
               {
                 title: '4x Cheaper Than a Billboard',
@@ -184,7 +202,7 @@ const Advertisement = () => {
                 </Title>
               </motion.div>
             ))}
-          </div>
+          </div> */}
         </Box>
       </Box>
     </Box>

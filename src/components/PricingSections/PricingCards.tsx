@@ -14,6 +14,7 @@ import { TextAnimate } from '../TextAnimation';
 import { motion } from 'framer-motion';
 import { memo } from 'react';
 import { useRouter } from 'next/navigation';
+import { CheckCircle } from 'lucide-react';
 
 // Features data
 const features = [
@@ -158,14 +159,14 @@ const PricingCards = () => {
                 whileInView="visible"
                 viewport={{ once: true }}
                 transition={{ delay: (index + 1) * 0.6 }}
-                className="flex items-start justify-start gap-x-4 py-2"
+                className="flex flex-row-reverse items-start justify-end gap-x-4 py-2"
               >
-                {/* <CheckCircle className="text-primary-400 flex-shrink-0 rounded-md text-xl" /> */}
+                <CheckCircle className="text-primary-400 flex-shrink-0 rounded-md text-xl" />
                 <Title
                   order={2}
                   ff={'var(--font-poppins)'}
                   c="#333333"
-                  className="text-start capitalize lg:!max-w-xs xl:!max-w-sm 2xl:!max-w-md"
+                  className="text-end capitalize lg:!max-w-xs xl:!max-w-sm 2xl:!max-w-md"
                 >
                   <div className="mb-0.5 text-lg font-medium xl:text-xl 2xl:text-2xl">
                     {item.title}
@@ -263,13 +264,13 @@ const PricingCards = () => {
               <motion.div
                 key={item.title}
                 variants={checkItemVariants}
-                initial="hidden"
-                whileInView="visible"
+                initial={{ opacity: 0, x: -20 }}
+                whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: (index + leftFeatures.length + 1) * 0.6 }}
                 className="flex items-start justify-start gap-x-4 py-2"
               >
-                {/* <CheckCircle className="text-primary-400 flex-shrink-0 rounded-md text-xl" /> */}
+                <CheckCircle className="text-primary-400 flex-shrink-0 rounded-md text-xl" />
                 <Title
                   order={2}
                   ff={'var(--font-poppins)'}

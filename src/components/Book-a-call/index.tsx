@@ -105,7 +105,7 @@ const Meeting = () => {
                 initial="hidden"
                 animate="visible"
                 transition={{ delay: (index + 1) * 0.5 }}
-                className="items-end-start flex min-w-2xs justify-start gap-x-4 py-4 lg:min-w-auto"
+                className="items-start flex min-w-2xs justify-start gap-x-4 py-4 lg:min-w-auto"
               >
                 <CheckCircle className="text-primary-400 flex-shrink-0 rounded-md text-xl" />
                 <ul className="max-w-max">

@@ -7,6 +7,7 @@ const TimeLineComponent = ({
   data: {
     title: string | React.ReactNode;
     desc: string | React.ReactNode;
+    icon?: React.ReactNode;
   }[];
 }) => {
   return (
@@ -15,14 +16,14 @@ const TimeLineComponent = ({
         radius="xs"
         active={data.length + 1}
         lineWidth={1}
-        bulletSize={16}
+        bulletSize={data[0].icon ? 32 : 16}
       >
         {data.map((item, idx) => (
           <Timeline.Item
-            bullet
+            bullet={item.icon? item.icon: <></>}
             key={idx}
             title={item.title}
-            className="font-poppins text-lg font-medium !text-[#333333] xl:text-xl 2xl:text-2xl"
+            className={`font-poppins ${item.icon?'pt-1.5':''} text-lg font-medium !text-[#333333] xl:text-xl 2xl:text-2xl`}
           >
             <Text
               ff={'var(--font-poppins)'}
