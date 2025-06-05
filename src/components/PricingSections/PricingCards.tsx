@@ -159,14 +159,14 @@ const PricingCards = () => {
                 whileInView="visible"
                 viewport={{ once: true }}
                 transition={{ delay: (index + 1) * 0.6 }}
-                className="flex flex-row-reverse items-start justify-end gap-x-4 py-2"
+                className="flex lg:flex-row-reverse items-start lg:justify-end gap-x-4 py-2"
               >
                 <CheckCircle className="text-primary-400 flex-shrink-0 rounded-md text-xl" />
                 <Title
                   order={2}
                   ff={'var(--font-poppins)'}
                   c="#333333"
-                  className="text-end capitalize lg:!max-w-xs xl:!max-w-sm 2xl:!max-w-md"
+                  className="lg:text-end capitalize lg:!max-w-xs xl:!max-w-sm 2xl:!max-w-md"
                 >
                   <div className="mb-0.5 text-lg font-medium xl:text-xl 2xl:text-2xl">
                     {item.title}

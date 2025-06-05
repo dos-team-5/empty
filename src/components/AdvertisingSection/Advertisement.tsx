@@ -157,7 +157,7 @@ const Advertisement = () => {
               priority
             />
           </motion.div>
-          <AnimatedTestimonials testimonials={testimonials} />
+          <AnimatedTestimonials autoplay testimonials={testimonials} />
           {/* <div className="mt-4 flex flex-col gap-4 md:mt-6">
             {[
               {

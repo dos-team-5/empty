@@ -29,6 +29,15 @@ body {
   background: var(--mantine-color-gray-6); /* Scrollbar thumb hover color */
 }
 
+.mantine-Stepper-separator {
+  display: none;
+}
+
+.mantine-Stepper-stepBody {
+  margin-left: 0;
+  margin-right: 12px;
+}
+
 @theme inline {
   /* Accent colors */
   --color-primary: var(--mantine-primary-color-5);
