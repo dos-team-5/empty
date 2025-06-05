@@ -219,7 +219,7 @@ const cards = [
   },
   {
     title: 'Any sized fleet, as per your needs.',
-    src: '/31.jpg',
+    src: '/32.jpg',
     content: () => {
       return (
         <p>

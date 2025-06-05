@@ -109,7 +109,7 @@ const DriveHeroSection: React.FC = () => {
     //   </Box>
     // </Box>
 
-    <Box className="relative h-dvh overflow-hidden">
+    <Box className="relative min-h-dvh overflow-hidden">
       <Box className="flex h-full w-full flex-col items-start justify-start gap-12 px-4 pt-20 sm:px-8 md:px-16 lg:mt-0 lg:flex-row lg:items-center lg:justify-between lg:gap-0 lg:px-20 xl:px-24 2xl:px-32">
         <Stack className="w-full lg:w-[55%]">
           <Title

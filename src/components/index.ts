@@ -18,6 +18,7 @@ import HeroCar from './Icons/HeroCar';
 import QuestionSection from './QuestionSection';
 import TimelineSectionAd from './TimelineSectionAd';
 import TimelineSectionDrive from './TimelineSectionDrive';
+import { TextReveal } from './TextReveal';
 
 export {
   ToggleModeSwitch,
@@ -40,4 +41,5 @@ export {
   QuestionSection,
   TimelineSectionAd,
   TimelineSectionDrive,
+  TextReveal,
 };

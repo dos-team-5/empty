@@ -9,7 +9,7 @@ const data = [
     desc: (
       <>
         Register on our platform.
-        <br /> <br />
+        <br />
         <Anchor variant="text" size='md' className="underline">
           Sign up now
         </Anchor>
