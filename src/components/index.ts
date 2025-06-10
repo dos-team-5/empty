@@ -19,6 +19,7 @@ import QuestionSection from './QuestionSection';
 import TimelineSectionAd from './TimelineSectionAd';
 import TimelineSectionDrive from './TimelineSectionDrive';
 import { TextReveal } from './TextReveal';
+import { TextRevealByWord } from './TextRevealByWord';
 
 export {
   ToggleModeSwitch,
@@ -42,4 +43,5 @@ export {
   TimelineSectionAd,
   TimelineSectionDrive,
   TextReveal,
+  TextRevealByWord,
 };

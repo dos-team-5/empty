@@ -7,26 +7,35 @@
 html,
 body {
   font-family: var(--font-poppins);
-  overflow: visible !important; /* Ensure scrollbar is always visible */
-  scrollbar-width: auto; /* Firefox */
-  scrollbar-color: var(--mantine-color-gray-4) var(--mantine-color-white); /* Firefox */
+  overflow: visible !important;
+  /* Ensure scrollbar is always visible */
+  scrollbar-width: auto;
+  /* Firefox */
+  scrollbar-color: var(--mantine-color-gray-4) var(--mantine-color-white);
+  /* Firefox */
 }
 
+
+
 ::-webkit-scrollbar {
-  width: 12px; /* Scrollbar width for WebKit browsers */
+  width: 12px;
+  /* Scrollbar width for WebKit browsers */
 }
 
 ::-webkit-scrollbar-track {
-  background: var(--mantine-color-white); /* Scrollbar track color */
+  background: var(--mantine-color-white);
+  /* Scrollbar track color */
 }
 
 ::-webkit-scrollbar-thumb {
-  background: var(--mantine-color-gray-4); /* Scrollbar thumb color */
+  background: var(--mantine-color-gray-4);
+  /* Scrollbar thumb color */
   border-radius: 6px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--mantine-color-gray-6); /* Scrollbar thumb hover color */
+  background: var(--mantine-color-gray-6);
+  /* Scrollbar thumb hover color */
 }
 
 .mantine-Stepper-separator {
@@ -53,35 +62,33 @@ body {
   --color-primary-900: var(--mantine-primary-color-9);
 
   /* Default styling colors */
-  --color-text: var(--mantine-color-text); /* Text color for body elements */
-  --color-body: var(--mantine-color-body); /* Background color for body */
-  --color-error: var(
-    --mantine-color-error
-  ); /* Color for error messages and states */
-  --color-placeholder: var(
-    --mantine-color-placeholder
-  ); /* Color for input placeholders */
-  --color-dimmed: var(--mantine-color-dimmed); /* Color for dimmed text */
-  --color-bright: var(--mantine-color-bright); /* Color for bright text */
-  --color-anchor: var(--mantine-color-anchor); /* Color for links */
-  --color-default: var(
-    --mantine-color-default
-  ); /* Background color of default variant */
-  --color-default-hover: var(
-    --mantine-color-default-hover
-  ); /* Background color of default variant on hover */
-  --color-default-color: var(
-    --mantine-color-default-color
-  ); /* Text color of default variant */
-  --color-default-border: var(
-    --mantine-color-default-border
-  ); /* Border color of default variant */
+  --color-text: var(--mantine-color-text);
+  /* Text color for body elements */
+  --color-body: var(--mantine-color-body);
+  /* Background color for body */
+  --color-error: var(--mantine-color-error);
+  /* Color for error messages and states */
+  --color-placeholder: var(--mantine-color-placeholder);
+  /* Color for input placeholders */
+  --color-dimmed: var(--mantine-color-dimmed);
+  /* Color for dimmed text */
+  --color-bright: var(--mantine-color-bright);
+  /* Color for bright text */
+  --color-anchor: var(--mantine-color-anchor);
+  /* Color for links */
+  --color-default: var(--mantine-color-default);
+  /* Background color of default variant */
+  --color-default-hover: var(--mantine-color-default-hover);
+  /* Background color of default variant on hover */
+  --color-default-color: var(--mantine-color-default-color);
+  /* Text color of default variant */
+  --color-default-border: var(--mantine-color-default-border);
+  /* Border color of default variant */
 
   --font-poppins: 'Poppins', sans-serif;
 
   --animate-slide-in: slide-in 0.15s ease-in-out;
-  --animate-shimmer-slide: shimmer-slide var(--speed) ease-in-out infinite
-    alternate;
+  --animate-shimmer-slide: shimmer-slide var(--speed) ease-in-out infinite alternate;
   --animate-spin-around: spin-around calc(var(--speed) * 2) infinite linear;
   --animate-infinite-tilt: infinite-tilt 2s ease-in-out infinite;
 
@@ -89,6 +96,7 @@ body {
     0% {
       transform: translateX(-100%);
     }
+
     100% {
       transform: translateX(0);
     }
@@ -99,18 +107,22 @@ body {
       transform: translate(calc(100cqw - 100%), 0);
     }
   }
+
   @keyframes spin-around {
     0% {
       transform: translateZ(0) rotate(0);
     }
+
     15%,
     35% {
       transform: translateZ(0) rotate(90deg);
     }
+
     65%,
     85% {
       transform: translateZ(0) rotate(270deg);
     }
+
     100% {
       transform: translateZ(0) rotate(360deg);
     }
@@ -122,11 +134,13 @@ body {
       opacity: 0.7;
       inset: -1px;
     }
+
     50% {
       transform: translate(2px, 2px) rotate(1deg);
       opacity: 1;
       inset: -7px;
     }
+
     100% {
       transform: translate(0, 0) rotate(0deg);
       opacity: 0.7;
