@@ -56,7 +56,7 @@ const whatToExpectItems = [
 export const EarnByDrivingSection: FC = () => {
   return (
     <div className="font-sans">
-      <div className="mx-auto max-w-4xl px-4 py-16 sm:px-6 sm:py-24 lg:px-8">
+      <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
         {/* Header Section */}
         <div className="mb-6 text-left sm:mb-6">
           <Title

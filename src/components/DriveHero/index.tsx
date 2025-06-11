@@ -110,7 +110,7 @@ const DriveHeroSection: React.FC = () => {
     // </Box>
 
     <Box className="relative min-h-dvh overflow-hidden">
-      <Box className="flex h-full w-full flex-col items-start justify-start gap-12 px-4 pt-20 sm:px-8 md:px-16 lg:mt-0 lg:flex-row lg:items-center lg:justify-between lg:gap-0 lg:px-20 xl:px-24 2xl:px-32">
+      <Box className="flex h-full w-full flex-col items-start justify-start gap-12 px-4 pt-20 sm:px-8 md:px-16 lg:mt-0 lg:flex-row lg:items-center lg:justify-between lg:gap-4 lg:px-20 xl:px-24 2xl:px-32">
         <Stack className="w-full lg:w-[55%]">
           <Title
             order={1}
@@ -144,12 +144,12 @@ const DriveHeroSection: React.FC = () => {
 
           <Title
             order={2}
-            fw={700}
+            fw={500}
             c="#5E5E5E"
             ff={'var(--font-poppins)'}
             className="capitalize"
           >
-            <TextAnimate
+            {/* <TextAnimate
               animation="blurInUp"
               by="word"
               startOnView
@@ -157,28 +157,56 @@ const DriveHeroSection: React.FC = () => {
               delay={1}
               className="text-lg md:text-2xl lg:text-xl xl:text-2xl 2xl:text-3xl"
               once
+            > */}
+
+            <TextAnimate
+              animation="blurInUp"
+              by="word"
+              startOnView
+              duration={0.5}
+              delay={1}
+              className="text-lg md:text-2xl lg:text-xl xl:text-lg 2xl:text-3xl"
+              once
             >
               Join our platform and earn up to 300$ per month with no extra
               effort.
             </TextAnimate>
+            {/* <TextAnimate
+              animation="blurInUp"
+              by="word"
+              startOnView
+              duration={0.5}
+              delay={1.5}
+              className="pt-6 text-lg md:text-2xl lg:text-xl xl:text-2xl 2xl:text-3xl"
+              once
+            > */}
             <TextAnimate
               animation="blurInUp"
               by="word"
               startOnView
               duration={0.5}
               delay={1.5}
-              className="text-lg md:text-2xl lg:text-xl xl:text-2xl 2xl:text-3xl"
+              className="pt-6 text-lg md:text-2xl lg:text-xl xl:text-lg 2xl:text-3xl"
               once
             >
               Simply drive your typical routes and hours,
             </TextAnimate>
-            <TextAnimate
+            {/* <TextAnimate
               animation="blurInUp"
               by="word"
               startOnView
               duration={0.5}
               delay={2}
               className="text-lg md:text-2xl lg:text-xl xl:text-2xl 2xl:text-3xl"
+              once
+            > */}
+            <TextAnimate
+              animation="blurInUp"
+              by="word"
+              startOnView
+              duration={0.5}
+              delay={2}
+              className="pt-6 text-lg md:text-2xl lg:text-xl xl:text-lg 2xl:text-3xl"
               once
             >
               with an advertisement decal on your front doors.
@@ -204,11 +232,12 @@ const DriveHeroSection: React.FC = () => {
             </Box>
           </motion.div>
         </Stack>
-        <div className="w-full overflow-hidden rounded-xl bg-[#e9c8dd] p-2 lg:w-[45%]">
+        <div className="w-full overflow-hidden lg:w-[45%]">
           <motion.div
             initial={{ x: '100%', opacity: 0 }}
             animate={{ x: '0%', opacity: 1 }}
             transition={{ duration: 2 }}
+            className="rounded-xl bg-[#e9c8dd] p-2"
           >
             <Image
               src={'/DriveHeroImage.jpg'}
