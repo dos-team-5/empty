@@ -1,13 +1,19 @@
 import type { Metadata } from 'next';
-import { Poppins } from 'next/font/google';
+import { Inter, Sora } from 'next/font/google';
 import '@mantine/core/styles.css';
 import './globals.css';
 import { Providers } from '@/providers';
 import { Box, ColorSchemeScript, mantineHtmlProps } from '@mantine/core';
 import { Footer, Navbar } from '@/components';
 
-const poppins = Poppins({
+const poppins = Sora({
   variable: '--font-poppins',
+  subsets: ['latin'],
+  weight: ['100', '200', '300', '400', '500', '600', '700', '800'],
+  display: 'swap',
+});
+const inter = Inter({
+  variable: '--font-inter',
   subsets: ['latin'],
   weight: ['100', '200', '300', '400', '500', '600', '700', '800', '900'],
   display: 'swap',
@@ -36,7 +42,7 @@ export default function RootLayout({
         />
       </head>
       <body
-        className={`${poppins.variable} relative overflow-clip antialiased`}
+        className={`${poppins.variable} ${inter.variable} relative overflow-clip antialiased`}
       >
         <Providers>
           <Box maw={2000} mx={'auto'} className="">
