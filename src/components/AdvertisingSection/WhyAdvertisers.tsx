@@ -45,9 +45,9 @@ const CheckIcon: FC<{ className?: string }> = ({ className }) => (
 // Data for the feature cards with absolute positioning classes
 const features = [
   {
-    title: 'Trackable, Transparent, and Flexible',
+    title: 'Bigger Reach, Smaller Cost',
     description:
-      'We provide live tracking and weekly analytics. You can adjust your fleet size or creative mid-campaign, giving you digital-level control in a physical space.',
+      'We offer record-breaking CPM with more hours of weekly exposure across the city. Traditional OOH can’t compete on value, scale, or flexibility.',
     animation: {
       initial: { opacity: 0, x: -50, y: -50 },
       whileInView: { opacity: 1, x: -120, y: 0 },
@@ -65,9 +65,9 @@ const features = [
     position: 'top-0 right-0', // Positioned top-right
   },
   {
-    title: 'Trackable, Transparent, and Flexible',
+    title: 'Mobile Coverage & High Visibility',
     description:
-      'We provide live tracking and weekly analytics. You can adjust your fleet size or creative mid-campaign, giving you digital-level control in a physical space.',
+      'Each vehicle gives you 40+ hours a week across commercial, residential, and high-traffic zones. We give you city-wide coverage at an unbeatable price. Our ads travel directly to where your customers are.',
     animation: {
       initial: { opacity: 0, x: -50, y: 50 },
       whileInView: { opacity: 1, x: -40, y: 90 },
@@ -75,9 +75,9 @@ const features = [
     position: 'bottom-0 left-0', // Positioned bottom-left
   },
   {
-    title: 'Trackable, Transparent, and Flexible',
+    title: 'Attribution & Digital Retargetting',
     description:
-      'We provide live tracking and weekly analytics. You can adjust your fleet size or creative mid-campaign, giving you digital-level control in a physical space.',
+      'Scan&Spin brings real attribution to out-of-home. Know exactly who engaged with your ad, track future conversions, and retarget them online at a lower cost than digital CPCs.',
     animation: {
       initial: { opacity: 0, x: 50, y: 50 },
       whileInView: { opacity: 1, x: 40, y: 90 },

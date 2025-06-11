@@ -124,7 +124,7 @@ const DriveHeroSection: React.FC = () => {
               by="word"
               startOnView
               duration={0.5}
-              className="md:text-[52px] lg:text-[48px] xl:text-[52px] 2xl:text-[64px]"
+              className="md:text-[52px] lg:text-[48px] xl:text-[42px] 2xl:text-[64px]"
               once
             >
               Earn extra monthly income.
@@ -135,7 +135,7 @@ const DriveHeroSection: React.FC = () => {
               startOnView
               duration={0.5}
               delay={0.5}
-              className="md:text-[52px] lg:text-[48px] xl:text-[52px] 2xl:text-[64px]"
+              className="md:text-[52px] lg:text-[40px] xl:text-[42px] 2xl:text-[46px]"
               once
             >
               Drive as you normally do.
@@ -146,7 +146,7 @@ const DriveHeroSection: React.FC = () => {
             order={2}
             fw={500}
             c="#5E5E5E"
-            ff={'var(--font-poppins)'}
+            ff={'var(--font-inter)'}
             className="capitalize"
           >
             {/* <TextAnimate
@@ -168,7 +168,7 @@ const DriveHeroSection: React.FC = () => {
               className="text-lg md:text-2xl lg:text-xl xl:text-lg 2xl:text-3xl"
               once
             >
-              Join our platform and earn up to 300$ per month with no extra
+              Join our platform and earn up to 200$ per month with no extra
               effort.
             </TextAnimate>
             {/* <TextAnimate

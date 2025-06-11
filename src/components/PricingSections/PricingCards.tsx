@@ -19,9 +19,9 @@ import { CheckCircle } from 'lucide-react';
 // Features data
 const features = [
   {
-    title: '2–5x Better CPM Than Billboards',
+    title: 'Start with a Single Car, Completely Scalable',
     description:
-      'Turn one car into 200,000+ impressions a month. Our door-side ads crush billboards on cost, reach, and visibility.',
+      'Get results with a single car. Not only do we offer better CPM than all competition, we offer no barrier to entry. See the results, then scale as slow or as fast as you want.',
   },
   {
     title: 'Complete Month-to-Month Flexibility',
@@ -43,9 +43,9 @@ const features = [
       'Your message moves through high-traffic areas all day, every day. Our driving partners are full-time.',
   },
   {
-    title: 'Start with a Single Car, Completely Scalable',
+    title: '2–5x Better CPM Than Billboards',
     description:
-      'Get results with a single car. Not only do we offer better CPM than all competition, we offer no barrier to entry. See the results, then scale as slow or as fast as you want.',
+      'Turn one car into 200,000+ impressions a month. Our door-side ads crush billboards on cost, reach, and visibility.',
   },
 ];
 
@@ -64,6 +64,7 @@ const TitleSection = memo(() => (
       c="#333333"
       ff={'var(--font-poppins)'}
       className="capitalize"
+      ta="center"
     >
       <TextAnimate
         animation="blurInUp"
@@ -150,7 +151,7 @@ const PricingCards = () => {
         <TitleSection />
         <div className="flex flex-col lg:flex-row lg:gap-8 xl:gap-12">
           {/* Left Features (Desktop: Left Column, Mobile: Top) */}
-          <div className="mt-4 flex flex-col gap-4 md:mt-6 lg:w-1/3">
+          <div className="flex flex-col gap-4 lg:w-1/3">
             {leftFeatures.map((item, index) => (
               <motion.div
                 key={item.title}
@@ -159,19 +160,19 @@ const PricingCards = () => {
                 whileInView="visible"
                 viewport={{ once: true }}
                 transition={{ delay: (index + 1) * 0.6 }}
-                className="flex lg:flex-row-reverse items-start lg:justify-end gap-x-4 py-2"
+                className="bg-primary-50/50 flex w-full max-w-xs items-start gap-x-4 rounded-lg p-3 py-2 shadow-lg ring-1 ring-gray-900/5 backdrop-blur-sm lg:flex-row-reverse"
               >
                 <CheckCircle className="text-primary-400 flex-shrink-0 rounded-md text-xl" />
                 <Title
                   order={2}
                   ff={'var(--font-poppins)'}
                   c="#333333"
-                  className="lg:text-end capitalize lg:!max-w-xs xl:!max-w-sm 2xl:!max-w-md"
+                  className="capitalize lg:!max-w-xs lg:text-end xl:!max-w-sm 2xl:!max-w-md"
                 >
-                  <div className="mb-0.5 text-lg font-medium xl:text-xl 2xl:text-2xl">
+                  <div className="mb-0.5 text-lg font-medium xl:text-[17px] 2xl:text-2xl">
                     {item.title}
                   </div>
-                  <div className="text-base font-normal text-[#5E5E5E] xl:text-lg 2xl:text-xl">
+                  <div className="text-base font-normal text-[#5E5E5E] xl:text-[12px] 2xl:text-xl">
                     {item.description}
                   </div>
                 </Title>
@@ -259,7 +260,7 @@ const PricingCards = () => {
           </Box>
 
           {/* Right Features (Desktop: Right Column, Mobile: Bottom) */}
-          <div className="mt-4 flex flex-col gap-4 md:mt-6 lg:w-1/3">
+          <div className="flex flex-col gap-4 lg:w-1/3">
             {rightFeatures.map((item, index) => (
               <motion.div
                 key={item.title}
@@ -268,7 +269,7 @@ const PricingCards = () => {
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: (index + leftFeatures.length + 1) * 0.6 }}
-                className="flex items-start justify-start gap-x-4 py-2"
+                className="bg-primary-50/50 flex w-full max-w-xs items-start justify-start gap-x-4 rounded-lg p-6 py-2 shadow-lg ring-1 ring-gray-900/5 backdrop-blur-sm"
               >
                 <CheckCircle className="text-primary-400 flex-shrink-0 rounded-md text-xl" />
                 <Title
@@ -277,10 +278,10 @@ const PricingCards = () => {
                   c="#333333"
                   className="text-start capitalize lg:!max-w-xs xl:!max-w-sm 2xl:!max-w-md"
                 >
-                  <div className="mb-0.5 text-lg font-medium xl:text-xl 2xl:text-2xl">
+                  <div className="mb-0.5 text-lg font-medium xl:text-[16px] 2xl:text-2xl">
                     {item.title}
                   </div>
-                  <div className="text-base font-normal text-[#5E5E5E] xl:text-lg 2xl:text-xl">
+                  <div className="text-base font-normal text-[#5E5E5E] xl:text-[12px] 2xl:text-xl">
                     {item.description}
                   </div>
                 </Title>

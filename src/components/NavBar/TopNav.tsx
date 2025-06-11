@@ -64,7 +64,7 @@ const TopNav = () => {
                 {typeof link.label === 'string' ? (
                   <Link
                     href={link.href}
-                    className="text-text hover:text-primary-400 mx-1 hidden !text-base font-medium duration-150 group-hover:opacity-50 hover:opacity-100 lg:block"
+                    className="text-text hover:text-primary-400 mx-1 hidden !text-sm font-medium duration-150 group-hover:opacity-50 hover:opacity-100 lg:block"
                   >
                     {link.label}
                   </Link>

@@ -13,6 +13,13 @@ import {
   Tag,
 } from 'lucide-react';
 
+const handleSignUpClick = () => {
+  const target = document.querySelector('#signUpDriver');
+  if (target) {
+    target.scrollIntoView({ behavior: 'smooth' });
+  }
+};
+
 const data = [
   {
     title: 'Sign up online',
@@ -20,7 +27,12 @@ const data = [
       <>
         Register on our platform.
         <br />
-        <Anchor variant="text" size="md" className="underline">
+        <Anchor
+          variant="text"
+          size="md"
+          className="underline"
+          onClick={handleSignUpClick}
+        >
           Sign up now
         </Anchor>
       </>
@@ -59,7 +71,7 @@ const data = [
   },
   {
     title: 'Monthly Payment',
-    desc: 'Get paid up to $300 at the end of each month during your campaign.',
+    desc: 'Get paid up to $200 at the end of each month during your campaign.',
     icon: <Calendar1 size={24} />,
   },
 ];

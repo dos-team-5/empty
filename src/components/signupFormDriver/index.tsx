@@ -1,6 +1,6 @@
 'use client';
 import React from 'react';
-import { Box, Stack, Text } from '@mantine/core';
+import { Box, Stack, Title } from '@mantine/core';
 import { memo } from 'react';
 import Steppers from './Steppers';
 import { EarnByDrivingSection } from './EarnByDrivingSection';
@@ -29,13 +29,13 @@ const DriverSignupSection: React.FC = () => {
             {/* Render memoized title section */}
             <Stack>
               <Stack maw={690} px={30}>
-                <Text ta="center" fw="500" fz={{ base: 25, md: 30 }}>
-                  Sign Up
-                </Text>
-                <Text fz={15} px={{ base: 0, md: 30 }}>
-                  Lorem ipsum dolor sit amet consectetur. Scelerisque neque
-                  euismod ut id mauris varius. Ut odio velit pharetra ipsum est
-                </Text>
+                <Title
+                  order={1}
+                  className="!mb-6 text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl"
+                  ta="center"
+                >
+                  <span className="">Sign Up</span>
+                </Title>
               </Stack>
               <div className="mt-2 w-full max-w-[690] rounded-4xl p-4 !shadow-[20px_20px_60px_#bebebe,-20px_-20px_60px_#080F340F] md:mt-8 md:p-8 lg:mt-0 lg:w-full">
                 <Steppers />

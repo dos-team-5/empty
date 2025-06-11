@@ -29,8 +29,8 @@ const schema = z.object({
     .regex(/^\d{4}$/, 'Vehicle year must be a 4-digit number'),
   vehiclePhotos: z
     .array(z.instanceof(File))
-    .min(2, 'Please upload both front and side vehicle photos')
-    .max(4, 'Only front and side vehicle photos are allowed'),
+    .min(2, 'Please upload both front, side and back vehicle photos')
+    .max(4, 'Only front, side and back vehicle photos are allowed'),
   ridesharePlatforms: z
     .array(z.string())
     .min(1, 'At least one rideshare platform is required'),
@@ -268,7 +268,7 @@ const Step1_DriverInformation = ({
         </SimpleGrid>
 
         <Input.Wrapper
-          label="Vehicle Photos (Front and Side)"
+          label="Vehicle Photos (Front, Side and Back)"
           withAsterisk
           error={form.errors.vehiclePhotos}
           className="font-inter text-xs font-normal text-[#5E6366]"

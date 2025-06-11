@@ -23,14 +23,14 @@ const TimeLineComponent = ({
             bullet={item.icon ? item.icon : <></>}
             key={idx}
             title={item.title}
-            className={`font-poppins ${item.icon ? 'pt-1.5' : ''} text-lg font-semibold !text-[#333333] xl:text-xl 2xl:text-2xl`}
+            className={`font-poppins ${item.icon ? 'pt-1.5' : ''} text-lg !font-bold !text-[#333333] xl:text-xl 2xl:text-2xl`}
             lineVariant="dashed"
           >
             <Text
               ff={'var(--font-poppins)'}
               fw={400}
               c="#333333"
-              className="!text-base xl:!text-lg 2xl:!text-xl"
+              className="!font-inter !text-base !text-gray-500 xl:!text-sm 2xl:!text-xl"
             >
               {item.desc}
             </Text>

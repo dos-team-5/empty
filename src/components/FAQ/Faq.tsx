@@ -9,33 +9,43 @@ import { Minus, Plus } from 'lucide-react';
 const faqData = [
   {
     id: 'reset-password',
-    question: 'How can I reset my password?',
+    question: 'How do I know my rideshare ads are being seen?',
     answer:
-      'To reset your password, click on the "Forgot Password" link on the login page. You will receive an email with instructions to create a new password. Follow the link in the email to set up a new password for your account.',
+      'We provide complete ad visibility tracking for your rideshare advertising campaign. With real-time GPS tracking, weekly ride activity reports, and photo confirmations from drivers, you’ll know your ads are live and in motion. Plus, our detailed analytics report includes impression estimates, heatmaps, and zone-based reach, giving you full transparency into your out-of-home (OOH) ad performance.',
   },
   {
     id: 'another-account',
-    question: 'Can I create more than one account?',
+    question:
+      'Is there a minimum number of vehicles to start a rideshare advertising campaign?',
     answer:
-      'Yes, you can create multiple accounts using different email addresses. Each account will be treated separately and will have its own settings, history, and preferences.',
+      'EMPTY was built to make OOH advertising accessible for businesses of all sizes. Campaigns can typically start with just 5 vehicles, and we welcome smaller pilots, perfect for local or regional businesses with limited ad budgets. Our low entry cost and scalable fleet model make mobile advertising easy to test, launch, and grow.',
   },
-  {
-    id: 'newsletter',
-    question: 'How can I subscribe to the monthly newsletter?',
-    answer:
-      'You can subscribe to our monthly newsletter by visiting your account settings and checking the "Subscribe to newsletter" option. Alternatively, you can enter your email in the subscription box at the bottom of our homepage.',
-  },
+
   {
     id: 'credit-card',
-    question: 'Do you store credit card information securely?',
+    question: 'How quickly can I launch a rideshare advertising campaign?',
     answer:
-      'Yes, we take security very seriously. We do not store your full credit card details on our servers. We use industry-standard encryption and secure payment processors to handle all transactions, ensuring your financial information remains protected.',
+      'Your campaign can be up and running in as little as 5–10 business days. Once you upload your ad creative and complete checkout, we handle the printing, shipping, and driver coordination. EMPTY makes launching an OOH campaign faster and easier than traditional billboard advertising.',
   },
   {
     id: 'payment',
-    question: 'What payment systems do you work with?',
+    question: 'Can I A/B test ad creatives in my OOH campaign?',
     answer:
-      'We accept major credit cards (Visa, Mastercard, American Express), PayPal, and Apple Pay. In select regions, we also support bank transfers and other local payment methods. All payment processing is handled through secure, encrypted connections.',
+      'Yes. Our platform lets you run multiple creatives across your rideshare fleet to A/B test your messaging. You can also add or remove vehicles based on performance or targeting needs. EMPTY gives you the flexibility to optimize your mobile OOH campaign like a digital media buy.',
+  },
+  {
+    id: 'digitalMarketting',
+    question:
+      'Can I combine EMPTY with my digital marketing or retargeting strategy?',
+    answer:
+      'Absolutely. EMPTY integrates seamlessly with digital marketing by acting as a real-world amplifier for your online campaigns. Our exclusive Scan&Spin feature captures verified engagement data from people who interact with your ad, enabling precise retargeting through device IDs across digital channels. It’s a powerful way to connect offline visibility with online conversion',
+  },
+  {
+    id: 'commitment',
+    question:
+      'Is there a contract or long-term commitment for advertising with EMPTY?',
+    answer:
+      'No long-term commitment is required. Our rideshare advertising campaigns run month-to-month, giving you full control. You can renew, scale, pause, or adjust your campaign at the end of any billing cycle. No sales pressure, no hidden fees.',
   },
 ];
 
@@ -129,9 +139,9 @@ const Faq = memo(() => {
               className="border-primary-500 !border-b"
             >
               <Accordion.Item value={item.id}>
-                <Accordion.Control pr={0}>
+                <Accordion.Control pr={0} className="hover:!bg-primary-50/80">
                   <Box
-                    className="flex !h-full items-center justify-between text-lg font-medium text-[#333333] xl:text-xl 2xl:text-2xl"
+                    className="font-poppins flex !h-full items-center justify-between text-lg font-medium text-[#333333] xl:text-xl 2xl:text-2xl"
                     style={{ width: '100%' }}
                   >
                     {item.question}
@@ -146,7 +156,9 @@ const Faq = memo(() => {
                     )}
                   </Box>
                 </Accordion.Control>
-                <Accordion.Panel>{item.answer}</Accordion.Panel>
+                <Accordion.Panel className="font-inter">
+                  {item.answer}
+                </Accordion.Panel>
               </Accordion.Item>
             </motion.div>
           ))}

@@ -1,7 +1,6 @@
 'use client';
 import React from 'react';
 import { Title, Box } from '@mantine/core';
-import { ExpandableCardDemo } from './ExpandableCards';
 import { TextAnimate } from '../TextAnimation';
 
 const FeatureSection: React.FC = () => {
@@ -18,7 +17,7 @@ const FeatureSection: React.FC = () => {
       <Box
         maw={1800}
         mx={'auto'}
-        className="px-4 mt-16 sm:px-8 md:px-16 lg:px-20 2xl:py-16 xl:px-24 2xl:px-32"
+        className="mt-16 px-4 sm:px-8 md:px-16 lg:px-20 xl:px-24 2xl:px-32 2xl:py-16"
       >
         <div className="my-8 flex items-center md:my-12">
           <Title
@@ -26,13 +25,15 @@ const FeatureSection: React.FC = () => {
             fw={700}
             ff={'var(--font-poppins)'}
             className="text-start capitalize"
+            mx="auto"
+            ta="center"
           >
             <TextAnimate
               animation="blurInUp"
               by="word"
               startOnView
               duration={0.5}
-              className="md:text-[52px] lg:text-[48px] xl:text-[52px] 2xl:text-[64px]"
+              className="text-[30px] md:text-[52px] lg:text-[48px] xl:text-[52px] 2xl:text-[64px]"
               once
             >
               Billboards Don’t Move,
@@ -44,7 +45,7 @@ const FeatureSection: React.FC = () => {
               startOnView
               duration={0.5}
               delay={1}
-              className="md:text-[52px] lg:text-[48px] xl:text-[52px] 2xl:text-[64px]"
+              className="text-[30px] md:text-[52px] lg:text-[48px] xl:text-[52px] 2xl:text-[64px]"
               once
             >
               Your Customers Do.
@@ -52,7 +53,7 @@ const FeatureSection: React.FC = () => {
           </Title>
         </div>
 
-        <ExpandableCardDemo />
+        {/* <ExpandableCardDemo /> */}
       </Box>
     </Box>
   );

@@ -7,6 +7,7 @@ import { TextAnimate } from '../TextAnimation';
 import { motion } from 'motion/react';
 import { useMediaQuery } from '@mantine/hooks';
 import HeroCar from '../Icons/HeroCar';
+import SecondaryButton from '../toggleModeSwitch/SecondaryButton';
 
 const HeroSection: React.FC = () => {
   const md = useMediaQuery('(min-width: 768px)');
@@ -63,7 +64,7 @@ const HeroSection: React.FC = () => {
                 by="word"
                 startOnView
                 duration={0.5}
-                className="md:text-[52px] lg:text-[48px] xl:text-[52px] 2xl:text-[64px]"
+                className="md:text-[52px] lg:text-[48px] xl:text-[48px] 2xl:text-[64px]"
                 once
               >
                 Advertise on rideshare vehicles
@@ -74,19 +75,20 @@ const HeroSection: React.FC = () => {
                 startOnView
                 duration={0.5}
                 delay={0.5}
-                className="md:text-[52px] lg:text-[48px] xl:text-[52px] 2xl:text-[64px]"
+                className="md:text-[52px] lg:text-[48px] xl:text-[48px] 2xl:text-[64px]"
                 once
               >
                 in high-traffic areas
               </TextAnimate>
             </Title>
-            <Space className="h-6 md:h-8" />
+            {/* <Space className="h-6 md:h-8" /> */}
             <Title
               order={2}
               fw={400}
               c="#000000"
               ff={'var(--font-inter)'}
               className="capitalize"
+              pt={10}
             >
               <TextAnimate
                 animation="blurInUp"
@@ -95,7 +97,7 @@ const HeroSection: React.FC = () => {
                 duration={0.5}
                 delay={1}
                 once
-                className="text-lg md:text-2xl lg:text-xl xl:text-2xl 2xl:text-3xl"
+                className="text-[16px]"
               >
                 Unbeatable visibility and returns that
               </TextAnimate>
@@ -106,7 +108,7 @@ const HeroSection: React.FC = () => {
                 duration={0.5}
                 delay={1.5}
                 once
-                className="text-lg md:text-2xl lg:text-xl xl:text-2xl 2xl:text-3xl"
+                className="text-[16px]"
               >
                 stationary ads can’t match.
               </TextAnimate>
@@ -140,7 +142,8 @@ const HeroSection: React.FC = () => {
                 transition={{ duration: 0.4, delay: 2.4 }}
               >
                 <Link href={'/drive'}>
-                  <PrimaryBtn btnText="Drive" glowOnHover />
+                  {/* <PrimaryBtn type="outline" btnText="Drive" glowOnHover /> */}
+                  <SecondaryButton btnText="Drive" glowOnHover />
                 </Link>
               </motion.div>
             </Box>

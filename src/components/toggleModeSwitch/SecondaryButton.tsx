@@ -2,7 +2,7 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 
-interface PrimaryBtnProps {
+interface SecondaryButtonProps {
   btnText?: string;
   glow?: boolean;
   glowOnHover?: boolean;
@@ -10,13 +10,13 @@ interface PrimaryBtnProps {
   type?: string;
 }
 
-const PrimaryBtn = ({
+const SecondaryButton = ({
   type = 'outline',
   btnText = 'Primary btn',
   glow = false,
   glowOnHover = false,
   arrow = true,
-}: PrimaryBtnProps) => {
+}: SecondaryButtonProps) => {
   const [btnHovered, setBtnHovered] = useState(false);
 
   return (
@@ -42,7 +42,7 @@ const PrimaryBtn = ({
       </AnimatePresence>
 
       <div
-        className="bg-primary-400 hover:bg-primary-400 text-default border-primary-400 relative inline-flex items-center justify-center rounded-lg border-2 px-[25px] py-2.5 text-sm font-medium uppercase transition-all duration-200 md:text-base lg:text-sm xl:text-base 2xl:text-lg"
+        className="hover:bg-primary-400 text-primary-500 border-primary-400 relative flex items-center justify-center rounded-lg border-2 bg-transparent px-[25px] py-2.5 text-sm font-medium uppercase transition-all duration-200 hover:text-white md:text-base lg:text-sm xl:text-base 2xl:text-lg"
         role="button"
       >
         {btnText}
@@ -59,4 +59,4 @@ const PrimaryBtn = ({
   );
 };
 
-export default PrimaryBtn;
+export default SecondaryButton;
