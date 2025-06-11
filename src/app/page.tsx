@@ -18,9 +18,7 @@ export default function Home() {
       <TextRevealByWord className="">
         The Lowest CPM in OOH History
       </TextRevealByWord>
-      <Flex justify="center" align="center">
-        <PrimaryBtn btnText="Don’t Believe Us?" glowOnHover />
-      </Flex>
+     
       {/* <Advertisement /> */}
       <WhyChooseUsSection />
       <FeatureSection />

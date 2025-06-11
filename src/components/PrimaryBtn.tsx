@@ -42,7 +42,7 @@ const PrimaryBtn = ({
       </AnimatePresence>
 
       <div
-        className="bg-primary-400 hover:bg-primary-400 text-default border-primary-400 relative inline-flex items-center justify-center rounded-lg border-2 px-[25px] py-2.5 text-sm font-medium uppercase transition-all duration-200 md:text-base lg:text-sm xl:text-base 2xl:text-lg"
+        className="bg-primary-400 hover:bg-primary-400 text-default border-primary-400 relative inline-flex items-center justify-center rounded-lg border-2 px-[25px] py-3 text-sm font-bold capitalize transition-all duration-200 "
         role="button"
       >
         {btnText}

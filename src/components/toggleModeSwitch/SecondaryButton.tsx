@@ -42,7 +42,7 @@ const SecondaryButton = ({
       </AnimatePresence>
 
       <div
-        className="hover:bg-primary-400 text-primary-500 border-primary-400 relative flex items-center justify-center rounded-lg border-2 bg-transparent px-[25px] py-2.5 text-sm font-medium uppercase transition-all duration-200 hover:text-white md:text-base lg:text-sm xl:text-base 2xl:text-lg"
+        className="hover:bg-primary-400 text-primary-500 border-primary-400 relative flex items-center justify-center rounded-lg border-2 bg-transparent px-[25px] py-3 text-sm font-medium capitalize transition-all duration-200 hover:text-white"
         role="button"
       >
         {btnText}
