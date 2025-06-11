@@ -23,6 +23,7 @@ export default function Home() {
       {/* <Advertisement /> */}
       <WhyChooseUsSection />
       <FeatureSection />
+
       <TimelineSectionAd />
       <PricingCards />
       <Faq />

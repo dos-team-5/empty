@@ -3,6 +3,7 @@
 import { motion } from 'framer-motion';
 import { FC, ReactNode } from 'react';
 import Image from 'next/image';
+import { Stack } from '@mantine/core';
 
 // --- Helper Components (Placeholders for your actual components) ---
 
@@ -91,7 +92,29 @@ export const WhyChooseUsSection: FC = () => {
   return (
     <section className="overflow-hidden py-16 sm:py-24">
       {/* Section Title */}
-      <Title
+      <Stack gap={10}>
+        <Title
+          order={1}
+          fw={700}
+          ff={'var(--font-poppins)'}
+          className="text-center"
+        >
+          <TextAnimate className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl md:text-5xl">
+            Why Advertisers
+          </TextAnimate>
+        </Title>
+        <Title
+          order={1}
+          fw={700}
+          ff={'var(--font-poppins)'}
+          className="pb-12 text-center"
+        >
+          <TextAnimate className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl md:text-5xl">
+            Choose EMPTY
+          </TextAnimate>
+        </Title>
+      </Stack>
+      {/* <Title
         order={1}
         fw={700}
         ff={'var(--font-poppins)'}
@@ -100,7 +123,7 @@ export const WhyChooseUsSection: FC = () => {
         <TextAnimate className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl md:text-5xl">
           Why Advertisers Choose EMPTY
         </TextAnimate>
-      </Title>
+      </Title> */}
 
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         {/* Main relative container for positioning */}
