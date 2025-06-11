@@ -97,6 +97,7 @@ const Steppers = () => {
       >
         {steppers.map((stepper, index) => (
           <Stepper.Step
+            w="25%"
             allowStepSelect={
               submissionStates[index] || stepper.id <= active + 1
             }

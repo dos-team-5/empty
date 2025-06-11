@@ -1,7 +1,13 @@
 import { Box, Title } from '@mantine/core';
 import { TextAnimate } from '../TextAnimation';
 import TimeLineComponent from '../TimeLineComponent';
-import { ChartNoAxesCombined, MapPin, RotateCw, ShoppingCart, Upload } from 'lucide-react';
+import {
+  ChartNoAxesCombined,
+  MapPin,
+  RotateCw,
+  ShoppingCart,
+  Upload,
+} from 'lucide-react';
 
 const data = [
   {
@@ -35,7 +41,7 @@ const TimelineSectionAd = () => {
   return (
     <Box className="relative mt-16 overflow-hidden">
       <Box
-        maw={1800}
+        maw={1000}
         mx={'auto'}
         className="px-4 sm:px-8 md:px-16 lg:px-20 xl:px-24 2xl:px-32"
       >
