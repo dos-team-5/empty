@@ -141,7 +141,7 @@ const PricingCards = () => {
   const rightFeatures = features.slice(Math.ceil(features.length / 2)); // Second half
 
   return (
-    <Box className="relative">
+    <Box className="relative" mb={140}>
       <Box
         maw={1800}
         mx="auto"
@@ -169,7 +169,7 @@ const PricingCards = () => {
                   c="#333333"
                   className="capitalize lg:!max-w-xs lg:text-end xl:!max-w-sm 2xl:!max-w-md"
                 >
-                  <div className="mb-0.5 text-lg font-medium xl:text-[17px] 2xl:text-2xl">
+                  <div className="mb-0.5 text-lg font-bold xl:text-[17px] 2xl:text-2xl">
                     {item.title}
                   </div>
                   <div className="text-base font-normal text-[#5E5E5E] xl:text-[12px] 2xl:text-xl">
@@ -278,7 +278,7 @@ const PricingCards = () => {
                   c="#333333"
                   className="text-start capitalize lg:!max-w-xs xl:!max-w-sm 2xl:!max-w-md"
                 >
-                  <div className="mb-0.5 text-lg font-medium xl:text-[16px] 2xl:text-2xl">
+                  <div className="mb-0.5 text-lg font-bold xl:text-[16px] 2xl:text-2xl">
                     {item.title}
                   </div>
                   <div className="text-base font-normal text-[#5E5E5E] xl:text-[12px] 2xl:text-xl">

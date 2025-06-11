@@ -27,10 +27,10 @@ const TimeLineComponent = ({
             lineVariant="dashed"
           >
             <Text
-              ff={'var(--font-poppins)'}
+              ff={'var(--font-inter)'}
               fw={400}
               c="#333333"
-              className="!font-inter !text-base !text-gray-500 xl:!text-sm 2xl:!text-xl"
+              className="!text-base !text-gray-500 xl:!text-sm 2xl:!text-xl"
             >
               {item.desc}
             </Text>

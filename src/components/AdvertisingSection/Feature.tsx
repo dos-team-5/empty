@@ -18,6 +18,7 @@ const FeatureSection: React.FC = () => {
         maw={1800}
         mx={'auto'}
         className="mt-16 px-4 sm:px-8 md:px-16 lg:px-20 xl:px-24 2xl:px-32 2xl:py-16"
+        mt={180}
       >
         <div className="my-8 flex items-center md:my-12">
           <Title

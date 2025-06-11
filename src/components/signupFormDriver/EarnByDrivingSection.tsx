@@ -59,12 +59,16 @@ export const EarnByDrivingSection: FC = () => {
         {/* Header Section */}
         <div className="mb-6 text-left sm:mb-6">
           <Title
+            ff={'var(--font-inter)'}
             order={1}
             className="!mb-6 text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl"
           >
             <span className="">Earn More Just by Driving!</span>
           </Title>
-          <Text className="max-w-2xl text-lg text-gray-600">
+          <Text
+            ff={'var(--font-inter)'}
+            className="max-w-2xl text-lg !text-gray-600"
+          >
             Ready to turn your everyday commute into passive income? We make it
             simple and secure to earn extra cash just by driving your car as
             usual.
@@ -72,7 +76,7 @@ export const EarnByDrivingSection: FC = () => {
         </div>
 
         {/* How It Works Section */}
-        <div className="mb-16 sm:mb-20">
+        <div className="mb-12">
           <Title
             order={2}
             className="!mb-8 text-2xl font-bold text-gray-900 sm:text-3xl"

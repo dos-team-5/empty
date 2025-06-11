@@ -39,7 +39,7 @@ const data = [
 
 const TimelineSectionAd = () => {
   return (
-    <Box className="relative mt-16 overflow-hidden">
+    <Box className="relative mt-16 overflow-hidden" mb={150}>
       <Box
         maw={1000}
         mx={'auto'}

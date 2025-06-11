@@ -23,7 +23,7 @@ const DriverSignupSection: React.FC = () => {
         className="px-4 pb-16 sm:px-8 md:px-16 lg:px-20 xl:px-24 2xl:px-32"
         id="signUpDriver"
       >
-        <Box className="flex flex-col justify-start">
+        <Box className="flex flex-col justify-start" mt={110} mb={50}>
           <Box className="relative flex flex-col items-center justify-center gap-8 lg:flex-row lg:items-start lg:justify-between">
             <TitleSection />
             {/* Render memoized title section */}
