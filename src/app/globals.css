@@ -86,6 +86,7 @@ body {
   /* Border color of default variant */
 
   --font-poppins: 'Poppins', sans-serif;
+  --font-inter: 'Inter', sans-serif;
 
   --animate-slide-in: slide-in 0.15s ease-in-out;
   --animate-shimmer-slide: shimmer-slide var(--speed) ease-in-out infinite alternate;

@@ -54,7 +54,7 @@ const HeroSection: React.FC = () => {
             <Title
               order={1}
               fw={700}
-              c="#333333"
+              c="#000000"
               ff={'var(--font-poppins)'}
               className="capitalize"
             >
@@ -83,9 +83,9 @@ const HeroSection: React.FC = () => {
             <Space className="h-6 md:h-8" />
             <Title
               order={2}
-              fw={700}
-              c="#5E5E5E"
-              ff={'var(--font-poppins)'}
+              fw={400}
+              c="#000000"
+              ff={'var(--font-inter)'}
               className="capitalize"
             >
               <TextAnimate
