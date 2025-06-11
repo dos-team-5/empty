@@ -61,7 +61,7 @@ const FeatureCard = () => {
       px={{ base: 15, md: 0 }}
     >
       {/* Column 1 */}
-      <Flex direction="column" gap={15}>
+      <Flex direction="column" w={{ base: '100%', md: '50%' }} gap={15}>
         {cardsColumn1.map((card) => (
           <div key={card.id} className="w-full items-start gap-4 md:gap-y-16">
             <div className="hover:bg-primary-50 flex min-h-[420px] cursor-pointer flex-col overflow-hidden rounded-lg bg-transparent p-4 !shadow-[20px_20px_60px_#bebebe,-20px_-20px_60px_#ffffff] transition-colors duration-150">
@@ -120,7 +120,7 @@ const FeatureCard = () => {
         ))}
       </Flex>
       {/* Column 2 */}
-      <Flex direction="column" gap={15}>
+      <Flex direction="column" w={{ base: '100%', md: '50%' }} gap={15}>
         {cardsColumn2.map((card) => (
           <div key={card.id} className="w-full items-start gap-4 md:gap-y-16">
             <div className="hover:bg-primary-50 flex min-h-[420px] cursor-pointer flex-col overflow-hidden rounded-lg bg-transparent p-4 !shadow-[20px_20px_60px_#bebebe,-20px_-20px_60px_#ffffff] transition-colors duration-150">
