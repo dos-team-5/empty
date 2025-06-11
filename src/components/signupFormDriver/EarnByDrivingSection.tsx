@@ -1,7 +1,6 @@
 'use client';
 
-import { Title, Text, SimpleGrid, Paper, List, ThemeIcon } from '@mantine/core';
-import { MessageCircleWarning } from 'lucide-react';
+import { Title, Text, SimpleGrid, Paper, List, Image } from '@mantine/core';
 import { FC } from 'react';
 
 // --- Data for the sections to keep the component clean ---
@@ -86,17 +85,19 @@ export const EarnByDrivingSection: FC = () => {
           >
             {howItWorksSteps.map((item) => (
               <div key={item.step} className="flex items-start gap-x-4">
-                <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-[#E55C9A] text-sm font-bold text-white">
+                <div className="flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-full bg-[#E55C9A] text-sm font-bold text-white">
                   {item.step}
                 </div>
                 <div>
                   <Title
+                    fz={15}
                     order={3}
                     className="mb-1 text-lg font-semibold text-gray-900"
+                    pb={8}
                   >
                     {item.title}
                   </Title>
-                  <Text className="leading-relaxed text-gray-600">
+                  <Text fz={13} className="leading-relaxed !text-gray-600">
                     {item.description}
                   </Text>
                 </div>
@@ -112,8 +113,9 @@ export const EarnByDrivingSection: FC = () => {
               <Title order={3} className="text-xl font-bold text-gray-900">
                 What to Expect
               </Title>
-              <div className="flex h-10 w-10 items-center justify-center rounded-full bg-[#E55C9A] text-white">
-                <MessageCircleWarning size={24} />
+              <div className="flex h-10 w-10 items-center justify-center">
+                {/* <MessageCircleWarning size={24} /> */}
+                <Image src="form-i-icon.svg" />
               </div>
             </div>
 
@@ -125,20 +127,22 @@ export const EarnByDrivingSection: FC = () => {
               {whatToExpectItems.map((item, index) => (
                 <List.Item
                   key={index}
-                  icon={
-                    <ThemeIcon
-                      color="#E55C9A"
-                      size={10}
-                      radius="xl"
-                      className="mt-2"
-                    />
-                  }
+                  // icon={
+                  //   <ThemeIcon
+                  //     color="#E55C9A"
+                  //     size={10}
+                  //     radius="xl"
+                  //     className="mt-2"
+                  //   />
+                  // }
                   className="items-start"
                 >
                   <span className="font-semibold text-gray-800">
                     {item.title}
                   </span>
-                  <Text className="mt-1 text-gray-600">{item.description}</Text>
+                  <Text fz={13} className="mt-1 !text-gray-600">
+                    {item.description}
+                  </Text>
                 </List.Item>
               ))}
             </List>

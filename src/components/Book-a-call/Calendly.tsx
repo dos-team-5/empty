@@ -4,10 +4,10 @@ import { InlineWidget } from 'react-calendly';
 
 const Calendly = () => {
   return (
-    <div className="w-full mt-20">
+    <div className="mt-20 w-full">
       <InlineWidget
         styles={{ height: '1100px' }}
-        url="https://calendly.com/trixtent/30min"
+        url="https://calendly.com/wwalsh-emptyad/30min"
       />
     </div>
   );

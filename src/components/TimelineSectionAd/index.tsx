@@ -51,6 +51,7 @@ const TimelineSectionAd = () => {
           ff={'var(--font-poppins)'}
           c="#333333"
           className="capitalize"
+          ta="center"
         >
           <TextAnimate
             animation="blurInUp"

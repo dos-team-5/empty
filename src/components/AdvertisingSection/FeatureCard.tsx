@@ -31,7 +31,7 @@ const FeatureCard = () => {
       title: 'Any sized fleet, as per your needs.',
       content:
         'At Empty, we believe powerful advertising should be accessible to everyone. Whether you’re a small business with a tight budget or a global brand with massive reach, we scale to fit your goals. From one vehicle to an entire fleet, our platform delivers unmatched value and visibility, outperforming traditional out-of-home options at every level.',
-      img: '31.jpg',
+      img: '32.jpg',
     },
   ];
   const cardsColumn2 = [
@@ -64,7 +64,7 @@ const FeatureCard = () => {
       <Flex direction="column" gap={15}>
         {cardsColumn1.map((card) => (
           <div key={card.id} className="w-full items-start gap-4 md:gap-y-16">
-            <div className="hover:bg-primary-50 flex cursor-pointer flex-col overflow-hidden rounded-lg bg-transparent p-4 !shadow-[20px_20px_60px_#bebebe,-20px_-20px_60px_#ffffff] transition-colors duration-150">
+            <div className="hover:bg-primary-50 flex min-h-[420px] cursor-pointer flex-col overflow-hidden rounded-lg bg-transparent p-4 !shadow-[20px_20px_60px_#bebebe,-20px_-20px_60px_#ffffff] transition-colors duration-150">
               <div className="flex w-full flex-col gap-4">
                 <div>
                   <img
@@ -123,7 +123,7 @@ const FeatureCard = () => {
       <Flex direction="column" gap={15}>
         {cardsColumn2.map((card) => (
           <div key={card.id} className="w-full items-start gap-4 md:gap-y-16">
-            <div className="hover:bg-primary-50 flex cursor-pointer flex-col overflow-hidden rounded-lg bg-transparent p-4 !shadow-[20px_20px_60px_#bebebe,-20px_-20px_60px_#ffffff] transition-colors duration-150">
+            <div className="hover:bg-primary-50 flex min-h-[420px] cursor-pointer flex-col overflow-hidden rounded-lg bg-transparent p-4 !shadow-[20px_20px_60px_#bebebe,-20px_-20px_60px_#ffffff] transition-colors duration-150">
               <div className="flex w-full flex-col gap-4">
                 <div>
                   <Image
@@ -169,8 +169,12 @@ const FeatureCard = () => {
                   onClick={() => handleColumn2Open(card.id)}
                 >
                   <Accordion.Item value={card.title}>
-                    <Accordion.Control>{card.title}</Accordion.Control>
-                    <Accordion.Panel>{card.content}</Accordion.Panel>
+                    <Accordion.Control className="font-poppins">
+                      {card.title}
+                    </Accordion.Control>
+                    <Accordion.Panel className="font-inter">
+                      {card.content}
+                    </Accordion.Panel>
                   </Accordion.Item>
                 </Accordion>
               </div>
