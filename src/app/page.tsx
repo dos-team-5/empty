@@ -7,6 +7,7 @@ import {
   TextRevealByWord,
   TimelineSectionAd,
 } from '@/components';
+import FeatureCard from '@/components/AdvertisingSection/FeatureCard';
 import { WhyChooseUsSection } from '@/components/AdvertisingSection/WhyAdvertisers';
 import { Flex } from '@mantine/core';
 
@@ -24,6 +25,7 @@ export default function Home() {
       <WhyChooseUsSection />
       <FeatureSection />
 
+      <FeatureCard />
       <TimelineSectionAd />
       <PricingCards />
       <Faq />

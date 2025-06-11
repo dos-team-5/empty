@@ -106,6 +106,13 @@ const Faq = memo(() => {
           maw={'100%'}
           mx="auto"
           className="transition-all duration-200 ease-in-out"
+          styles={{
+            panel: {
+              fontSize: '15px',
+              color: '#757575',
+              paddingLeft: '15px',
+            },
+          }}
         >
           {faqData.map((item, i) => (
             <motion.div
