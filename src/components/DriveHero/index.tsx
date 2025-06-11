@@ -204,7 +204,7 @@ const DriveHeroSection: React.FC = () => {
             </Box>
           </motion.div>
         </Stack>
-        <div className="w-full overflow-hidden lg:w-[45%]">
+        <div className="w-full overflow-hidden rounded-xl bg-[#e9c8dd] p-2 lg:w-[45%]">
           <motion.div
             initial={{ x: '100%', opacity: 0 }}
             animate={{ x: '0%', opacity: 1 }}
@@ -216,7 +216,7 @@ const DriveHeroSection: React.FC = () => {
               width={1000}
               height={1000}
               priority
-              className="lg:origin-left lg:scale-110 xl:origin-center xl:scale-100"
+              className="rounded-xl lg:origin-left lg:scale-110 xl:origin-center xl:scale-100"
             />
           </motion.div>
         </div>
