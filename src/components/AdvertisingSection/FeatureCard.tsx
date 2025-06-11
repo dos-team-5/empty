@@ -56,7 +56,7 @@ const FeatureCard = () => {
       maw={1150}
       mx="auto"
       gap={15}
-      my={30}
+      mb={180}
       direction={{ base: 'column', sm: 'row' }}
       px={{ base: 15, md: 0 }}
     >

@@ -90,7 +90,7 @@ const features = [
 
 export const WhyChooseUsSection: FC = () => {
   return (
-    <section className="overflow-hidden py-16 sm:py-24">
+    <section className="overflow-hidden py-16 sm:py-32">
       {/* Section Title */}
       <Stack gap={10}>
         <Title
