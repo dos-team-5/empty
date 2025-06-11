@@ -5,6 +5,7 @@ import {
   Group,
   Input,
   MultiSelect,
+  SimpleGrid,
   Space,
   Stack,
   TextInput,
@@ -130,135 +131,141 @@ const Step1_DriverInformation = ({
   };
 
   return (
-    <form onSubmit={form.onSubmit(handleSubmit)}>
-      <Stack>
-        <Input.Wrapper
-          label="Full Name"
-          withAsterisk
-          error={form.errors.fullName}
-          className="font-inter text-xs font-normal text-[#5E6366]"
-        >
-          <Space h={4} />
-          <TextInput
-            variant="filled"
-            radius="sm"
-            size="md"
-            placeholder="John Doe"
-            {...form.getInputProps('fullName')}
-          />
-        </Input.Wrapper>
+    <form className="w-full" onSubmit={form.onSubmit(handleSubmit)}>
+      <Stack gap="md" w={'100%'}>
+        <SimpleGrid cols={{ base: 1, sm: 2 }} spacing="md">
+          <Input.Wrapper
+            label="Full Name"
+            withAsterisk
+            error={form.errors.fullName}
+            className="font-inter text-xs font-normal text-[#5E6366]"
+          >
+            <Space h={4} />
+            <TextInput
+              variant="filled"
+              radius="sm"
+              size="md"
+              placeholder="John Doe"
+              {...form.getInputProps('fullName')}
+            />
+          </Input.Wrapper>
 
-        <Input.Wrapper
-          label="Email Address"
-          withAsterisk
-          error={form.errors.email}
-          className="font-inter text-xs font-normal text-[#5E6366]"
-        >
-          <Space h={4} />
-          <TextInput
-            variant="filled"
-            radius="sm"
-            size="md"
-            placeholder="john.doe@example.com"
-            {...form.getInputProps('email')}
-          />
-        </Input.Wrapper>
+          <Input.Wrapper
+            label="Email Address"
+            withAsterisk
+            error={form.errors.email}
+            className="font-inter text-xs font-normal text-[#5E6366]"
+          >
+            <Space h={4} />
+            <TextInput
+              variant="filled"
+              radius="sm"
+              size="md"
+              placeholder="john.doe@example.com"
+              {...form.getInputProps('email')}
+            />
+          </Input.Wrapper>
+        </SimpleGrid>
 
-        <Input.Wrapper
-          label="Phone Number"
-          withAsterisk
-          error={form.errors.phone}
-          className="font-inter text-xs font-normal text-[#5E6366]"
-        >
-          <Space h={4} />
-          <TextInput
-            variant="filled"
-            radius="sm"
-            size="md"
-            placeholder="+1234567890"
-            {...form.getInputProps('phone')}
-          />
-        </Input.Wrapper>
+        <SimpleGrid cols={{ base: 1, sm: 2 }} spacing="md">
+          <Input.Wrapper
+            label="Phone Number"
+            withAsterisk
+            error={form.errors.phone}
+            className="font-inter text-xs font-normal text-[#5E6366]"
+          >
+            <Space h={4} />
+            <TextInput
+              variant="filled"
+              radius="sm"
+              size="md"
+              placeholder="+1234567890"
+              {...form.getInputProps('phone')}
+            />
+          </Input.Wrapper>
 
-        <Input.Wrapper
-          label="City & Province"
-          withAsterisk
-          error={form.errors.cityProvince}
-          className="font-inter text-xs font-normal text-[#5E6366]"
-        >
-          <Space h={4} />
-          <TextInput
-            variant="filled"
-            radius="sm"
-            size="md"
-            placeholder="Toronto, ON"
-            {...form.getInputProps('cityProvince')}
-          />
-        </Input.Wrapper>
+          <Input.Wrapper
+            label="City & Province"
+            withAsterisk
+            error={form.errors.cityProvince}
+            className="font-inter text-xs font-normal text-[#5E6366]"
+          >
+            <Space h={4} />
+            <TextInput
+              variant="filled"
+              radius="sm"
+              size="md"
+              placeholder="Toronto, ON"
+              {...form.getInputProps('cityProvince')}
+            />
+          </Input.Wrapper>
+        </SimpleGrid>
+        <SimpleGrid cols={{ base: 1, sm: 2 }} spacing="md">
+          <Input.Wrapper
+            label="Shipping Address"
+            withAsterisk
+            error={form.errors.shippingAddress}
+            className="font-inter text-xs font-normal text-[#5E6366]"
+          >
+            <Space h={4} />
+            <TextInput
+              variant="filled"
+              radius="sm"
+              size="md"
+              placeholder="123 Main St, Toronto, ON, Canada"
+              {...form.getInputProps('shippingAddress')}
+            />
+          </Input.Wrapper>
 
-        <Input.Wrapper
-          label="Shipping Address"
-          withAsterisk
-          error={form.errors.shippingAddress}
-          className="font-inter text-xs font-normal text-[#5E6366]"
-        >
-          <Space h={4} />
-          <TextInput
-            variant="filled"
-            radius="sm"
-            size="md"
-            placeholder="123 Main St, Toronto, ON, Canada"
-            {...form.getInputProps('shippingAddress')}
-          />
-        </Input.Wrapper>
+          <Input.Wrapper
+            label="Vehicle Make"
+            withAsterisk
+            error={form.errors.vehicleMake}
+            className="font-inter text-xs font-normal text-[#5E6366]"
+          >
+            <Space h={4} />
+            <TextInput
+              variant="filled"
+              radius="sm"
+              size="md"
+              placeholder="Toyota"
+              {...form.getInputProps('vehicleMake')}
+            />
+          </Input.Wrapper>
+        </SimpleGrid>
+        <SimpleGrid cols={{ base: 1, sm: 2 }} spacing="md">
+          <Input.Wrapper
+            label="Vehicle Model"
+            withAsterisk
+            error={form.errors.vehicleModel}
+            className="font-inter text-xs font-normal text-[#5E6366]"
+          >
+            <Space h={4} />
+            <TextInput
+              variant="filled"
+              radius="sm"
+              size="md"
+              placeholder="Camry"
+              {...form.getInputProps('vehicleModel')}
+            />
+          </Input.Wrapper>
 
-        <Input.Wrapper
-          label="Vehicle Make"
-          withAsterisk
-          error={form.errors.vehicleMake}
-          className="font-inter text-xs font-normal text-[#5E6366]"
-        >
-          <Space h={4} />
-          <TextInput
-            variant="filled"
-            radius="sm"
-            size="md"
-            placeholder="Toyota"
-            {...form.getInputProps('vehicleMake')}
-          />
-        </Input.Wrapper>
-
-        <Input.Wrapper
-          label="Vehicle Model"
-          withAsterisk
-          error={form.errors.vehicleModel}
-          className="font-inter text-xs font-normal text-[#5E6366]"
-        >
-          <Space h={4} />
-          <TextInput
-            variant="filled"
-            radius="sm"
-            size="md"
-            placeholder="Camry"
-            {...form.getInputProps('vehicleModel')}
-          />
-        </Input.Wrapper>
-
-        <Input.Wrapper
-          label="Vehicle Year"
-          withAsterisk
-          error={form.errors.vehicleYear}
-          className="font-inter text-xs font-normal text-[#5E6366]"
-        >
-          <Space h={4} />
-          <TextInput
-            variant="filled"
-            radius="sm"
-            size="md"
-            placeholder="2020"
-            {...form.getInputProps('vehicleYear')}
-          />
-        </Input.Wrapper>
+          <Input.Wrapper
+            label="Vehicle Year"
+            withAsterisk
+            error={form.errors.vehicleYear}
+            className="font-inter text-xs font-normal text-[#5E6366]"
+          >
+            <Space h={4} />
+            <TextInput
+              variant="filled"
+              radius="sm"
+              size="md"
+              placeholder="2020"
+              {...form.getInputProps('vehicleYear')}
+            />
+          </Input.Wrapper>
+        </SimpleGrid>
 
         <Input.Wrapper
           label="Vehicle Photos (Front and Side)"
@@ -293,7 +300,6 @@ const Step1_DriverInformation = ({
             {...form.getInputProps('ridesharePlatforms')}
           />
         </Input.Wrapper>
-
         <Input.Wrapper
           label="Weekly Driving Hours/Schedule"
           withAsterisk

@@ -90,7 +90,11 @@ const Steppers = () => {
 
   return (
     <>
-      <Stepper active={active} onStepClick={setActive} className='flex flex-col justify-center items-center w-full'>
+      <Stepper
+        active={active}
+        onStepClick={setActive}
+        className="flex w-full flex-col"
+      >
         {steppers.map((stepper, index) => (
           <Stepper.Step
             allowStepSelect={

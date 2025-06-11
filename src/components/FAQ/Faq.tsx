@@ -1,10 +1,10 @@
 'use client';
 import { Accordion, Box, Title } from '@mantine/core';
 import { useMediaQuery } from '@mantine/hooks';
-import { Minus, Plus } from 'lucide-react';
 import { memo, useMemo, useState } from 'react';
 import { TextAnimate } from '../TextAnimation';
 import { motion } from 'motion/react';
+import { Minus, Plus } from 'lucide-react';
 
 const faqData = [
   {
@@ -96,14 +96,14 @@ const Faq = memo(() => {
         </Title>
 
         <Accordion
-          mt={40}
-          pb={20}
+          // mt={40}
+          // pb={20}
           chevron={false}
           value={openItem}
           onChange={setOpenItem}
-          variant="separated"
+          variant="default"
           transitionDuration={200}
-          maw={450}
+          maw={'100%'}
           mx="auto"
           className="transition-all duration-200 ease-in-out"
         >
@@ -119,15 +119,12 @@ const Faq = memo(() => {
                 },
               }}
               viewport={{ once: true }}
-              className="mb-4"
+              className="border-primary-500 !border-b"
             >
-              <Accordion.Item
-                value={item.id}
-                className="from-default to-primary-50 from-55%] !border-none bg-gradient-to-b"
-              >
-                <Accordion.Control className="rounded-lg !px-0 !py-2 !shadow-[20px_20px_60px_#bebebe,-20px_-20px_60px_#ffffff]">
+              <Accordion.Item value={item.id}>
+                <Accordion.Control pr={0}>
                   <Box
-                    className="flex items-center justify-between pl-4 text-lg font-medium text-[#333333] xl:text-xl 2xl:text-2xl"
+                    className="flex !h-full items-center justify-between text-lg font-medium text-[#333333] xl:text-xl 2xl:text-2xl"
                     style={{ width: '100%' }}
                   >
                     {item.question}
@@ -142,9 +139,7 @@ const Faq = memo(() => {
                     )}
                   </Box>
                 </Accordion.Control>
-                <Accordion.Panel className="from-default to-primary-50 rounded-lg bg-gradient-to-b from-55% !px-0 !py-2 text-base font-normal text-[#5E5E5E] !shadow-[20px_20px_60px_#bebebe,-20px_-20px_60px_#ffffff] xl:text-lg 2xl:text-xl">
-                  {item.answer}
-                </Accordion.Panel>
+                <Accordion.Panel>{item.answer}</Accordion.Panel>
               </Accordion.Item>
             </motion.div>
           ))}
