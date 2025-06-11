@@ -53,7 +53,7 @@ const FeatureCard = () => {
 
   return (
     <Flex
-      maw={1170}
+      maw={1150}
       mx="auto"
       gap={15}
       my={30}

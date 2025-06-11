@@ -18,7 +18,7 @@ const Meeting = () => {
       mx={'auto'}
       className="px-4 sm:px-8 md:px-16 lg:px-20 xl:px-24 2xl:px-32"
     >
-      <div className="mx-auto mt-20 justify-between gap-2 lg:mt-4 lg:flex lg:px-0">
+      <div className="mx-auto mt-20 justify-between gap-4 lg:mt-4 lg:flex lg:px-0">
         <div className="pb-4 lg:w-1/2 lg:pt-30 lg:pb-0">
           <Title
             order={1}
@@ -28,11 +28,18 @@ const Meeting = () => {
             className="capitalize"
             mt="lg"
           >
-            <TextAnimate
+            {/* <TextAnimate
               animation="blurInUp"
               by="word"
               duration={0.5}
               className="md:text-[52px] lg:text-[48px] xl:text-[52px] 2xl:text-[64px]"
+              once
+            > */}
+            <TextAnimate
+              animation="blurInUp"
+              by="word"
+              duration={0.5}
+              className="text-[25px] md:text-[50px] lg:text-[40px] xl:text-[46px] 2xl:text-[64px]"
               once
             >
               See how fast-moving brands are turning city streets into
@@ -41,18 +48,27 @@ const Meeting = () => {
           </Title>
           <Title
             order={2}
-            fw={700}
+            fw={400}
             c="#5E5E5E"
             ff={'var(--font-poppins)'}
             className="capitalize"
             mt={'lg'}
+            // >
+            //   <TextAnimate
+            //     animation="blurInUp"
+            //     by="word"
+            //     duration={0.5}
+            //     delay={0.5}
+            //     className="text-lg md:text-2xl lg:text-xl xl:text-2xl 2xl:text-3xl"
+            //     once
+            //   >
           >
             <TextAnimate
               animation="blurInUp"
               by="word"
               duration={0.5}
               delay={0.5}
-              className="text-lg md:text-2xl lg:text-xl xl:text-2xl 2xl:text-3xl"
+              className="lg:text-md text-sm md:text-lg xl:text-lg 2xl:text-3xl"
               once
             >
               In 20 minutes, we’ll show you how our mobile OOH ads help brands
@@ -79,7 +95,7 @@ const Meeting = () => {
             </TextAnimate>
           </Title>
 
-          <div className="mt-2 grid grid-cols-1 gap-2 md:grid-cols-2">
+          <div className="mt-2 grid grid-cols-1 gap-2 rounded-xl border border-[#FFDFDF] bg-[#FFFBFB] px-6 md:grid-cols-2">
             {[
               {
                 title: 'Launch in under a week',
@@ -105,7 +121,7 @@ const Meeting = () => {
                 initial="hidden"
                 animate="visible"
                 transition={{ delay: (index + 1) * 0.5 }}
-                className="items-start flex min-w-2xs justify-start gap-x-4 py-4 lg:min-w-auto"
+                className="flex min-w-2xs items-start justify-start gap-x-4 py-4 lg:min-w-auto"
               >
                 <CheckCircle className="text-primary-400 flex-shrink-0 rounded-md text-xl" />
                 <ul className="max-w-max">
