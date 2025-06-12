@@ -67,7 +67,8 @@ const FeatureCard = () => {
             <div className="hover:bg-primary-50 flex min-h-[420px] cursor-pointer flex-col overflow-hidden rounded-lg bg-transparent p-4 !shadow-[20px_20px_60px_#bebebe,-20px_-20px_60px_#ffffff] transition-colors duration-150">
               <div className="flex w-full flex-col gap-4">
                 <div>
-                  <img
+                  <Image
+                    alt={card.title}
                     width={300}
                     height={320}
                     src={card.img}
