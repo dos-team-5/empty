@@ -4,7 +4,7 @@ import { motion } from 'framer-motion';
 import { FC, ReactNode } from 'react';
 import Image from 'next/image';
 import { Group, Stack } from '@mantine/core';
-import { Icon } from '../Icon';
+import { Icon } from '../FileManager/lib/Icon';
 import { useMediaQuery } from '@mantine/hooks';
 
 // --- Helper Components (Placeholders for your actual components) ---

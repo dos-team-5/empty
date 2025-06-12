@@ -14,7 +14,7 @@ import { TextAnimate } from '../TextAnimation';
 import { motion } from 'framer-motion';
 import { memo } from 'react';
 import { useRouter } from 'next/navigation';
-import { Icon } from '../Icon';
+import { Icon } from '../FileManager/lib/Icon';
 
 // Features data
 const features = [

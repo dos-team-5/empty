@@ -14,6 +14,7 @@ import { notifications } from '@mantine/notifications';
 import { useForm, zodResolver } from '@mantine/form';
 import { useEffect } from 'react';
 import { z } from 'zod';
+import { FileHandler, FileHandlerRes, ImageHandler } from '../FileManager';
 
 // Zod validation schema
 const schema = z.object({
@@ -128,6 +129,17 @@ const Step1_DriverInformation = ({
       autoClose: 3000,
     });
     onNext();
+  };
+
+  const handleFileUpload = (file: FileHandlerRes) => {
+    // Update form with uploaded files
+    console.log('Files uploaded:', file);
+    notifications.show({
+      title: 'Files Uploaded',
+      message: `${file.name} files uploaded successfully!`,
+      color: 'green',
+      autoClose: 3000,
+    });
   };
 
   return (
@@ -274,7 +286,7 @@ const Step1_DriverInformation = ({
           className="font-inter text-xs font-normal text-[#5E6366]"
         >
           <Space h={4} />
-          <Input
+          {/* <Input
             type="file"
             multiple
             accept="image/*"
@@ -284,6 +296,21 @@ const Step1_DriverInformation = ({
                 : [];
               form.setFieldValue('vehiclePhotos', files);
             }}
+          /> */}
+          <ImageHandler
+            onUploadSuccess={(files: FileHandlerRes[]) => {
+              console.log('Files uploaded:', files);
+            }}
+            multiple
+          />
+          <FileHandler
+            onUploadSuccess={(files: FileHandlerRes[]) => {
+              // Update form with uploaded files
+              console.log('Files uploaded:', files);
+            }}
+            description="Please upload your project proposal (PDF, DOCX)."
+            maxSizeMB={5}
+            multiple
           />
         </Input.Wrapper>
 

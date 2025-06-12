@@ -4,7 +4,7 @@ import Calendly from './Calendly';
 import { motion } from 'framer-motion';
 import { Box, Title } from '@mantine/core';
 import { TextAnimate } from '../TextAnimation';
-import { Icon } from '../Icon';
+import { Icon } from '../FileManager/lib/Icon';
 
 const checkItemVariants = {
   hidden: { opacity: 0, x: -50 },

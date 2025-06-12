@@ -1,0 +1,167 @@
+<html lang='en'>
+  <head>
+    <meta charset='UTF-8' />
+    <meta name='viewport' content='width=device-width, initial-scale=1.0' />
+    <title>New Driver Application</title>
+    <style>
+      body {
+        font-family:
+          -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica,
+          Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #f4f4f7;
+        color: #333;
+      }
+      .container {
+        max-width: 680px;
+        margin: 40px auto;
+        padding: 20px;
+        background-color: #ffffff;
+        border: 1px solid #e6e6e6;
+        border-radius: 8px;
+      }
+      .header {
+        text-align: center;
+        padding-bottom: 20px;
+        border-bottom: 1px solid #e6e6e6;
+      }
+      .header h1 {
+        margin: 0;
+        font-size: 24px;
+        color: #1a1a1a;
+      }
+      .section {
+        margin-top: 25px;
+      }
+      .section-title {
+        font-size: 18px;
+        font-weight: 600;
+        margin-bottom: 15px;
+        border-bottom: 1px solid #eee;
+        padding-bottom: 5px;
+      }
+      .info-grid {
+        display: grid;
+        grid-template-columns: 150px 1fr;
+        gap: 10px 20px;
+      }
+      .info-grid dt {
+        font-weight: 500;
+        color: #555;
+      }
+      .info-grid dd {
+        margin: 0;
+        word-break: break-word;
+      }
+      a {
+        color: #007bff;
+        text-decoration: none;
+      }
+      a:hover {
+        text-decoration: underline;
+      }
+      .file-list {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+      }
+      .file-list li {
+        margin-bottom: 5px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class='container'>
+      <div class='header'>
+        <h1>New Driver Application Received</h1>
+      </div>
+
+      <!-- Driver Information Section -->
+      <div class='section'>
+        <h2 class='section-title'>Driver Information</h2>
+        <dl class='info-grid'>
+          <dt>Full Name:</dt>
+          <dd>{{driverInfo.fullName}}</dd>
+
+          <dt>Email:</dt>
+          <dd><a
+              href='mailto:{{driverInfo.email}}'
+            >{{driverInfo.email}}</a></dd>
+
+          <dt>Phone:</dt>
+          <dd>{{driverInfo.phone}}</dd>
+
+          <dt>City/Province:</dt>
+          <dd>{{driverInfo.cityProvince}}</dd>
+
+          <dt>Shipping Address:</dt>
+          <dd>{{driverInfo.shippingAddress}}</dd>
+        </dl>
+      </div>
+
+      <!-- Vehicle Information Section -->
+      <div class='section'>
+        <h2 class='section-title'>Vehicle Information</h2>
+        <dl class='info-grid'>
+          <dt>Vehicle:</dt>
+          <dd>{{driverInfo.vehicleYear}}
+            {{driverInfo.vehicleMake}}
+            {{driverInfo.vehicleModel}}</dd>
+
+          <dt>Rideshare Platforms:</dt>
+          <dd>
+            {{#each driverInfo.ridesharePlatforms}}
+              {{this}}{{#unless @last}}, {{/unless}}
+            {{/each}}
+          </dd>
+
+          <dt>Driving Schedule:</dt>
+          <dd>{{driverInfo.weeklyDrivingSchedule}}</dd>
+        </dl>
+      </div>
+
+      <!-- Documents Section -->
+      <div class='section'>
+        <h2 class='section-title'>Uploaded Documents</h2>
+        <dl class='info-grid'>
+          <dt>Driver's License:</dt>
+          <dd><a
+              href='{{kyc.driversLicense.url}}'
+              target='_blank'
+            >{{kyc.driversLicense.name}}</a></dd>
+
+          <dt>Driver Profile:</dt>
+          <dd><a
+              href='{{kyc.driverProfile.url}}'
+              target='_blank'
+            >{{kyc.driverProfile.name}}</a></dd>
+
+          <dt>Trip History:</dt>
+          <dd><a
+              href='{{kyc.tripHistory.url}}'
+              target='_blank'
+            >{{kyc.tripHistory.name}}</a></dd>
+
+          <dt>Void Cheque:</dt>
+          <dd><a
+              href='{{bankInfo.voidCheque.url}}'
+              target='_blank'
+            >{{bankInfo.voidCheque.name}}</a></dd>
+
+          <dt>Vehicle Photos:</dt>
+          <dd>
+            <ul class='file-list'>
+              {{#each driverInfo.vehiclePhotos}}
+                <li><a
+                    href='{{this.url}}'
+                    target='_blank'
+                  >{{this.name}}</a></li>
+              {{/each}}
+            </ul>
+          </dd>
+        </dl>
+      </div>
+    </div>
+  </body>
+</html>

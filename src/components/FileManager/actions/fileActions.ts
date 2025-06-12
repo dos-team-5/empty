@@ -23,8 +23,23 @@ const SingleUploadSchema = z.object({
   file: z
     .instanceof(File)
     .refine(
-      (file) => ['image/jpeg', 'image/png', 'image/webp'].includes(file.type),
-      { message: 'Only JPEG, PNG, and WebP files are supported' }
+      (file) =>
+        [
+          'image/jpeg',
+          'image/png',
+          'image/webp',
+          'application/pdf',
+          'application/msword',
+          'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+          'application/vnd.ms-excel',
+          'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+          'application/vnd.ms-powerpoint',
+          'application/vnd.openxmlformats-officedocument.presentationml.presentation',
+        ].includes(file.type),
+      {
+        message:
+          'Only JPEG, PNG, WebP, PDF, DOC, DOCX, XLS, XLSX, PPT, and PPTX files are supported',
+      }
     ),
 });
 
@@ -50,12 +65,15 @@ export async function uploadFiles(formData: FormData) {
   }
 }
 
-export async function uploadFile(formData: FormData) {
+export async function uploadFile(
+  formData: FormData,
+  fileType: 'image' | 'document' = 'image'
+) {
   try {
     const file = formData.get('file') as File;
     const validated = SingleUploadSchema.parse({ file });
 
-    const key = `images/${Date.now()}-${validated.file.name}`;
+    const key = `${fileType}/${Date.now()}-${validated.file.name}`;
     const url = await uploadFileToR2(validated.file, key);
     return { success: true, file: { key, url } };
   } catch (error) {
