@@ -6,7 +6,7 @@ import {
   ReactCompareSliderImage,
 } from 'react-compare-slider';
 import { ImageData } from './useImageCompressor';
-import { Icon } from '@/components/Icon';
+import { Icon } from '@/components/FileManager/lib/Icon';
 
 interface ImagePreviewProps {
   readonly originalImage: ImageData | null;

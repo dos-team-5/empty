@@ -5,7 +5,7 @@ import Image from 'next/image';
 import { TextAnimate } from '../TextAnimation';
 import PrimaryBtn from '../PrimaryBtn';
 
-import { Icon } from '../Icon';
+import { Icon } from '../FileManager/lib/Icon';
 
 const DriveHeroSection: React.FC = () => {
   const handleSignUpClick = () => {

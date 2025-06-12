@@ -1,16 +1,21 @@
 'use client';
 
-import { Box, Button, Card, Image, Modal, Stack, Text } from '@mantine/core';
+import {
+  ActionIcon,
+  Box,
+  Button,
+  Card,
+  Group,
+  Image,
+  Modal,
+  Stack,
+  Text,
+} from '@mantine/core';
 import { notifications } from '@mantine/notifications';
-import { useState } from 'react';
-import { uploadFile } from '../actions/fileActions';
+import { useEffect, useState } from 'react'; // Import useEffect
+import { deleteFile, uploadFile } from '../actions/fileActions';
+import { Icon } from '@/components/FileManager/lib/Icon';
 import ImageCompressor from './ImageCompressor';
-import { Icon } from '@/components/Icon';
-
-interface ImageHandlerProps {
-  onUploadSuccess?: (file: FileHandlerRes) => void;
-  withModal?: boolean;
-}
 
 export interface FileHandlerRes {
   key: string;
@@ -21,158 +26,203 @@ export interface FileHandlerRes {
   [key: string]: unknown;
 }
 
-export default function ImageHandler({
-  onUploadSuccess,
-  withModal = false,
-  label,
-  description,
-  withAsterisk,
-  error,
-}: ImageHandlerProps & {
-  onUploadSuccess?: (file: FileHandlerRes) => void;
+interface ImageHandlerProps {
+  onUploadSuccess?: (files: FileHandlerRes[]) => void;
   withModal?: boolean;
+  /**
+   * If true, allows accumulating multiple images.
+   * If false, each new upload will replace the previous one.
+   * Defaults to false.
+   */
+  multiple?: boolean;
+  /**
+   * An array of existing files to display on initial render.
+   */
+  defaultValue?: FileHandlerRes[];
   label?: string;
   description?: string;
   withAsterisk?: boolean;
   error?: string;
-}) {
-  const [compressOpen, setCompressOpen] = useState(false);
-  const [compressedFile, setCompressedFile] = useState<File | null>(null);
+}
+
+export default function ImageHandler({
+  onUploadSuccess,
+  withModal = false,
+  multiple = false,
+  defaultValue,
+  label,
+  description,
+  withAsterisk,
+  error,
+}: ImageHandlerProps) {
+  // Initialize state with the defaultValue prop
+  const [uploadedFiles, setUploadedFiles] = useState<FileHandlerRes[]>(
+    defaultValue || []
+  );
   const [uploading, setUploading] = useState(false);
-  const [uploadUrl, setUploadUrl] = useState<string | null>(null);
+  const [isDeleting, setIsDeleting] = useState<string | null>(null);
+  const [compressOpen, setCompressOpen] = useState(false);
 
-  const handleConfirm = async (file: File) => {
-    setCompressedFile(file);
+  // Effect to sync state when defaultValue prop changes from the parent
+  useEffect(() => {
+    setUploadedFiles(defaultValue || []);
+  }, [defaultValue]);
 
-    // Upload to R2 via server action
+  const handleConfirmAndUpload = async (file: File) => {
     setUploading(true);
     try {
+      // In single-file mode, delete the old file before uploading the new one
+      if (!multiple && uploadedFiles.length > 0) {
+        // Find the file that is not in the defaultValue to avoid deleting pre-saved files on first upload
+        const fileToDelete = uploadedFiles.find(
+          (uf) => !(defaultValue || []).some((df) => df.key === uf.key)
+        );
+        if (fileToDelete) {
+          await deleteFile(fileToDelete.key);
+        }
+      }
+
+      // Upload the new compressed file
       const formData = new FormData();
       formData.append('file', file);
+      const result = await uploadFile(formData, 'image');
 
-      const result = await uploadFile(formData);
-
-      if (!result.success) {
+      if (!result.success || !result.file) {
         throw new Error(result.error ?? 'Upload failed');
       }
-      setUploadUrl(result.file?.url ?? null);
-      if (result.file) {
-        const fileData: FileHandlerRes = {
-          key: result.file.key,
-          url: result.file.url,
-          size: file.size,
-          type: file.type,
-          name: file.name,
-        };
-        onUploadSuccess?.(fileData);
-      }
+
+      const fileData: FileHandlerRes = {
+        key: result.file.key,
+        url: result.file.url,
+        size: file.size,
+        type: file.type,
+        name: file.name,
+      };
+
+      // Add to state based on the `multiple` prop
+      const newFilesList = multiple ? [...uploadedFiles, fileData] : [fileData];
+      setUploadedFiles(newFilesList);
+      onUploadSuccess?.(newFilesList);
 
       notifications.show({
         title: 'Upload Successful',
-        message: `File uploaded to R2: ${file.name}`,
+        message: `Image uploaded: ${file.name}`,
         color: 'green',
       });
-    } catch (error) {
-      notifications.show({
-        title: 'Upload Failed',
-        message: `Error uploading to R2: ${error instanceof Error ? error.message : 'Unknown error'}`,
-        color: 'red',
-      });
-      console.error('R2 upload error:', error);
+    } catch (err) {
+      const message = err instanceof Error ? err.message : 'Unknown error';
+      notifications.show({ title: 'Upload Failed', message, color: 'red' });
     } finally {
       setUploading(false);
+      if (withModal) {
+        setCompressOpen(false); // Close modal on success/failure
+      }
     }
   };
 
-  return withModal ? (
-    <Box>
-      <Button
-        onClick={() => setCompressOpen(true)}
-        disabled={uploading}
-        leftSection={<Icon icon="ic:round-image" />}
-      >
-        {uploading ? 'Uploading...' : 'Upload Image'}
-      </Button>
-      {compressedFile && (
-        <Box mt="md">
-          <Text>
-            Compressed File: {compressedFile.name} (
-            {(compressedFile.size / 1024).toFixed(2)} KB)
-          </Text>
-          {uploadUrl && (
-            <Text mt="xs">
-              R2 URL:{' '}
-              <a href={uploadUrl} target="_blank" rel="noopener noreferrer">
-                {uploadUrl}
-              </a>
-            </Text>
-          )}
-        </Box>
-      )}
-      <Modal
-        opened={compressOpen}
-        onClose={() => setCompressOpen(false)}
-        title="Compress Image"
-        size="lg"
-        centered
-      >
-        <ImageCompressor
-          label={label}
-          description={description}
-          withAsterisk={withAsterisk}
-          error={error}
+  const handleDelete = async (keyToDelete: string) => {
+    setIsDeleting(keyToDelete);
+    try {
+      await deleteFile(keyToDelete);
+      notifications.show({
+        title: 'Image Deleted',
+        message: 'The image was successfully removed.',
+        color: 'green',
+      });
+      const newFilesList = uploadedFiles.filter((f) => f.key !== keyToDelete);
+      setUploadedFiles(newFilesList);
+      onUploadSuccess?.(newFilesList); // Notify parent of the change
+    } catch (err) {
+      const message = err instanceof Error ? err.message : 'Unknown error';
+      notifications.show({ title: 'Deletion Failed', message, color: 'red' });
+    } finally {
+      setIsDeleting(null);
+    }
+  };
+
+  // UI component for the image compressor
+  const imageCompressorComponent = (
+    <ImageCompressor
+      label={label}
+      description={description}
+      withAsterisk={withAsterisk}
+      error={error}
+      opened={withModal ? compressOpen : true}
+      onClose={() => setCompressOpen(false)}
+      onConfirm={handleConfirmAndUpload}
+    />
+  );
+
+  // UI component for displaying the list of uploaded files
+  const displayListComponent = (
+    <Stack gap="sm">
+      {uploadedFiles.map((file) => (
+        <Card key={file.key} withBorder p="sm" radius="md">
+          <Group justify="space-between">
+            <Group>
+              <Image
+                src={file.url}
+                alt={file.name}
+                w={60}
+                h={60}
+                radius="md"
+                fit="contain"
+              />
+              <Box>
+                <Text fz="sm" fw={500} truncate maw={200}>
+                  {file.name}
+                </Text>
+                <Text size="xs" c="dimmed">
+                  {/* Show 'N/A' for size if it's a default value without size info */}
+                  {file.size ? `${(file.size / 1024).toFixed(2)} KB` : 'N/A'}
+                </Text>
+              </Box>
+            </Group>
+            <ActionIcon
+              variant="light"
+              color="red"
+              onClick={() => handleDelete(file.key)}
+              loading={isDeleting === file.key}
+              disabled={uploading}
+            >
+              <Icon icon="tabler:trash" />
+            </ActionIcon>
+          </Group>
+        </Card>
+      ))}
+    </Stack>
+  );
+
+  // Render based on `withModal` prop
+  if (withModal) {
+    return (
+      <Box mt="md">
+        <Button
+          onClick={() => setCompressOpen(true)}
+          disabled={uploading}
+          leftSection={<Icon icon="ic:round-image" />}
+        >
+          {uploading ? 'Uploading...' : 'Upload Image'}
+        </Button>
+        <Box mt="md">{displayListComponent}</Box>
+        <Modal
           opened={compressOpen}
           onClose={() => setCompressOpen(false)}
-          onConfirm={handleConfirm}
-        />
-      </Modal>
-    </Box>
-  ) : (
-    <Stack
-      mx={4}
-      bg={'#f3f3f3'}
-      mt={20}
-      gap={0}
-      p={16}
-      className="card-neumorphic rounded-xl"
-    >
-      <ImageCompressor
-        opened={true}
-        onClose={() => setCompressOpen(false)}
-        onConfirm={handleConfirm}
-        label={label}
-        description={description}
-        withAsterisk={withAsterisk}
-        error={error}
-      />
-      {/* preview image  */}
-      {compressedFile && (
-        <Card
-          shadow="sm"
-          padding={0}
-          px={5}
-          radius="md"
-          maw={120}
-          mah={80}
-          className="overflow-hidden"
+          title="Compress & Upload Image"
+          size="lg"
+          centered
         >
-          {uploadUrl && (
-            <Image
-              src={uploadUrl}
-              alt="Uploaded Image"
-              style={{
-                maxWidth: 120,
-                maxHeight: 80,
-                width: 'auto',
-                height: 'auto',
-                aspectRatio: '1 / 1',
-                borderRadius: 8,
-                objectFit: 'contain',
-              }}
-            />
-          )}
-        </Card>
-      )}
+          {imageCompressorComponent}
+        </Modal>
+      </Box>
+    );
+  }
+
+  // Default non-modal view
+  return (
+    <Stack mx={4} bg={'#f3f3f3'} p={16} mt="md" className="rounded-xl">
+      {imageCompressorComponent}
+      {uploadedFiles.length > 0 && <Box>{displayListComponent}</Box>}
     </Stack>
   );
 }

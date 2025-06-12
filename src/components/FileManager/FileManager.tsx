@@ -12,7 +12,7 @@ import { notifications } from '@mantine/notifications';
 import { useState } from 'react';
 import { deleteFile, listFiles } from './actions/fileActions';
 import ImageHandler from './image-compressor/ImageHandler';
-import { Icon } from '../Icon';
+import { Icon } from './lib/Icon';
 
 export default function FileManager() {
   const [files, setFiles] = useState<{ key: string; url: string }[]>([]);

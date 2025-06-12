@@ -1,10 +1,8 @@
 'use client';
-
-import { Icon } from '@/components/Icons';
+import { Icon } from '@/components/FileManager/lib/Icon';
 import { Box, Button, Divider, Group, Input, Space, Text } from '@mantine/core';
 import { Dropzone, DropzoneProps, IMAGE_MIME_TYPE } from '@mantine/dropzone';
 import { notifications } from '@mantine/notifications';
-import Image from 'next/image';
 import { useRef } from 'react';
 
 interface ImageDropzoneProps extends Partial<DropzoneProps> {
@@ -69,13 +67,7 @@ export function ImageDropzone({
               <Icon icon="system-uicons:cross-circle" />
             </Dropzone.Reject>
             <Dropzone.Idle>
-              <Image
-                src={'/uploadIcon.svg'}
-                alt="Upload file"
-                width={1000}
-                height={1000}
-                className="w-6"
-              />
+              <Icon icon="humbleicons:upload" className="text-primary size-9" />
             </Dropzone.Idle>
             <div className="flex w-full flex-col items-center justify-center">
               <Text size="sm" fw={400} ta={'center'}>
@@ -85,7 +77,7 @@ export function ImageDropzone({
 
               <Button
                 unstyled
-                className="button-neumorphic cursor-pointer !py-[6px] font-bold text-[#ee7b1f]"
+                className="text-primary cursor-pointer !py-[6px] font-bold"
                 w={{ base: 100, sm: 160 }}
               >
                 Browse files
@@ -94,7 +86,7 @@ export function ImageDropzone({
           </Group>
         </Dropzone>
       </Input.Wrapper>
-      <Text mb={40} size="xs" c="dimmed" mt={2}>
+      <Text size="xs" c="dimmed" mt={2}>
         Only support .jpg, .png, max 50 MB for compression
       </Text>
     </Box>
