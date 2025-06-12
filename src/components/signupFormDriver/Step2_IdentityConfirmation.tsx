@@ -1,12 +1,22 @@
 'use client';
 import { useFormSubmission } from '@/contexts/FormSubmissionContext';
-import { Button, Group, Input, Space, Stack } from '@mantine/core';
+import {
+  Box,
+  Button,
+  Group,
+  Image,
+  Input,
+  SimpleGrid,
+  Space,
+  Stack,
+} from '@mantine/core';
 import { notifications } from '@mantine/notifications';
 import { useForm, zodResolver } from '@mantine/form';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { z } from 'zod';
 import { fileHandlerResSchema } from './Step1_DriverInformation';
 import { FileHandlerRes, ImageHandler } from '../FileManager';
+import { Icon } from '@iconify/react/dist/iconify.js';
 
 // Zod validation schema
 const schema = z.object({
@@ -24,13 +34,13 @@ const schema = z.object({
     .max(1, 'Only one trip history image is allowed'),
 });
 
-interface Step2_IdentityConfirmationFormValues {
+interface Step2IdentityConfirmationFormValues {
   driversLicense: FileHandlerRes[] | null;
   driverProfile: FileHandlerRes[] | null;
   tripHistory: FileHandlerRes[] | null;
 }
 
-interface Step2_IdentityConfirmationProps {
+interface Step2IdentityConfirmationProps {
   onNext: () => void;
   onPrev: () => void;
 }
@@ -38,11 +48,17 @@ interface Step2_IdentityConfirmationProps {
 const Step2_IdentityConfirmation = ({
   onNext,
   onPrev,
-}: Step2_IdentityConfirmationProps) => {
+}: Step2IdentityConfirmationProps) => {
+  const [changeDriverProfilePhotos, setChangeDriverProfilePhotos] =
+    useState<boolean>(false);
+  const [changeDriverLicensePhotos, setChangeDriverLicensePhotos] =
+    useState<boolean>(false);
+  const [changeTripHistoryPhotos, setChangeTripHistoryPhotos] =
+    useState<boolean>(false);
   const { setIsIdentityConfirmationSubmitted } = useFormSubmission();
 
   // Load initial values from localStorage
-  const getInitialValues = (): Step2_IdentityConfirmationFormValues => {
+  const getInitialValues = (): Step2IdentityConfirmationFormValues => {
     if (typeof window !== 'undefined') {
       const savedValues = localStorage.getItem('step2FormValues');
       if (savedValues) {
@@ -60,7 +76,7 @@ const Step2_IdentityConfirmation = ({
     };
   };
 
-  const form = useForm<Step2_IdentityConfirmationFormValues>({
+  const form = useForm<Step2IdentityConfirmationFormValues>({
     mode: 'uncontrolled',
     initialValues: getInitialValues(),
     validate: zodResolver(schema),
@@ -73,7 +89,7 @@ const Step2_IdentityConfirmation = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const handleSubmit = (values: Step2_IdentityConfirmationFormValues) => {
+  const handleSubmit = (values: Step2IdentityConfirmationFormValues) => {
     // Save values to localStorage (excluding files)
     if (typeof window !== 'undefined') {
       const valuesToSave = {
@@ -104,12 +120,38 @@ const Step2_IdentityConfirmation = ({
           className="font-inter text-xs font-normal text-[#5E6366]"
         >
           <Space h={4} />
-          <ImageHandler
-            onUploadSuccess={(files: FileHandlerRes[]) => {
-              form.setFieldValue('driversLicense', files);
-              console.log('Files uploaded:', files);
-            }}
-          />
+          {(getInitialValues().driversLicense ?? []).length > 0 &&
+          changeDriverLicensePhotos === false ? (
+            <SimpleGrid pos={'relative'} cols={1} spacing="md" mb="md">
+              {(getInitialValues().driverProfile ?? []).map((file) => (
+                <Image
+                  key={file.key}
+                  src={file.url}
+                  alt={`Vehicle Photo ${file.name}`}
+                  width={200}
+                  height={100}
+                  style={{ objectFit: 'cover', borderRadius: '8px' }}
+                />
+              ))}
+              <Box pos={'absolute'} top={0} right={0}>
+                <Button
+                  variant="subtle"
+                  size="md"
+                  radius="md"
+                  onClick={() => setChangeDriverLicensePhotos(true)}
+                >
+                  <Icon icon="mingcute:edit-line" width={20} />
+                </Button>
+              </Box>
+            </SimpleGrid>
+          ) : (
+            <ImageHandler
+              onUploadSuccess={(files: FileHandlerRes[]) => {
+                form.setFieldValue('driversLicense', files);
+                console.log('Files uploaded:', files);
+              }}
+            />
+          )}
         </Input.Wrapper>
 
         <Input.Wrapper
@@ -119,12 +161,38 @@ const Step2_IdentityConfirmation = ({
           className="font-inter text-xs font-normal text-[#5E6366]"
         >
           <Space h={4} />
-          <ImageHandler
-            onUploadSuccess={(files: FileHandlerRes[]) => {
-              form.setFieldValue('driverProfile', files);
-              console.log('Files uploaded:', files);
-            }}
-          />
+          {(getInitialValues().driverProfile ?? []).length > 0 &&
+          changeDriverProfilePhotos === false ? (
+            <SimpleGrid pos={'relative'} cols={1} spacing="md" mb="md">
+              {(getInitialValues().driverProfile ?? []).map((file) => (
+                <Image
+                  key={file.key}
+                  src={file.url}
+                  alt={`Vehicle Photo ${file.name}`}
+                  width={200}
+                  height={100}
+                  style={{ objectFit: 'cover', borderRadius: '8px' }}
+                />
+              ))}
+              <Box pos={'absolute'} top={0} right={0}>
+                <Button
+                  variant="subtle"
+                  size="md"
+                  radius="md"
+                  onClick={() => setChangeDriverProfilePhotos(true)}
+                >
+                  <Icon icon="mingcute:edit-line" width={20} />
+                </Button>
+              </Box>
+            </SimpleGrid>
+          ) : (
+            <ImageHandler
+              onUploadSuccess={(files: FileHandlerRes[]) => {
+                form.setFieldValue('driverProfile', files);
+                console.log('Files uploaded:', files);
+              }}
+            />
+          )}
         </Input.Wrapper>
 
         <Input.Wrapper
@@ -134,12 +202,38 @@ const Step2_IdentityConfirmation = ({
           className="font-inter text-xs font-normal text-[#5E6366]"
         >
           <Space h={4} />
-          <ImageHandler
-            onUploadSuccess={(files: FileHandlerRes[]) => {
-              form.setFieldValue('tripHistory', files);
-              console.log('Files uploaded:', files);
-            }}
-          />
+          {(getInitialValues().tripHistory ?? []).length > 0 &&
+          changeTripHistoryPhotos === false ? (
+            <SimpleGrid pos={'relative'} cols={1} spacing="md" mb="md">
+              {(getInitialValues().tripHistory ?? []).map((file) => (
+                <Image
+                  key={file.key}
+                  src={file.url}
+                  alt={`Vehicle Photo ${file.name}`}
+                  width={200}
+                  height={100}
+                  style={{ objectFit: 'cover', borderRadius: '8px' }}
+                />
+              ))}
+              <Box pos={'absolute'} top={0} right={0}>
+                <Button
+                  variant="subtle"
+                  size="md"
+                  radius="md"
+                  onClick={() => setChangeTripHistoryPhotos(true)}
+                >
+                  <Icon icon="mingcute:edit-line" width={20} />
+                </Button>
+              </Box>
+            </SimpleGrid>
+          ) : (
+            <ImageHandler
+              onUploadSuccess={(files: FileHandlerRes[]) => {
+                form.setFieldValue('tripHistory', files);
+                console.log('Files uploaded:', files);
+              }}
+            />
+          )}
         </Input.Wrapper>
 
         <Group
