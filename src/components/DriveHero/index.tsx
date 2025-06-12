@@ -163,12 +163,17 @@ const DriveHeroSection: React.FC = () => {
                 }}
                 className="w-full py-2"
               >
-                <Group wrap="nowrap" gap="xs">
+                <Group
+                  w={'100%'}
+                  className="!space-y-3"
+                  align="flex-start"
+                  wrap="nowrap"
+                >
                   <Icon
                     icon="lets-icons:check-fill"
                     className="text-primary-400 size-6 flex-shrink-0 rounded-md text-lg"
                   />
-                  <p className="font-inter max-w-sm text-base leading-6 text-black 2xl:text-lg">
+                  <p className="font-inter fon max-w-md text-base leading-6 !font-semibold text-black 2xl:text-lg">
                     {feature}
                   </p>
                 </Group>

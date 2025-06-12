@@ -75,7 +75,7 @@ export const TextRevealByWord: FC<TextRevealByWordProps> = ({
           className="scale-100 md:scale-125 lg:scale-150"
         >
           <Flex
-            mt={12}
+            mt={20}
             component={Link}
             href={'/contact'}
             justify="center"
