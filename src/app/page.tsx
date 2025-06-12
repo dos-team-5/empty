@@ -16,11 +16,10 @@ export default function Home() {
       <TextRevealByWord className="">
         The Lowest CPM in OOH History
       </TextRevealByWord>
-
       {/* <Advertisement /> */}
       <WhyChooseUsSection />
-      <FeatureSection />
 
+      <FeatureSection />
       <FeatureCard />
       <TimelineSectionAd />
       <PricingCards />

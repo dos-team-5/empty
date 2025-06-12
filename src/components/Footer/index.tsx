@@ -1,12 +1,5 @@
 'use client';
-import {
-  IconBrandInstagram,
-  IconBrandX,
-  IconBrandWhatsapp,
-  IconPhoneFilled,
-  IconMailFilled,
-} from '@tabler/icons-react';
-import { ActionIcon, Anchor, Box, Group, Stack } from '@mantine/core';
+import { Anchor, Box, Group, Stack, Text } from '@mantine/core';
 import Link from 'next/link';
 import Image from 'next/image';
 
@@ -53,12 +46,10 @@ const Footer = () => {
             className="w-28"
           />
         </Link>
-
         <Group className="!flex-wrap !items-center !justify-center border-b-1 border-[#FF83D5] px-8 pb-4">
           {items}
         </Group>
-
-        <Group gap="lg" justify="flex-end" wrap="nowrap">
+        {/* <Group gap="lg" justify="flex-end" wrap="nowrap">
           <ActionIcon
             className="!bg-[#FF83D5]"
             size="lg"
@@ -102,7 +93,22 @@ const Footer = () => {
           >
             <IconMailFilled size={18} stroke={1.5} />
           </ActionIcon>
-        </Group>
+        </Group> */}
+        <Text
+          component="p"
+          c="dimmed"
+          size="xs"
+          className="text-centerStep Center"
+        >
+          © 2025 Empty Advertisers | All Rights Reserved | Developed by
+          <Link
+            className="hover:text-primary pl-1"
+            target="_blank"
+            href={'https://www.devsonsteroids.com/'}
+          >
+            DevsOnSteroids
+          </Link>
+        </Text>
       </Stack>
 
       {/* </div> */}
