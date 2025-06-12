@@ -30,6 +30,8 @@ export const TextRevealByWord: FC<TextRevealByWordProps> = ({
   }
 
   const words = children.split(' ');
+
+  const y = useTransform(scrollYProgress, [0.3, 1], ['40vh', '0vh']);
   return (
     <div ref={targetRef} className={cn('relative z-0 h-[200vh]', className)}>
       <div className="sticky top-16 mx-auto flex h-[50%] flex-col items-center justify-center">
@@ -52,9 +54,11 @@ export const TextRevealByWord: FC<TextRevealByWordProps> = ({
             })}
           </p>
         </div>
-        <Flex justify="center" align="center">
-          <PrimaryBtn btnText="Don’t Believe Us?" glowOnHover />
-        </Flex>
+        <motion.div style={{ y }}>
+          <Flex justify="center" align="center">
+            <PrimaryBtn btnText="Don’t Believe Us?" glowOnHover />
+          </Flex>
+        </motion.div>
       </div>
     </div>
   );

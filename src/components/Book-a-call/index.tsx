@@ -4,7 +4,7 @@ import Calendly from './Calendly';
 import { motion } from 'framer-motion';
 import { Box, Title } from '@mantine/core';
 import { TextAnimate } from '../TextAnimation';
-import { CheckCircle } from 'lucide-react';
+import { Icon } from '../Icon';
 
 const checkItemVariants = {
   hidden: { opacity: 0, x: -50 },
@@ -95,7 +95,7 @@ const Meeting = () => {
             </TextAnimate>
           </Title>
 
-          <div className="mt-2 grid grid-cols-1 gap-2 rounded-xl border border-[#FFDFDF] bg-[#FFFBFB] px-6 md:grid-cols-2">
+          <div className="mt-2 grid grid-cols-1 gap-2 px-6 md:grid-cols-2">
             {[
               {
                 title: 'Launch in under a week',
@@ -123,7 +123,10 @@ const Meeting = () => {
                 transition={{ delay: (index + 1) * 0.5 }}
                 className="flex min-w-2xs items-start justify-start gap-x-4 py-4 lg:min-w-auto"
               >
-                <CheckCircle className="text-primary-400 flex-shrink-0 rounded-md text-xl" />
+                <Icon
+                  icon="lets-icons:check-fill"
+                  className="text-primary-400 size-6 flex-shrink-0 rounded-md text-lg"
+                />
                 <ul className="max-w-max">
                   <h3 className="mb-0.5 text-lg font-medium xl:text-[15px] 2xl:text-2xl">
                     {item.title}
