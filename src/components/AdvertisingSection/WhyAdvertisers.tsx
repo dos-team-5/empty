@@ -75,7 +75,7 @@ const features = [
 export const WhyChooseUsSection: FC = () => {
   const md = useMediaQuery('(min-width: 768px)');
   return (
-    <section className="pt-16">
+    <section className="pt-48">
       {/* Section Title */}
       <Stack gap={10}>
         <Title
@@ -141,7 +141,7 @@ export const WhyChooseUsSection: FC = () => {
                   whileInView={feature.animation.whileInView}
                   viewport={{ once: true, amount: 0.8 }}
                   transition={{
-                    delay: index * 0.6,
+                    delay: index * 0.3,
                   }}
                   // Absolute positioning with responsive width
                   className={`bg-primary-50/50 absolute w-full max-w-xs rounded-lg p-6 shadow-lg ring-1 ring-gray-900/5 backdrop-blur-sm ${feature.position}`}
@@ -173,7 +173,7 @@ export const WhyChooseUsSection: FC = () => {
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true, amount: 0.5 }}
                     transition={{
-                      delay: 0.6 * index,
+                      delay: 0.3 * index,
                     }}
                     className="bg-primary-50/50 w-full rounded-lg p-6 shadow-lg ring-1 ring-gray-900/5 backdrop-blur-sm"
                   >

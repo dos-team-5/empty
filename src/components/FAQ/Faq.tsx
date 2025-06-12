@@ -115,7 +115,7 @@ const Faq = memo(() => {
           transitionDuration={200}
           maw={'100%'}
           mx="auto"
-          className="transition-all duration-200 ease-in-out"
+          className="transition-all duration-200 ease-in-out mt-8"
           styles={{
             panel: {
               fontSize: '15px',
@@ -132,7 +132,7 @@ const Faq = memo(() => {
                 y: 0,
                 opacity: 1,
                 transition: {
-                  delay: (i + 1) * 0.5,
+                  delay: (i + 1) * 0.3,
                 },
               }}
               viewport={{ once: true }}

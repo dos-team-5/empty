@@ -78,7 +78,7 @@ const data = [
 
 const TimelineSectionDrive = () => {
   return (
-    <Box className="relative my-2 overflow-hidden">
+    <Box className="relative my-2 mt-16 overflow-hidden">
       <Flex
         direction={'column'}
         align={'center'}

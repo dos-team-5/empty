@@ -182,12 +182,12 @@ const PricingCards = () => {
                   order={2}
                   ff={'var(--font-poppins)'}
                   c="#333333"
-                  className="capitalize lg:!max-w-xs lg:text-end xl:!max-w-sm 2xl:!max-w-md"
+                  className="capitalize lg:!max-w-xs lg:text-end xl:!max-w-sm"
                 >
-                  <div className="mb-0.5 text-lg font-bold xl:text-[17px] 2xl:text-2xl">
+                  <div className="mb-0.5 text-lg font-bold xl:text-[17px]">
                     {item.title}
                   </div>
-                  <div className="text-base font-normal text-[#5E5E5E] xl:text-[12px] 2xl:text-xl">
+                  <div className="text-base font-normal text-[#5E5E5E] xl:text-[12px]">
                     {item.description}
                   </div>
                 </Title>
@@ -294,12 +294,12 @@ const PricingCards = () => {
                   order={2}
                   ff={'var(--font-poppins)'}
                   c="#333333"
-                  className="text-start capitalize lg:!max-w-xs xl:!max-w-sm 2xl:!max-w-md"
+                  className="text-start capitalize lg:!max-w-xs xl:!max-w-sm"
                 >
-                  <div className="mb-0.5 text-lg font-bold xl:text-[16px] 2xl:text-2xl">
+                  <div className="mb-0.5 text-lg font-bold xl:text-[16px]">
                     {item.title}
                   </div>
-                  <div className="text-base font-normal text-[#5E5E5E] xl:text-[12px] 2xl:text-xl">
+                  <div className="text-base font-normal text-[#5E5E5E] xl:text-[12px]">
                     {item.description}
                   </div>
                 </Title>
