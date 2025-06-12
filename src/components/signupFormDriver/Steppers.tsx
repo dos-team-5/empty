@@ -128,7 +128,6 @@ const Steppers = () => {
               />
             }
           >
-            <Space className="h-4 md:h-8 lg:h-12" />
             {stepper.content}
           </Stepper.Step>
         ))}
