@@ -41,7 +41,11 @@ const Steppers = () => {
   const steppers = [
     {
       id: 1,
-      title: <span className="text-[15px]">Driver Information</span>,
+      title: (
+        <span className="text-xs">
+          Driver <br /> Information
+        </span>
+      ),
       content: (
         <Step1_DriverInformation
           onNext={() => nextStep()}
@@ -51,7 +55,11 @@ const Steppers = () => {
     },
     {
       id: 2,
-      title: <span className="text-[15px]">Identity Confirmation</span>,
+      title: (
+        <span className="text-xs">
+          Identity <br /> Confirmation
+        </span>
+      ),
       content: (
         <Step2_IdentityConfirmation
           onNext={() => nextStep()}
@@ -61,7 +69,11 @@ const Steppers = () => {
     },
     {
       id: 3,
-      title: <span className="text-[15px]">Banking Information</span>,
+      title: (
+        <span className="text-xs">
+          Banking <br /> Information
+        </span>
+      ),
       content: (
         <Step3_BankingInformation
           onNext={() => nextStep()}

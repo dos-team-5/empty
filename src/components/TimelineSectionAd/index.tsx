@@ -61,7 +61,18 @@ const TimelineSectionAd = () => {
             className="text-2xl md:text-3xl lg:text-4xl xl:text-5xl 2xl:text-6xl"
             once
           >
-            Advertiser Campaign Timeline
+            Advertiser Campaign
+          </TextAnimate>
+          <TextAnimate
+            animation="blurInUp"
+            by="word"
+            startOnView
+            duration={0.5}
+            delay={0.5}
+            className="text-2xl md:text-3xl lg:text-4xl xl:text-5xl 2xl:text-6xl"
+            once
+          >
+            Timeline
           </TextAnimate>
         </Title>
         <TimeLineComponent data={data} />
