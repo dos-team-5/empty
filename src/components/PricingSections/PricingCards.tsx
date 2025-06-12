@@ -100,7 +100,7 @@ const plans = [
 ];
 
 const carOptions = [
-  { cars: 1, price: 500 },
+  { cars: 1, price: 270 },
   { cars: 5, price: 2300 },
   { cars: 10, price: 4500 },
   { cars: 20, price: 9000 },
@@ -160,9 +160,9 @@ const PricingCards = () => {
         id="pricingSection"
       >
         <TitleSection />
-        <div className="flex flex-col lg:flex-row lg:gap-8 xl:gap-12">
+        <div className="flex-col lg:flex-row lg:gap-8 xl:gap-12">
           {/* Left Features (Desktop: Left Column, Mobile: Top) */}
-          <div className="flex flex-col items-center gap-4 lg:w-1/3 lg:items-end">
+          <div className="hidden flex-col items-center gap-4 lg:w-1/3 lg:items-end">
             {leftFeatures.map((item, index) => (
               <motion.div
                 key={item.title}
@@ -173,7 +173,6 @@ const PricingCards = () => {
                 transition={{ delay: (index + 1) * 0.6 }}
                 className="bg-primary-50/50 flex w-full max-w-xs items-start gap-x-4 rounded-lg px-2 py-6 shadow-lg ring-1 ring-gray-900/5 backdrop-blur-sm lg:flex-row-reverse"
               >
-                {/* <CircleCheck className="text-primary-400 flex-shrink-0 rounded-md text-xl" /> */}
                 <Icon
                   icon="lets-icons:check-fill"
                   className="text-primary-400 size-7 flex-shrink-0 rounded-md text-xl"
@@ -275,7 +274,7 @@ const PricingCards = () => {
           </Box>
 
           {/* Right Features (Desktop: Right Column, Mobile: Bottom) */}
-          <div className="flex flex-col items-center gap-4 lg:w-1/3 lg:items-start">
+          <div className="hidden flex-col items-center gap-4 lg:w-1/3 lg:items-start">
             {rightFeatures.map((item, index) => (
               <motion.div
                 key={item.title}
