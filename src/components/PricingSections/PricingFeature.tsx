@@ -59,14 +59,14 @@ const Feature = ({
       )}
     >
       {index < 4 && (
-        <div className="pointer-events-none absolute inset-0 h-full w-full bg-gradient-to-t from-primary-100 to-transparent opacity-0 transition duration-200 group-hover/feature:opacity-100" />
+        <div className="from-primary-100 pointer-events-none absolute inset-0 h-full w-full bg-gradient-to-t to-transparent opacity-0 transition duration-200 group-hover/feature:opacity-100" />
       )}
       {index >= 4 && (
-        <div className="pointer-events-none absolute inset-0 h-full w-full bg-gradient-to-b from-primary-100 to-transparent opacity-0 transition duration-200 group-hover/feature:opacity-100" />
+        <div className="from-primary-100 pointer-events-none absolute inset-0 h-full w-full bg-gradient-to-b to-transparent opacity-0 transition duration-200 group-hover/feature:opacity-100" />
       )}
 
       <div className="relative z-10 mb-2 px-10 text-lg font-bold">
-        <div className="group-hover/feature:bg-primary absolute inset-y-0 left-0 h-6 w-1 origin-center rounded-tr-full rounded-br-full bg-primary-200 transition-all duration-200 group-hover/feature:h-8" />
+        <div className="group-hover/feature:bg-primary bg-primary-200 absolute inset-y-0 left-0 h-6 w-1 origin-center rounded-tr-full rounded-br-full transition-all duration-200 group-hover/feature:h-8" />
         <span className="inline-block text-lg font-medium text-[#333333] transition duration-200 group-hover/feature:translate-x-2 xl:text-xl 2xl:text-2xl">
           {title}
         </span>

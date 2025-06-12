@@ -10,6 +10,12 @@ import {
   Stack,
   Box,
   Select,
+  Menu,
+  ActionIcon,
+  Paper,
+  Title,
+  Text,
+  List,
 } from '@mantine/core';
 import { notifications } from '@mantine/notifications';
 import { useForm, zodResolver } from '@mantine/form';
@@ -152,12 +158,74 @@ const Step3_BankingInformation = ({
     <form onSubmit={form.onSubmit(handleSubmit)}>
       <Stack>
         <Input.Wrapper
+          pos={'relative'}
           label="Void Cheque (Image or PDF)"
           withAsterisk
           description="Upload a void cheque or direct deposit form from your bank."
           error={form.errors.voidCheque}
           className="font-inter text-xs font-normal text-[#5E6366]"
         >
+          <Menu width={300} position="bottom-end">
+            <Menu.Target>
+              <ActionIcon
+                top={-2}
+                left={204}
+                pos={'absolute'}
+                variant="subtle"
+                size="sm"
+              >
+                <Icon icon="ix:question-filled" />
+              </ActionIcon>
+            </Menu.Target>
+            <Menu.Dropdown>
+              <Paper p="md" radius="md" withBorder>
+                <Stack gap="md">
+                  <Title fz={16} order={3}>
+                    How to Find and Upload a Void Cheque from Your Banking App
+                  </Title>
+
+                  <Text size="sm" c="dimmed">
+                    Most major Canadian banks allow you to download or take a
+                    screenshot of a void cheque directly from their mobile app.
+                    Here&apos;s how:
+                  </Text>
+
+                  <List listStyleType="disc" size="xs" type="ordered">
+                    <List.Item>Log in to your banking app.</List.Item>
+
+                    <List.Item>
+                      Go to your account details or direct deposit information
+                      section.
+                    </List.Item>
+
+                    <List.Item>
+                      Look for an option called &quot;Void Cheque,&quot;
+                      &quot;Pre-Authorized Debit Form,&quot; or &quot;Direct
+                      Deposit Form.&quot;
+                    </List.Item>
+
+                    <List.Item>
+                      Download or take a screenshot of the document showing:
+                      <List
+                        withPadding
+                        ml="md"
+                        mt="xs"
+                        type="unordered"
+                        spacing="xs"
+                        size="sm"
+                        listStyleType="revert"
+                      >
+                        <List.Item>Your full name</List.Item>
+                        <List.Item>Transit number</List.Item>
+                        <List.Item>Institution number</List.Item>
+                        <List.Item>Account number</List.Item>
+                      </List>
+                    </List.Item>
+                  </List>
+                </Stack>
+              </Paper>
+            </Menu.Dropdown>
+          </Menu>
           <Space h={4} />
 
           {(getInitialValues().voidCheque ?? []).length > 0 &&

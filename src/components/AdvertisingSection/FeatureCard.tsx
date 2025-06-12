@@ -39,14 +39,14 @@ const FeatureCard = () => {
       id: 3,
       title: 'From Preview to Live in a Few Days.',
       content:
-        'With Empty’s cutting-edge platform, launching your ad is as easy as shopping online. Preview your asset directly on a vehicle, complete checkout, and go live—all within a week. No sales reps. No delays. No hassle. This streamlined process gives Empty a distinct edge over traditional out-of-home advertising options.',
+        'With Empty’s platform, launching your ad is as easy as shopping online. Preview your asset directly on a vehicle, complete checkout, and go live. No sales reps. No delays. No hassle.',
       img: '2.jpg',
     },
     {
       id: 4,
       title: 'Clear Insights, Comprehensive Reporting.',
       content:
-        'Empty ads move through high-traffic areas and key times to reach the right audience. Target specific demographics by strategically choosing when and where your ad appears. With our AI-powered BETA 2 analytics dashboard, you can track performance and ROI in real time, ensuring your ad is always on target.',
+        'With EMPTY, you get detailed, real-time analytics, including impression data, audience demographics, geographic heatmaps, ride activity, and engagement insights. We bring digital-grade reporting to physical campaigns, so you’ll know exactly where your ads went, how many people saw them, and who they reached. No guesswork, no vague reach estimates.',
       img: '41.png',
     },
   ];
@@ -110,7 +110,9 @@ const FeatureCard = () => {
                   }}
                 >
                   <Accordion.Item value={card.title}>
-                    <Accordion.Control>{card.title}</Accordion.Control>
+                    <Accordion.Control className="!capitalize">
+                      {card.title}
+                    </Accordion.Control>
 
                     <Accordion.Panel>{card.content}</Accordion.Panel>
                   </Accordion.Item>
@@ -170,7 +172,7 @@ const FeatureCard = () => {
                   onClick={() => handleColumn2Open(card.id)}
                 >
                   <Accordion.Item value={card.title}>
-                    <Accordion.Control className="font-poppins">
+                    <Accordion.Control className="!capitalize">
                       {card.title}
                     </Accordion.Control>
                     <Accordion.Panel className="font-inter">

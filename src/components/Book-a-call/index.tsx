@@ -67,7 +67,7 @@ const Meeting = () => {
               by="word"
               duration={0.5}
               delay={0.5}
-              className="lg:text-md text-sm md:text-lg xl:text-[13px] 2xl:text-xl"
+              className="lg:text-md text-sm normal-case md:text-lg xl:text-[13px] 2xl:text-xl"
               once
             >
               Our CPM is the lowest in out-of-home and rivals digital. We’ll
@@ -79,11 +79,11 @@ const Meeting = () => {
               by="word"
               duration={0.5}
               delay={0.7}
-              className="lg:text-md mt-2 text-sm md:text-lg xl:text-[13px] 2xl:text-xl"
+              className="lg:text-md mt-2 text-sm normal-case md:text-lg xl:text-[13px] 2xl:text-xl"
               once
             >
-              Then, re-target your real-world audience online for results that
-              scale fast, without the usual media buying headaches.
+              Re-target your real-world audience online for results that scale
+              fast, without the usual media buying headaches.
             </TextAnimate>
           </Title>
           <Title
