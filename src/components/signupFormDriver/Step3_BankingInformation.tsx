@@ -17,6 +17,11 @@ import { z } from 'zod';
 import { fileHandlerResSchema } from './Step1_DriverInformation';
 import { FileHandler, FileHandlerRes } from '../FileManager';
 import { Icon } from '@iconify/react/dist/iconify.js';
+import {
+  DriverApplication,
+  getDriverApplicationFromLocalStorage,
+  sendDriverApplicationEmail,
+} from '@/app/drive/action/driverApplication';
 
 // Zod validation schema
 const schema = z.object({
@@ -72,7 +77,7 @@ const Step3_BankingInformation = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const handleSubmit = (values: Step3BankingInformationFormValues) => {
+  const handleSubmit = async (values: Step3BankingInformationFormValues) => {
     // Save values to localStorage (excluding files)
     if (typeof window !== 'undefined') {
       const valuesToSave = {
@@ -82,15 +87,49 @@ const Step3_BankingInformation = ({
     }
 
     // Simulate form submission (e.g., API call)
+    try {
+      const driverApplication: DriverApplication | null =
+        getDriverApplicationFromLocalStorage();
 
-    setIsBankingInfoSubmitted(true); // Mark form as submitted
-    notifications.show({
-      title: 'Form Submitted',
-      message: 'Banking Information submitted successfully!',
-      color: 'green',
-      autoClose: 3000,
-    });
-    onNext();
+      if (!driverApplication) {
+        notifications.show({
+          title: 'Missing Data',
+          message: 'Driver application data not found in local storage.',
+          color: 'red',
+        });
+        return;
+      }
+
+      const { success, message } =
+        await sendDriverApplicationEmail(driverApplication);
+
+      if (success) {
+        setIsBankingInfoSubmitted(true); // Mark form as submitted
+        notifications.show({
+          title: 'Form Submitted',
+          message,
+          color: 'green',
+          autoClose: 3000,
+        });
+        onNext();
+      } else {
+        notifications.show({
+          title: 'Submission Failed',
+          message,
+          color: 'red',
+          autoClose: 5000,
+        });
+      }
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } catch (err: any) {
+      console.error('Submission error:', err);
+      notifications.show({
+        title: 'Unexpected Error',
+        message: err.message ?? 'Something went wrong.',
+        color: 'red',
+        autoClose: 5000,
+      });
+    }
   };
 
   return (
