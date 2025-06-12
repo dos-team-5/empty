@@ -18,7 +18,7 @@ import { FileHandlerRes, ImageHandler } from '../FileManager';
 
 // Zod validation schema
 
-const fileHandlerResSchema = z
+export const fileHandlerResSchema = z
   .object({
     key: z.string(),
     url: z.string().url(),
