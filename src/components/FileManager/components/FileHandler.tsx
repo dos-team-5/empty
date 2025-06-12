@@ -5,6 +5,7 @@ import {
   Box,
   Button,
   Card,
+  Divider,
   Group,
   Stack,
   Text,
@@ -174,32 +175,33 @@ export default function FileHandler({
       >
         <Group
           justify="center"
-          align="center"
-          style={{ pointerEvents: 'none', minHeight: 120 }}
+          className="!flex-col"
+          gap="xs"
+          style={{ pointerEvents: 'none' }}
         >
           <Dropzone.Accept>
-            <Icon
-              icon="system-uicons:cloud-upload"
-              className="text-primary size-12"
-            />
+            <Icon icon="system-uicons:cloud-upload" />
           </Dropzone.Accept>
           <Dropzone.Reject>
-            <Icon
-              icon="system-uicons:cross-circle"
-              className="size-12 text-red-500"
-            />
+            <Icon icon="system-uicons:cross-circle" />
           </Dropzone.Reject>
           <Dropzone.Idle>
-            <Icon icon="humbleicons:upload" className="text-primary size-12" />
+            <Icon icon="humbleicons:upload" className="text-primary size-9" />
           </Dropzone.Idle>
-          <Box>
-            <Text size="xl" inline>
-              Drag files here or click to select
+          <div className="flex w-full flex-col items-center justify-center">
+            <Text size="sm" fw={400} ta={'center'}>
+              Drag your file(s) to start uploading
             </Text>
-            <Text size="sm" c="dimmed" mt={7}>
-              {description || 'Attach documents'}, up to {maxSizeMB} MB each
-            </Text>
-          </Box>
+            <Divider my={2} label="OR" labelPosition="center" size="sm" />
+
+            <Button
+              unstyled
+              className="text-primary cursor-pointer !py-[6px] font-bold"
+              w={{ base: 100, sm: 160 }}
+            >
+              Browse files
+            </Button>
+          </div>
         </Group>
       </Dropzone>
 
