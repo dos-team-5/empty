@@ -46,6 +46,7 @@ const Step3_BankingInformation = ({
 }: Step3BankingInformationProps) => {
   const [changeVoidChequePhotos, setChangeVoidChequePhotos] =
     useState<boolean>(false);
+  const [submitting, setSubmitting] = useState<boolean>(false);
   const { setIsBankingInfoSubmitted } = useFormSubmission();
 
   // Load initial values from localStorage
@@ -79,6 +80,7 @@ const Step3_BankingInformation = ({
   }, []);
 
   const handleSubmit = async (values: Step3BankingInformationFormValues) => {
+    setSubmitting(true);
     // Save values to localStorage (excluding files)
     if (typeof window !== 'undefined') {
       const valuesToSave = {
@@ -138,6 +140,8 @@ const Step3_BankingInformation = ({
         autoClose: 5000,
       });
     }
+
+    setSubmitting(false);
   };
 
   return (
@@ -201,6 +205,7 @@ const Step3_BankingInformation = ({
             Back
           </Button>
           <Button
+            loading={submitting}
             type="submit"
             size="md"
             radius={12}

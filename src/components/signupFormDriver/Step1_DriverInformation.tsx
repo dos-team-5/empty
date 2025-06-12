@@ -157,8 +157,6 @@ const Step1_DriverInformation = ({
     });
   };
 
-  console.log(getInitialValues());
-
   return (
     <form className="w-full" onSubmit={form.onSubmit(handleSubmit)}>
       <Stack gap="md" w={'100%'}>
