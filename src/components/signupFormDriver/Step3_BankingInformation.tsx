@@ -20,6 +20,7 @@ import { Icon } from '@iconify/react/dist/iconify.js';
 import {
   DriverApplication,
   getDriverApplicationFromLocalStorage,
+  greetDrivers,
   sendDriverApplicationEmail,
 } from '@/app/drive/action/driverApplication';
 
@@ -91,6 +92,9 @@ const Step3_BankingInformation = ({
       const driverApplication: DriverApplication | null =
         getDriverApplicationFromLocalStorage();
 
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const greetingMsg: any = greetDrivers();
+
       if (!driverApplication) {
         notifications.show({
           title: 'Missing Data',
@@ -104,14 +108,18 @@ const Step3_BankingInformation = ({
         await sendDriverApplicationEmail(driverApplication);
 
       if (success) {
-        setIsBankingInfoSubmitted(true); // Mark form as submitted
-        notifications.show({
-          title: 'Form Submitted',
-          message,
-          color: 'green',
-          autoClose: 3000,
-        });
-        onNext();
+        const { success: greetingSuccess } =
+          await sendDriverApplicationEmail(greetingMsg);
+        if (greetingSuccess) {
+          setIsBankingInfoSubmitted(true); // Mark form as submitted
+          notifications.show({
+            title: 'Form Submitted. Please check you Email for confirmation',
+            message,
+            color: 'green',
+            autoClose: 3000,
+          });
+          onNext();
+        }
       } else {
         notifications.show({
           title: 'Submission Failed',

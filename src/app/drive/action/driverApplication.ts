@@ -50,8 +50,8 @@ export function getDriverApplicationFromLocalStorage(): DriverApplication | null
     const formatSingleFile = (arr: FileAttachment[] = []) => arr[0] ?? null;
 
     const app: DriverApplication = {
-      from: 'contact@emptyad.com',
-      to: driverInfo.email ?? 'no-reply@example.com',
+      from: driverInfo.email ?? 'no-reply@example.com',
+      to: 'contact@emptyad.com',
       subject: `New Driver Application: ${driverInfo.fullName ?? 'Unknown'}`,
       templateName: 'driver-application',
       templateData: {
@@ -85,6 +85,28 @@ export function getDriverApplicationFromLocalStorage(): DriverApplication | null
       'Failed to build driver application from localStorage',
       error
     );
+    return null;
+  }
+}
+
+export function greetDrivers() {
+  try {
+    const driverInfo = JSON.parse(
+      localStorage.getItem('step1FormValues') ?? '{}'
+    );
+    const app = {
+      from: 'contact@emptyad.com',
+      to: driverInfo.email,
+      subject: `Greeting from Driver: ${driverInfo.fullName}`,
+      templateName: 'greetings',
+      templateData: {
+        driverName: driverInfo.fullName,
+        driverEmail: driverInfo.email,
+      },
+    };
+    return app;
+  } catch (error) {
+    console.error(error);
     return null;
   }
 }
