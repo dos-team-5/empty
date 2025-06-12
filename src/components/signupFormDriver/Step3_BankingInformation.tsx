@@ -9,13 +9,14 @@ import {
   Space,
   Stack,
   Box,
+  Select,
 } from '@mantine/core';
 import { notifications } from '@mantine/notifications';
 import { useForm, zodResolver } from '@mantine/form';
 import { useEffect, useState } from 'react';
 import { z } from 'zod';
 import { fileHandlerResSchema } from './Step1_DriverInformation';
-import { FileHandler, FileHandlerRes } from '../FileManager';
+import { FileHandler, FileHandlerRes, ImageHandler } from '../FileManager';
 import { Icon } from '@iconify/react/dist/iconify.js';
 import {
   DriverApplication,
@@ -44,6 +45,9 @@ const Step3_BankingInformation = ({
   onNext,
   onPrev,
 }: Step3BankingInformationProps) => {
+  const [selectedFileType, setSelectedFileType] = useState<'image' | 'pdf'>(
+    'pdf'
+  );
   const [changeVoidChequePhotos, setChangeVoidChequePhotos] =
     useState<boolean>(false);
   const [submitting, setSubmitting] = useState<boolean>(false);
@@ -155,6 +159,7 @@ const Step3_BankingInformation = ({
           className="font-inter text-xs font-normal text-[#5E6366]"
         >
           <Space h={4} />
+
           {(getInitialValues().voidCheque ?? []).length > 0 &&
           changeVoidChequePhotos === false ? (
             <SimpleGrid pos={'relative'} cols={1} spacing="md" mb="md">
@@ -180,13 +185,36 @@ const Step3_BankingInformation = ({
               </Box>
             </SimpleGrid>
           ) : (
-            <FileHandler
-              multiple={false}
-              onUploadSuccess={(files: FileHandlerRes[]) => {
-                form.setFieldValue('voidCheque', files);
-                console.log('Files uploaded:', files);
-              }}
-            />
+            <>
+              <Select
+                value={selectedFileType}
+                onChange={(value) =>
+                  setSelectedFileType(value as 'image' | 'pdf')
+                }
+                data={[
+                  { value: 'image', label: 'Image' },
+                  { value: 'pdf', label: 'PDF' },
+                ]}
+              />
+              <Box hidden={selectedFileType !== 'pdf'}>
+                <FileHandler
+                  multiple={false}
+                  onUploadSuccess={(files: FileHandlerRes[]) => {
+                    form.setFieldValue('voidCheque', files);
+                    console.log('Files uploaded:', files);
+                  }}
+                />
+              </Box>
+              <Box hidden={selectedFileType !== 'image'}>
+                <ImageHandler
+                  multiple={false}
+                  onUploadSuccess={(files: FileHandlerRes[]) => {
+                    form.setFieldValue('voidCheque', files);
+                    console.log('Files uploaded:', files);
+                  }}
+                />
+              </Box>
+            </>
           )}
         </Input.Wrapper>
 

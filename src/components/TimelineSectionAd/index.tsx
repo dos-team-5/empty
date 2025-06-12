@@ -22,7 +22,7 @@ const data = [
   },
   {
     title: '3. Decals in Motion',
-    desc: 'We handle the logistics: your ad is printed, shipped, and installed on verified drivers’ vehicles. You’ll be notified at each stage — when decals are shipped, received, and installed.',
+    desc: 'We handle the logistics: your ad is printed and installed on verified drivers’ vehicles. You’re updated at every step and notified the moment your campaign goes live.',
     icon: <MapPin size={24} />,
   },
   {

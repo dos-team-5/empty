@@ -64,7 +64,7 @@ const Faq = memo(() => {
           className="md:text-[52px] lg:text-[48px] xl:text-[52px] 2xl:text-[64px]"
           once
         >
-          Got Questions!
+          Frequently
         </TextAnimate>
         <TextAnimate
           animation="blurInUp"
@@ -72,10 +72,10 @@ const Faq = memo(() => {
           startOnView
           duration={0.5}
           className="md:text-[52px] lg:text-[48px] xl:text-[52px] 2xl:text-[64px]"
-          delay={1}
+          delay={0.5}
           once
         >
-          We Got Answers
+          Asked Questions
         </TextAnimate>
       </>
     ),
@@ -115,7 +115,7 @@ const Faq = memo(() => {
           transitionDuration={200}
           maw={'100%'}
           mx="auto"
-          className="transition-all duration-200 ease-in-out mt-8"
+          className="mt-8 transition-all duration-200 ease-in-out"
           styles={{
             panel: {
               fontSize: '15px',
