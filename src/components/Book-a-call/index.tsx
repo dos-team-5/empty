@@ -39,7 +39,7 @@ const Meeting = () => {
               animation="blurInUp"
               by="word"
               duration={0.5}
-              className="text-[25px] md:text-[50px] lg:text-[30px] xl:text-[27px] 2xl:text-[64px]"
+              className="text-[25px] md:text-[50px] lg:text-[30px] xl:text-[27px] 2xl:text-[40px]"
               once
             >
               See how fast-moving brands are turning city streets into
@@ -68,7 +68,7 @@ const Meeting = () => {
               by="word"
               duration={0.5}
               delay={0.5}
-              className="lg:text-md text-sm md:text-lg xl:text-[13px] 2xl:text-3xl"
+              className="lg:text-md text-sm md:text-lg xl:text-[13px] 2xl:text-xl"
               once
             >
               In 20 minutes, we’ll show you how our mobile OOH ads help brands
@@ -88,7 +88,7 @@ const Meeting = () => {
               by="word"
               duration={0.5}
               delay={1}
-              className="text-lg md:text-2xl lg:text-xl xl:text-xl 2xl:text-3xl"
+              className="text-lg md:text-2xl lg:text-xl xl:text-xl 2xl:text-2xl"
               once
             >
               You'll discover how to:
@@ -128,10 +128,10 @@ const Meeting = () => {
                   className="text-primary-400 size-6 flex-shrink-0 rounded-md text-lg"
                 />
                 <ul className="max-w-max">
-                  <h3 className="mb-0.5 text-lg font-medium xl:text-[15px] 2xl:text-2xl">
+                  <h3 className="mb-0.5 text-lg font-medium xl:text-[15px] 2xl:text-xl">
                     {item.title}
                   </h3>
-                  <div className="text-base font-normal text-[#5E5E5E] xl:text-[12px] 2xl:text-[12px]">
+                  <div className="text-base font-normal text-[#5E5E5E] xl:text-[12px] 2xl:text-sm">
                     {item.description}
                   </div>
                 </ul>

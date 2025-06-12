@@ -8,6 +8,7 @@ interface SecondaryButtonProps {
   glowOnHover?: boolean;
   arrow?: boolean;
   type?: string;
+  customeSize?: boolean;
 }
 
 const SecondaryButton = ({
@@ -16,6 +17,7 @@ const SecondaryButton = ({
   glow = false,
   glowOnHover = false,
   arrow = true,
+  customeSize = false,
 }: SecondaryButtonProps) => {
   const [btnHovered, setBtnHovered] = useState(false);
 
@@ -42,7 +44,7 @@ const SecondaryButton = ({
       </AnimatePresence>
 
       <div
-        className="hover:bg-primary-400 text-primary-500 border-primary-400 relative flex items-center justify-center rounded-lg border-2 bg-transparent px-[25px] py-3 text-sm font-medium capitalize transition-all duration-200 hover:text-white"
+        className={`hover:bg-primary-400 text-primary-500 border-primary-400 relative flex items-center justify-center rounded-lg border-2 bg-transparent px-[25px] py-3 text-sm font-medium capitalize transition-all duration-200 hover:text-white ${customeSize ? 'w-48' : ''}`}
         role="button"
       >
         {btnText}
