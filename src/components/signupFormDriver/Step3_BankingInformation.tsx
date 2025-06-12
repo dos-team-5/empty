@@ -1,12 +1,22 @@
 'use client';
 import { useFormSubmission } from '@/contexts/FormSubmissionContext';
-import { Button, Group, Input, Space, Stack } from '@mantine/core';
+import {
+  Button,
+  Group,
+  Image,
+  Input,
+  SimpleGrid,
+  Space,
+  Stack,
+  Box,
+} from '@mantine/core';
 import { notifications } from '@mantine/notifications';
 import { useForm, zodResolver } from '@mantine/form';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { z } from 'zod';
 import { fileHandlerResSchema } from './Step1_DriverInformation';
 import { FileHandler, FileHandlerRes } from '../FileManager';
+import { Icon } from '@iconify/react/dist/iconify.js';
 
 // Zod validation schema
 const schema = z.object({
@@ -15,11 +25,11 @@ const schema = z.object({
     .max(1, 'Only one void cheque doc is allowed'),
 });
 
-interface Step3_BankingInformationFormValues {
+interface Step3BankingInformationFormValues {
   voidCheque: FileHandlerRes[] | null;
 }
 
-interface Step3_BankingInformationProps {
+interface Step3BankingInformationProps {
   onNext: () => void;
   onPrev: () => void;
 }
@@ -27,11 +37,13 @@ interface Step3_BankingInformationProps {
 const Step3_BankingInformation = ({
   onNext,
   onPrev,
-}: Step3_BankingInformationProps) => {
+}: Step3BankingInformationProps) => {
+  const [changeVoidChequePhotos, setChangeVoidChequePhotos] =
+    useState<boolean>(false);
   const { setIsBankingInfoSubmitted } = useFormSubmission();
 
   // Load initial values from localStorage
-  const getInitialValues = (): Step3_BankingInformationFormValues => {
+  const getInitialValues = (): Step3BankingInformationFormValues => {
     if (typeof window !== 'undefined') {
       const savedValues = localStorage.getItem('step3FormValues');
       if (savedValues) {
@@ -47,7 +59,7 @@ const Step3_BankingInformation = ({
     };
   };
 
-  const form = useForm<Step3_BankingInformationFormValues>({
+  const form = useForm<Step3BankingInformationFormValues>({
     mode: 'uncontrolled',
     initialValues: getInitialValues(),
     validate: zodResolver(schema),
@@ -60,7 +72,7 @@ const Step3_BankingInformation = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const handleSubmit = (values: Step3_BankingInformationFormValues) => {
+  const handleSubmit = (values: Step3BankingInformationFormValues) => {
     // Save values to localStorage (excluding files)
     if (typeof window !== 'undefined') {
       const valuesToSave = {
@@ -92,13 +104,39 @@ const Step3_BankingInformation = ({
           className="font-inter text-xs font-normal text-[#5E6366]"
         >
           <Space h={4} />
-          <FileHandler
-            multiple={false}
-            onUploadSuccess={(files: FileHandlerRes[]) => {
-              form.setFieldValue('voidCheque', files);
-              console.log('Files uploaded:', files);
-            }}
-          />
+          {(getInitialValues().voidCheque ?? []).length > 0 &&
+          changeVoidChequePhotos === false ? (
+            <SimpleGrid pos={'relative'} cols={1} spacing="md" mb="md">
+              {(getInitialValues().voidCheque ?? []).map((file) => (
+                <Image
+                  key={file.key}
+                  src={file.url}
+                  alt={`Vehicle Photo ${file.name}`}
+                  width={200}
+                  height={100}
+                  style={{ objectFit: 'cover', borderRadius: '8px' }}
+                />
+              ))}
+              <Box pos={'absolute'} top={0} right={0}>
+                <Button
+                  variant="subtle"
+                  size="md"
+                  radius="md"
+                  onClick={() => setChangeVoidChequePhotos(true)}
+                >
+                  <Icon icon="mingcute:edit-line" width={20} />
+                </Button>
+              </Box>
+            </SimpleGrid>
+          ) : (
+            <FileHandler
+              multiple={false}
+              onUploadSuccess={(files: FileHandlerRes[]) => {
+                form.setFieldValue('voidCheque', files);
+                console.log('Files uploaded:', files);
+              }}
+            />
+          )}
         </Input.Wrapper>
 
         <Group
