@@ -42,8 +42,7 @@ const Meeting = () => {
               className="text-[25px] md:text-[50px] lg:text-[30px] xl:text-[27px] 2xl:text-[40px]"
               once
             >
-              See how fast-moving brands are turning city streets into
-              high-impact, ad space
+              Lowest CPM in OOH. Period.
             </TextAnimate>
           </Title>
           <Title
@@ -71,9 +70,20 @@ const Meeting = () => {
               className="lg:text-md text-sm md:text-lg xl:text-[13px] 2xl:text-xl"
               once
             >
-              In 20 minutes, we’ll show you how our mobile OOH ads help brands
-              drive more impressions, reduce costs, and stay top-of-mind —
-              without the hassle of traditional media buying.
+              Our CPM is the lowest in out-of-home and rivals digital. We’ll
+              show you how to drive high-value impressions for a fraction of the
+              cost of traditional OOH, with digital-level performance.
+            </TextAnimate>
+            <TextAnimate
+              animation="blurInUp"
+              by="word"
+              duration={0.5}
+              delay={0.7}
+              className="lg:text-md mt-2 text-sm md:text-lg xl:text-[13px] 2xl:text-xl"
+              once
+            >
+              Then, re-target your real-world audience online for results that
+              scale fast, without the usual media buying headaches.
             </TextAnimate>
           </Title>
           <Title
@@ -91,28 +101,41 @@ const Meeting = () => {
               className="text-lg md:text-2xl lg:text-xl xl:text-xl 2xl:text-2xl"
               once
             >
-              You'll discover how to:
+              In 20 Minutes; You&apos;ll discover how to:
             </TextAnimate>
           </Title>
 
           <div className="mt-2 grid grid-cols-1 gap-2 px-6 md:grid-cols-2">
             {[
               {
-                title: 'Launch in under a week',
-                description: 'with a simple online setup',
+                title: 'Unlock full attribution from your ads',
+                description:
+                  'Track scans, leads, and conversions with Scan & Spin',
               },
 
               {
-                title: 'Own 100% of the ad space',
-                description: 'on each vehicle — no competition',
+                title: 'Analyze your impression data',
+                description:
+                  ' Get weekly reports powered by real GPS and device tracking',
               },
               {
                 title: 'Cut your CPM and boost ROI',
-                description: 'with smart, citywide visibility',
+                description:
+                  'Leverage our high-volume model for the lowest CPM in OOH',
               },
               {
-                title: 'Scale at your pace',
-                description: '— start with one car or grow to hundreds',
+                title: 'Scale as you go',
+                description:
+                  ' Launch with one car or expand to hundreds in days',
+              },
+              {
+                title: 'Get Citywide visibility',
+                description:
+                  'Get seen across the city without paying billboard prices.',
+              },
+              {
+                title: 'Own 100% share of voice',
+                description: 'On each vehicle, no competition',
               },
             ].map((item, index) => (
               <motion.div
