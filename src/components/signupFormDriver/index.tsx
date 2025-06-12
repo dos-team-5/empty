@@ -1,5 +1,5 @@
 'use client';
-import React from 'react';
+
 import { Box, Stack, Title } from '@mantine/core';
 import { memo } from 'react';
 import Steppers from './Steppers';

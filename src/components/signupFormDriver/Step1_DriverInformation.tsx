@@ -14,9 +14,20 @@ import { notifications } from '@mantine/notifications';
 import { useForm, zodResolver } from '@mantine/form';
 import { useEffect } from 'react';
 import { z } from 'zod';
-import { FileHandler, FileHandlerRes, ImageHandler } from '../FileManager';
+import { FileHandlerRes, ImageHandler } from '../FileManager';
 
 // Zod validation schema
+
+const fileHandlerResSchema = z
+  .object({
+    key: z.string(),
+    url: z.string().url(),
+    size: z.number(),
+    type: z.string(),
+    name: z.string(),
+  })
+  .catchall(z.unknown()); // allows additional properties of unknown type
+
 const schema = z.object({
   fullName: z.string().min(1, 'Full name is required'),
   email: z.string().email('Invalid email address'),
@@ -29,7 +40,7 @@ const schema = z.object({
     .string()
     .regex(/^\d{4}$/, 'Vehicle year must be a 4-digit number'),
   vehiclePhotos: z
-    .array(z.instanceof(File))
+    .array(fileHandlerResSchema)
     .min(2, 'Please upload both front, side and back vehicle photos')
     .max(4, 'Only front, side and back vehicle photos are allowed'),
   ridesharePlatforms: z
@@ -49,7 +60,7 @@ interface Step1_DriverInformationFormValues {
   vehicleMake: string;
   vehicleModel: string;
   vehicleYear: string;
-  vehiclePhotos: File[];
+  vehiclePhotos: FileHandlerRes[];
   ridesharePlatforms: string[];
   weeklyDrivingSchedule: string;
 }
@@ -114,7 +125,7 @@ const Step1_DriverInformation = ({
     if (typeof window !== 'undefined') {
       const valuesToSave = {
         ...values,
-        vehiclePhotos: [], // Files can't be stored in localStorage
+        // vehiclePhotos: [], // Files can't be stored in localStorage
       };
       localStorage.setItem('step1FormValues', JSON.stringify(valuesToSave));
     }
@@ -286,30 +297,12 @@ const Step1_DriverInformation = ({
           className="font-inter text-xs font-normal text-[#5E6366]"
         >
           <Space h={4} />
-          {/* <Input
-            type="file"
-            multiple
-            accept="image/*"
-            onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-              const files = event.target.files
-                ? Array.from(event.target.files)
-                : [];
-              form.setFieldValue('vehiclePhotos', files);
-            }}
-          /> */}
+
           <ImageHandler
             onUploadSuccess={(files: FileHandlerRes[]) => {
+              form.setFieldValue('vehiclePhotos', files);
               console.log('Files uploaded:', files);
             }}
-            multiple
-          />
-          <FileHandler
-            onUploadSuccess={(files: FileHandlerRes[]) => {
-              // Update form with uploaded files
-              console.log('Files uploaded:', files);
-            }}
-            description="Please upload your project proposal (PDF, DOCX)."
-            maxSizeMB={5}
             multiple
           />
         </Input.Wrapper>
