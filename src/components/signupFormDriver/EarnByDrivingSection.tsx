@@ -23,7 +23,7 @@ const howItWorksSteps = [
     step: 3,
     title: 'Drive as You Normally Do',
     description:
-      "Accept a campaign? Great! We'll send you a decal to place on your car. After that, just keep driving your usual routes. No extra work or detours needed.",
+      'Accept a campaign? Great! Get the decal installed at an EMPTY installation center. After that, just keep driving your usual routes. No extra work or detours needed',
   },
   {
     step: 4,
@@ -47,7 +47,7 @@ const whatToExpectItems = [
   {
     title: 'Simple Commitment',
     description:
-      'Once your decal is on, we just ask you to provide regular updates on its condition and keep your full-time driving hours updated through your online account dashboard.',
+      'Once the campaign is live, we just ask you to provide regular photo updates of the decals condition, while keeping the Evertrack app open and running at all times to allow us to track your driving activity.',
   },
 ];
 

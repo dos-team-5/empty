@@ -56,17 +56,17 @@ const data = [
   },
   {
     title: 'Receive Decal',
-    desc: 'We’ll mail the ad decal to your shipping address, along with installation instructions.',
+    desc: 'Visit the local installation center listed in your email to have your decal professionally installed.',
     icon: <Tag size={24} />,
   },
   {
     title: 'Install & Drive',
-    desc: 'Once your decal arrives, follow the application instructions, snap a confirmation photo, and you’re good to drive as usual.',
+    desc: 'Once your decal is installed, go to the Driver Sign-In page on our website and log in using your driver’s license number. Upload a clear photo of the decal, then download the Evertrack app to enable GPS tracking. After that, you’re all set to drive as usual.',
     icon: <Cog size={24} />,
   },
   {
     title: 'Weekly Updates',
-    desc: 'Once a week, you will be prompted to snap a photo of the decal as well as upload a screenshot of your rideshare activity to help track campaign performance.',
+    desc: 'Throughout the campaign, you must keep the Evertrack app running to allow us to track your driving hours. Once a week, log in to the Driver Sign-In page and upload clear photos of both decals to help us monitor campaign performance.',
     icon: <CalendarCheck size={24} />,
   },
   {
@@ -109,7 +109,7 @@ const TimelineSectionDrive = () => {
 
         <TimeLineComponent data={data} />
 
-        <Title
+        {/* <Title
           order={1}
           fw={700}
           ff={'var(--font-poppins)'}
@@ -126,7 +126,7 @@ const TimelineSectionDrive = () => {
           >
             Earn more with no extra work—just drive!
           </TextAnimate>
-        </Title>
+        </Title> */}
       </Flex>
     </Box>
   );

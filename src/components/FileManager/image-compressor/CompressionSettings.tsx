@@ -23,17 +23,17 @@ export function CompressionSettings({
   disabled,
 }: CompressionSettingsProps) {
   return (
-    <Box mt="md">
+    <Box p={'md'} mt="md">
       <Text size="sm">Settings</Text>
       <Flex
         w={'100%'}
         justify="space-between"
         align="center"
-        direction={{ base: 'column', sm: 'row' }}
+        direction={{ base: 'column', sm: 'column' }}
         gap="md"
         mb="xs"
       >
-        <Box w={{ base: '100%', sm: '50%' }}>
+        <Box w={{ base: '100%' }}>
           <Text size="xs">Target Width (px)</Text>
           <Slider
             min={100}
@@ -45,7 +45,7 @@ export function CompressionSettings({
             disabled={disabled}
           />
         </Box>
-        <Box w={{ base: '100%', sm: '50%' }}>
+        <Box w={{ base: '100%' }}>
           <Text size="xs">Format</Text>
           <Select
             value={settings.format}
@@ -59,7 +59,7 @@ export function CompressionSettings({
             disabled={disabled}
           />
         </Box>
-        <Box w={{ base: '100%', sm: '50%' }}>
+        <Box w={{ base: '100%' }}>
           <Text size="xs">Quality (0–100)</Text>
           <Slider
             min={10}
@@ -76,11 +76,11 @@ export function CompressionSettings({
         w={'100%'}
         justify="space-between"
         align="center"
-        direction={{ base: 'column', sm: 'row' }}
+        direction={{ base: 'column', sm: 'column' }}
         gap="md"
         mb="xs"
       >
-        <Box w={{ base: '100%', sm: '50%' }}>
+        <Box w={{ base: '100%' }}>
           <Text size="xs">Compression Strength (max size in MB)</Text>
           <Slider
             min={0.1}
@@ -93,7 +93,7 @@ export function CompressionSettings({
             disabled={disabled}
           />
         </Box>
-        <Box w={{ base: '100%', sm: '50%' }}>
+        <Box w={{ base: '100%' }}>
           <Text size="xs">File Name Prefix</Text>
           <TextInput
             value={settings.fileNamePrefix}
@@ -104,7 +104,7 @@ export function CompressionSettings({
             disabled={disabled}
           />
         </Box>
-        <Box w={{ base: '100%', sm: '50%' }}>
+        <Box w={{ base: '100%' }}>
           <Text size="xs">Preserve Metadata</Text>
           <Checkbox
             checked={settings.preserveMetadata}

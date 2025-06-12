@@ -151,7 +151,7 @@ const DriveHeroSection: React.FC = () => {
             {[
               'Join our platform and earn up to 200$ per month with no extra effort.',
               'Simply drive your typical routes and hours.',
-              'with an advertisement decal on your front doors.',
+              'Advertise for Brands People Know and Love.',
             ].map((feature, index) => (
               <motion.div
                 key={index}
