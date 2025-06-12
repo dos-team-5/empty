@@ -14,7 +14,7 @@ import { TextAnimate } from '../TextAnimation';
 import { motion } from 'framer-motion';
 import { memo } from 'react';
 import { useRouter } from 'next/navigation';
-import { CheckCircle } from 'lucide-react';
+import { Icon } from '../Icon';
 
 // Features data
 const features = [
@@ -74,7 +74,18 @@ const TitleSection = memo(() => (
         once
         className="md:text-[52px] lg:text-[48px] xl:text-[52px] 2xl:text-[64px]"
       >
-        Why rent a wall when you can own the road?
+        Why rent a wall when
+      </TextAnimate>
+      <TextAnimate
+        animation="blurInUp"
+        by="word"
+        startOnView
+        duration={0.5}
+        delay={0.5}
+        once
+        className="md:text-[52px] lg:text-[48px] xl:text-[52px] 2xl:text-[64px]"
+      >
+        you can own the road?
       </TextAnimate>
     </Title>
   </div>
@@ -151,7 +162,7 @@ const PricingCards = () => {
         <TitleSection />
         <div className="flex flex-col lg:flex-row lg:gap-8 xl:gap-12">
           {/* Left Features (Desktop: Left Column, Mobile: Top) */}
-          <div className="flex flex-col gap-4 lg:w-1/3">
+          <div className="flex flex-col items-center gap-4 lg:w-1/3 lg:items-end">
             {leftFeatures.map((item, index) => (
               <motion.div
                 key={item.title}
@@ -160,9 +171,13 @@ const PricingCards = () => {
                 whileInView="visible"
                 viewport={{ once: true }}
                 transition={{ delay: (index + 1) * 0.6 }}
-                className="bg-primary-50/50 flex w-full max-w-xs items-start gap-x-4 rounded-lg p-3 py-2 shadow-lg ring-1 ring-gray-900/5 backdrop-blur-sm lg:flex-row-reverse"
+                className="bg-primary-50/50 flex w-full max-w-xs items-start gap-x-4 rounded-lg px-2 py-6 shadow-lg ring-1 ring-gray-900/5 backdrop-blur-sm lg:flex-row-reverse"
               >
-                <CheckCircle className="text-primary-400 flex-shrink-0 rounded-md text-xl" />
+                {/* <CircleCheck className="text-primary-400 flex-shrink-0 rounded-md text-xl" /> */}
+                <Icon
+                  icon="lets-icons:check-fill"
+                  className="text-primary-400 size-7 flex-shrink-0 rounded-md text-xl"
+                />
                 <Title
                   order={2}
                   ff={'var(--font-poppins)'}
@@ -240,7 +255,7 @@ const PricingCards = () => {
                       className="mt-6 !text-3xl"
                     />
                     <Button
-                      className="!bg-primary-400 hover:!bg-primary mt-12 w-fit text-sm !font-medium !uppercase md:text-base lg:text-sm xl:text-base 2xl:text-lg"
+                      className="!bg-primary-400 hover:!bg-primary mt-12 w-fit !text-sm !font-bold capitalize"
                       size="lg"
                       radius={12}
                       onClick={
@@ -260,7 +275,7 @@ const PricingCards = () => {
           </Box>
 
           {/* Right Features (Desktop: Right Column, Mobile: Bottom) */}
-          <div className="flex flex-col gap-4 lg:w-1/3">
+          <div className="flex flex-col items-center gap-4 lg:w-1/3 lg:items-start">
             {rightFeatures.map((item, index) => (
               <motion.div
                 key={item.title}
@@ -269,9 +284,12 @@ const PricingCards = () => {
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: (index + leftFeatures.length + 1) * 0.6 }}
-                className="bg-primary-50/50 flex w-full max-w-xs items-start justify-start gap-x-4 rounded-lg p-6 py-2 shadow-lg ring-1 ring-gray-900/5 backdrop-blur-sm"
+                className="bg-primary-50/50 flex w-full max-w-xs items-start justify-start gap-x-4 rounded-lg px-2 py-6 shadow-lg ring-1 ring-gray-900/5 backdrop-blur-sm"
               >
-                <CheckCircle className="text-primary-400 flex-shrink-0 rounded-md text-xl" />
+                <Icon
+                  icon="lets-icons:check-fill"
+                  className="text-primary-400 size-7 flex-shrink-0 rounded-md text-xl"
+                />
                 <Title
                   order={2}
                   ff={'var(--font-poppins)'}

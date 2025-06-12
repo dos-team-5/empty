@@ -71,7 +71,7 @@ const FeatureCard = () => {
                     width={300}
                     height={320}
                     src={card.img}
-                    className="h-80 w-full rounded-lg object-cover object-top md:h-56 lg:h-72 2xl:h-112"
+                    className="h-80 w-full rounded-lg object-cover object-top md:h-56 lg:h-72"
                   />
                 </div>
                 {/* <div className="relative flex h-20 items-center justify-between px-2">
@@ -130,7 +130,7 @@ const FeatureCard = () => {
                     width={300}
                     height={320}
                     src={card.img}
-                    className="h-80 w-full rounded-lg object-cover object-top md:h-56 lg:h-72 2xl:h-112"
+                    className="h-80 w-full rounded-lg object-cover object-top md:h-56 lg:h-72"
                     alt="hi"
                   />
                 </div>

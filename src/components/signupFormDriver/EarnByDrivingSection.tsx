@@ -1,6 +1,7 @@
 'use client';
 
 import { Title, Text, SimpleGrid, Paper, List, Image } from '@mantine/core';
+import { motion } from 'motion/react';
 import { FC } from 'react';
 
 // --- Data for the sections to keep the component clean ---
@@ -87,8 +88,15 @@ export const EarnByDrivingSection: FC = () => {
             cols={{ base: 1, sm: 2 }}
             spacing={{ base: 'xl', sm: '3rem' }}
           >
-            {howItWorksSteps.map((item) => (
-              <div key={item.step} className="flex items-start gap-x-4">
+            {howItWorksSteps.map((item, index) => (
+              <motion.div
+                key={item.step}
+                initial={{ opacity: 0, x: -20 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: index * 0.6 }}
+                className="flex items-start gap-x-4"
+              >
                 <div className="flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-full bg-[#E55C9A] text-sm font-bold text-white">
                   {item.step}
                 </div>
@@ -105,7 +113,7 @@ export const EarnByDrivingSection: FC = () => {
                     {item.description}
                   </Text>
                 </div>
-              </div>
+              </motion.div>
             ))}
           </SimpleGrid>
         </div>
@@ -129,25 +137,33 @@ export const EarnByDrivingSection: FC = () => {
               classNames={{ itemWrapper: 'flex' }}
             >
               {whatToExpectItems.map((item, index) => (
-                <List.Item
+                <motion.div
                   key={index}
-                  // icon={
-                  //   <ThemeIcon
-                  //     color="#E55C9A"
-                  //     size={10}
-                  //     radius="xl"
-                  //     className="mt-2"
-                  //   />
-                  // }
-                  className="items-start"
+                  initial={{ opacity: 0, y: -20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: index * 0.6 }}
+                  className="mb-4"
                 >
-                  <span className="font-semibold text-gray-800">
-                    {item.title}
-                  </span>
-                  <Text fz={13} className="mt-1 !text-gray-600">
-                    {item.description}
-                  </Text>
-                </List.Item>
+                  <List.Item
+                    // icon={
+                    //   <ThemeIcon
+                    //     color="#E55C9A"
+                    //     size={10}
+                    //     radius="xl"
+                    //     className="mt-2"
+                    //   />
+                    // }
+                    className="items-start"
+                  >
+                    <span className="font-semibold text-gray-800">
+                      {item.title}
+                    </span>
+                    <Text fz={13} className="mt-1 !text-gray-600">
+                      {item.description}
+                    </Text>
+                  </List.Item>
+                </motion.div>
               ))}
             </List>
           </Paper>

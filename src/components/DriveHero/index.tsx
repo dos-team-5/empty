@@ -1,9 +1,11 @@
 'use client';
-import { Box, Stack, Title } from '@mantine/core';
+import { Box, Group, Stack, Title } from '@mantine/core';
 import { motion } from 'motion/react';
 import Image from 'next/image';
 import { TextAnimate } from '../TextAnimation';
 import PrimaryBtn from '../PrimaryBtn';
+
+import { Icon } from '../Icon';
 
 const DriveHeroSection: React.FC = () => {
   const handleSignUpClick = () => {
@@ -118,7 +120,7 @@ const DriveHeroSection: React.FC = () => {
           <Title
             order={1}
             fw={700}
-            c="#333333"
+            c="#000000"
             ff={'var(--font-poppins)'}
             className="capitalize"
           >
@@ -138,83 +140,41 @@ const DriveHeroSection: React.FC = () => {
               startOnView
               duration={0.5}
               delay={0.5}
-              className="md:text-[52px] lg:text-[40px] xl:text-[42px] 2xl:text-[46px]"
+              className="md:text-[52px] lg:text-[40px] xl:text-[42px] 2xl:text-[64px]"
               once
             >
               Drive as you normally do.
             </TextAnimate>
           </Title>
 
-          <Title
-            order={2}
-            fw={500}
-            c="#5E5E5E"
-            ff={'var(--font-inter)'}
-            className="capitalize"
-          >
-            {/* <TextAnimate
-              animation="blurInUp"
-              by="word"
-              startOnView
-              duration={0.5}
-              delay={1}
-              className="text-lg md:text-2xl lg:text-xl xl:text-2xl 2xl:text-3xl"
-              once
-            > */}
-
-            <TextAnimate
-              animation="blurInUp"
-              by="word"
-              startOnView
-              duration={0.5}
-              delay={1}
-              className="text-lg md:text-2xl lg:text-xl xl:text-lg 2xl:text-3xl"
-              once
-            >
-              Join our platform and earn up to 200$ per month with no extra
-              effort.
-            </TextAnimate>
-            {/* <TextAnimate
-              animation="blurInUp"
-              by="word"
-              startOnView
-              duration={0.5}
-              delay={1.5}
-              className="pt-6 text-lg md:text-2xl lg:text-xl xl:text-2xl 2xl:text-3xl"
-              once
-            > */}
-            <TextAnimate
-              animation="blurInUp"
-              by="word"
-              startOnView
-              duration={0.5}
-              delay={1.5}
-              className="pt-6 text-lg md:text-2xl lg:text-xl xl:text-lg 2xl:text-3xl"
-              once
-            >
-              Simply drive your typical routes and hours,
-            </TextAnimate>
-            {/* <TextAnimate
-              animation="blurInUp"
-              by="word"
-              startOnView
-              duration={0.5}
-              delay={2}
-              className="text-lg md:text-2xl lg:text-xl xl:text-2xl 2xl:text-3xl"
-              once
-            > */}
-            <TextAnimate
-              animation="blurInUp"
-              by="word"
-              startOnView
-              duration={0.5}
-              delay={2}
-              className="pt-6 text-lg md:text-2xl lg:text-xl xl:text-lg 2xl:text-3xl"
-              once
-            >
-              with an advertisement decal on your front doors.
-            </TextAnimate>
-          </Title>
+          <Stack className="w-full md:hidden" gap={0}>
+            {[
+              'Join our platform and earn up to 200$ per month with no extra effort.',
+              'Simply drive your typical routes and hours.',
+              'with an advertisement decal on your front doors.',
+            ].map((feature, index) => (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, y: -20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.5 }}
+                transition={{
+                  delay: 1 + 0.6 * index,
+                }}
+                className="w-full py-2"
+              >
+                <Group wrap="nowrap" gap="xs">
+                  <Icon
+                    icon="lets-icons:check-fill"
+                    className="text-primary-400 size-6 flex-shrink-0 rounded-md text-lg"
+                  />
+                  <p className="font-inter max-w-sm text-base leading-6 text-black 2xl:text-lg">
+                    {feature}
+                  </p>
+                </Group>
+              </motion.div>
+            ))}
+          </Stack>
 
           <motion.div
             initial={{ opacity: 0, filter: 'blur(10px)', y: 20 }}
@@ -226,20 +186,16 @@ const DriveHeroSection: React.FC = () => {
             viewport={{ once: true }}
             transition={{ duration: 0.4, delay: 2.5 }}
           >
-            <Box
-              onClick={handleSignUpClick}
-              className="cursor-pointer lg:origin-top-left lg:scale-125"
-              mt="lg"
-            >
+            <Box onClick={handleSignUpClick} className="cursor-pointer" mt="xs">
               <PrimaryBtn btnText="Sign Up" glowOnHover />
             </Box>
           </motion.div>
         </Stack>
         <div className="w-full overflow-hidden lg:w-[45%]">
-          <motion.div
-            initial={{ x: '100%', opacity: 0 }}
-            animate={{ x: '0%', opacity: 1 }}
-            transition={{ duration: 2 }}
+          <div
+            // initial={{ x: '100%', opacity: 0 }}
+            // animate={{ x: '0%', opacity: 1 }}
+            // transition={{ duration: 2 }}
             className="rounded-xl bg-[#e9c8dd] p-2"
           >
             <Image
@@ -250,7 +206,7 @@ const DriveHeroSection: React.FC = () => {
               priority
               className="rounded-xl lg:origin-left lg:scale-110 xl:origin-center xl:scale-100"
             />
-          </motion.div>
+          </div>
         </div>
       </Box>
     </Box>

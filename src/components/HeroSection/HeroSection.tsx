@@ -97,7 +97,7 @@ const HeroSection: React.FC = () => {
                 duration={0.5}
                 delay={1}
                 once
-                className="text-[16px]"
+                className="text-[16px] 2xl:text-lg"
               >
                 Unbeatable visibility and returns that
               </TextAnimate>
@@ -108,7 +108,7 @@ const HeroSection: React.FC = () => {
                 duration={0.5}
                 delay={1.5}
                 once
-                className="text-[16px]"
+                className="text-[16px] 2xl:text-lg"
               >
                 stationary ads can’t match.
               </TextAnimate>
