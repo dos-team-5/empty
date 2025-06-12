@@ -5,19 +5,18 @@ import { notifications } from '@mantine/notifications';
 import { useForm, zodResolver } from '@mantine/form';
 import { useEffect } from 'react';
 import { z } from 'zod';
+import { fileHandlerResSchema } from './Step1_DriverInformation';
+import { FileHandler, FileHandlerRes } from '../FileManager';
 
 // Zod validation schema
 const schema = z.object({
   voidCheque: z
-    .instanceof(File)
-    .refine(
-      (file) => file.type === 'image/*' || file.type === 'application/pdf',
-      'Void cheque must be an image or PDF'
-    ),
+    .array(fileHandlerResSchema)
+    .max(1, 'Only one void cheque doc is allowed'),
 });
 
 interface Step3_BankingInformationFormValues {
-  voidCheque: File | null;
+  voidCheque: FileHandlerRes[] | null;
 }
 
 interface Step3_BankingInformationProps {
@@ -65,15 +64,13 @@ const Step3_BankingInformation = ({
     // Save values to localStorage (excluding files)
     if (typeof window !== 'undefined') {
       const valuesToSave = {
-        voidCheque: null,
+        ...values,
       };
       localStorage.setItem('step3FormValues', JSON.stringify(valuesToSave));
     }
 
     // Simulate form submission (e.g., API call)
-    console.log('Step 3 submitted:', {
-      voidCheque: values.voidCheque?.name,
-    });
+
     setIsBankingInfoSubmitted(true); // Mark form as submitted
     notifications.show({
       title: 'Form Submitted',
@@ -95,12 +92,11 @@ const Step3_BankingInformation = ({
           className="font-inter text-xs font-normal text-[#5E6366]"
         >
           <Space h={4} />
-          <Input
-            type="file"
-            accept="image/*,application/pdf"
-            onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-              const file = event.target.files ? event.target.files[0] : null;
-              form.setFieldValue('voidCheque', file);
+          <FileHandler
+            multiple={false}
+            onUploadSuccess={(files: FileHandlerRes[]) => {
+              form.setFieldValue('voidCheque', files);
+              console.log('Files uploaded:', files);
             }}
           />
         </Input.Wrapper>
