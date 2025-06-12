@@ -1,26 +1,41 @@
 'use client';
 import { useFormSubmission } from '@/contexts/FormSubmissionContext';
-import { Button, Group, Input, Space, Stack } from '@mantine/core';
+import {
+  Button,
+  Group,
+  Image,
+  Input,
+  SimpleGrid,
+  Space,
+  Stack,
+  Box,
+} from '@mantine/core';
 import { notifications } from '@mantine/notifications';
 import { useForm, zodResolver } from '@mantine/form';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { z } from 'zod';
+import { fileHandlerResSchema } from './Step1_DriverInformation';
+import { FileHandler, FileHandlerRes } from '../FileManager';
+import { Icon } from '@iconify/react/dist/iconify.js';
+import {
+  DriverApplication,
+  getDriverApplicationFromLocalStorage,
+  greetDrivers,
+  sendDriverApplicationEmail,
+} from '@/app/drive/action/driverApplication';
 
 // Zod validation schema
 const schema = z.object({
   voidCheque: z
-    .instanceof(File)
-    .refine(
-      (file) => file.type === 'image/*' || file.type === 'application/pdf',
-      'Void cheque must be an image or PDF'
-    ),
+    .array(fileHandlerResSchema)
+    .max(1, 'Only one void cheque doc is allowed'),
 });
 
-interface Step3_BankingInformationFormValues {
-  voidCheque: File | null;
+interface Step3BankingInformationFormValues {
+  voidCheque: FileHandlerRes[] | null;
 }
 
-interface Step3_BankingInformationProps {
+interface Step3BankingInformationProps {
   onNext: () => void;
   onPrev: () => void;
 }
@@ -28,11 +43,14 @@ interface Step3_BankingInformationProps {
 const Step3_BankingInformation = ({
   onNext,
   onPrev,
-}: Step3_BankingInformationProps) => {
+}: Step3BankingInformationProps) => {
+  const [changeVoidChequePhotos, setChangeVoidChequePhotos] =
+    useState<boolean>(false);
+  const [submitting, setSubmitting] = useState<boolean>(false);
   const { setIsBankingInfoSubmitted } = useFormSubmission();
 
   // Load initial values from localStorage
-  const getInitialValues = (): Step3_BankingInformationFormValues => {
+  const getInitialValues = (): Step3BankingInformationFormValues => {
     if (typeof window !== 'undefined') {
       const savedValues = localStorage.getItem('step3FormValues');
       if (savedValues) {
@@ -48,7 +66,7 @@ const Step3_BankingInformation = ({
     };
   };
 
-  const form = useForm<Step3_BankingInformationFormValues>({
+  const form = useForm<Step3BankingInformationFormValues>({
     mode: 'uncontrolled',
     initialValues: getInitialValues(),
     validate: zodResolver(schema),
@@ -61,27 +79,69 @@ const Step3_BankingInformation = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const handleSubmit = (values: Step3_BankingInformationFormValues) => {
+  const handleSubmit = async (values: Step3BankingInformationFormValues) => {
+    setSubmitting(true);
     // Save values to localStorage (excluding files)
     if (typeof window !== 'undefined') {
       const valuesToSave = {
-        voidCheque: null,
+        ...values,
       };
       localStorage.setItem('step3FormValues', JSON.stringify(valuesToSave));
     }
 
     // Simulate form submission (e.g., API call)
-    console.log('Step 3 submitted:', {
-      voidCheque: values.voidCheque?.name,
-    });
-    setIsBankingInfoSubmitted(true); // Mark form as submitted
-    notifications.show({
-      title: 'Form Submitted',
-      message: 'Banking Information submitted successfully!',
-      color: 'green',
-      autoClose: 3000,
-    });
-    onNext();
+    try {
+      const driverApplication: DriverApplication | null =
+        getDriverApplicationFromLocalStorage();
+
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const greetingMsg: any = greetDrivers();
+
+      if (!driverApplication) {
+        notifications.show({
+          title: 'Missing Data',
+          message: 'Driver application data not found in local storage.',
+          color: 'red',
+        });
+        return;
+      }
+
+      const { success, message } =
+        await sendDriverApplicationEmail(driverApplication);
+
+      if (success) {
+        const { success: greetingSuccess } =
+          await sendDriverApplicationEmail(greetingMsg);
+        if (greetingSuccess) {
+          setIsBankingInfoSubmitted(true); // Mark form as submitted
+          notifications.show({
+            title: 'Form Submitted. Please check you Email for confirmation',
+            message,
+            color: 'green',
+            autoClose: 3000,
+          });
+          onNext();
+        }
+      } else {
+        notifications.show({
+          title: 'Submission Failed',
+          message,
+          color: 'red',
+          autoClose: 5000,
+        });
+      }
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } catch (err: any) {
+      console.error('Submission error:', err);
+      notifications.show({
+        title: 'Unexpected Error',
+        message: err.message ?? 'Something went wrong.',
+        color: 'red',
+        autoClose: 5000,
+      });
+    }
+
+    setSubmitting(false);
   };
 
   return (
@@ -95,14 +155,39 @@ const Step3_BankingInformation = ({
           className="font-inter text-xs font-normal text-[#5E6366]"
         >
           <Space h={4} />
-          <Input
-            type="file"
-            accept="image/*,application/pdf"
-            onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-              const file = event.target.files ? event.target.files[0] : null;
-              form.setFieldValue('voidCheque', file);
-            }}
-          />
+          {(getInitialValues().voidCheque ?? []).length > 0 &&
+          changeVoidChequePhotos === false ? (
+            <SimpleGrid pos={'relative'} cols={1} spacing="md" mb="md">
+              {(getInitialValues().voidCheque ?? []).map((file) => (
+                <Image
+                  key={file.key}
+                  src={file.url}
+                  alt={`Vehicle Photo ${file.name}`}
+                  width={200}
+                  height={100}
+                  style={{ objectFit: 'cover', borderRadius: '8px' }}
+                />
+              ))}
+              <Box pos={'absolute'} top={0} right={0}>
+                <Button
+                  variant="subtle"
+                  size="md"
+                  radius="md"
+                  onClick={() => setChangeVoidChequePhotos(true)}
+                >
+                  <Icon icon="mingcute:edit-line" width={20} />
+                </Button>
+              </Box>
+            </SimpleGrid>
+          ) : (
+            <FileHandler
+              multiple={false}
+              onUploadSuccess={(files: FileHandlerRes[]) => {
+                form.setFieldValue('voidCheque', files);
+                console.log('Files uploaded:', files);
+              }}
+            />
+          )}
         </Input.Wrapper>
 
         <Group
@@ -120,6 +205,7 @@ const Step3_BankingInformation = ({
             Back
           </Button>
           <Button
+            loading={submitting}
             type="submit"
             size="md"
             radius={12}

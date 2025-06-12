@@ -1,8 +1,10 @@
 'use client';
 import { useFormSubmission } from '@/contexts/FormSubmissionContext';
 import {
+  Box,
   Button,
   Group,
+  Image,
   Input,
   MultiSelect,
   SimpleGrid,
@@ -12,11 +14,23 @@ import {
 } from '@mantine/core';
 import { notifications } from '@mantine/notifications';
 import { useForm, zodResolver } from '@mantine/form';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { z } from 'zod';
-import { FileHandler, FileHandlerRes, ImageHandler } from '../FileManager';
+import { FileHandlerRes, ImageHandler } from '../FileManager';
+import { Icon } from '@iconify/react/dist/iconify.js';
 
 // Zod validation schema
+
+export const fileHandlerResSchema = z
+  .object({
+    key: z.string(),
+    url: z.string().url(),
+    size: z.number(),
+    type: z.string(),
+    name: z.string(),
+  })
+  .catchall(z.unknown()); // allows additional properties of unknown type
+
 const schema = z.object({
   fullName: z.string().min(1, 'Full name is required'),
   email: z.string().email('Invalid email address'),
@@ -29,18 +43,18 @@ const schema = z.object({
     .string()
     .regex(/^\d{4}$/, 'Vehicle year must be a 4-digit number'),
   vehiclePhotos: z
-    .array(z.instanceof(File))
+    .array(fileHandlerResSchema)
     .min(2, 'Please upload both front, side and back vehicle photos')
     .max(4, 'Only front, side and back vehicle photos are allowed'),
-  ridesharePlatforms: z
+  rideSharePlatforms: z
     .array(z.string())
-    .min(1, 'At least one rideshare platform is required'),
+    .min(1, 'At least one ride-share platform is required'),
   weeklyDrivingSchedule: z
     .string()
     .min(1, 'Weekly driving schedule is required'),
 });
 
-interface Step1_DriverInformationFormValues {
+interface Step1DriverInformationFormValues {
   fullName: string;
   email: string;
   phone: string;
@@ -49,12 +63,12 @@ interface Step1_DriverInformationFormValues {
   vehicleMake: string;
   vehicleModel: string;
   vehicleYear: string;
-  vehiclePhotos: File[];
-  ridesharePlatforms: string[];
+  vehiclePhotos: FileHandlerRes[];
+  rideSharePlatforms: string[];
   weeklyDrivingSchedule: string;
 }
 
-interface Step1_DriverInformationProps {
+interface Step1DriverInformationProps {
   onNext: () => void;
   onPrev: () => void;
 }
@@ -62,11 +76,12 @@ interface Step1_DriverInformationProps {
 const Step1_DriverInformation = ({
   onNext,
   onPrev,
-}: Step1_DriverInformationProps) => {
+}: Step1DriverInformationProps) => {
+  const [changeVehiclePhotos, setChangeVehiclePhotos] = useState(false);
   const { setIsDriverInfoSubmitted } = useFormSubmission();
 
   // Load initial values from localStorage
-  const getInitialValues = (): Step1_DriverInformationFormValues => {
+  const getInitialValues = (): Step1DriverInformationFormValues => {
     if (typeof window !== 'undefined') {
       const savedValues = localStorage.getItem('step1FormValues');
       if (savedValues) {
@@ -74,7 +89,6 @@ const Step1_DriverInformation = ({
           const parsed = JSON.parse(savedValues);
           return {
             ...parsed,
-            vehiclePhotos: [], // Files can't be persisted in localStorage, reset to empty
           };
         } catch (e) {
           console.error('Error parsing step1FormValues from localStorage:', e);
@@ -91,12 +105,12 @@ const Step1_DriverInformation = ({
       vehicleModel: '',
       vehicleYear: '',
       vehiclePhotos: [],
-      ridesharePlatforms: [],
+      rideSharePlatforms: [],
       weeklyDrivingSchedule: '',
     };
   };
 
-  const form = useForm<Step1_DriverInformationFormValues>({
+  const form = useForm<Step1DriverInformationFormValues>({
     mode: 'uncontrolled',
     initialValues: getInitialValues(),
     validate: zodResolver(schema),
@@ -109,12 +123,12 @@ const Step1_DriverInformation = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const handleSubmit = (values: Step1_DriverInformationFormValues) => {
+  const handleSubmit = (values: Step1DriverInformationFormValues) => {
     // Save values to localStorage (excluding files)
     if (typeof window !== 'undefined') {
       const valuesToSave = {
         ...values,
-        vehiclePhotos: [], // Files can't be stored in localStorage
+        // vehiclePhotos: [], // Files can't be stored in localStorage
       };
       localStorage.setItem('step1FormValues', JSON.stringify(valuesToSave));
     }
@@ -131,12 +145,13 @@ const Step1_DriverInformation = ({
     onNext();
   };
 
-  const handleFileUpload = (file: FileHandlerRes) => {
+  const handleFileUpload = (files: FileHandlerRes[]) => {
     // Update form with uploaded files
-    console.log('Files uploaded:', file);
+    form.setFieldValue('vehiclePhotos', files);
+    console.log('Files uploaded:', files);
     notifications.show({
       title: 'Files Uploaded',
-      message: `${file.name} files uploaded successfully!`,
+      message: ` files uploaded successfully!`,
       color: 'green',
       autoClose: 3000,
     });
@@ -286,45 +301,47 @@ const Step1_DriverInformation = ({
           className="font-inter text-xs font-normal text-[#5E6366]"
         >
           <Space h={4} />
-          {/* <Input
-            type="file"
-            multiple
-            accept="image/*"
-            onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-              const files = event.target.files
-                ? Array.from(event.target.files)
-                : [];
-              form.setFieldValue('vehiclePhotos', files);
-            }}
-          /> */}
-          <ImageHandler
-            onUploadSuccess={(files: FileHandlerRes[]) => {
-              console.log('Files uploaded:', files);
-            }}
-            multiple
-          />
-          <FileHandler
-            onUploadSuccess={(files: FileHandlerRes[]) => {
-              // Update form with uploaded files
-              console.log('Files uploaded:', files);
-            }}
-            description="Please upload your project proposal (PDF, DOCX)."
-            maxSizeMB={5}
-            multiple
-          />
+
+          {getInitialValues().vehiclePhotos.length > 0 &&
+          changeVehiclePhotos === false ? (
+            <SimpleGrid pos={'relative'} cols={3} spacing="md" mb="md">
+              {getInitialValues().vehiclePhotos.map((file) => (
+                <Image
+                  key={file.key}
+                  src={file.url}
+                  alt={`Vehicle Photo ${file.name}`}
+                  width={200}
+                  height={150}
+                  style={{ objectFit: 'cover', borderRadius: '8px' }}
+                />
+              ))}
+              <Box pos={'absolute'} top={0} right={0}>
+                <Button
+                  variant="subtle"
+                  size="md"
+                  radius="md"
+                  onClick={() => setChangeVehiclePhotos(true)}
+                >
+                  <Icon icon="mingcute:edit-line" width={20} />
+                </Button>
+              </Box>
+            </SimpleGrid>
+          ) : (
+            <ImageHandler onUploadSuccess={handleFileUpload} multiple />
+          )}
         </Input.Wrapper>
 
         <Input.Wrapper
-          label="Rideshare Platform(s)"
+          label="Ride Share Platform(s)"
           withAsterisk
-          error={form.errors.ridesharePlatforms}
+          error={form.errors.rideSharePlatforms}
           className="font-inter text-xs font-normal text-[#5E6366]"
         >
           <Space h={4} />
           <MultiSelect
             data={['Uber', 'Lyft', 'UberEats', 'Other']}
             placeholder="Select platforms"
-            {...form.getInputProps('ridesharePlatforms')}
+            {...form.getInputProps('rideSharePlatforms')}
           />
         </Input.Wrapper>
         <Input.Wrapper
