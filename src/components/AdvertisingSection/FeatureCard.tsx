@@ -110,7 +110,9 @@ const FeatureCard = () => {
                   }}
                 >
                   <Accordion.Item value={card.title}>
-                    <Accordion.Control>{card.title}</Accordion.Control>
+                    <Accordion.Control className="!capitalize">
+                      {card.title}
+                    </Accordion.Control>
 
                     <Accordion.Panel>{card.content}</Accordion.Panel>
                   </Accordion.Item>
@@ -170,7 +172,7 @@ const FeatureCard = () => {
                   onClick={() => handleColumn2Open(card.id)}
                 >
                   <Accordion.Item value={card.title}>
-                    <Accordion.Control className="font-poppins">
+                    <Accordion.Control className="font-poppins !capitalize">
                       {card.title}
                     </Accordion.Control>
                     <Accordion.Panel className="font-inter">

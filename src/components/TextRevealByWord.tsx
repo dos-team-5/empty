@@ -53,7 +53,8 @@ export const TextRevealByWord: FC<TextRevealByWordProps> = ({
           <p className="flex flex-wrap justify-center px-5 pt-5 text-center text-4xl font-bold text-black/20 md:px-8 md:pt-8 md:text-7xl lg:px-10 lg:pt-10 lg:text-9xl">
             {words.map((word, i) => {
               const start = i / words.length;
-              const end = start + 0.5 / words.length;
+              // changed to 0.25 to ensure the last word has enough space
+              const end = start + 0.25 / words.length;
               return (
                 <Word
                   key={i}
@@ -74,13 +75,14 @@ export const TextRevealByWord: FC<TextRevealByWordProps> = ({
           className="scale-100 md:scale-125 lg:scale-150"
         >
           <Flex
+            mt={12}
             component={Link}
             href={'/contact'}
             justify="center"
             align="center"
           >
             <SecondaryButton
-              btnText={btnHovered ? 'Book A Call' : "Don't Believe Us?"}
+              btnText={"Don't Believe Us?"}
               glowOnHover
               customeSize
             />

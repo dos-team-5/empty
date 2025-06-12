@@ -101,9 +101,9 @@ const plans = [
 
 const carOptions = [
   { cars: 1, price: 270 },
-  { cars: 5, price: 2300 },
-  { cars: 10, price: 4500 },
-  { cars: 20, price: 9000 },
+  { cars: 5, price: 1350 },
+  { cars: 10, price: 2700 },
+  { cars: 20, price: 5400 },
   { cars: 50, price: null },
   { cars: 100, price: null },
   { cars: 200, price: null },
