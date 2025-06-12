@@ -1,6 +1,7 @@
 'use client';
 import { useFormSubmission } from '@/contexts/FormSubmissionContext';
 import {
+  Box,
   Button,
   Group,
   Image,
@@ -13,9 +14,10 @@ import {
 } from '@mantine/core';
 import { notifications } from '@mantine/notifications';
 import { useForm, zodResolver } from '@mantine/form';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { z } from 'zod';
 import { FileHandlerRes, ImageHandler } from '../FileManager';
+import { Icon } from '@iconify/react/dist/iconify.js';
 
 // Zod validation schema
 
@@ -75,6 +77,7 @@ const Step1_DriverInformation = ({
   onNext,
   onPrev,
 }: Step1DriverInformationProps) => {
+  const [changeVehiclePhotos, setChangeVehiclePhotos] = useState(false);
   const { setIsDriverInfoSubmitted } = useFormSubmission();
 
   // Load initial values from localStorage
@@ -86,7 +89,6 @@ const Step1_DriverInformation = ({
           const parsed = JSON.parse(savedValues);
           return {
             ...parsed,
-            vehiclePhotos: [], // Files can't be persisted in localStorage, reset to empty
           };
         } catch (e) {
           console.error('Error parsing step1FormValues from localStorage:', e);
@@ -154,6 +156,8 @@ const Step1_DriverInformation = ({
       autoClose: 3000,
     });
   };
+
+  console.log(getInitialValues());
 
   return (
     <form className="w-full" onSubmit={form.onSubmit(handleSubmit)}>
@@ -300,8 +304,9 @@ const Step1_DriverInformation = ({
         >
           <Space h={4} />
 
-          {getInitialValues().vehiclePhotos.length > 0 && (
-            <SimpleGrid cols={2} spacing="md" mb="md">
+          {getInitialValues().vehiclePhotos.length > 0 &&
+          changeVehiclePhotos === false ? (
+            <SimpleGrid pos={'relative'} cols={3} spacing="md" mb="md">
               {getInitialValues().vehiclePhotos.map((file) => (
                 <Image
                   key={file.key}
@@ -312,9 +317,20 @@ const Step1_DriverInformation = ({
                   style={{ objectFit: 'cover', borderRadius: '8px' }}
                 />
               ))}
+              <Box pos={'absolute'} top={0} right={0}>
+                <Button
+                  variant="subtle"
+                  size="md"
+                  radius="md"
+                  onClick={() => setChangeVehiclePhotos(true)}
+                >
+                  <Icon icon="mingcute:edit-line" width={20} />
+                </Button>
+              </Box>
             </SimpleGrid>
+          ) : (
+            <ImageHandler onUploadSuccess={handleFileUpload} multiple />
           )}
-          <ImageHandler onUploadSuccess={handleFileUpload} multiple />
         </Input.Wrapper>
 
         <Input.Wrapper
