@@ -10,10 +10,10 @@ import {
   Title,
 } from '@mantine/core';
 import { useEffect, useState } from 'react';
-import { CompressionSettings } from './CompressionSettings';
 import { ImageDropzone } from './ImageDropzone';
 import { ImagePreview } from './ImagePreview';
 import { useImageCompressor } from './useImageCompressor';
+import { useMediaQuery } from '@mantine/hooks';
 
 interface ImageCompressorProps {
   readonly opened: boolean;
@@ -37,14 +37,13 @@ export default function ImageCompressor({
   const {
     originalImage,
     compressedImage,
-    settings,
     loading,
     progress,
     handleDrop,
-    updateSettings,
     handleDownload,
     clearState,
   } = useImageCompressor();
+  const mobile = useMediaQuery('(max-width: 768px)');
   const [showModalContent, setShowModalContent] = useState(false);
 
   // Show modal content when an image is compressed
@@ -90,7 +89,7 @@ export default function ImageCompressor({
         size="xl"
         centered
       >
-        <Title fz={{ base: 20, sm: 28, lg: 40 }} order={3}>
+        <Title fz={{ base: 16, sm: 28, lg: 40 }} order={3}>
           Compress Image
         </Title>
         <Box pos={'relative'} p="md">
@@ -101,13 +100,8 @@ export default function ImageCompressor({
             </Box>
           )}
 
-          <CompressionSettings
-            settings={settings}
-            updateSettings={updateSettings}
-            disabled={loading}
-          />
           <Group
-            top={-56}
+            top={{ base: -10, xl: -56 }}
             right={16}
             pos={'absolute'}
             justify="flex-end"
@@ -116,15 +110,15 @@ export default function ImageCompressor({
             <Button
               onClick={handleDelete}
               disabled={!compressedImage || loading}
-              color="orange"
               variant="outline"
+              size={mobile ? 'xs' : 'sm'}
             >
               Delete
             </Button>
             <Button
+              size={mobile ? 'xs' : 'sm'}
               onClick={handleConfirm}
               disabled={!compressedImage || loading}
-              color="blue"
             >
               Confirm
             </Button>

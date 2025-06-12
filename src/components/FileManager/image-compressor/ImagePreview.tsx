@@ -1,12 +1,14 @@
 'use client';
 
-import { ActionIcon, Box, Group, Text } from '@mantine/core';
+import { ActionIcon, Box, Group, Menu, Text } from '@mantine/core';
 import {
   ReactCompareSlider,
   ReactCompareSliderImage,
 } from 'react-compare-slider';
-import { ImageData } from './useImageCompressor';
-import { Icon } from '@/components/FileManager/lib/Icon';
+import { ImageData, useImageCompressor } from './useImageCompressor';
+import { Icon } from '../lib/Icon';
+import { CompressionSettings } from './CompressionSettings';
+import { useMediaQuery } from '@mantine/hooks';
 
 interface ImagePreviewProps {
   readonly originalImage: ImageData | null;
@@ -19,9 +21,12 @@ export function ImagePreview({
   compressedImage,
   onDownload,
 }: ImagePreviewProps) {
+  const mobile = useMediaQuery('(max-width: 600px)');
+  const { settings, updateSettings, loading } = useImageCompressor();
   if (!originalImage && !compressedImage) return null;
+
   return (
-    <Box className="relative">
+    <Box mt={{ base: 30, xl: 0 }} className="relative">
       {originalImage && compressedImage ? (
         <Box
           style={{
@@ -38,14 +43,22 @@ export function ImagePreview({
               <ReactCompareSliderImage
                 src={originalImage.url}
                 alt="Original image"
-                style={{ objectFit: 'cover', width: '100%', height: '100%' }}
+                style={{
+                  objectFit: mobile ? 'cover' : 'contain',
+                  width: '100%',
+                  height: '100%',
+                }}
               />
             }
             itemTwo={
               <ReactCompareSliderImage
                 src={compressedImage.url}
                 alt="Compressed image"
-                style={{ objectFit: 'cover', width: '100%', height: '100%' }}
+                style={{
+                  objectFit: mobile ? 'cover' : 'contain',
+                  width: '100%',
+                  height: '100%',
+                }}
               />
             }
             style={{ width: '100%', height: '100%' }}
@@ -56,12 +69,29 @@ export function ImagePreview({
           {originalImage ? 'Compressing image...' : 'No image uploaded'}
         </Text>
       )}
-      <Group
-        className="absolute top-0 w-full"
-        justify="space-between"
-        mt="xs"
-        grow
-      >
+
+      <Group pos={'absolute'} top={0} w="100%" justify="right">
+        <Menu position="bottom-end" width={300}>
+          <Menu.Target>
+            <ActionIcon variant="light" mt="xs" size="sm">
+              <Icon icon="jam:settings-alt" width={32} />
+            </ActionIcon>
+          </Menu.Target>
+
+          <Menu.Dropdown>
+            <CompressionSettings
+              settings={settings}
+              updateSettings={updateSettings}
+              disabled={loading}
+            />
+          </Menu.Dropdown>
+        </Menu>
+        <ActionIcon variant="light" mt="xs" onClick={onDownload} size="sm">
+          <Icon icon="mynaui:download" width={32} />
+        </ActionIcon>
+      </Group>
+
+      <Group justify="space-between" mt="xs" grow>
         <Box style={{ flex: 1 }} w="100%">
           {originalImage && (
             <Text size="xs" c="dimmed">
@@ -69,13 +99,6 @@ export function ImagePreview({
             </Text>
           )}
         </Box>
-        <Group style={{ flex: 1 }} w="100%" justify="center">
-          {compressedImage && (
-            <ActionIcon variant="light" mt="xs" onClick={onDownload} size="xs">
-              <Icon icon="line-md:download-loop" />
-            </ActionIcon>
-          )}
-        </Group>
 
         <Box style={{ flex: 1 }} w="100%">
           {compressedImage && (
