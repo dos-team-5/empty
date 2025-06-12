@@ -3,6 +3,7 @@ import { useFormSubmission } from '@/contexts/FormSubmissionContext';
 import {
   Button,
   Group,
+  Image,
   Input,
   MultiSelect,
   SimpleGrid,
@@ -43,15 +44,15 @@ const schema = z.object({
     .array(fileHandlerResSchema)
     .min(2, 'Please upload both front, side and back vehicle photos')
     .max(4, 'Only front, side and back vehicle photos are allowed'),
-  ridesharePlatforms: z
+  rideSharePlatforms: z
     .array(z.string())
-    .min(1, 'At least one rideshare platform is required'),
+    .min(1, 'At least one ride-share platform is required'),
   weeklyDrivingSchedule: z
     .string()
     .min(1, 'Weekly driving schedule is required'),
 });
 
-interface Step1_DriverInformationFormValues {
+interface Step1DriverInformationFormValues {
   fullName: string;
   email: string;
   phone: string;
@@ -61,11 +62,11 @@ interface Step1_DriverInformationFormValues {
   vehicleModel: string;
   vehicleYear: string;
   vehiclePhotos: FileHandlerRes[];
-  ridesharePlatforms: string[];
+  rideSharePlatforms: string[];
   weeklyDrivingSchedule: string;
 }
 
-interface Step1_DriverInformationProps {
+interface Step1DriverInformationProps {
   onNext: () => void;
   onPrev: () => void;
 }
@@ -73,11 +74,11 @@ interface Step1_DriverInformationProps {
 const Step1_DriverInformation = ({
   onNext,
   onPrev,
-}: Step1_DriverInformationProps) => {
+}: Step1DriverInformationProps) => {
   const { setIsDriverInfoSubmitted } = useFormSubmission();
 
   // Load initial values from localStorage
-  const getInitialValues = (): Step1_DriverInformationFormValues => {
+  const getInitialValues = (): Step1DriverInformationFormValues => {
     if (typeof window !== 'undefined') {
       const savedValues = localStorage.getItem('step1FormValues');
       if (savedValues) {
@@ -102,12 +103,12 @@ const Step1_DriverInformation = ({
       vehicleModel: '',
       vehicleYear: '',
       vehiclePhotos: [],
-      ridesharePlatforms: [],
+      rideSharePlatforms: [],
       weeklyDrivingSchedule: '',
     };
   };
 
-  const form = useForm<Step1_DriverInformationFormValues>({
+  const form = useForm<Step1DriverInformationFormValues>({
     mode: 'uncontrolled',
     initialValues: getInitialValues(),
     validate: zodResolver(schema),
@@ -120,7 +121,7 @@ const Step1_DriverInformation = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const handleSubmit = (values: Step1_DriverInformationFormValues) => {
+  const handleSubmit = (values: Step1DriverInformationFormValues) => {
     // Save values to localStorage (excluding files)
     if (typeof window !== 'undefined') {
       const valuesToSave = {
@@ -142,12 +143,13 @@ const Step1_DriverInformation = ({
     onNext();
   };
 
-  const handleFileUpload = (file: FileHandlerRes) => {
+  const handleFileUpload = (files: FileHandlerRes[]) => {
     // Update form with uploaded files
-    console.log('Files uploaded:', file);
+    form.setFieldValue('vehiclePhotos', files);
+    console.log('Files uploaded:', files);
     notifications.show({
       title: 'Files Uploaded',
-      message: `${file.name} files uploaded successfully!`,
+      message: ` files uploaded successfully!`,
       color: 'green',
       autoClose: 3000,
     });
@@ -298,26 +300,34 @@ const Step1_DriverInformation = ({
         >
           <Space h={4} />
 
-          <ImageHandler
-            onUploadSuccess={(files: FileHandlerRes[]) => {
-              form.setFieldValue('vehiclePhotos', files);
-              console.log('Files uploaded:', files);
-            }}
-            multiple
-          />
+          {getInitialValues().vehiclePhotos.length > 0 && (
+            <SimpleGrid cols={2} spacing="md" mb="md">
+              {getInitialValues().vehiclePhotos.map((file) => (
+                <Image
+                  key={file.key}
+                  src={file.url}
+                  alt={`Vehicle Photo ${file.name}`}
+                  width={200}
+                  height={150}
+                  style={{ objectFit: 'cover', borderRadius: '8px' }}
+                />
+              ))}
+            </SimpleGrid>
+          )}
+          <ImageHandler onUploadSuccess={handleFileUpload} multiple />
         </Input.Wrapper>
 
         <Input.Wrapper
-          label="Rideshare Platform(s)"
+          label="Ride Share Platform(s)"
           withAsterisk
-          error={form.errors.ridesharePlatforms}
+          error={form.errors.rideSharePlatforms}
           className="font-inter text-xs font-normal text-[#5E6366]"
         >
           <Space h={4} />
           <MultiSelect
             data={['Uber', 'Lyft', 'UberEats', 'Other']}
             placeholder="Select platforms"
-            {...form.getInputProps('ridesharePlatforms')}
+            {...form.getInputProps('rideSharePlatforms')}
           />
         </Input.Wrapper>
         <Input.Wrapper
