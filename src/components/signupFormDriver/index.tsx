@@ -16,7 +16,7 @@ TitleSection.displayName = 'TitleSection';
 
 const DriverSignupSection: React.FC = () => {
   return (
-    <Box className="relative">
+    <Box mt={260} className="relative">
       <Box
         maw={1800}
         mx="auto"

@@ -100,7 +100,7 @@ const Footer = () => {
           size="xs"
           className="text-centerStep Center"
         >
-          © 2025 Empty Advertisers | All Rights Reserved | Developed by
+          © 2025 Empty Advertising | All Rights Reserved | Developed by
           <Link
             className="hover:text-primary pl-1"
             target="_blank"
