@@ -7,6 +7,7 @@ import {
   Card,
   Group,
   Image,
+  LoadingOverlay,
   Modal,
   Stack,
   Text,
@@ -220,7 +221,13 @@ export default function ImageHandler({
 
   // Default non-modal view
   return (
-    <Stack mx={4} bg={'#f3f3f3'} p={16} mt="md" className="rounded-xl">
+    <Stack mx={4} bg={'#f3f3f3'} p={16} mt="md" className="relative rounded-xl">
+      <LoadingOverlay
+        visible={uploading}
+        zIndex={1000}
+        overlayProps={{ radius: 'sm', blur: 2 }}
+      />
+
       {imageCompressorComponent}
       {uploadedFiles.length > 0 && <Box>{displayListComponent}</Box>}
     </Stack>

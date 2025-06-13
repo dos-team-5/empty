@@ -125,11 +125,6 @@ export default function ImageCompressor({
               Confirm
             </Button>
           </Group>
-          {/* <ImagePreview
-            originalImage={originalImage}
-            compressedImage={compressedImage}
-            onDownload={handleDownload}
-          /> */}
           <ImagePreview
             originalImage={originalImage}
             compressedImage={compressedImage}
