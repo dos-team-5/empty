@@ -18,6 +18,7 @@ import { useEffect, useState } from 'react';
 import { z } from 'zod';
 import { FileHandlerRes, ImageHandler } from '../FileManager';
 import { Icon } from '@iconify/react/dist/iconify.js';
+import { deleteFile } from '../FileManager/actions/fileActions';
 
 // Zod validation schema
 
@@ -77,6 +78,8 @@ const Step1_DriverInformation = ({
   onNext,
   onPrev,
 }: Step1DriverInformationProps) => {
+  const [loading, setLoading] = useState(false);
+
   const [changeVehiclePhotos, setChangeVehiclePhotos] = useState(false);
   const { setIsDriverInfoSubmitted } = useFormSubmission();
 
@@ -143,6 +146,23 @@ const Step1_DriverInformation = ({
       autoClose: 3000,
     });
     onNext();
+  };
+
+  const handleBulkDelete = async () => {
+    setLoading(true);
+    const vehiclePhotos = form.values.vehiclePhotos;
+
+    const results = await Promise.all(
+      vehiclePhotos.map((file) =>
+        deleteFile(file.key).then((res) => ({ key: file.key, ...res }))
+      )
+    );
+    console.log('Bulk delete results:', results);
+    await new Promise((resolve) => setTimeout(resolve, 5000));
+
+    setLoading(false);
+    setChangeVehiclePhotos(true);
+    form.setFieldValue('vehiclePhotos', []);
   };
 
   const handleFileUpload = (files: FileHandlerRes[]) => {
@@ -298,10 +318,11 @@ const Step1_DriverInformation = ({
           error={form.errors.vehiclePhotos}
           className="font-inter text-xs font-normal text-[#5E6366]"
         >
-          {getInitialValues().vehiclePhotos.length > 0 &&
-          changeVehiclePhotos === false ? (
+          {form.values.vehiclePhotos.length > 0 &&
+          changeVehiclePhotos === false &&
+          loading === false ? (
             <SimpleGrid pos={'relative'} cols={3} spacing="md" mb="md">
-              {getInitialValues().vehiclePhotos.map((file) => (
+              {form.values.vehiclePhotos.map((file) => (
                 <Image
                   key={file.key}
                   src={file.url}
@@ -313,12 +334,20 @@ const Step1_DriverInformation = ({
               ))}
               <Box pos={'absolute'} top={0} right={0}>
                 <Button
+                  loading={loading}
                   variant="subtle"
                   size="md"
                   radius="md"
-                  onClick={() => setChangeVehiclePhotos(true)}
+                  onClick={() => handleBulkDelete()}
                 >
-                  <Icon icon="mingcute:edit-line" width={20} />
+                  <Icon
+                    icon={
+                      loading
+                        ? 'line-md:loading-twotone-loop'
+                        : 'mingcute:edit-line'
+                    }
+                    width={20}
+                  />
                 </Button>
               </Box>
             </SimpleGrid>
