@@ -3,6 +3,8 @@ import { MantineProvider } from '@mantine/core';
 import AnimatedGradient from './AnimatedGradient';
 import LoadingProvider from './LoadingProvider';
 import { FormSubmissionProvider } from '@/contexts/FormSubmissionContext';
+import { Notifications } from '@mantine/notifications';
+import '@mantine/notifications/styles.css';
 
 const Providers = ({ children }: { children: React.ReactNode }) => {
   return (
@@ -17,6 +19,7 @@ const Providers = ({ children }: { children: React.ReactNode }) => {
             overscroll: false, // Disable overscroll for a cleaner feel
           }}
         >
+          <Notifications position="bottom-right" />
           <LoadingProvider>{children}</LoadingProvider>
         </ReactLenis>
         <AnimatedGradient />

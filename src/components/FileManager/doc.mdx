@@ -5,3 +5,19 @@ Install the required dependencies using npm or yarn:
 ### Using npm:
 
 npm/ yarn add browser-image-compression @iconify/react @aws-sdk/client-s3 @aws-sdk/s3-request-presigner
+
+/\*\*
+
+- Experimental configuration for Next.js server actions
+-
+- @property {Object} serverActions - Configuration options for server actions
+- @property {string} serverActions.bodySizeLimit - Sets the maximum body size limit for server actions to 50MB.
+-                                                   This allows handling larger payloads in server actions compared to the default limit.
+-                                                   Useful for file uploads or large data processing operations.
+  \*/
+
+experimental: {
+serverActions: {
+bodySizeLimit: '50mb',
+},
+},

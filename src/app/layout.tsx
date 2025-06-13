@@ -20,7 +20,7 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: 'Empty - Advertise on rideshare vehicles in high-traffic areas',
+  title: 'Empty - Advertise On Rideshare Vehicles In High-Traffic Areas',
   description:
     'Generate an average of $300 in passive income each month by displaying an advertisement on your front doors',
 };

@@ -295,13 +295,9 @@ const Step1_DriverInformation = ({
         </SimpleGrid>
 
         <Input.Wrapper
-          label="Vehicle Photos (Front, Side and Back)"
-          withAsterisk
           error={form.errors.vehiclePhotos}
           className="font-inter text-xs font-normal text-[#5E6366]"
         >
-          <Space h={4} />
-
           {getInitialValues().vehiclePhotos.length > 0 &&
           changeVehiclePhotos === false ? (
             <SimpleGrid pos={'relative'} cols={3} spacing="md" mb="md">
@@ -327,7 +323,13 @@ const Step1_DriverInformation = ({
               </Box>
             </SimpleGrid>
           ) : (
-            <ImageHandler onUploadSuccess={handleFileUpload} multiple />
+            <ImageHandler
+              label="Vehicle Photos (Front, Side and Back)"
+              withAsterisk
+              description="Select one by one image"
+              onUploadSuccess={handleFileUpload}
+              multiple
+            />
           )}
         </Input.Wrapper>
 

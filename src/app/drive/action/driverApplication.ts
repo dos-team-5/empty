@@ -97,7 +97,7 @@ export function greetDrivers() {
     const app = {
       from: 'contact@emptyad.com',
       to: driverInfo.email,
-      subject: `Greeting from Driver: ${driverInfo.fullName}`,
+      subject: `Thanks For Signing Up: ${driverInfo.fullName}`,
       templateName: 'greetings',
       templateData: {
         driverName: driverInfo.fullName,

@@ -1,6 +1,6 @@
 'use server';
 
-import { z } from 'zod';
+import { z, ZodError } from 'zod';
 import {
   deleteFileFromR2,
   getSignedUploadUrl,
@@ -8,14 +8,31 @@ import {
   uploadFileToR2,
 } from '../lib/r2';
 
+// --- (Best Practice) Define constants for reusability ---
+const MAX_FILE_SIZE_MB = 3;
+const MAX_FILE_SIZE_BYTES = MAX_FILE_SIZE_MB * 1024 * 1024; // 3MB in bytes
+const ACCEPTED_IMAGE_TYPES = ['image/jpeg', 'image/png', 'image/webp'];
+const ACCEPTED_DOCUMENT_TYPES = [
+  'application/pdf',
+  'application/msword',
+  'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+  'application/vnd.ms-excel',
+  'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+  'application/vnd.ms-powerpoint',
+  'application/vnd.openxmlformats-officedocument.presentationml.presentation',
+];
+
 const UploadSchema = z.object({
   files: z.array(
     z
       .instanceof(File)
-      .refine(
-        (file) => ['image/jpeg', 'image/png', 'image/webp'].includes(file.type),
-        { message: 'Only JPEG, PNG, and WebP files are supported' }
-      )
+      .refine((file) => ACCEPTED_IMAGE_TYPES.includes(file.type), {
+        message: 'Only JPEG, PNG, and WebP files are supported',
+      })
+      .refine((file) => file.size <= MAX_FILE_SIZE_BYTES, {
+        // Use the constant here for a consistent message
+        message: `Max file size is ${MAX_FILE_SIZE_MB}MB.`,
+      })
   ),
 });
 
@@ -24,23 +41,17 @@ const SingleUploadSchema = z.object({
     .instanceof(File)
     .refine(
       (file) =>
-        [
-          'image/jpeg',
-          'image/png',
-          'image/webp',
-          'application/pdf',
-          'application/msword',
-          'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
-          'application/vnd.ms-excel',
-          'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
-          'application/vnd.ms-powerpoint',
-          'application/vnd.openxmlformats-officedocument.presentationml.presentation',
-        ].includes(file.type),
+        [...ACCEPTED_IMAGE_TYPES, ...ACCEPTED_DOCUMENT_TYPES].includes(
+          file.type
+        ),
       {
-        message:
-          'Only JPEG, PNG, WebP, PDF, DOC, DOCX, XLS, XLSX, PPT, and PPTX files are supported',
+        message: 'Only supported file types are allowed.',
       }
-    ),
+    )
+    .refine((file) => file.size <= MAX_FILE_SIZE_BYTES, {
+      // Use the constant here as well
+      message: `Max file size is ${MAX_FILE_SIZE_MB}MB.`,
+    }),
 });
 
 export async function uploadFiles(formData: FormData) {
@@ -71,6 +82,7 @@ export async function uploadFile(
 ) {
   try {
     const file = formData.get('file') as File;
+    // This line will throw a ZodError if validation fails
     const validated = SingleUploadSchema.parse({ file });
 
     const key = `${fileType}/${Date.now()}-${validated.file.name}`;
@@ -78,9 +90,21 @@ export async function uploadFile(
     return { success: true, file: { key, url } };
   } catch (error) {
     console.error('Upload error:', error);
+
+    // Check if the error is from Zod validation
+    if (error instanceof ZodError) {
+      // Return the specific validation message (e.g., "Max file size is 1MB.")
+      return { success: false, error: error.errors[0].message };
+    }
+
+    // Fallback for other types of errors
+    if (error instanceof Error) {
+      return { success: false, error: error.message };
+    }
+
     return {
       success: false,
-      error: error instanceof Error ? error.message : 'Upload failed',
+      error: 'An unknown error occurred during upload.',
     };
   }
 }

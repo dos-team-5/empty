@@ -87,11 +87,10 @@ export default function ImageHandler({
       const formData = new FormData();
       formData.append('file', file);
       const result = await uploadFile(formData, 'image');
-
       if (!result.success || !result.file) {
+        // This line bubbles up the error message from the server
         throw new Error(result.error ?? 'Upload failed');
       }
-
       const fileData: FileHandlerRes = {
         key: result.file.key,
         url: result.file.url,
@@ -112,6 +111,7 @@ export default function ImageHandler({
       });
     } catch (err) {
       const message = err instanceof Error ? err.message : 'Unknown error';
+      // This line displays the server's error message in the notification
       notifications.show({ title: 'Upload Failed', message, color: 'red' });
     } finally {
       setUploading(false);

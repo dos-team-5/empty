@@ -55,7 +55,7 @@ export async function POST(request: Request) {
     // 5. Define the email options with the 'replyTo' header
     const mailOptions = {
       // IMPORTANT: The 'from' address MUST be your authenticated email.
-      from: `"EmptyAd" <${fromAddress}>`,
+      from: `"Empty Advertising" <${fromAddress}>`,
 
       // The 'replyTo' header is set to the visitor's email address.
       replyTo: visitorEmail,
