@@ -1,28 +1,43 @@
 'use client';
 
 import { ActionIcon, Box, Group, Menu, Text } from '@mantine/core';
+import { useMediaQuery } from '@mantine/hooks';
 import {
   ReactCompareSlider,
   ReactCompareSliderImage,
 } from 'react-compare-slider';
-import { ImageData, useImageCompressor } from './useImageCompressor';
-import { Icon } from '../lib/Icon';
 import { CompressionSettings } from './CompressionSettings';
-import { useMediaQuery } from '@mantine/hooks';
+// Make sure CompressionSettings's own props are aligned
+import type {
+  CompressionSettings as TCompressionSettings,
+  ImageData,
+} from './useImageCompressor';
+import { Icon } from '../lib/Icon';
 
 interface ImagePreviewProps {
   readonly originalImage: ImageData | null;
   readonly compressedImage: ImageData | null;
   readonly onDownload: () => void;
+  // --- ADD THESE PROPS ---
+  readonly settings: TCompressionSettings;
+  readonly updateSettings: (newSettings: Partial<TCompressionSettings>) => void;
+  readonly loading: boolean;
 }
 
 export function ImagePreview({
   originalImage,
   compressedImage,
   onDownload,
+  // --- DESTRUCTURE NEW PROPS ---
+  settings,
+  updateSettings,
+  loading,
 }: ImagePreviewProps) {
   const mobile = useMediaQuery('(max-width: 600px)');
-  const { settings, updateSettings, loading } = useImageCompressor();
+
+  // --- REMOVE THIS LINE ---
+  // const { settings, updateSettings, loading } = useImageCompressor();
+
   if (!originalImage && !compressedImage) return null;
 
   return (
@@ -33,7 +48,7 @@ export function ImagePreview({
             width: '100%',
             maxWidth: '800px',
             margin: '0 auto',
-            aspectRatio: '4 / 3', // Maintain aspect ratio for consistency
+            aspectRatio: '4 / 3',
             borderRadius: '8px',
             overflow: 'hidden',
           }}
@@ -71,7 +86,7 @@ export function ImagePreview({
       )}
 
       <Group pos={'absolute'} top={0} w="100%" justify="right">
-        <Menu position="bottom-end" width={300}>
+        <Menu position="bottom-end" width={300} closeOnItemClick={false}>
           <Menu.Target>
             <ActionIcon variant="light" mt="xs" size="sm">
               <Icon icon="jam:settings-alt" width={32} />
@@ -79,6 +94,7 @@ export function ImagePreview({
           </Menu.Target>
 
           <Menu.Dropdown>
+            {/* This will now receive the correct props from the parent */}
             <CompressionSettings
               settings={settings}
               updateSettings={updateSettings}
@@ -86,7 +102,13 @@ export function ImagePreview({
             />
           </Menu.Dropdown>
         </Menu>
-        <ActionIcon variant="light" mt="xs" onClick={onDownload} size="sm">
+        <ActionIcon
+          variant="light"
+          mt="xs"
+          onClick={onDownload}
+          size="sm"
+          disabled={!compressedImage || loading}
+        >
           <Icon icon="mynaui:download" width={32} />
         </ActionIcon>
       </Group>

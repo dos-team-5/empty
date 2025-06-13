@@ -35,11 +35,13 @@ export default function ImageCompressor({
   error,
 }: ImageCompressorProps) {
   const {
+    settings,
     originalImage,
     compressedImage,
     loading,
     progress,
     handleDrop,
+    updateSettings,
     handleDownload,
     clearState,
   } = useImageCompressor();
@@ -123,10 +125,19 @@ export default function ImageCompressor({
               Confirm
             </Button>
           </Group>
+          {/* <ImagePreview
+            originalImage={originalImage}
+            compressedImage={compressedImage}
+            onDownload={handleDownload}
+          /> */}
           <ImagePreview
             originalImage={originalImage}
             compressedImage={compressedImage}
             onDownload={handleDownload}
+            // --- PASS THE PROPS DOWN ---
+            settings={settings}
+            updateSettings={updateSettings}
+            loading={loading}
           />
         </Box>
       </Modal>

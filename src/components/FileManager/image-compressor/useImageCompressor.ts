@@ -75,7 +75,7 @@ export const useImageCompressor = () => {
         };
 
         const compressedFile = await imageCompression(file, options);
-
+        console.log(`Compressed file size: ${compressedFile.size / 1024} KB`);
         // Create a new File with the original name and correct extension
         const originalName = file.name.replace(/\.[^/.]+$/, ''); // Remove extension
         const newFileName = `${originalName}.${compressionSettings.format}`;
