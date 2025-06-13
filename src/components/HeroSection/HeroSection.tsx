@@ -81,6 +81,7 @@ const HeroSection: React.FC = () => {
                 in high-traffic areas
               </TextAnimate>
             </Title>
+
             {/* <Space className="h-6 md:h-8" /> */}
             <Title
               order={2}
