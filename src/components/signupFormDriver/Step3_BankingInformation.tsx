@@ -16,6 +16,8 @@ import {
   Title,
   Text,
   List,
+  Card,
+  Loader,
 } from '@mantine/core';
 import { notifications } from '@mantine/notifications';
 import { useForm, zodResolver } from '@mantine/form';
@@ -30,6 +32,7 @@ import {
   greetDrivers,
   sendDriverApplicationEmail,
 } from '@/app/drive/action/driverApplication';
+import { deleteFile } from '../FileManager/actions/fileActions';
 
 // Zod validation schema
 const schema = z.object({
@@ -51,6 +54,7 @@ const Step3_BankingInformation = ({
   onNext,
   onPrev,
 }: Step3BankingInformationProps) => {
+  const [loading, setLoading] = useState<boolean>(false);
   const [selectedFileType, setSelectedFileType] = useState<'image' | 'pdf'>(
     'pdf'
   );
@@ -154,6 +158,34 @@ const Step3_BankingInformation = ({
     setSubmitting(false);
   };
 
+  const voidChequeFiles = form.values.voidCheque ?? [];
+  const isImage =
+    voidChequeFiles.length > 0 && voidChequeFiles[0]?.type?.startsWith('image');
+
+  const handleDelete = async (key: string) => {
+    setLoading(true);
+    const result = await deleteFile(key);
+
+    if (result.success) {
+      const updatedFiles =
+        form.values.voidCheque?.filter((file) => file.key !== key) ?? [];
+      form.setFieldValue('voidCheque', updatedFiles);
+      notifications.show({
+        title: 'Success',
+        message: 'File deleted successfully',
+        color: 'green',
+      });
+    } else {
+      notifications.show({
+        title: 'Error',
+        message: result.error,
+        color: 'red',
+      });
+    }
+    setLoading(false);
+    setChangeVoidChequePhotos(true);
+  };
+
   return (
     <form onSubmit={form.onSubmit(handleSubmit)}>
       <Stack>
@@ -227,31 +259,80 @@ const Step3_BankingInformation = ({
             </Menu.Dropdown>
           </Menu>
           <Space h={4} />
-
-          {(getInitialValues().voidCheque ?? []).length > 0 &&
-          changeVoidChequePhotos === false ? (
-            <SimpleGrid pos={'relative'} cols={1} spacing="md" mb="md">
-              {(getInitialValues().voidCheque ?? []).map((file) => (
-                <Image
-                  key={file.key}
-                  src={file.url}
-                  alt={`Vehicle Photo ${file.name}`}
-                  width={200}
-                  height={100}
-                  style={{ objectFit: 'cover', borderRadius: '8px' }}
-                />
-              ))}
-              <Box pos={'absolute'} top={0} right={0}>
-                <Button
-                  variant="subtle"
-                  size="md"
-                  radius="md"
-                  onClick={() => setChangeVoidChequePhotos(true)}
-                >
-                  <Icon icon="mingcute:edit-line" width={20} />
-                </Button>
-              </Box>
-            </SimpleGrid>
+          {voidChequeFiles.length > 0 && !changeVoidChequePhotos ? (
+            isImage ? (
+              <SimpleGrid pos="relative" cols={1} spacing="md" mb="md">
+                {voidChequeFiles.map((file) => (
+                  <Image
+                    key={file.key}
+                    src={file.url}
+                    alt={`Void Cheque ${file.name}`}
+                    width={200}
+                    height={100}
+                    style={{ objectFit: 'cover', borderRadius: '8px' }}
+                  />
+                ))}
+                <Box pos="absolute" top={0} right={0}>
+                  <Button
+                    variant="subtle"
+                    size="md"
+                    radius="md"
+                    onClick={() => handleDelete(voidChequeFiles[0].key)}
+                  >
+                    <Icon icon="mingcute:edit-line" width={20} />
+                  </Button>
+                </Box>
+              </SimpleGrid>
+            ) : (
+              <Stack gap="sm" mt="sm">
+                {voidChequeFiles.map((file) => (
+                  <Card
+                    key={file.key}
+                    shadow="sm"
+                    padding="sm"
+                    radius="md"
+                    withBorder
+                  >
+                    <Group justify="space-between">
+                      <Box>
+                        <Text fw={500} truncate maw={250}>
+                          {file.name}
+                        </Text>
+                        <Text size="sm" c="dimmed">
+                          Size: {(file.size / 1024 / 1024).toFixed(2)} MB
+                        </Text>
+                        <Text size="sm" c="dimmed">
+                          Type: {file.type}
+                        </Text>
+                      </Box>
+                      <ActionIcon
+                        onClick={() => handleDelete(file.key)}
+                        variant="light"
+                        color="red"
+                        size="lg"
+                      >
+                        {loading ? (
+                          <Loader size="xs" />
+                        ) : (
+                          <Icon icon="tabler:trash" />
+                        )}
+                      </ActionIcon>
+                    </Group>
+                    <Button
+                      component="a"
+                      href={file.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      variant="light"
+                      mt="sm"
+                      fullWidth
+                    >
+                      View File
+                    </Button>
+                  </Card>
+                ))}
+              </Stack>
+            )
           ) : (
             <>
               <Select
@@ -269,7 +350,6 @@ const Step3_BankingInformation = ({
                   multiple={false}
                   onUploadSuccess={(files: FileHandlerRes[]) => {
                     form.setFieldValue('voidCheque', files);
-                    console.log('Files uploaded:', files);
                   }}
                 />
               </Box>
@@ -278,7 +358,6 @@ const Step3_BankingInformation = ({
                   multiple={false}
                   onUploadSuccess={(files: FileHandlerRes[]) => {
                     form.setFieldValue('voidCheque', files);
-                    console.log('Files uploaded:', files);
                   }}
                 />
               </Box>

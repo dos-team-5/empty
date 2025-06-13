@@ -17,6 +17,7 @@ import { z } from 'zod';
 import { fileHandlerResSchema } from './Step1_DriverInformation';
 import { FileHandlerRes, ImageHandler } from '../FileManager';
 import { Icon } from '@iconify/react/dist/iconify.js';
+import { deleteFile } from '../FileManager/actions/fileActions';
 
 // Zod validation schema
 const schema = z.object({
@@ -49,6 +50,7 @@ const Step2_IdentityConfirmation = ({
   onNext,
   onPrev,
 }: Step2IdentityConfirmationProps) => {
+  const [loading, setLoading] = useState<boolean>(false);
   const [changeDriverProfilePhotos, setChangeDriverProfilePhotos] =
     useState<boolean>(false);
   const [changeDriverLicensePhotos, setChangeDriverLicensePhotos] =
@@ -98,8 +100,6 @@ const Step2_IdentityConfirmation = ({
       localStorage.setItem('step2FormValues', JSON.stringify(valuesToSave));
     }
 
-    // Simulate form submission (e.g., API call)
-
     setIsIdentityConfirmationSubmitted(true); // Mark form as submitted
     notifications.show({
       title: 'Form Submitted',
@@ -108,6 +108,23 @@ const Step2_IdentityConfirmation = ({
       autoClose: 3000,
     });
     onNext();
+  };
+
+  const handleBulkDelete = async (
+    key: keyof Step2IdentityConfirmationFormValues
+  ) => {
+    setLoading(true);
+    const dataArray = form.values[key] ?? [];
+
+    const results = await Promise.all(
+      dataArray.map((file) =>
+        deleteFile(file.key).then((res) => ({ key: file.key, ...res }))
+      )
+    );
+    console.log('Bulk delete results:', results);
+    await new Promise((resolve) => setTimeout(resolve, 5000));
+
+    setLoading(false);
   };
 
   return (
@@ -121,7 +138,8 @@ const Step2_IdentityConfirmation = ({
         >
           <Space h={4} />
           {(getInitialValues().driversLicense ?? []).length > 0 &&
-          changeDriverLicensePhotos === false ? (
+          changeDriverLicensePhotos === false &&
+          loading === false ? (
             <SimpleGrid pos={'relative'} cols={1} spacing="md" mb="md">
               {(getInitialValues().driverProfile ?? []).map((file) => (
                 <Image
@@ -138,7 +156,11 @@ const Step2_IdentityConfirmation = ({
                   variant="subtle"
                   size="md"
                   radius="md"
-                  onClick={() => setChangeDriverLicensePhotos(true)}
+                  onClick={() => {
+                    setChangeDriverLicensePhotos(true);
+                    form.setFieldValue('driversLicense', null);
+                    handleBulkDelete('driversLicense');
+                  }}
                 >
                   <Icon icon="mingcute:edit-line" width={20} />
                 </Button>
@@ -162,7 +184,8 @@ const Step2_IdentityConfirmation = ({
         >
           <Space h={4} />
           {(getInitialValues().driverProfile ?? []).length > 0 &&
-          changeDriverProfilePhotos === false ? (
+          changeDriverProfilePhotos === false &&
+          loading === false ? (
             <SimpleGrid pos={'relative'} cols={1} spacing="md" mb="md">
               {(getInitialValues().driverProfile ?? []).map((file) => (
                 <Image
@@ -179,7 +202,11 @@ const Step2_IdentityConfirmation = ({
                   variant="subtle"
                   size="md"
                   radius="md"
-                  onClick={() => setChangeDriverProfilePhotos(true)}
+                  onClick={() => {
+                    setChangeDriverProfilePhotos(true);
+                    form.setFieldValue('driverProfile', null);
+                    handleBulkDelete('driverProfile');
+                  }}
                 >
                   <Icon icon="mingcute:edit-line" width={20} />
                 </Button>
@@ -203,7 +230,8 @@ const Step2_IdentityConfirmation = ({
         >
           <Space h={4} />
           {(getInitialValues().tripHistory ?? []).length > 0 &&
-          changeTripHistoryPhotos === false ? (
+          changeTripHistoryPhotos === false &&
+          loading === false ? (
             <SimpleGrid pos={'relative'} cols={1} spacing="md" mb="md">
               {(getInitialValues().tripHistory ?? []).map((file) => (
                 <Image
@@ -220,7 +248,11 @@ const Step2_IdentityConfirmation = ({
                   variant="subtle"
                   size="md"
                   radius="md"
-                  onClick={() => setChangeTripHistoryPhotos(true)}
+                  onClick={() => {
+                    setChangeTripHistoryPhotos(true);
+                    form.setFieldValue('tripHistory', null);
+                    handleBulkDelete('tripHistory');
+                  }}
                 >
                   <Icon icon="mingcute:edit-line" width={20} />
                 </Button>
