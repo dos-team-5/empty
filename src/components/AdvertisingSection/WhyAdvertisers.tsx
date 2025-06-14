@@ -122,7 +122,7 @@ export const WhyChooseUsSection: FC = () => {
             className="z-10 w-full max-w-2xl" // Image is on top
           >
             <Image
-              src={'/R24.png'}
+              src={'/R244.png'}
               alt="Advertiser car"
               width={826}
               height={412}
