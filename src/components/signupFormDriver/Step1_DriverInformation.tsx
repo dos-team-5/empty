@@ -153,17 +153,75 @@ const Step1_DriverInformation = ({
     setLoading(true);
     const vehiclePhotos = form.values.vehiclePhotos;
 
-    const results = await Promise.all(
-      vehiclePhotos.map((file) =>
-        deleteFile(file.key).then((res) => ({ key: file.key, ...res }))
-      )
-    );
-    console.log('Bulk delete results:', results);
-    await new Promise((resolve) => setTimeout(resolve, 5000));
+    try {
+      const results = await Promise.all(
+        vehiclePhotos.map((file) =>
+          deleteFile(file.key).then((res) => ({ key: file.key, ...res }))
+        )
+      );
 
-    setLoading(false);
-    setChangeVehiclePhotos(true);
-    form.setFieldValue('vehiclePhotos', []);
+      // Check if all deletions were successful
+      if (results.every((result) => result.success)) {
+        notifications.show({
+          title: 'Success',
+          message: 'All vehicle photos deleted successfully!',
+          color: 'green',
+          autoClose: 3000,
+        });
+
+        // Clear the form field and show ImageHandler
+        form.setFieldValue('vehiclePhotos', []);
+        setChangeVehiclePhotos(true);
+
+        // ✅ Update localStorage
+        if (typeof window !== 'undefined') {
+          const stored = localStorage.getItem('step1FormValues');
+          if (stored) {
+            const parsed = JSON.parse(stored);
+            parsed.vehiclePhotos = [];
+            localStorage.setItem('step1FormValues', JSON.stringify(parsed));
+          }
+        }
+      } else {
+        // Some deletions failed
+        const failedDeletions = results.filter((result) => !result.success);
+        console.error('Failed deletions:', failedDeletions);
+
+        notifications.show({
+          title: 'Partial Failure',
+          message: `${failedDeletions.length} file(s) could not be deleted. Please try again.`,
+          color: 'yellow',
+          autoClose: 5000,
+        });
+
+        // Only remove successfully deleted files from the form
+        const successfullyDeleted = results
+          .filter((result) => result.success)
+          .map((result) => result.key);
+
+        const remainingPhotos = vehiclePhotos.filter(
+          (photo) => !successfullyDeleted.includes(photo.key)
+        );
+
+        form.setFieldValue('vehiclePhotos', remainingPhotos);
+
+        // Only show ImageHandler if all photos were removed
+        if (remainingPhotos.length === 0) {
+          setChangeVehiclePhotos(true);
+        }
+      }
+    } catch (error) {
+      console.error('Bulk delete error:', error);
+
+      notifications.show({
+        title: 'Error',
+        message: 'Failed to delete vehicle photos. Please try again.',
+        color: 'red',
+        autoClose: 5000,
+      });
+    } finally {
+      setLoading(false);
+    }
   };
 
   const handleFileUpload = (files: FileHandlerRes[]) => {
@@ -320,9 +378,26 @@ const Step1_DriverInformation = ({
           className="font-inter text-xs font-normal text-[#5E6366]"
         >
           {form.values.vehiclePhotos.length > 0 &&
-          changeVehiclePhotos === false &&
-          loading === false ? (
+          changeVehiclePhotos === false ? (
             <SimpleGrid pos={'relative'} cols={3} spacing="md" mb="md">
+              {loading && (
+                <Box
+                  pos={'absolute'}
+                  top={0}
+                  left={0}
+                  right={0}
+                  bottom={0}
+                  style={{
+                    backgroundColor: 'rgba(255, 255, 255, 0.8)',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    zIndex: 10,
+                  }}
+                >
+                  <Loader size="lg" />
+                </Box>
+              )}
               {form.values.vehiclePhotos.map((file) => (
                 <Box h={150} key={file.key}>
                   <Image
@@ -332,6 +407,7 @@ const Step1_DriverInformation = ({
                     alt={`Vehicle Photo ${file.name}`}
                     radius={'md'}
                     fallbackSrc="https://via.placeholder.com/150"
+                    style={{ opacity: loading ? 0.5 : 1 }}
                   />
                 </Box>
               ))}
@@ -342,12 +418,9 @@ const Step1_DriverInformation = ({
                   size="md"
                   radius="md"
                   onClick={() => handleBulkDelete()}
+                  disabled={loading}
                 >
-                  {loading ? (
-                    <Loader size="xs" />
-                  ) : (
-                    <Icon icon={'mingcute:edit-line'} width={20} />
-                  )}
+                  <Icon icon={'mingcute:edit-line'} width={20} />
                 </Button>
               </Box>
             </SimpleGrid>

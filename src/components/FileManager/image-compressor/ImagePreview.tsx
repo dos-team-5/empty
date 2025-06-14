@@ -1,6 +1,6 @@
 'use client';
 
-import { ActionIcon, Box, Group, Menu, Text } from '@mantine/core';
+import { ActionIcon, Box, Flex, Group, Menu, Text } from '@mantine/core';
 import { useMediaQuery } from '@mantine/hooks';
 import {
   ReactCompareSlider,
@@ -42,8 +42,29 @@ export function ImagePreview({
 
   return (
     <Box mt={{ base: 30, xl: 0 }} className="relative">
+      <Group w={'100%'} justify="right" mt="xs">
+        <Flex gap={30}>
+          <Box>
+            {originalImage && (
+              <Text size="xs" c="dimmed">
+                Original Size: {(originalImage.file.size / 1024).toFixed(2)} KB
+              </Text>
+            )}
+          </Box>
+
+          <Box>
+            {compressedImage && (
+              <Text size="xs" c="dimmed" ta="right">
+                Compressed Size: {(compressedImage.file.size / 1024).toFixed(2)}{' '}
+                KB
+              </Text>
+            )}
+          </Box>
+        </Flex>
+      </Group>
       {originalImage && compressedImage ? (
         <Box
+          mt={20}
           style={{
             width: '100%',
             maxWidth: '800px',
@@ -51,6 +72,7 @@ export function ImagePreview({
             aspectRatio: '4 / 3',
             borderRadius: '8px',
             overflow: 'hidden',
+            maxHeight: '600px',
           }}
         >
           <ReactCompareSlider
@@ -85,7 +107,7 @@ export function ImagePreview({
         </Text>
       )}
 
-      <Group pos={'absolute'} top={0} w="100%" justify="right">
+      <Group pos={'absolute'} top={24} w="100%" justify="right">
         <Menu position="bottom-end" width={300} closeOnItemClick={false}>
           <Menu.Target>
             <ActionIcon variant="light" mt="xs" size="sm">
@@ -111,25 +133,6 @@ export function ImagePreview({
         >
           <Icon icon="mynaui:download" width={32} />
         </ActionIcon>
-      </Group>
-
-      <Group justify="space-between" mt="xs" grow>
-        <Box style={{ flex: 1 }} w="100%">
-          {originalImage && (
-            <Text size="xs" c="dimmed">
-              Original Size: {(originalImage.file.size / 1024).toFixed(2)} KB
-            </Text>
-          )}
-        </Box>
-
-        <Box style={{ flex: 1 }} w="100%">
-          {compressedImage && (
-            <Text size="xs" c="dimmed" ta="right">
-              Compressed Size: {(compressedImage.file.size / 1024).toFixed(2)}{' '}
-              KB
-            </Text>
-          )}
-        </Box>
       </Group>
     </Box>
   );
