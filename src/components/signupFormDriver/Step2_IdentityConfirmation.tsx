@@ -147,6 +147,7 @@ const Step2_IdentityConfirmation = ({
                 <Box h={150} key={file.key}>
                   <Image
                     component={NextImage}
+                    fill
                     w={'100%'}
                     h={'100%'}
                     src={file.url}
@@ -199,6 +200,7 @@ const Step2_IdentityConfirmation = ({
               {(getInitialValues().driverProfile ?? []).map((file) => (
                 <Box h={150} key={file.key}>
                   <Image
+                    fill
                     component={NextImage}
                     w={'100%'}
                     h={'100%'}
@@ -253,6 +255,7 @@ const Step2_IdentityConfirmation = ({
                 <Box h={150} key={file.key}>
                   <Image
                     component={NextImage}
+                    fill
                     w={'100%'}
                     h={'100%'}
                     src={file.url}

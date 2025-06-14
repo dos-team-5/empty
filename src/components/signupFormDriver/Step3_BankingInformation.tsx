@@ -269,6 +269,7 @@ const Step3_BankingInformation = ({
                     {voidChequeFiles.map((file) => (
                       <Box h={150} key={file.key}>
                         <Image
+                          fill
                           component={NextImage}
                           w={'100%'}
                           h={'100%'}

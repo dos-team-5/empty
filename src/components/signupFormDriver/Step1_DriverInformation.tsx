@@ -328,6 +328,7 @@ const Step1_DriverInformation = ({
                 <Box h={150} key={file.key}>
                   <Image
                     component={NextImage}
+                    fill
                     w={'100%'}
                     h={'100%'}
                     src={file.url}
