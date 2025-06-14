@@ -1,4 +1,5 @@
 'use client';
+import NextImage from 'next/image';
 import { useFormSubmission } from '@/contexts/FormSubmissionContext';
 import {
   Box,
@@ -6,6 +7,7 @@ import {
   Group,
   Image,
   Input,
+  Loader,
   MultiSelect,
   SimpleGrid,
   Space,
@@ -323,14 +325,17 @@ const Step1_DriverInformation = ({
           loading === false ? (
             <SimpleGrid pos={'relative'} cols={3} spacing="md" mb="md">
               {form.values.vehiclePhotos.map((file) => (
-                <Image
-                  key={file.key}
-                  src={file.url}
-                  alt={`Vehicle Photo ${file.name}`}
-                  width={200}
-                  height={150}
-                  style={{ objectFit: 'cover', borderRadius: '8px' }}
-                />
+                <Box h={150} key={file.key}>
+                  <Image
+                    component={NextImage}
+                    w={'100%'}
+                    h={'100%'}
+                    src={file.url}
+                    alt={`Vehicle Photo ${file.name}`}
+                    radius={'md'}
+                    fallbackSrc="https://via.placeholder.com/150"
+                  />
+                </Box>
               ))}
               <Box pos={'absolute'} top={0} right={0}>
                 <Button
@@ -340,14 +345,11 @@ const Step1_DriverInformation = ({
                   radius="md"
                   onClick={() => handleBulkDelete()}
                 >
-                  <Icon
-                    icon={
-                      loading
-                        ? 'line-md:loading-twotone-loop'
-                        : 'mingcute:edit-line'
-                    }
-                    width={20}
-                  />
+                  {loading ? (
+                    <Loader size="xs" />
+                  ) : (
+                    <Icon icon={'mingcute:edit-line'} width={20} />
+                  )}
                 </Button>
               </Box>
             </SimpleGrid>

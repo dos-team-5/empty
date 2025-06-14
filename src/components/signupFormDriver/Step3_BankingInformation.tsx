@@ -259,110 +259,120 @@ const Step3_BankingInformation = ({
             </Menu.Dropdown>
           </Menu>
           <Space h={4} />
-          {voidChequeFiles.length > 0 && !changeVoidChequePhotos ? (
-            isImage ? (
-              <SimpleGrid pos="relative" cols={1} spacing="md" mb="md">
-                {voidChequeFiles.map((file) => (
-                  <Image
-                    key={file.key}
-                    src={file.url}
-                    alt={`Void Cheque ${file.name}`}
-                    width={200}
-                    height={100}
-                    style={{ objectFit: 'cover', borderRadius: '8px' }}
-                  />
-                ))}
-                <Box pos="absolute" top={0} right={0}>
-                  <Button
-                    variant="subtle"
-                    size="md"
-                    radius="md"
-                    onClick={() => handleDelete(voidChequeFiles[0].key)}
-                  >
-                    <Icon icon="mingcute:edit-line" width={20} />
-                  </Button>
-                </Box>
-              </SimpleGrid>
-            ) : (
-              <Stack gap="sm" mt="sm">
-                {voidChequeFiles.map((file) => (
-                  <Card
-                    key={file.key}
-                    shadow="sm"
-                    padding="sm"
-                    radius="md"
-                    withBorder
-                  >
-                    <Group justify="space-between">
-                      <Box>
-                        <Text fw={500} truncate maw={250}>
-                          {file.name}
-                        </Text>
-                        <Text size="sm" c="dimmed">
-                          Size: {(file.size / 1024 / 1024).toFixed(2)} MB
-                        </Text>
-                        <Text size="sm" c="dimmed">
-                          Type: {file.type}
-                        </Text>
-                      </Box>
-                      <ActionIcon
-                        onClick={() => handleDelete(file.key)}
-                        variant="light"
-                        color="red"
-                        size="lg"
+          {(() => {
+            let voidChequeContent = null;
+            if (voidChequeFiles.length > 0 && !changeVoidChequePhotos) {
+              if (isImage) {
+                voidChequeContent = (
+                  <SimpleGrid pos="relative" cols={1} spacing="md" mb="md">
+                    {voidChequeFiles.map((file) => (
+                      <Image
+                        key={file.key}
+                        src={file.url}
+                        alt={`Void Cheque ${file.name}`}
+                        width={200}
+                        height={100}
+                        style={{ objectFit: 'cover', borderRadius: '8px' }}
+                      />
+                    ))}
+                    <Box pos="absolute" top={0} right={0}>
+                      <Button
+                        variant="subtle"
+                        size="md"
+                        radius="md"
+                        onClick={() => handleDelete(voidChequeFiles[0].key)}
                       >
-                        {loading ? (
-                          <Loader size="xs" />
-                        ) : (
-                          <Icon icon="tabler:trash" />
-                        )}
-                      </ActionIcon>
-                    </Group>
-                    <Button
-                      component="a"
-                      href={file.url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      variant="light"
-                      mt="sm"
-                      fullWidth
-                    >
-                      View File
-                    </Button>
-                  </Card>
-                ))}
-              </Stack>
-            )
-          ) : (
-            <>
-              <Select
-                value={selectedFileType}
-                onChange={(value) =>
-                  setSelectedFileType(value as 'image' | 'pdf')
-                }
-                data={[
-                  { value: 'image', label: 'Image' },
-                  { value: 'pdf', label: 'PDF' },
-                ]}
-              />
-              <Box hidden={selectedFileType !== 'pdf'}>
-                <FileHandler
-                  multiple={false}
-                  onUploadSuccess={(files: FileHandlerRes[]) => {
-                    form.setFieldValue('voidCheque', files);
-                  }}
-                />
-              </Box>
-              <Box hidden={selectedFileType !== 'image'}>
-                <ImageHandler
-                  multiple={false}
-                  onUploadSuccess={(files: FileHandlerRes[]) => {
-                    form.setFieldValue('voidCheque', files);
-                  }}
-                />
-              </Box>
-            </>
-          )}
+                        <Icon icon="mingcute:edit-line" width={20} />
+                      </Button>
+                    </Box>
+                  </SimpleGrid>
+                );
+              } else {
+                voidChequeContent = (
+                  <Stack gap="sm" mt="sm">
+                    {voidChequeFiles.map((file) => (
+                      <Card
+                        key={file.key}
+                        shadow="sm"
+                        padding="sm"
+                        radius="md"
+                        withBorder
+                      >
+                        <Group justify="space-between">
+                          <Box>
+                            <Text fw={500} truncate maw={250}>
+                              {file.name}
+                            </Text>
+                            <Text size="sm" c="dimmed">
+                              Size: {(file.size / 1024 / 1024).toFixed(2)} MB
+                            </Text>
+                            <Text size="sm" c="dimmed">
+                              Type: {file.type}
+                            </Text>
+                          </Box>
+                          <ActionIcon
+                            onClick={() => handleDelete(file.key)}
+                            variant="light"
+                            color="red"
+                            size="lg"
+                          >
+                            {loading ? (
+                              <Loader size="xs" />
+                            ) : (
+                              <Icon icon="tabler:trash" />
+                            )}
+                          </ActionIcon>
+                        </Group>
+                        <Button
+                          component="a"
+                          href={file.url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          variant="light"
+                          mt="sm"
+                          fullWidth
+                        >
+                          View File
+                        </Button>
+                      </Card>
+                    ))}
+                  </Stack>
+                );
+              }
+            } else {
+              voidChequeContent = (
+                <>
+                  <Select
+                    value={selectedFileType}
+                    onChange={(value) =>
+                      setSelectedFileType(value as 'image' | 'pdf')
+                    }
+                    data={[
+                      { value: 'image', label: 'Image' },
+                      { value: 'pdf', label: 'PDF' },
+                    ]}
+                  />
+                  <Box hidden={selectedFileType !== 'pdf'}>
+                    <FileHandler
+                      multiple={false}
+                      onUploadSuccess={(files: FileHandlerRes[]) => {
+                        form.setFieldValue('voidCheque', files);
+                      }}
+                    />
+                  </Box>
+                  <Box hidden={selectedFileType !== 'image'}>
+                    <ImageHandler
+                      multiple={false}
+                      onUploadSuccess={(files: FileHandlerRes[]) => {
+                        form.setFieldValue('voidCheque', files);
+                      }}
+                    />
+                  </Box>
+                </>
+              );
+            }
+            return voidChequeContent;
+          })()}
         </Input.Wrapper>
 
         <Group
