@@ -89,95 +89,91 @@ const Steppers = () => {
     setActive((current) => (current > 0 ? current - 1 : current));
 
   return (
-    <>
-      <Stepper
-        active={active}
-        onStepClick={setActive}
-        className="flex w-full flex-col"
-      >
-        {steppers.map((stepper, index) => (
-          <Stepper.Step
-            w="25%"
-            allowStepSelect={
-              submissionStates[index] || stepper.id <= active + 1
-            }
-            key={stepper.id}
-            withIcon={false}
-            label={
-              <Text
-                fw={500}
-                c={'#2B2F32'}
-                className={`font-inter flex h-14 items-center justify-center !text-[10px] !duration-300 !ease-in lg:!text-xs ${
-                  submissionStates[index] || active === index ? '' : 'opacity-0'
-                }`}
-              >
-                {stepper.title}
-              </Text>
-            }
-            description={
-              <Divider
-                size={7}
-                color={
-                  submissionStates[index]
-                    ? 'green'
-                    : active === index
-                      ? 'var(--mantine-primary-color-5)'
-                      : '#E2E6F9'
-                }
-                className="w-16 !rounded-sm !duration-300 !ease-in lg:w-20"
-              />
-            }
-          >
-            {stepper.content}
-          </Stepper.Step>
-        ))}
+    <Stepper
+      active={active}
+      onStepClick={setActive}
+      className="flex w-full flex-col"
+    >
+      {steppers.map((stepper, index) => (
         <Stepper.Step
+          w="25%"
+          allowStepSelect={submissionStates[index] || stepper.id <= active + 1}
+          key={stepper.id}
           withIcon={false}
           label={
             <Text
               fw={500}
               c={'#2B2F32'}
-              className="font-inter flex h-14 items-center justify-start !text-[10px] lg:!text-xs"
+              className={`font-inter flex h-14 items-center justify-center !text-[10px] !duration-300 !ease-in lg:!text-xs ${
+                submissionStates[index] || active === index ? '' : 'opacity-0'
+              }`}
             >
-              <span className="text-primary mr-1">
-                Step {active === 3 ? 3 : active + 1}
-              </span>
-              of 3
+              {stepper.title}
             </Text>
           }
           description={
             <Divider
-              size={'xl'}
-              color={'transparent'}
+              size={7}
+              color={
+                submissionStates[index]
+                  ? 'green'
+                  : active === index
+                    ? 'var(--mantine-primary-color-5)'
+                    : '#E2E6F9'
+              }
               className="w-16 !rounded-sm !duration-300 !ease-in lg:w-20"
             />
           }
-          disabled
-          className="ml-4 !cursor-default"
         >
-          <Space className="h-4 md:h-8 lg:h-12" />
-          <Stack align="center" gap="md">
-            <CheckCircle className="text-primary-400 flex-shrink-0 rounded-md text-xl" />
-            <Text fw={600} size="lg" className="font-inter text-center">
-              Congratulations! You have Completed All Steps!
-            </Text>
-            <Text size="sm" c="dimmed" className="font-inter text-center">
-              Your profile is now complete. You can review previous steps using
-              the Back button or finalize your submission.
-            </Text>
-            <Button
-              variant="filled"
-              size="md"
-              radius={12}
-              className="!font-inter !bg-[var(--mantine-primary-color-5)] !px-16 !text-sm !font-normal !text-white"
-              onClick={() => setActive(0)}
-            >
-              Review Profile
-            </Button>
-          </Stack>
+          {stepper.content}
         </Stepper.Step>
-      </Stepper>
-    </>
+      ))}
+      <Stepper.Step
+        withIcon={false}
+        label={
+          <Text
+            fw={500}
+            c={'#2B2F32'}
+            className="font-inter flex h-14 items-center justify-start !text-[10px] lg:!text-xs"
+          >
+            <span className="text-primary mr-1">
+              Step {active === 3 ? 3 : active + 1}
+            </span>
+            of 3
+          </Text>
+        }
+        description={
+          <Divider
+            size={'xl'}
+            color={'transparent'}
+            className="w-16 !rounded-sm !duration-300 !ease-in lg:w-20"
+          />
+        }
+        disabled
+        className="ml-4 !cursor-default"
+      >
+        <Space className="h-4 md:h-8 lg:h-12" />
+        <Stack align="center" gap="md">
+          <CheckCircle className="text-primary-400 flex-shrink-0 rounded-md text-xl" />
+          <Text fw={600} size="lg" className="font-inter text-center">
+            Congratulations! You have Completed All Steps!
+          </Text>
+          <Text size="sm" c="dimmed" className="font-inter text-center">
+            Your profile is now complete. You can review previous steps using
+            the Back button or finalize your submission.
+          </Text>
+          <Button
+            variant="filled"
+            size="md"
+            radius={12}
+            className="!font-inter !bg-[var(--mantine-primary-color-5)] !px-16 !text-sm !font-normal !text-white"
+            onClick={() => setActive(0)}
+          >
+            Review Profile
+          </Button>
+        </Stack>
+      </Stepper.Step>
+    </Stepper>
   );
 };
 
