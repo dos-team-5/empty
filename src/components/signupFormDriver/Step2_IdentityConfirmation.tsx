@@ -51,7 +51,13 @@ const Step2_IdentityConfirmation = ({
   onNext,
   onPrev,
 }: Step2IdentityConfirmationProps) => {
-  const [loading, setLoading] = useState<boolean>(false);
+  // Separate loading states for each section
+  const [loadingDriversLicense, setLoadingDriversLicense] =
+    useState<boolean>(false);
+  const [loadingDriverProfile, setLoadingDriverProfile] =
+    useState<boolean>(false);
+  const [loadingTripHistory, setLoadingTripHistory] = useState<boolean>(false);
+
   const [changeDriverProfilePhotos, setChangeDriverProfilePhotos] =
     useState<boolean>(false);
   const [changeDriverLicensePhotos, setChangeDriverLicensePhotos] =
@@ -73,9 +79,9 @@ const Step2_IdentityConfirmation = ({
       }
     }
     return {
-      driversLicense: null,
-      driverProfile: null,
-      tripHistory: null,
+      driversLicense: [],
+      driverProfile: [],
+      tripHistory: [],
     };
   };
 
@@ -93,7 +99,7 @@ const Step2_IdentityConfirmation = ({
   }, []);
 
   const handleSubmit = (values: Step2IdentityConfirmationFormValues) => {
-    // Save values to localStorage (excluding files)
+    // Save values to localStorage
     if (typeof window !== 'undefined') {
       const valuesToSave = {
         ...values,
@@ -101,7 +107,7 @@ const Step2_IdentityConfirmation = ({
       localStorage.setItem('step2FormValues', JSON.stringify(valuesToSave));
     }
 
-    setIsIdentityConfirmationSubmitted(true); // Mark form as submitted
+    setIsIdentityConfirmationSubmitted(true);
     notifications.show({
       title: 'Form Submitted',
       message: 'Identity Confirmation submitted successfully!',
@@ -114,179 +120,217 @@ const Step2_IdentityConfirmation = ({
   const handleBulkDelete = async (
     key: keyof Step2IdentityConfirmationFormValues
   ) => {
-    setLoading(true);
+    // Set the appropriate loading state
+    const setLoadingForKey = (loading: boolean) => {
+      switch (key) {
+        case 'driversLicense':
+          setLoadingDriversLicense(loading);
+          break;
+        case 'driverProfile':
+          setLoadingDriverProfile(loading);
+          break;
+        case 'tripHistory':
+          setLoadingTripHistory(loading);
+          break;
+      }
+    };
+
+    setLoadingForKey(true);
     const dataArray = form.values[key] ?? [];
 
-    const results = await Promise.all(
-      dataArray.map((file) =>
-        deleteFile(file.key).then((res) => ({ key: file.key, ...res }))
-      )
-    );
-    console.log('Bulk delete results:', results);
-    await new Promise((resolve) => setTimeout(resolve, 5000));
+    try {
+      const results = await Promise.all(
+        dataArray.map((file) =>
+          deleteFile(file.key).then((res) => ({ key: file.key, ...res }))
+        )
+      );
 
-    setLoading(false);
+      console.log('Bulk delete results:', results);
+
+      // Check if all deletions were successful
+      if (results.every((result) => result.success)) {
+        notifications.show({
+          title: 'Success',
+          message: 'File deleted successfully!',
+          color: 'green',
+          autoClose: 3000,
+        });
+
+        // IMPORTANT: Clear the form field FIRST, then set change state
+        form.setFieldValue(key, []);
+
+        // Force form to re-render with empty array
+        setTimeout(() => {
+          switch (key) {
+            case 'driversLicense':
+              setChangeDriverLicensePhotos(true);
+              break;
+            case 'driverProfile':
+              setChangeDriverProfilePhotos(true);
+              break;
+            case 'tripHistory':
+              setChangeTripHistoryPhotos(true);
+              break;
+          }
+        }, 100);
+      } else {
+        notifications.show({
+          title: 'Error',
+          message: 'Failed to delete file. Please try again.',
+          color: 'red',
+          autoClose: 5000,
+        });
+      }
+    } catch (error) {
+      console.error('Delete error:', error);
+      notifications.show({
+        title: 'Error',
+        message: 'Failed to delete file. Please try again.',
+        color: 'red',
+        autoClose: 5000,
+      });
+    } finally {
+      setLoadingForKey(false);
+    }
+  };
+
+  // Helper function to render image section
+  const renderImageSection = (
+    fieldName: keyof Step2IdentityConfirmationFormValues,
+    label: string,
+    changeState: boolean,
+    loadingState: boolean
+  ) => {
+    // CRITICAL: Get current form values, not initial values
+    const currentFiles = form.getValues()[fieldName] ?? [];
+
+    return (
+      <Input.Wrapper
+        label={label}
+        withAsterisk
+        error={form.errors[fieldName]}
+        className="font-inter text-xs font-normal text-[#5E6366]"
+      >
+        <Space h={4} />
+        {currentFiles.length > 0 && !changeState ? (
+          <SimpleGrid pos={'relative'} cols={1} spacing="md" mb="md">
+            {/* Loading overlay */}
+            {loadingState && (
+              <Box
+                pos={'absolute'}
+                top={0}
+                left={0}
+                right={0}
+                bottom={0}
+                style={{
+                  backgroundColor: 'rgba(255, 255, 255, 0.8)',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  zIndex: 10,
+                  borderRadius: '8px',
+                }}
+              >
+                <Loader size="lg" />
+              </Box>
+            )}
+
+            {currentFiles.map((file) => (
+              <Box h={150} key={`${fieldName}-${file.key}`}>
+                <Image
+                  w={'100%'}
+                  h={'100%'}
+                  src={file.url}
+                  alt={`${fieldName} ${file.name}`}
+                  radius={'md'}
+                  fallbackSrc="https://via.placeholder.com/150"
+                  style={{ opacity: loadingState ? 0.5 : 1 }}
+                />
+              </Box>
+            ))}
+
+            <Box pos={'absolute'} top={0} right={0}>
+              <Button
+                variant="subtle"
+                size="md"
+                radius="md"
+                disabled={loadingState}
+                onClick={() => handleBulkDelete(fieldName)}
+              >
+                {loadingState ? (
+                  <Loader size="xs" />
+                ) : (
+                  <Icon icon={'mingcute:edit-line'} width={20} />
+                )}
+              </Button>
+            </Box>
+          </SimpleGrid>
+        ) : (
+          <ImageHandler
+            key={`${fieldName}-handler-${changeState}`} // Force re-render when changeState changes
+            onUploadSuccess={(files: FileHandlerRes[]) => {
+              console.log(`Uploading new ${fieldName} files:`, files);
+
+              // Set the new files immediately
+              form.setFieldValue(fieldName, files);
+
+              // Reset change state to show images instead of handler
+              switch (fieldName) {
+                case 'driversLicense':
+                  setChangeDriverLicensePhotos(false);
+                  break;
+                case 'driverProfile':
+                  setChangeDriverProfilePhotos(false);
+                  break;
+                case 'tripHistory':
+                  setChangeTripHistoryPhotos(false);
+                  break;
+              }
+
+              // Force form to acknowledge the new values
+              form.validateField(fieldName);
+
+              console.log(
+                `Updated ${fieldName} form values:`,
+                form.getValues()[fieldName]
+              );
+
+              notifications.show({
+                title: 'Success',
+                message: 'New file uploaded successfully!',
+                color: 'green',
+                autoClose: 3000,
+              });
+            }}
+          />
+        )}
+      </Input.Wrapper>
+    );
   };
 
   return (
     <form onSubmit={form.onSubmit(handleSubmit)}>
       <Stack>
-        <Input.Wrapper
-          label="Picture of Driver's License"
-          withAsterisk
-          error={form.errors.driversLicense}
-          className="font-inter text-xs font-normal text-[#5E6366]"
-        >
-          <Space h={4} />
-          {(getInitialValues().driversLicense ?? []).length > 0 &&
-          changeDriverLicensePhotos === false &&
-          loading === false ? (
-            <SimpleGrid pos={'relative'} cols={1} spacing="md" mb="md">
-              {loading && <Loader pos={'absolute'} top={0} right={0} />}
-              {(getInitialValues().driverProfile ?? []).map((file) => (
-                <Box h={150} key={file.key}>
-                  <Image
-                    w={'100%'}
-                    h={'100%'}
-                    src={file.url}
-                    alt={`Vehicle Photo ${file.name}`}
-                    radius={'md'}
-                    fallbackSrc="https://via.placeholder.com/150"
-                  />
-                </Box>
-              ))}
-              <Box pos={'absolute'} top={0} right={0}>
-                <Button
-                  variant="subtle"
-                  size="md"
-                  radius="md"
-                  onClick={() => {
-                    setChangeDriverLicensePhotos(true);
-                    form.setFieldValue('driversLicense', null);
-                    handleBulkDelete('driversLicense');
-                  }}
-                >
-                  {loading ? (
-                    <Loader size="xs" />
-                  ) : (
-                    <Icon icon={'mingcute:edit-line'} width={20} />
-                  )}
-                </Button>
-              </Box>
-            </SimpleGrid>
-          ) : (
-            <ImageHandler
-              onUploadSuccess={(files: FileHandlerRes[]) => {
-                form.setFieldValue('driversLicense', files);
-                console.log('Files uploaded:', files);
-              }}
-            />
-          )}
-        </Input.Wrapper>
+        {renderImageSection(
+          'driversLicense',
+          "Picture of Driver's License",
+          changeDriverLicensePhotos,
+          loadingDriversLicense
+        )}
 
-        <Input.Wrapper
-          label="Screenshot of Driver Profile (Uber, Lyft, etc.)"
-          withAsterisk
-          error={form.errors.driverProfile}
-          className="font-inter text-xs font-normal text-[#5E6366]"
-        >
-          <Space h={4} />
-          {(getInitialValues().driverProfile ?? []).length > 0 &&
-          changeDriverProfilePhotos === false &&
-          loading === false ? (
-            <SimpleGrid pos={'relative'} cols={1} spacing="md" mb="md">
-              {(getInitialValues().driverProfile ?? []).map((file) => (
-                <Box h={150} key={file.key}>
-                  <Image
-                    w={'100%'}
-                    h={'100%'}
-                    src={file.url}
-                    alt={`Vehicle Photo ${file.name}`}
-                    radius={'md'}
-                    fallbackSrc="https://via.placeholder.com/150"
-                  />
-                </Box>
-              ))}
-              <Box pos={'absolute'} top={0} right={0}>
-                <Button
-                  variant="subtle"
-                  size="md"
-                  radius="md"
-                  onClick={() => {
-                    setChangeDriverProfilePhotos(true);
-                    form.setFieldValue('driverProfile', null);
-                    handleBulkDelete('driverProfile');
-                  }}
-                >
-                  {loading ? (
-                    <Loader size="xs" />
-                  ) : (
-                    <Icon icon={'mingcute:edit-line'} width={20} />
-                  )}
-                </Button>
-              </Box>
-            </SimpleGrid>
-          ) : (
-            <ImageHandler
-              onUploadSuccess={(files: FileHandlerRes[]) => {
-                form.setFieldValue('driverProfile', files);
-                console.log('Files uploaded:', files);
-              }}
-            />
-          )}
-        </Input.Wrapper>
+        {renderImageSection(
+          'driverProfile',
+          'Screenshot of Driver Profile (Uber, Lyft, etc.)',
+          changeDriverProfilePhotos,
+          loadingDriverProfile
+        )}
 
-        <Input.Wrapper
-          label="Screenshot of Recent Trip History/Driven Hours"
-          withAsterisk
-          error={form.errors.tripHistory}
-          className="font-inter text-xs font-normal text-[#5E6366]"
-        >
-          <Space h={4} />
-          {(getInitialValues().tripHistory ?? []).length > 0 &&
-          changeTripHistoryPhotos === false &&
-          loading === false ? (
-            <SimpleGrid pos={'relative'} cols={1} spacing="md" mb="md">
-              {(getInitialValues().tripHistory ?? []).map((file) => (
-                <Box h={150} key={file.key}>
-                  <Image
-                    w={'100%'}
-                    h={'100%'}
-                    src={file.url}
-                    alt={`Vehicle Photo ${file.name}`}
-                    radius={'md'}
-                    fallbackSrc="https://via.placeholder.com/150"
-                  />
-                </Box>
-              ))}
-              <Box pos={'absolute'} top={0} right={0}>
-                <Button
-                  variant="subtle"
-                  size="md"
-                  radius="md"
-                  onClick={() => {
-                    setChangeTripHistoryPhotos(true);
-                    form.setFieldValue('tripHistory', null);
-                    handleBulkDelete('tripHistory');
-                  }}
-                >
-                  {loading ? (
-                    <Loader size="xs" />
-                  ) : (
-                    <Icon icon={'mingcute:edit-line'} width={20} />
-                  )}
-                </Button>
-              </Box>
-            </SimpleGrid>
-          ) : (
-            <ImageHandler
-              onUploadSuccess={(files: FileHandlerRes[]) => {
-                form.setFieldValue('tripHistory', files);
-                console.log('Files uploaded:', files);
-              }}
-            />
-          )}
-        </Input.Wrapper>
+        {renderImageSection(
+          'tripHistory',
+          'Screenshot of Recent Trip History/Driven Hours',
+          changeTripHistoryPhotos,
+          loadingTripHistory
+        )}
 
         <Group
           justify="center"
@@ -307,6 +351,11 @@ const Step2_IdentityConfirmation = ({
             size="md"
             radius={12}
             className="!font-inter !w-full !px-16 !text-sm !font-normal !text-black md:!w-auto"
+            disabled={
+              loadingDriversLicense ||
+              loadingDriverProfile ||
+              loadingTripHistory
+            }
           >
             Continue
           </Button>

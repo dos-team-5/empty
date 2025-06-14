@@ -37,9 +37,15 @@ const DriverSignupSection: React.FC = () => {
                   <span className="">Sign Up</span>
                 </Title>
               </Stack>
-              <div className="mt-2 w-full max-w-[690] rounded-4xl p-4 !shadow-[20px_20px_60px_#bebebe,-20px_-20px_60px_#080F340F] md:mt-8 md:p-8 lg:mt-0 lg:w-full">
+              <Box
+                mt={{ base: 8, md: 32, lg: 0 }}
+                w={'100%'}
+                p={{ base: 16, md: 32 }}
+                maw={690}
+                className="rounded-4xl !shadow-[20px_20px_60px_#bebebe,-20px_-20px_60px_#080F340F]"
+              >
                 <Steppers />
-              </div>
+              </Box>
             </Stack>
             {/* <div className="mt-8 w-full rounded-4xl p-4 !shadow-[20px_20px_60px_#bebebe,-20px_-20px_60px_#ffffff] md:p-8 lg:mt-0 lg:w-1/2">
               <Steppers />
