@@ -158,7 +158,7 @@ const Step3_BankingInformation = ({
     setSubmitting(false);
   };
 
-  const voidChequeFiles = form.values.voidCheque ?? [];
+  const voidChequeFiles = form.getValues()['voidCheque'] ?? [];
   const isImage =
     voidChequeFiles.length > 0 && voidChequeFiles[0]?.type?.startsWith('image');
 
@@ -175,6 +175,16 @@ const Step3_BankingInformation = ({
         message: 'File deleted successfully',
         color: 'green',
       });
+
+      // Update localStorage after deletion
+      if (typeof window !== 'undefined') {
+        const stored = localStorage.getItem('step3FormValues');
+        if (stored) {
+          const parsed = JSON.parse(stored);
+          parsed.voidCheque = updatedFiles;
+          localStorage.setItem('step3FormValues', JSON.stringify(parsed));
+        }
+      }
     } else {
       notifications.show({
         title: 'Error',

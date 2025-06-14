@@ -159,6 +159,16 @@ const Step2_IdentityConfirmation = ({
         // IMPORTANT: Clear the form field FIRST, then set change state
         form.setFieldValue(key, []);
 
+        // ✅ Update localStorage
+        if (typeof window !== 'undefined') {
+          const stored = localStorage.getItem('step2FormValues');
+          if (stored) {
+            const parsed = JSON.parse(stored);
+            parsed[key] = [];
+            localStorage.setItem('step2FormValues', JSON.stringify(parsed));
+          }
+        }
+
         // Force form to re-render with empty array
         setTimeout(() => {
           switch (key) {

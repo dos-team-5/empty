@@ -172,6 +172,16 @@ const Step1_DriverInformation = ({
         // Clear the form field and show ImageHandler
         form.setFieldValue('vehiclePhotos', []);
         setChangeVehiclePhotos(true);
+
+        // ✅ Update localStorage
+        if (typeof window !== 'undefined') {
+          const stored = localStorage.getItem('step1FormValues');
+          if (stored) {
+            const parsed = JSON.parse(stored);
+            parsed.vehiclePhotos = [];
+            localStorage.setItem('step1FormValues', JSON.stringify(parsed));
+          }
+        }
       } else {
         // Some deletions failed
         const failedDeletions = results.filter((result) => !result.success);
