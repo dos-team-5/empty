@@ -1,5 +1,4 @@
 'use client';
-import NextImage from 'next/image';
 import { useFormSubmission } from '@/contexts/FormSubmissionContext';
 import {
   Box,
@@ -327,8 +326,6 @@ const Step1_DriverInformation = ({
               {form.values.vehiclePhotos.map((file) => (
                 <Box h={150} key={file.key}>
                   <Image
-                    component={NextImage}
-                    fill
                     w={'100%'}
                     h={'100%'}
                     src={file.url}

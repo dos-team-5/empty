@@ -1,5 +1,4 @@
 'use client';
-import NextImage from 'next/image';
 import { useFormSubmission } from '@/contexts/FormSubmissionContext';
 import {
   Button,
@@ -269,8 +268,6 @@ const Step3_BankingInformation = ({
                     {voidChequeFiles.map((file) => (
                       <Box h={150} key={file.key}>
                         <Image
-                          fill
-                          component={NextImage}
                           w={'100%'}
                           h={'100%'}
                           src={file.url}
