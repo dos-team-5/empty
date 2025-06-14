@@ -142,6 +142,7 @@ const Step2_IdentityConfirmation = ({
           changeDriverLicensePhotos === false &&
           loading === false ? (
             <SimpleGrid pos={'relative'} cols={1} spacing="md" mb="md">
+              {loading && <Loader pos={'absolute'} top={0} right={0} />}
               {(getInitialValues().driverProfile ?? []).map((file) => (
                 <Box h={150} key={file.key}>
                   <Image
