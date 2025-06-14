@@ -1,4 +1,5 @@
 'use client';
+import NextImage from 'next/image';
 import { useFormSubmission } from '@/contexts/FormSubmissionContext';
 import {
   Button,
@@ -266,14 +267,17 @@ const Step3_BankingInformation = ({
                 voidChequeContent = (
                   <SimpleGrid pos="relative" cols={1} spacing="md" mb="md">
                     {voidChequeFiles.map((file) => (
-                      <Image
-                        key={file.key}
-                        src={file.url}
-                        alt={`Void Cheque ${file.name}`}
-                        width={200}
-                        height={100}
-                        style={{ objectFit: 'cover', borderRadius: '8px' }}
-                      />
+                      <Box h={150} key={file.key}>
+                        <Image
+                          component={NextImage}
+                          w={'100%'}
+                          h={'100%'}
+                          src={file.url}
+                          alt={`Vehicle Photo ${file.name}`}
+                          radius={'md'}
+                          fallbackSrc="https://via.placeholder.com/150"
+                        />
+                      </Box>
                     ))}
                     <Box pos="absolute" top={0} right={0}>
                       <Button
@@ -282,7 +286,11 @@ const Step3_BankingInformation = ({
                         radius="md"
                         onClick={() => handleDelete(voidChequeFiles[0].key)}
                       >
-                        <Icon icon="mingcute:edit-line" width={20} />
+                        {loading ? (
+                          <Loader size="xs" />
+                        ) : (
+                          <Icon icon={'mingcute:edit-line'} width={20} />
+                        )}
                       </Button>
                     </Box>
                   </SimpleGrid>
@@ -319,7 +327,7 @@ const Step3_BankingInformation = ({
                             {loading ? (
                               <Loader size="xs" />
                             ) : (
-                              <Icon icon="tabler:trash" />
+                              <Icon icon="mingcute:edit-line" width={20} />
                             )}
                           </ActionIcon>
                         </Group>

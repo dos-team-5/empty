@@ -1,4 +1,5 @@
 'use client';
+import NextImage from 'next/image';
 import { useFormSubmission } from '@/contexts/FormSubmissionContext';
 import {
   Box,
@@ -6,6 +7,7 @@ import {
   Group,
   Image,
   Input,
+  Loader,
   SimpleGrid,
   Space,
   Stack,
@@ -142,14 +144,17 @@ const Step2_IdentityConfirmation = ({
           loading === false ? (
             <SimpleGrid pos={'relative'} cols={1} spacing="md" mb="md">
               {(getInitialValues().driverProfile ?? []).map((file) => (
-                <Image
-                  key={file.key}
-                  src={file.url}
-                  alt={`Vehicle Photo ${file.name}`}
-                  width={200}
-                  height={100}
-                  style={{ objectFit: 'cover', borderRadius: '8px' }}
-                />
+                <Box h={150} key={file.key}>
+                  <Image
+                    component={NextImage}
+                    w={'100%'}
+                    h={'100%'}
+                    src={file.url}
+                    alt={`Vehicle Photo ${file.name}`}
+                    radius={'md'}
+                    fallbackSrc="https://via.placeholder.com/150"
+                  />
+                </Box>
               ))}
               <Box pos={'absolute'} top={0} right={0}>
                 <Button
@@ -162,7 +167,11 @@ const Step2_IdentityConfirmation = ({
                     handleBulkDelete('driversLicense');
                   }}
                 >
-                  <Icon icon="mingcute:edit-line" width={20} />
+                  {loading ? (
+                    <Loader size="xs" />
+                  ) : (
+                    <Icon icon={'mingcute:edit-line'} width={20} />
+                  )}
                 </Button>
               </Box>
             </SimpleGrid>
@@ -188,14 +197,17 @@ const Step2_IdentityConfirmation = ({
           loading === false ? (
             <SimpleGrid pos={'relative'} cols={1} spacing="md" mb="md">
               {(getInitialValues().driverProfile ?? []).map((file) => (
-                <Image
-                  key={file.key}
-                  src={file.url}
-                  alt={`Vehicle Photo ${file.name}`}
-                  width={200}
-                  height={100}
-                  style={{ objectFit: 'cover', borderRadius: '8px' }}
-                />
+                <Box h={150} key={file.key}>
+                  <Image
+                    component={NextImage}
+                    w={'100%'}
+                    h={'100%'}
+                    src={file.url}
+                    alt={`Vehicle Photo ${file.name}`}
+                    radius={'md'}
+                    fallbackSrc="https://via.placeholder.com/150"
+                  />
+                </Box>
               ))}
               <Box pos={'absolute'} top={0} right={0}>
                 <Button
@@ -208,7 +220,11 @@ const Step2_IdentityConfirmation = ({
                     handleBulkDelete('driverProfile');
                   }}
                 >
-                  <Icon icon="mingcute:edit-line" width={20} />
+                  {loading ? (
+                    <Loader size="xs" />
+                  ) : (
+                    <Icon icon={'mingcute:edit-line'} width={20} />
+                  )}
                 </Button>
               </Box>
             </SimpleGrid>
@@ -234,14 +250,17 @@ const Step2_IdentityConfirmation = ({
           loading === false ? (
             <SimpleGrid pos={'relative'} cols={1} spacing="md" mb="md">
               {(getInitialValues().tripHistory ?? []).map((file) => (
-                <Image
-                  key={file.key}
-                  src={file.url}
-                  alt={`Vehicle Photo ${file.name}`}
-                  width={200}
-                  height={100}
-                  style={{ objectFit: 'cover', borderRadius: '8px' }}
-                />
+                <Box h={150} key={file.key}>
+                  <Image
+                    component={NextImage}
+                    w={'100%'}
+                    h={'100%'}
+                    src={file.url}
+                    alt={`Vehicle Photo ${file.name}`}
+                    radius={'md'}
+                    fallbackSrc="https://via.placeholder.com/150"
+                  />
+                </Box>
               ))}
               <Box pos={'absolute'} top={0} right={0}>
                 <Button
@@ -254,7 +273,11 @@ const Step2_IdentityConfirmation = ({
                     handleBulkDelete('tripHistory');
                   }}
                 >
-                  <Icon icon="mingcute:edit-line" width={20} />
+                  {loading ? (
+                    <Loader size="xs" />
+                  ) : (
+                    <Icon icon={'mingcute:edit-line'} width={20} />
+                  )}
                 </Button>
               </Box>
             </SimpleGrid>
