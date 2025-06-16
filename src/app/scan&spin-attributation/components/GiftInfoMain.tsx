@@ -19,11 +19,11 @@ const GiftInfoMain = () => {
         <Text
           ff={'var(--font-poppins)'}
           fw={500}
-          fz={{ base: 20, sm: 30, md: 40 }}
+          fz={{ base: 22, sm: 30, md: 40 }}
         >
           Want More Than Just Impressions?
         </Text>
-        <Text fz={14} ff={'var(--font-inter)'}>
+        <Text fz={{ base: 12, sm: 13, md: 14 }} ff={'var(--font-inter)'}>
           Scan & Spin is our QR-powered add-on that lets people scan your ad,
           spin a digital wheel, and have a chance to win prizes, discounts, or
           free items related to your brand. It turns your mobile ad into an
