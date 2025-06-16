@@ -93,13 +93,14 @@ export const PricingCard = ({
         </Box>
 
         {/* Add-ons */}
-        {selectedAddons.length > 0 && (
-          <>
-            <Divider />
-            <Flex align="center" gap={36}>
-              <Text fw={600}>Add-ons:</Text>
-              <Flex align="center" gap={12}>
-                {selectedAddons.map((addonId) => {
+
+        <Divider />
+        <Flex align="center" gap={36}>
+          <Text fw={600}>Add-ons:</Text>
+          <Flex align="center" gap={12}>
+            {selectedAddons.length === 0
+              ? 'N/A'
+              : selectedAddons.map((addonId) => {
                   const addon = ADDONS.find((a) => a.id === addonId);
                   return addon ? (
                     <Badge key={addonId}>
@@ -107,10 +108,8 @@ export const PricingCard = ({
                     </Badge>
                   ) : null;
                 })}
-              </Flex>
-            </Flex>
-          </>
-        )}
+          </Flex>
+        </Flex>
 
         <Divider />
 

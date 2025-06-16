@@ -1,5 +1,6 @@
 import { Box, InputLabel, Radio } from '@mantine/core';
 import { PlanType } from '../types';
+import { PLAN_CONFIGS } from '../data';
 
 // Components
 export const PlanCard = ({
