@@ -24,6 +24,7 @@ export default function Home() {
       <FeatureCard />
       <TimelineSectionAd />
       <PricingCards />
+
       <PricingConfigurator />
       <Faq />
     </main>

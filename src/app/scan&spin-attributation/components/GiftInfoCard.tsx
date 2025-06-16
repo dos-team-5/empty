@@ -71,8 +71,8 @@ const GiftInfoCard = () => {
               py={30}
               mih={192}
               key={i}
-              bg={i % 2 == 0 ? '#FFF8FD' : 'transparent'}
-              className="cursor-pointer transition-all duration-200 hover:scale-110"
+              bg={i % 2 == 0 ? 'white' : '#FFF8FD'}
+              className="cursor-pointer transition-all duration-200 hover:z-40 hover:scale-110"
             >
               {card.id === 3 ? (
                 <Flex h="100%" justify="center" align="center">
