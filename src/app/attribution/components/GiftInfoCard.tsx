@@ -72,7 +72,7 @@ const GiftInfoCard = () => {
               mih={192}
               key={i}
               bg={i % 2 == 0 ? 'white' : '#FFF8FD'}
-              className="cursor-pointer transition-all duration-200 hover:z-40 hover:scale-110"
+              className="cursor-pointer transition-all duration-200 hover:z-40 hover:scale-110 !shadow-[20px_20px_60px_#bebebe,-20px_-20px_60px_#ffffff]"
             >
               {card.id === 3 ? (
                 <Flex h="100%" justify="center" align="center">

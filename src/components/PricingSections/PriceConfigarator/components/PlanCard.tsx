@@ -30,11 +30,11 @@ export const PlanCard = ({
         <Box fw={700}>
           <strong>Monthly:</strong> ${maxPrice}-{minPrice}/car
         </Box>
-        <Box className="text-gray-600">
+        {/* <Box className="text-gray-600">
           {planType === 'basic'
             ? '40+ hours exposure, weekly reports, proof of ad'
             : '95-99% accuracy, comprehensive reporting'}
-        </Box>
+        </Box> */}
       </Box>
     </InputLabel>
   );
