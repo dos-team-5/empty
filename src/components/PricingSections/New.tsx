@@ -1,0 +1,445 @@
+'use client';
+
+import { useState, useEffect } from 'react';
+
+import { Info, Check, Calendar, CreditCard } from 'lucide-react';
+
+import {
+  Badge,
+  Box,
+  Button,
+  Card,
+  Checkbox,
+  Divider,
+  Flex,
+  InputLabel,
+  List,
+  Radio,
+  RadioGroup,
+  SimpleGrid,
+  Text,
+  TextInput,
+  Title,
+  Tooltip,
+} from '@mantine/core';
+
+export default function PricingConfigurator() {
+  const [planType, setPlanType] = useState<'basic' | 'premium'>('basic');
+  const [carCount, setCarCount] = useState<number>(1);
+  const [scanAndSpin, setScanAndSpin] = useState<boolean>(false);
+  const [deviceIdPassback, setDeviceIdPassback] = useState<boolean>(false);
+  const [currentStep, setCurrentStep] = useState<number>(1);
+
+  // Calculate monthly price per car based on tier
+  const getMonthlyPricePerCar = () => {
+    const pricing =
+      planType === 'basic'
+        ? { tier1: 269, tier2: 250, tier3: 241, tier4: 232 }
+        : { tier1: 303, tier2: 282, tier3: 271, tier4: 261 };
+
+    if (carCount >= 1 && carCount <= 20) return pricing.tier1;
+    if (carCount >= 21 && carCount <= 50) return pricing.tier2;
+    if (carCount >= 51 && carCount <= 100) return pricing.tier3;
+    return pricing.tier4;
+  };
+
+  const installationFee = planType === 'basic' ? 66 : 210;
+  const monthlyPricePerCar = getMonthlyPricePerCar();
+  const totalMonthlyPrice = monthlyPricePerCar * carCount;
+  const totalInstallationFee = installationFee * carCount;
+
+  // Determine if we should show "Book a Call" vs "Checkout"
+  const shouldBookCall = () => {
+    if (planType === 'basic') {
+      return scanAndSpin;
+    } else {
+      return scanAndSpin || deviceIdPassback;
+    }
+  };
+
+  // Determine current step based on selections
+  useEffect(() => {
+    if (planType === 'basic') {
+      if (currentStep < 3) setCurrentStep(3);
+    } else {
+      if (currentStep < 4) setCurrentStep(4);
+    }
+  }, [planType, scanAndSpin, deviceIdPassback]);
+
+  const features =
+    planType === 'basic'
+      ? [
+          '40+ hours of exposure per car per week',
+          'Ads displayed across high traffic areas',
+          'Weekly reports with heatmap',
+          'Estimated CPM & impressions',
+          'Hours driven tracking',
+          'Proof of ad delivery',
+        ]
+      : [
+          'All basic features included',
+          '95-99% confidence rate in impression accuracy',
+          'Industry-leading measurement technology',
+          'Total impressions by neighborhood',
+          'Hourly impression breakdown',
+          'Daily and weekly impression trends',
+        ];
+
+  return (
+    <Box mih={'100vh'} p={16}>
+      <Box className="mx-auto max-w-7xl">
+        <SimpleGrid spacing={32} cols={2}>
+          {/* Left Side - Pricing Card */}
+          <Box
+            h={'fit'}
+            pos={{ lg: 'sticky' }}
+            top={16}
+            className="h-fit lg:sticky lg:top-4"
+          >
+            <Card className="border-2" style={{ borderColor: '#D381B5' }}>
+              <Card.Section
+                className="text-center"
+                style={{ backgroundColor: '#D381B5' }}
+              >
+                <Title fz={24} c={'white'}>
+                  {planType === 'basic' ? 'Basic Plan' : 'Premium Plan'}
+                </Title>
+                <Text className="text-white/90">
+                  {carCount} car{carCount !== 1 ? 's' : ''} selected
+                </Text>
+              </Card.Section>
+              <Card.Section p={24} className="space-y-6">
+                {/* Installation Fee */}
+                <Flex align={'center'} justify={'space-between'}>
+                  <span className="font-medium">Installation Fee</span>
+                  <span className="font-bold">
+                    ${totalInstallationFee.toLocaleString()}
+                  </span>
+                </Flex>
+
+                {/* Monthly Pricing */}
+                <Box className="space-y-2">
+                  <Flex align={'center'} justify={'space-between'}>
+                    <span className="font-medium">Monthly Price</span>
+                    <span className="font-bold">
+                      ${totalMonthlyPrice.toLocaleString()}/month
+                    </span>
+                  </Flex>
+                  <Box className="text-sm text-gray-600">
+                    ${monthlyPricePerCar}/car/month × {carCount} car
+                    {carCount !== 1 ? 's' : ''}
+                  </Box>
+                </Box>
+
+                <Divider />
+
+                {/* Features */}
+                <Box className="space-y-3">
+                  <Text className="font-semibold">Included Features:</Text>
+                  <List className="space-y-2">
+                    {features.map((feature, index) => (
+                      <List.Item
+                        key={index}
+                        className="flex items-start gap-2 text-sm"
+                      >
+                        <Check
+                          className="mt-0.5 h-4 w-4 flex-shrink-0"
+                          style={{ color: '#D381B5' }}
+                        />
+                        <span>{feature}</span>
+                      </List.Item>
+                    ))}
+                  </List>
+                </Box>
+
+                {/* Add-ons */}
+                {(scanAndSpin || deviceIdPassback) && (
+                  <>
+                    <Divider />
+                    <Box className="space-y-2">
+                      <h4 className="font-semibold">Add-ons:</h4>
+                      {scanAndSpin && (
+                        <Box className="flex items-center gap-2">
+                          <Badge
+                            variant="light"
+                            style={{
+                              backgroundColor: '#D381B5',
+                              color: 'white',
+                            }}
+                          >
+                            Scan & Spin
+                          </Badge>
+                          <span className="text-sm">Included</span>
+                        </Box>
+                      )}
+                      {deviceIdPassback && (
+                        <Box className="flex items-center gap-2">
+                          <Badge
+                            variant="secondary"
+                            style={{
+                              backgroundColor: '#D381B5',
+                              color: 'white',
+                            }}
+                          >
+                            Device ID Passback
+                          </Badge>
+                          <span className="text-sm">Usage-based pricing</span>
+                        </Box>
+                      )}
+                    </Box>
+                  </>
+                )}
+
+                <Divider />
+
+                {/* Action Button */}
+                <Button
+                  w={'100%'}
+                  h={48}
+                  fz={18}
+                  fw={600}
+                  style={{
+                    backgroundColor: shouldBookCall() ? '#D381B5' : 'black',
+                  }}
+                >
+                  {shouldBookCall() ? (
+                    <>
+                      <Calendar className="mr-2 h-5 w-5" />
+                      Book a Call
+                    </>
+                  ) : (
+                    <>
+                      <CreditCard className="mr-2 h-5 w-5" />
+                      Checkout
+                    </>
+                  )}
+                </Button>
+              </Card.Section>
+            </Card>
+          </Box>
+
+          {/* Right Side - Configurator Steps */}
+          <Box className="space-y-8">
+            {/* Step 1 - Plan Selection */}
+            <Card className="border-2">
+              <Card.Section>
+                <Box className="flex items-center gap-3">
+                  <Box
+                    className="flex h-8 w-8 items-center justify-center rounded-full font-bold text-white"
+                    style={{ backgroundColor: '#D381B5' }}
+                  >
+                    1
+                  </Box>
+                  <Title>Choose Your Plan</Title>
+                </Box>
+              </Card.Section>
+              <Card.Section className="space-y-6">
+                <Box className="space-y-4">
+                  <InputLabel
+                    htmlFor="car-count"
+                    className="text-base font-medium"
+                  >
+                    Number of Cars
+                  </InputLabel>
+                  <TextInput
+                    id="car-count"
+                    type="number"
+                    min="1"
+                    value={carCount}
+                    onChange={(e) =>
+                      setCarCount(
+                        Math.max(1, Number.parseInt(e.target.value) || 1)
+                      )
+                    }
+                    className="w-32"
+                  />
+                </Box>
+
+                <RadioGroup
+                  value={planType}
+                  onChange={(value: string) =>
+                    setPlanType(value as 'basic' | 'premium')
+                  }
+                >
+                  <Box className="grid gap-4 md:grid-cols-2">
+                    {/* Basic Plan */}
+                    <Box className="space-y-2">
+                      <InputLabel
+                        htmlFor="basic"
+                        className="block cursor-pointer rounded-lg border-2 p-4 hover:border-gray-300 [&:has(:checked)]:border-[#D381B5] [&:has(:checked)]:bg-[#D381B5]/5"
+                      >
+                        <Box className="mb-3 flex items-center space-x-2">
+                          <Radio value="basic" id="basic" />
+                          <span className="text-lg font-semibold">Basic</span>
+                        </Box>
+                        <Box className="space-y-2 text-sm">
+                          <Box>
+                            <strong>Installation:</strong> $66/car
+                          </Box>
+                          <Box>
+                            <strong>Monthly:</strong> $269-232/car
+                          </Box>
+                          <Box className="text-gray-600">
+                            40+ hours exposure, weekly reports, proof of ad
+                          </Box>
+                        </Box>
+                      </InputLabel>
+                    </Box>
+
+                    {/* Premium Plan */}
+                    <Box className="space-y-2">
+                      <InputLabel
+                        htmlFor="premium"
+                        className="block cursor-pointer rounded-lg border-2 p-4 hover:border-gray-300 [&:has(:checked)]:border-[#D381B5] [&:has(:checked)]:bg-[#D381B5]/5"
+                      >
+                        <Box className="mb-3 flex items-center space-x-2">
+                          <Radio value="premium" id="premium" />
+                          <span className="text-lg font-semibold">Premium</span>
+                        </Box>
+                        <Box className="space-y-2 text-sm">
+                          <Box>
+                            <strong>Installation:</strong> $210/car
+                          </Box>
+                          <Box>
+                            <strong>Monthly:</strong> $303-261/car
+                          </Box>
+                          <Box className="text-gray-600">
+                            95-99% accuracy, comprehensive reporting
+                          </Box>
+                        </Box>
+                      </InputLabel>
+                    </Box>
+                  </Box>
+                </RadioGroup>
+              </Card.Section>
+            </Card>
+
+            {/* Step 2 - Scan & Spin */}
+            <Card className="border-2">
+              <Card.Section>
+                <Box className="flex items-center gap-3">
+                  <Box
+                    className="flex h-8 w-8 items-center justify-center rounded-full font-bold text-white"
+                    style={{ backgroundColor: '#D381B5' }}
+                  >
+                    2
+                  </Box>
+                  <Title>Scan & Spin (Optional)</Title>
+                </Box>
+              </Card.Section>
+              <Card.Section>
+                <Box className="flex items-start space-x-3">
+                  <Checkbox
+                    id="scan-spin"
+                    checked={scanAndSpin}
+                    onChange={(event) =>
+                      setScanAndSpin(event.currentTarget.checked)
+                    }
+                  />
+                  <Box className="space-y-2">
+                    <InputLabel
+                      htmlFor="scan-spin"
+                      className="cursor-pointer text-base font-medium"
+                    >
+                      Add Scan & Spin Engagement
+                    </InputLabel>
+                    <Box className="space-y-1 text-sm text-gray-600">
+                      <Box>
+                        • Device IDs collected for retargeting & attribution
+                      </Box>
+                      <Box>• QR codes placed on vehicle exteriors</Box>
+                      <Box>• Users scan for deals or promo codes</Box>
+                      <Box>• High-intent leads from real-world interaction</Box>
+                      <Box>• Email capture</Box>
+                    </Box>
+                    <Badge
+                      variant="outline"
+                      style={{ color: '#D381B5', borderColor: '#D381B5' }}
+                    >
+                      Same Pricing
+                    </Badge>
+                  </Box>
+                </Box>
+              </Card.Section>
+            </Card>
+
+            {/* Step 3 - Device ID (Premium Only) */}
+            {planType === 'premium' && (
+              <Card className="border-2">
+                <Card.Section>
+                  <Box className="flex items-center gap-3">
+                    <Box
+                      className="flex h-8 w-8 items-center justify-center rounded-full font-bold text-white"
+                      style={{ backgroundColor: '#D381B5' }}
+                    >
+                      3
+                    </Box>
+                    <Title className="flex items-center gap-2">
+                      Device ID Passback (Optional)
+                      <Tooltip
+                        label="  Most people leave WiFi and Bluetooth on by default.
+                            Our sensors detect nearby devices when they come
+                            within range of your ad, counting each as a
+                            real-world impression. We filter impressions by
+                            distance, signal strength, and location to give you
+                            highly accurate, verifiable reach data."
+                      >
+                        <Info className="h-4 w-4 text-gray-500" />
+                      </Tooltip>
+                    </Title>
+                  </Box>
+                </Card.Section>
+                <Card.Section>
+                  <Box className="flex items-start space-x-3">
+                    <Checkbox
+                      id="device-id"
+                      checked={deviceIdPassback}
+                      onChange={(event) =>
+                        setDeviceIdPassback(event.currentTarget.checked)
+                      }
+                    />
+                    <Box className="space-y-3">
+                      <InputLabel
+                        htmlFor="device-id"
+                        className="cursor-pointer text-base font-medium"
+                      >
+                        Passive Device ID Capture & Passback
+                      </InputLabel>
+                      <Box className="space-y-1 text-sm text-gray-600">
+                        <Box>
+                          • Personal device information collected via WiFi and
+                          Bluetooth proximity
+                        </Box>
+                        <Box>• IDs collected without any user interaction</Box>
+                        <Box>
+                          • Filtered by radius, signal strength, and location
+                        </Box>
+                        <Box>• Used for audience modeling and retargeting</Box>
+                        <Box>
+                          • Fully privacy-compliant (USA, Canada, Europe)
+                        </Box>
+                      </Box>
+                      <Box className="space-y-2">
+                        <Box className="text-sm">
+                          <strong>Pricing:</strong>
+                        </Box>
+                        <Box className="space-y-1 text-sm text-gray-600">
+                          <Box>
+                            • $0.50 per device collected through Scan & Spin
+                          </Box>
+                          <Box>
+                            • $0.01 per device collected through Geofencing
+                          </Box>
+                        </Box>
+                      </Box>
+                    </Box>
+                  </Box>
+                </Card.Section>
+              </Card>
+            )}
+          </Box>
+        </SimpleGrid>
+      </Box>
+    </Box>
+  );
+}

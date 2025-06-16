@@ -8,6 +8,7 @@ import {
 } from '@/components';
 import FeatureCard from '@/components/AdvertisingSection/FeatureCard';
 import { WhyChooseUsSection } from '@/components/AdvertisingSection/WhyAdvertisers';
+import PricingConfigurator from '@/components/PricingSections/New';
 
 export default function Home() {
   return (
@@ -23,6 +24,7 @@ export default function Home() {
       <FeatureCard />
       <TimelineSectionAd />
       <PricingCards />
+      <PricingConfigurator />
       <Faq />
     </main>
   );
