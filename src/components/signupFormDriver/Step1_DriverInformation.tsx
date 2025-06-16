@@ -377,7 +377,8 @@ const Step1_DriverInformation = ({
           error={form.errors.vehiclePhotos}
           className="font-inter text-xs font-normal text-[#5E6366]"
         >
-          {form.values.vehiclePhotos.length > 0 &&
+          {form.values.vehiclePhotos &&
+          form.values.vehiclePhotos.length > 0 &&
           changeVehiclePhotos === false ? (
             <SimpleGrid pos={'relative'} cols={3} spacing="md" mb="md">
               {loading && (
