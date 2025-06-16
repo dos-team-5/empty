@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 
-import { Info, Check, Calendar, CreditCard } from 'lucide-react';
+import { Info, Calendar, CreditCard } from 'lucide-react';
 
 import {
   Badge,
@@ -22,6 +22,7 @@ import {
   Title,
   Tooltip,
 } from '@mantine/core';
+import { Icon } from '@iconify/react/dist/iconify.js';
 
 export default function PricingConfigurator() {
   const [planType, setPlanType] = useState<'basic' | 'premium'>('basic');
@@ -90,63 +91,66 @@ export default function PricingConfigurator() {
       <Box className="mx-auto max-w-7xl">
         <SimpleGrid spacing={32} cols={2}>
           {/* Left Side - Pricing Card */}
-          <Box
-            h={'fit'}
-            pos={{ lg: 'sticky' }}
-            top={16}
-            className="h-fit lg:sticky lg:top-4"
-          >
-            <Card className="border-2" style={{ borderColor: '#D381B5' }}>
+          <Box h={'100%'}>
+            <Card className="!border-primary border-2">
               <Card.Section
+                p={24}
                 className="text-center"
-                style={{ backgroundColor: '#D381B5' }}
+                bg={'var(--color-primary)'}
               >
                 <Title fz={24} c={'white'}>
                   {planType === 'basic' ? 'Basic Plan' : 'Premium Plan'}
                 </Title>
-                <Text className="text-white/90">
+                <Text c={'white'}>
                   {carCount} car{carCount !== 1 ? 's' : ''} selected
                 </Text>
               </Card.Section>
               <Card.Section p={24} className="space-y-6">
                 {/* Installation Fee */}
                 <Flex align={'center'} justify={'space-between'}>
-                  <span className="font-medium">Installation Fee</span>
-                  <span className="font-bold">
+                  <Text fw={500} className="font-medium">
+                    Installation Fee
+                  </Text>
+                  <Text fw={700} fz={18} className="font-bold">
                     ${totalInstallationFee.toLocaleString()}
-                  </span>
+                  </Text>
                 </Flex>
 
                 {/* Monthly Pricing */}
                 <Box className="space-y-2">
                   <Flex align={'center'} justify={'space-between'}>
-                    <span className="font-medium">Monthly Price</span>
-                    <span className="font-bold">
+                    <Text fw={500} className="font-medium">
+                      Monthly Price
+                    </Text>
+                    <Text fw={700} fz={18} className="font-bold">
                       ${totalMonthlyPrice.toLocaleString()}/month
-                    </span>
+                    </Text>
                   </Flex>
-                  <Box className="text-sm text-gray-600">
+                  <Text fz={14} fw={600} c={'dimmed'}>
                     ${monthlyPricePerCar}/car/month × {carCount} car
                     {carCount !== 1 ? 's' : ''}
-                  </Box>
+                  </Text>
                 </Box>
 
                 <Divider />
 
                 {/* Features */}
-                <Box className="space-y-3">
-                  <Text className="font-semibold">Included Features:</Text>
-                  <List className="space-y-2">
+                <Box>
+                  <Text fz={24} fw={700}>
+                    Included Features:
+                  </Text>
+                  <List mt={12}>
                     {features.map((feature, index) => (
-                      <List.Item
-                        key={index}
-                        className="flex items-start gap-2 text-sm"
-                      >
-                        <Check
-                          className="mt-0.5 h-4 w-4 flex-shrink-0"
-                          style={{ color: '#D381B5' }}
-                        />
-                        <span>{feature}</span>
+                      <List.Item mt={8} key={index}>
+                        <Flex align={'center'} gap={12}>
+                          <Icon
+                            icon="tabler:check"
+                            width={16}
+                            height={16}
+                            color="var(--color-primary)"
+                          />
+                          <span>{feature}</span>
+                        </Flex>
                       </List.Item>
                     ))}
                   </List>
@@ -156,37 +160,23 @@ export default function PricingConfigurator() {
                 {(scanAndSpin || deviceIdPassback) && (
                   <>
                     <Divider />
-                    <Box className="space-y-2">
+                    <Flex align={'center'} gap={36}>
                       <h4 className="font-semibold">Add-ons:</h4>
-                      {scanAndSpin && (
-                        <Box className="flex items-center gap-2">
-                          <Badge
-                            variant="light"
-                            style={{
-                              backgroundColor: '#D381B5',
-                              color: 'white',
-                            }}
-                          >
-                            Scan & Spin
-                          </Badge>
-                          <span className="text-sm">Included</span>
-                        </Box>
-                      )}
-                      {deviceIdPassback && (
-                        <Box className="flex items-center gap-2">
-                          <Badge
-                            variant="secondary"
-                            style={{
-                              backgroundColor: '#D381B5',
-                              color: 'white',
-                            }}
-                          >
-                            Device ID Passback
-                          </Badge>
-                          <span className="text-sm">Usage-based pricing</span>
-                        </Box>
-                      )}
-                    </Box>
+                      <Flex align={'center'} gap={12}>
+                        {scanAndSpin && (
+                          <Box className="flex items-center gap-2">
+                            <Badge>Scan & Spin</Badge>
+                            {/* <span className="text-sm">Included</span> */}
+                          </Box>
+                        )}
+                        {deviceIdPassback && (
+                          <Box className="flex items-center gap-2">
+                            <Badge>Device ID Passback</Badge>
+                            {/* <span className="text-sm">Usage-based pricing</span> */}
+                          </Box>
+                        )}
+                      </Flex>
+                    </Flex>
                   </>
                 )}
 
@@ -199,7 +189,9 @@ export default function PricingConfigurator() {
                   fz={18}
                   fw={600}
                   style={{
-                    backgroundColor: shouldBookCall() ? '#D381B5' : 'black',
+                    backgroundColor: shouldBookCall()
+                      ? 'var(--color-primary)'
+                      : 'black',
                   }}
                 >
                   {shouldBookCall() ? (
