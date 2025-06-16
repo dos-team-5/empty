@@ -23,6 +23,7 @@ export default function Home() {
       <FeatureCard />
       <TimelineSectionAd />
       <PricingCards />
+
       <Faq />
     </main>
   );
