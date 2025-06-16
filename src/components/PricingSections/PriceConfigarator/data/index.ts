@@ -1,0 +1,75 @@
+import { AddonConfig, PlanConfig, PlanType } from '../types';
+
+// Constants
+export const PLAN_CONFIGS: Record<PlanType, PlanConfig> = {
+  basic: {
+    installationFee: 66,
+    pricing: { tier1: 269, tier2: 250, tier3: 241, tier4: 232 },
+    features: [
+      '40+ hours of exposure per car per week',
+      'Ads displayed across high traffic areas',
+      'Weekly reports with heatmap',
+      'Estimated CPM & impressions',
+      'Hours driven tracking',
+      'Proof of ad delivery',
+    ],
+  },
+  premium: {
+    installationFee: 210,
+    pricing: { tier1: 303, tier2: 282, tier3: 271, tier4: 261 },
+    features: [
+      'All basic features included',
+      '95-99% confidence rate in impression accuracy',
+      'Industry-leading measurement technology',
+      'Total impressions by neighborhood',
+      'Hourly impression breakdown',
+      'Daily and weekly impression trends',
+    ],
+  },
+};
+
+export const ADDONS: AddonConfig[] = [
+  {
+    id: 'scanAndSpin',
+    label: 'Add Scan & Spin Engagement',
+    availableFor: ['basic', 'premium'],
+    features: [
+      'Device IDs collected for retargeting & attribution',
+      'QR codes placed on vehicle exteriors',
+      'Users scan for deals or promo codes',
+      'High-intent leads from real-world interaction',
+      'Email capture',
+    ],
+  },
+  {
+    id: 'deviceIdPassBack',
+    label: 'Passive Device ID Capture & PassBack',
+    availableFor: ['premium'],
+    features: [
+      'Personal device information collected via WiFi and Bluetooth proximity',
+      'IDs collected without any user interaction',
+      'Filtered by radius, signal strength, and location',
+      'Used for audience modeling and retargeting',
+      'Fully privacy-compliant (USA, Canada, Europe)',
+    ],
+  },
+];
+
+export const CAR_COUNT_TIERS = [
+  { min: 1, max: 20, tier: 'tier1' as const },
+  { min: 21, max: 50, tier: 'tier2' as const },
+  { min: 51, max: 100, tier: 'tier3' as const },
+  { min: 101, max: Infinity, tier: 'tier4' as const },
+];
+
+// Car count options for slider
+export const CAR_OPTIONS = [
+  { cars: 1, label: '1' },
+  { cars: 5, label: '5' },
+  { cars: 10, label: '10' },
+  { cars: 15, label: '15' },
+  { cars: 25, label: '25' },
+  { cars: 50, label: '50' },
+  { cars: 75, label: '75' },
+  { cars: 100, label: '100+' },
+];
