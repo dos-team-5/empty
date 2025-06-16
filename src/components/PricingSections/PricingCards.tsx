@@ -9,10 +9,9 @@ import {
   Slider,
   Button,
 } from '@mantine/core';
-import { useCallback, useState } from 'react';
+import { useCallback, useState, memo } from 'react';
 import { TextAnimate } from '../TextAnimation';
 import { motion } from 'framer-motion';
-import { memo } from 'react';
 import { useRouter } from 'next/navigation';
 import { Icon } from '../FileManager/lib/Icon';
 
