@@ -87,6 +87,22 @@ export default function PricingConfigurator() {
           'Daily and weekly impression trends',
         ];
 
+  const basicFeatures = [
+    'Device IDs collected for retargeting & attribution',
+    'QR codes placed on vehicle exteriors',
+    'Users scan for deals or promo codes',
+    'High-intent leads from real-world interaction',
+    'Email capture',
+  ];
+
+  const premiumFeatures = [
+    'Personal device information collected via WiFi and Bluetooth proximity',
+    'IDs collected without any user interaction',
+    'Filtered by radius, signal strength, and location',
+    'Used for audience modeling and retargeting',
+    'Fully privacy-compliant (USA, Canada, Europe)',
+  ];
+
   return (
     <Box mih={'100vh'} p={16}>
       <Box className="mx-auto max-w-7xl">
@@ -335,13 +351,18 @@ export default function PricingConfigurator() {
                 </Accordion.Control>
                 <Accordion.Panel>
                   <Box className="space-y-1 text-sm text-gray-600">
-                    <Box>
-                      • Device IDs collected for retargeting & attribution
+                    <Box className="text-sm text-gray-600">
+                      <List
+                        listStyleType="disc"
+                        spacing="xs"
+                        size="sm"
+                        withPadding
+                      >
+                        {basicFeatures.map((point, index) => (
+                          <List.Item key={index}>{point}</List.Item>
+                        ))}
+                      </List>
                     </Box>
-                    <Box>• QR codes placed on vehicle exteriors</Box>
-                    <Box>• Users scan for deals or promo codes</Box>
-                    <Box>• High-intent leads from real-world interaction</Box>
-                    <Box>• Email capture</Box>
                   </Box>
                 </Accordion.Panel>
               </Accordion.Item>
@@ -395,29 +416,16 @@ export default function PricingConfigurator() {
                   </Accordion.Control>
                   <Accordion.Panel>
                     <Box className="space-y-1 text-sm text-gray-600">
-                      <Box>
-                        • Personal device information collected via WiFi and
-                        Bluetooth proximity
-                      </Box>
-                      <Box>• IDs collected without any user interaction</Box>
-                      <Box>
-                        • Filtered by radius, signal strength, and location
-                      </Box>
-                      <Box>• Used for audience modeling and retargeting</Box>
-                      <Box>• Fully privacy-compliant (USA, Canada, Europe)</Box>
-                    </Box>
-                    <Box className="space-y-2">
-                      <Box className="text-sm">
-                        <strong>Pricing:</strong>
-                      </Box>
-                      <Box className="space-y-1 text-sm text-gray-600">
-                        <Box>
-                          • $0.50 per device collected through Scan & Spin
-                        </Box>
-                        <Box>
-                          • $0.01 per device collected through Geofencing
-                        </Box>
-                      </Box>
+                      <List
+                        listStyleType="disc"
+                        spacing="xs"
+                        size="sm"
+                        withPadding
+                      >
+                        {premiumFeatures.map((point, index) => (
+                          <List.Item key={index}>{point}</List.Item>
+                        ))}
+                      </List>
                     </Box>
                   </Accordion.Panel>
                 </Accordion.Item>
