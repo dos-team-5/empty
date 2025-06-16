@@ -2,9 +2,10 @@
 
 import { useState, useEffect } from 'react';
 
-import { Info, Calendar, CreditCard } from 'lucide-react';
+import { Calendar, CreditCard } from 'lucide-react';
 
 import {
+  Accordion,
   Badge,
   Box,
   Button,
@@ -20,7 +21,6 @@ import {
   SimpleGrid,
   Text,
   Title,
-  Tooltip,
 } from '@mantine/core';
 import { Icon } from '@iconify/react/dist/iconify.js';
 
@@ -28,7 +28,7 @@ export default function PricingConfigurator() {
   const [planType, setPlanType] = useState<'basic' | 'premium'>('basic');
   const [carCount, setCarCount] = useState<number>(1);
   const [scanAndSpin, setScanAndSpin] = useState<boolean>(false);
-  const [deviceIdPassback, setDeviceIdPassback] = useState<boolean>(false);
+  const [deviceIdPassBack, setDeviceIdPassBack] = useState<boolean>(false);
   const [currentStep, setCurrentStep] = useState<number>(1);
 
   // Calculate monthly price per car based on tier
@@ -54,7 +54,7 @@ export default function PricingConfigurator() {
     if (planType === 'basic') {
       return scanAndSpin;
     } else {
-      return scanAndSpin || deviceIdPassback;
+      return scanAndSpin || deviceIdPassBack;
     }
   };
 
@@ -65,7 +65,8 @@ export default function PricingConfigurator() {
     } else {
       if (currentStep < 4) setCurrentStep(4);
     }
-  }, [planType, scanAndSpin, deviceIdPassback]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [planType, scanAndSpin, deviceIdPassBack]);
 
   const features =
     planType === 'basic'
@@ -157,7 +158,7 @@ export default function PricingConfigurator() {
                 </Box>
 
                 {/* Add-ons */}
-                {(scanAndSpin || deviceIdPassback) && (
+                {(scanAndSpin || deviceIdPassBack) && (
                   <>
                     <Divider />
                     <Flex align={'center'} gap={36}>
@@ -169,9 +170,9 @@ export default function PricingConfigurator() {
                             {/* <span className="text-sm">Included</span> */}
                           </Box>
                         )}
-                        {deviceIdPassback && (
+                        {deviceIdPassBack && (
                           <Box className="flex items-center gap-2">
-                            <Badge>Device ID Passback</Badge>
+                            <Badge>Device ID PassBack</Badge>
                             {/* <span className="text-sm">Usage-based pricing</span> */}
                           </Box>
                         )}
@@ -259,17 +260,17 @@ export default function PricingConfigurator() {
                     <Box className="space-y-2">
                       <InputLabel
                         htmlFor="basic"
-                        className="[&:has(:checked)]:border-primary [&:has(:checked)]:bg-primary/5 block cursor-pointer rounded-lg border-2 p-4"
+                        className="[&:has(:checked)]:border-primary [&:has(:checked)]:bg-primary/5 block cursor-pointer rounded-lg border-2 border-gray-300 p-4 hover:border-gray-300"
                       >
                         <Box className="mb-3 flex items-center space-x-2">
                           <Radio value="basic" id="basic" />
                           <span className="text-lg font-semibold">Basic</span>
                         </Box>
                         <Box className="space-y-2 text-sm">
-                          <Box>
+                          <Box fw={700}>
                             <strong>Installation:</strong> $66/car
                           </Box>
-                          <Box>
+                          <Box fw={700}>
                             <strong>Monthly:</strong> $269-232/car
                           </Box>
                           <Box className="text-gray-600">
@@ -283,17 +284,17 @@ export default function PricingConfigurator() {
                     <Box className="space-y-2">
                       <InputLabel
                         htmlFor="premium"
-                        className="block cursor-pointer rounded-lg border-2 p-4 hover:border-gray-300 [&:has(:checked)]:border-[#D381B5] [&:has(:checked)]:bg-[#D381B5]/5"
+                        className="[&:has(:checked)]:border-primary [&:has(:checked)]:bg-primary/5 block cursor-pointer rounded-lg border-2 border-gray-300 p-4 hover:border-gray-300"
                       >
                         <Box className="mb-3 flex items-center space-x-2">
                           <Radio value="premium" id="premium" />
                           <span className="text-lg font-semibold">Premium</span>
                         </Box>
                         <Box className="space-y-2 text-sm">
-                          <Box>
+                          <Box fw={700}>
                             <strong>Installation:</strong> $210/car
                           </Box>
-                          <Box>
+                          <Box fw={700}>
                             <strong>Monthly:</strong> $303-261/car
                           </Box>
                           <Box className="text-gray-600">
@@ -307,129 +308,121 @@ export default function PricingConfigurator() {
               </Card.Section>
             </Card>
 
-            {/* Step 2 - Scan & Spin */}
-            <Card className="border-2">
-              <Card.Section>
-                <Box className="flex items-center gap-3">
-                  <Box
-                    className="flex h-8 w-8 items-center justify-center rounded-full font-bold text-white"
-                    style={{ backgroundColor: '#D381B5' }}
-                  >
-                    2
-                  </Box>
-                  <Title>Scan & Spin (Optional)</Title>
-                </Box>
-              </Card.Section>
-              <Card.Section>
-                <Box className="flex items-start space-x-3">
-                  <Checkbox
-                    id="scan-spin"
-                    checked={scanAndSpin}
-                    onChange={(event) =>
-                      setScanAndSpin(event.currentTarget.checked)
-                    }
-                  />
-                  <Box className="space-y-2">
-                    <InputLabel
-                      htmlFor="scan-spin"
-                      className="cursor-pointer text-base font-medium"
-                    >
-                      Add Scan & Spin Engagement
-                    </InputLabel>
-                    <Box className="space-y-1 text-sm text-gray-600">
-                      <Box>
-                        • Device IDs collected for retargeting & attribution
-                      </Box>
-                      <Box>• QR codes placed on vehicle exteriors</Box>
-                      <Box>• Users scan for deals or promo codes</Box>
-                      <Box>• High-intent leads from real-world interaction</Box>
-                      <Box>• Email capture</Box>
-                    </Box>
-                    <Badge
-                      variant="outline"
-                      style={{ color: '#D381B5', borderColor: '#D381B5' }}
-                    >
-                      Same Pricing
-                    </Badge>
-                  </Box>
-                </Box>
-              </Card.Section>
-            </Card>
-
-            {/* Step 3 - Device ID (Premium Only) */}
-            {planType === 'premium' && (
-              <Card className="border-2">
-                <Card.Section>
-                  <Box className="flex items-center gap-3">
-                    <Box
-                      className="flex h-8 w-8 items-center justify-center rounded-full font-bold text-white"
-                      style={{ backgroundColor: '#D381B5' }}
-                    >
-                      3
-                    </Box>
-                    <Title className="flex items-center gap-2">
-                      Device ID Passback (Optional)
-                      <Tooltip
-                        label="  Most people leave WiFi and Bluetooth on by default.
-                            Our sensors detect nearby devices when they come
-                            within range of your ad, counting each as a
-                            real-world impression. We filter impressions by
-                            distance, signal strength, and location to give you
-                            highly accurate, verifiable reach data."
-                      >
-                        <Info className="h-4 w-4 text-gray-500" />
-                      </Tooltip>
-                    </Title>
-                  </Box>
-                </Card.Section>
-                <Card.Section>
-                  <Box className="flex items-start space-x-3">
+            <Accordion>
+              {/* Step 2 - Scan & Spin */}
+              <Accordion.Item value="scan-spin">
+                <Accordion.Control>
+                  <Flex align={'start'} gap={12}>
                     <Checkbox
-                      id="device-id"
-                      checked={deviceIdPassback}
+                      id="scan-spin"
+                      checked={scanAndSpin}
                       onChange={(event) =>
-                        setDeviceIdPassback(event.currentTarget.checked)
+                        setScanAndSpin(event.currentTarget.checked)
                       }
                     />
-                    <Box className="space-y-3">
+                    <Flex align={'center'} gap={8}>
                       <InputLabel
-                        htmlFor="device-id"
-                        className="cursor-pointer text-base font-medium"
+                        fz={16}
+                        htmlFor="scan-spin"
+                        className="cursor-pointer text-xl font-medium"
                       >
-                        Passive Device ID Capture & Passback
+                        Add Scan & Spin Engagement
                       </InputLabel>
+
+                      <Badge variant="outline">Same Pricing</Badge>
+                    </Flex>
+                  </Flex>
+                </Accordion.Control>
+                <Accordion.Panel>
+                  <Box className="space-y-1 text-sm text-gray-600">
+                    <Box>
+                      • Device IDs collected for retargeting & attribution
+                    </Box>
+                    <Box>• QR codes placed on vehicle exteriors</Box>
+                    <Box>• Users scan for deals or promo codes</Box>
+                    <Box>• High-intent leads from real-world interaction</Box>
+                    <Box>• Email capture</Box>
+                  </Box>
+                </Accordion.Panel>
+              </Accordion.Item>
+              {/* Step 3 - Device ID (Premium Only) */}
+              {planType === 'premium' && (
+                // <Card.Section>
+                //   <Box className="flex items-center gap-3">
+                //     <Box
+                //       className="flex h-8 w-8 items-center justify-center rounded-full font-bold text-white"
+                //       style={{ backgroundColor: '#D381B5' }}
+                //     >
+                //       3
+                //     </Box>
+                //     <Title className="flex items-center gap-2">
+                //       Device ID PassBack (Optional)
+                //       <Tooltip
+                //         label="  Most people leave WiFi and Bluetooth on by default.
+                //           Our sensors detect nearby devices when they come
+                //           within range of your ad, counting each as a
+                //           real-world impression. We filter impressions by
+                //           distance, signal strength, and location to give you
+                //           highly accurate, verifiable reach data."
+                //       >
+                //         <Info className="h-4 w-4 text-gray-500" />
+                //       </Tooltip>
+                //     </Title>
+                //   </Box>
+                // </Card.Section>
+
+                <Accordion.Item value="device-id">
+                  <Accordion.Control>
+                    <Flex className="flex items-start space-x-3">
+                      <Checkbox
+                        id="device-id"
+                        checked={deviceIdPassBack}
+                        onChange={(event) =>
+                          setDeviceIdPassBack(event.currentTarget.checked)
+                        }
+                      />
+                      <Flex align={'center'} gap={8}>
+                        <InputLabel
+                          fz={16}
+                          htmlFor="device-id"
+                          className="cursor-pointer text-base font-medium"
+                        >
+                          Passive Device ID Capture & PassBack
+                        </InputLabel>
+                        <Badge variant="outline">Same Pricing</Badge>
+                      </Flex>
+                    </Flex>
+                  </Accordion.Control>
+                  <Accordion.Panel>
+                    <Box className="space-y-1 text-sm text-gray-600">
+                      <Box>
+                        • Personal device information collected via WiFi and
+                        Bluetooth proximity
+                      </Box>
+                      <Box>• IDs collected without any user interaction</Box>
+                      <Box>
+                        • Filtered by radius, signal strength, and location
+                      </Box>
+                      <Box>• Used for audience modeling and retargeting</Box>
+                      <Box>• Fully privacy-compliant (USA, Canada, Europe)</Box>
+                    </Box>
+                    <Box className="space-y-2">
+                      <Box className="text-sm">
+                        <strong>Pricing:</strong>
+                      </Box>
                       <Box className="space-y-1 text-sm text-gray-600">
                         <Box>
-                          • Personal device information collected via WiFi and
-                          Bluetooth proximity
+                          • $0.50 per device collected through Scan & Spin
                         </Box>
-                        <Box>• IDs collected without any user interaction</Box>
                         <Box>
-                          • Filtered by radius, signal strength, and location
-                        </Box>
-                        <Box>• Used for audience modeling and retargeting</Box>
-                        <Box>
-                          • Fully privacy-compliant (USA, Canada, Europe)
-                        </Box>
-                      </Box>
-                      <Box className="space-y-2">
-                        <Box className="text-sm">
-                          <strong>Pricing:</strong>
-                        </Box>
-                        <Box className="space-y-1 text-sm text-gray-600">
-                          <Box>
-                            • $0.50 per device collected through Scan & Spin
-                          </Box>
-                          <Box>
-                            • $0.01 per device collected through Geofencing
-                          </Box>
+                          • $0.01 per device collected through Geofencing
                         </Box>
                       </Box>
                     </Box>
-                  </Box>
-                </Card.Section>
-              </Card>
-            )}
+                  </Accordion.Panel>
+                </Accordion.Item>
+              )}
+            </Accordion>
           </Box>
         </SimpleGrid>
       </Box>
