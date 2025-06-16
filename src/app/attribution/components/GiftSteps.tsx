@@ -1,4 +1,5 @@
-import { Image, Stack, Text } from '@mantine/core';
+import { TextAnimate } from '@/components/TextAnimation';
+import { Image, Stack, Text, Title } from '@mantine/core';
 
 const GiftSteps = () => {
   return (
@@ -9,9 +10,17 @@ const GiftSteps = () => {
       mb={{ base: 80, sm: 250 }}
     >
       {/* title */}
-      <Text ta="center" fz={{ base: 25, sm: 35 }} fw={400}>
-        How It Works: The Scan & Spin Journey
-      </Text>
+      <Title ta="center" fz={{ base: 25, sm: 35 }} fw={600}>
+        <TextAnimate
+          animation="blurInUp"
+          by="word"
+          startOnView
+          duration={0.5}
+          once
+        >
+          How It Works: The Scan & Spin Journey
+        </TextAnimate>
+      </Title>
       <Text
         ta="center"
         fz={{ base: 13, sm: 16 }}

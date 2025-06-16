@@ -1,5 +1,6 @@
 import { PrimaryBtn } from '@/components';
-import { Box, Flex, Image, Stack, Text } from '@mantine/core';
+import { TextAnimate } from '@/components/TextAnimation';
+import { Box, Flex, Image, Stack, Text, Title } from '@mantine/core';
 
 import Link from 'next/link';
 
@@ -16,13 +17,21 @@ const GiftInfoMain = () => {
     >
       {/* left section */}
       <Stack w={{ base: '100%', sm: '50%' }} gap={30}>
-        <Text
+        <Title
           ff={'var(--font-poppins)'}
-          fw={500}
+          fw={600}
           fz={{ base: 22, sm: 30, md: 40 }}
         >
-          Want More Than Just Impressions?
-        </Text>
+          <TextAnimate
+            animation="blurInUp"
+            by="word"
+            startOnView
+            duration={0.5}
+            once
+          >
+            Want More Than Just Impressions?
+          </TextAnimate>
+        </Title>
         <Text fz={{ base: 12, sm: 13, md: 14 }} ff={'var(--font-inter)'}>
           Scan & Spin is our QR-powered add-on that lets people scan your ad,
           spin a digital wheel, and have a chance to win prizes, discounts, or
