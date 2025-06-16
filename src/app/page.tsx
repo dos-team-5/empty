@@ -8,7 +8,7 @@ import {
 } from '@/components';
 import FeatureCard from '@/components/AdvertisingSection/FeatureCard';
 import { WhyChooseUsSection } from '@/components/AdvertisingSection/WhyAdvertisers';
-import PricingConfigurator from '@/components/PricingSections/New';
+import PricingConfigurator from '@/components/PricingSections/PricingConfigurator';
 
 export default function Home() {
   return (
