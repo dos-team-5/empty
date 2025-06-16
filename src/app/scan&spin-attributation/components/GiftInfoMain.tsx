@@ -1,0 +1,47 @@
+import { PrimaryBtn } from '@/components';
+import { Box, Flex, Image, Stack, Text } from '@mantine/core';
+
+import Link from 'next/link';
+
+const GiftInfoMain = () => {
+  return (
+    <Flex
+      justify="space-between"
+      my={100}
+      maw={1000}
+      mx="auto"
+      direction={{ base: 'column', sm: 'row' }}
+      align="center"
+      gap={25}
+    >
+      {/* left section */}
+      <Stack w={{ base: '100%', sm: '50%' }} gap={30}>
+        <Text
+          ff={'var(--font-poppins)'}
+          fw={500}
+          fz={{ base: 20, sm: 30, md: 40 }}
+        >
+          Want More Than Just Impressions?
+        </Text>
+        <Text fz={14} ff={'var(--font-inter)'}>
+          Scan & Spin is our QR-powered add-on that lets people scan your ad,
+          spin a digital wheel, and have a chance to win prizes, discounts, or
+          free items related to your brand. It turns your mobile ad into an
+          exciting and interactive experience, driving real-world engagement,
+          retargetable warm leads, and online virality that makes your brand the
+          one people remember
+        </Text>
+        <Link href={'/contact'}>
+          {' '}
+          <PrimaryBtn btnText="Book A Call" glow arrow={false} />
+        </Link>
+      </Stack>
+      {/* right section */}
+      <Box w={{ base: '50%', sm: '40%' }}>
+        <Image src="spinnerLogo.svg" />
+      </Box>
+    </Flex>
+  );
+};
+
+export default GiftInfoMain;
