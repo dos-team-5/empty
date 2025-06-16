@@ -12,13 +12,13 @@ import {
   Checkbox,
   Divider,
   Flex,
+  Input,
   InputLabel,
   List,
   Radio,
   RadioGroup,
   SimpleGrid,
   Text,
-  TextInput,
   Title,
   Tooltip,
 } from '@mantine/core';
@@ -211,39 +211,40 @@ export default function PricingConfigurator() {
           </Box>
 
           {/* Right Side - Configurator Steps */}
-          <Box className="space-y-8">
+          <Box
+            p={24}
+            bg={'white'}
+            h={'100%'}
+            className="space-y-8 border-2 border-pink-50"
+          >
             {/* Step 1 - Plan Selection */}
-            <Card className="border-2">
+            <Card>
               <Card.Section>
-                <Box className="flex items-center gap-3">
-                  <Box
-                    className="flex h-8 w-8 items-center justify-center rounded-full font-bold text-white"
-                    style={{ backgroundColor: '#D381B5' }}
-                  >
-                    1
-                  </Box>
-                  <Title>Choose Your Plan</Title>
-                </Box>
+                <Title>Choose Your Plan</Title>
               </Card.Section>
               <Card.Section className="space-y-6">
-                <Box className="space-y-4">
+                <Box mt={8} className="space-y-4">
                   <InputLabel
                     htmlFor="car-count"
                     className="text-base font-medium"
                   >
                     Number of Cars
                   </InputLabel>
-                  <TextInput
-                    id="car-count"
+                  <Input
                     type="number"
-                    min="1"
+                    min={1}
+                    radius={'md'}
+                    w={'100%'}
+                    id="car-count"
                     value={carCount}
                     onChange={(e) =>
                       setCarCount(
                         Math.max(1, Number.parseInt(e.target.value) || 1)
                       )
                     }
-                    className="w-32"
+                    classNames={{
+                      input: '!bg-gray-100',
+                    }}
                   />
                 </Box>
 
@@ -258,7 +259,7 @@ export default function PricingConfigurator() {
                     <Box className="space-y-2">
                       <InputLabel
                         htmlFor="basic"
-                        className="block cursor-pointer rounded-lg border-2 p-4 hover:border-gray-300 [&:has(:checked)]:border-[#D381B5] [&:has(:checked)]:bg-[#D381B5]/5"
+                        className="[&:has(:checked)]:border-primary [&:has(:checked)]:bg-primary/5 block cursor-pointer rounded-lg border-2 p-4"
                       >
                         <Box className="mb-3 flex items-center space-x-2">
                           <Radio value="basic" id="basic" />
