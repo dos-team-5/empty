@@ -17,6 +17,7 @@ import {
   Radio,
   RadioGroup,
   SimpleGrid,
+  Slider,
   Text,
   Title,
 } from '@mantine/core';
@@ -105,6 +106,18 @@ const CAR_COUNT_TIERS = [
   { min: 21, max: 50, tier: 'tier2' as const },
   { min: 51, max: 100, tier: 'tier3' as const },
   { min: 101, max: Infinity, tier: 'tier4' as const },
+];
+
+// Car count options for slider
+const CAR_OPTIONS = [
+  { cars: 1, label: '1' },
+  { cars: 5, label: '5' },
+  { cars: 10, label: '10' },
+  { cars: 15, label: '15' },
+  { cars: 25, label: '25' },
+  { cars: 50, label: '50' },
+  { cars: 75, label: '75' },
+  { cars: 100, label: '100+' },
 ];
 
 // Custom hooks
@@ -332,6 +345,7 @@ const PricingCard = ({
 export default function PricingConfigurator() {
   const [planType, setPlanType] = useState<PlanType>('basic');
   const [carCount, setCarCount] = useState<number>(1);
+  const [selectedIndex, setSelectedIndex] = useState<number>(0);
   const [addonSelections, setAddonSelections] = useState<
     Record<string, boolean>
   >({
@@ -362,7 +376,22 @@ export default function PricingConfigurator() {
   };
 
   const handleCarCountChange = (value: string) => {
-    setCarCount(Math.max(1, Number.parseInt(value) || 1));
+    const newCount = Math.max(1, Number.parseInt(value) || 1);
+    setCarCount(newCount);
+
+    // Find the closest index for the slider
+    const closestIndex = CAR_OPTIONS.reduce((closest, option, index) => {
+      return Math.abs(option.cars - newCount) <
+        Math.abs(CAR_OPTIONS[closest].cars - newCount)
+        ? index
+        : closest;
+    }, 0);
+    setSelectedIndex(closestIndex);
+  };
+
+  const handleSliderChange = (value: number) => {
+    setSelectedIndex(value);
+    setCarCount(CAR_OPTIONS[value].cars);
   };
 
   const availableAddons = useMemo(
@@ -373,9 +402,9 @@ export default function PricingConfigurator() {
   return (
     <Box mih="100vh" p={16}>
       <Box className="mx-auto max-w-7xl">
-        <SimpleGrid spacing={32} cols={2}>
+        <SimpleGrid spacing={32} cols={{ base: 1, lg: 2 }}>
           {/* Left Side - Pricing Card */}
-          <Box h="100%">
+          <Box className="flex-grow" h="100%">
             <PricingCard
               planType={planType}
               carCount={carCount}
@@ -390,7 +419,7 @@ export default function PricingConfigurator() {
             p={24}
             bg="white"
             h="100%"
-            className="space-y-8 border-2 border-pink-50"
+            className="space-y-6 !rounded-[10px] border-2 border-pink-50"
           >
             {/* Step 1 - Plan Selection */}
             <Card>
@@ -398,7 +427,7 @@ export default function PricingConfigurator() {
                 <Title>Choose Your Plan</Title>
               </Card.Section>
               <Card.Section className="space-y-6">
-                <Box mt={8} className="space-y-4">
+                <Box className="space-y-4">
                   <InputLabel
                     htmlFor="car-count"
                     className="text-base font-medium"
@@ -406,8 +435,26 @@ export default function PricingConfigurator() {
                     Number of Cars
                   </InputLabel>
 
+                  {/* Slider for quick selection */}
+                  <Slider
+                    mb={30}
+                    value={selectedIndex}
+                    onChange={handleSliderChange}
+                    min={0}
+                    max={CAR_OPTIONS.length - 1}
+                    step={1}
+                    marks={CAR_OPTIONS.map((option, index) => ({
+                      value: index,
+                      label: option.label,
+                    }))}
+                    color="var(--mantine-primary-color-4)"
+                    label={(value) =>
+                      `${CAR_OPTIONS[value].cars} car${CAR_OPTIONS[value].cars > 1 ? 's' : ''}`
+                    }
+                  />
+
+                  {/* Input for precise entry */}
                   <Input
-                    readOnly
                     type="number"
                     min={1}
                     radius="md"
@@ -416,6 +463,7 @@ export default function PricingConfigurator() {
                     value={carCount}
                     onChange={(e) => handleCarCountChange(e.target.value)}
                     classNames={{ input: '!bg-gray-100' }}
+                    placeholder="Enter exact number of cars"
                   />
                 </Box>
 
