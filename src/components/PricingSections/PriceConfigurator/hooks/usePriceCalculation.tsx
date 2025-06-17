@@ -1,12 +1,8 @@
 import { useMemo } from 'react';
-import { Currency, PlanType } from '../types';
+import { PlanType } from '../types';
 import { CAR_COUNT_TIERS, PLAN_CONFIGS } from '../data';
 
-export const usePricingCalculation = (
-  planType: PlanType,
-  carCount: number,
-  currency?: Currency
-) => {
+export const usePricingCalculation = (planType: PlanType, carCount: number) => {
   return useMemo(() => {
     const config = PLAN_CONFIGS[planType];
     const tier =
