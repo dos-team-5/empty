@@ -2,7 +2,7 @@
 export type PlanType = 'basic' | 'premium';
 
 export type Pricing = {
-  [key: string]: number; // allows dynamic pricing names
+  [key: string]: number | string; // allows dynamic pricing names
 };
 
 export type Currency = 'usd' | 'cad';

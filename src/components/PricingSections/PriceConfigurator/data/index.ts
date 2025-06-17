@@ -59,8 +59,10 @@ export const ADDONS: AddonConfig[] = [
     availableFor: ['premium'],
     samePrice: true,
     pricing: {
-      'spin & scan': 0.5,
-      'geo fencing': 0.1,
+      'spin & scan':
+        '$0.50 per device collected through Device ID PassBack - (Scan & Spin).',
+      'geo fencing':
+        '$0.01 per device collected through Device ID PassBack - (Geofencing)',
     },
     features: [
       'Personal device information collected via WiFi and Bluetooth proximity',
