@@ -46,8 +46,9 @@ const GiftInfoMain = () => {
         </Link>
       </Stack>
       {/* right section */}
-      <Box w={{ base: '50%', sm: '40%' }}>
-        <Image alt="svg" src="spinnerLogo.svg" />
+      <Box w={{ base: '50%', sm: '25%' }}>
+        {/* <Image alt="svg" src="spinnerLogo.svg" /> */}
+        <Image alt="svg" src="/attribution/Empty-Iphone.png" />
       </Box>
     </Flex>
   );
