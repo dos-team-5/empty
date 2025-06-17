@@ -48,11 +48,47 @@ export const AddonItem = ({
       </Flex>
     </Accordion.Control>
     <Accordion.Panel>
-      <List listStyleType="disc" spacing="xs" size="sm" withPadding>
-        {addon.features.map((feature, index) => (
-          <List.Item key={index}>{feature}</List.Item>
-        ))}
-      </List>
+      <>
+        {/* Main feature list */}
+        <List listStyleType="disc" spacing="xs" size="sm" withPadding>
+          {addon.features.map((feature, index) => {
+            if (typeof feature === 'string') {
+              return <List.Item key={index}>{feature}</List.Item>;
+            }
+            return null; // We'll handle pricing list separately
+          })}
+        </List>
+
+        {/* Separate pricing list (if exists) */}
+        {addon.features.map((feature, index) => {
+          if (typeof feature === 'object' && 'pricing' in feature) {
+            return (
+              <>
+                <Text px={16} mt={'sm'} fw={600} fz={14}>
+                  Pricing
+                </Text>
+                <List
+                  key={`pricing-${index}`}
+                  listStyleType="disc"
+                  spacing="xs"
+                  size="sm"
+                  withPadding
+                  mt="sm"
+                >
+                  {feature.pricing.map(
+                    (priceText: string, subIndex: number) => (
+                      <List.Item key={`price-${index}-${subIndex}`}>
+                        {priceText}
+                      </List.Item>
+                    )
+                  )}
+                </List>
+              </>
+            );
+          }
+          return null;
+        })}
+      </>
     </Accordion.Panel>
   </Accordion.Item>
 );

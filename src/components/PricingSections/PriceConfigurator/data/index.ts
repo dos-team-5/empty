@@ -57,6 +57,7 @@ export const ADDONS: AddonConfig[] = [
     label: 'Add Device ID PassBack',
     subLabel: 'Passive Device ID Capture & PassBack',
     availableFor: ['premium'],
+    samePrice: true,
     pricing: {
       'spin & scan': 0.5,
       'geo fencing': 0.1,
@@ -67,6 +68,12 @@ export const ADDONS: AddonConfig[] = [
       'Filtered by radius, signal strength, and location',
       'Used for audience modeling and retargeting',
       'Fully privacy-compliant (USA, Canada, Europe)',
+      {
+        pricing: [
+          ' $0.50 per device collected through Device ID PassBack - (Scan & Spin).',
+          '$0.01 per device collected through Device ID PassBack - (Geofencing).',
+        ],
+      },
     ],
   },
 ];

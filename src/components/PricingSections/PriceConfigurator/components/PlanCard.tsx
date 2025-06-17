@@ -1,18 +1,24 @@
 import { Box, InputLabel, Radio } from '@mantine/core';
-import { PlanType } from '../types';
+import { Currency, PlanType } from '../types';
 import { PLAN_CONFIGS } from '../data';
+import { formatPrice } from '../../utils/formatPrice';
 
 // Components
 export const PlanCard = ({
   planType,
   value,
+  currency,
+  exchangeRate,
 }: {
   planType: PlanType;
   value: string;
+  currency: Currency;
+  exchangeRate: number;
 }) => {
   const config = PLAN_CONFIGS[planType];
-  const minPrice = Math.min(...Object.values(config.pricing));
-  const maxPrice = Math.max(...Object.values(config.pricing));
+  const minPrice = Math.min(...Object.values(config.pricing)) * exchangeRate;
+  const maxPrice = Math.max(...Object.values(config.pricing)) * exchangeRate;
+  const installationFee = config.installationFee * exchangeRate;
 
   return (
     <InputLabel
@@ -25,16 +31,13 @@ export const PlanCard = ({
       </Box>
       <Box className="space-y-2 text-sm">
         <Box fw={700}>
-          <strong>Installation:</strong> ${config.installationFee}/car
+          <strong>Installation:</strong>{' '}
+          {formatPrice(installationFee, currency)}/car
         </Box>
         <Box fw={700}>
-          <strong>Monthly:</strong> ${maxPrice}-{minPrice}/car
+          <strong>Monthly:</strong> {formatPrice(minPrice, currency)} -{' '}
+          {formatPrice(maxPrice, currency)}/car
         </Box>
-        {/* <Box className="text-gray-600">
-          {planType === 'basic'
-            ? '40+ hours exposure, weekly reports, proof of ad'
-            : '95-99% accuracy, comprehensive reporting'}
-        </Box> */}
       </Box>
     </InputLabel>
   );
