@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useMemo } from 'react';
+import { useState, useMemo, memo } from 'react';
 import {
   Accordion,
   Box,
@@ -21,6 +21,44 @@ import { PricingCard } from './components/PricingCard';
 import { PlanCard } from './components/PlanCard';
 import { AddonItem } from './components/AddOnItem';
 import { Icon } from '@iconify/react/dist/iconify.js';
+import { TextAnimate } from '@/components/TextAnimation';
+
+const TitleSection = memo(() => (
+  <div className="mb-12 space-y-6 rounded-3xl text-start">
+    <Title
+      order={1}
+      fw={700}
+      c="#333333"
+      ff={'var(--font-poppins)'}
+      className="capitalize"
+      ta="center"
+    >
+      <TextAnimate
+        animation="blurInUp"
+        by="word"
+        startOnView
+        duration={0.5}
+        once
+        className="md:text-[52px] lg:text-[48px] xl:text-[52px] 2xl:text-[64px]"
+      >
+        Why rent a wall when
+      </TextAnimate>
+      <TextAnimate
+        animation="blurInUp"
+        by="word"
+        startOnView
+        duration={0.5}
+        delay={0.5}
+        once
+        className="md:text-[52px] lg:text-[48px] xl:text-[52px] 2xl:text-[64px]"
+      >
+        you can own the road?
+      </TextAnimate>
+    </Title>
+  </div>
+));
+
+TitleSection.displayName = 'TitleSection';
 
 // Main Component
 export default function PricingConfigurator() {
@@ -103,6 +141,7 @@ export default function PricingConfigurator() {
   return (
     <Box mih="100vh" p={16}>
       <Box maw={1400} className="mx-auto">
+        <TitleSection />
         <SimpleGrid spacing={32} cols={{ base: 1, lg: 2 }}>
           {/* Left Side - Pricing Card */}
           <Box className="!order-2 flex-grow md:!order-1" h="100%">

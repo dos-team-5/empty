@@ -3,16 +3,9 @@ import { Inter, Sora } from 'next/font/google';
 import '@mantine/core/styles.css';
 import './globals.css';
 import { Providers } from '@/providers';
-import {
-  ActionIcon,
-  Box,
-  ColorSchemeScript,
-  Image,
-  mantineHtmlProps,
-  Stack,
-} from '@mantine/core';
+import { Box, ColorSchemeScript, mantineHtmlProps } from '@mantine/core';
 import { Footer, Navbar } from '@/components';
-import Link from 'next/link';
+import FixedSpinnerLogo from '@/components/FixedSpinnerLogo';
 
 const poppins = Sora({
   variable: '--font-poppins',
@@ -58,11 +51,11 @@ export default function RootLayout({
             <Box>
               {signupModal}
               {children}
-              <ActionIcon
+              {/* <ActionIcon
                 component={Link}
                 href="/scan&spin-attributation"
                 variant="transparent"
-                className="!fixed right-4 bottom-4 z-50 transition-all duration-300 hover:scale-125"
+                className="!fixed right-1 bottom-2 z-50 transition-all duration-300 hover:scale-125 md:right-4 md:bottom-4"
                 size="2xl"
               >
                 <Stack align="center" gap={0}>
@@ -87,7 +80,7 @@ export default function RootLayout({
                       </textPath>
                     </text>
                   </svg>
-                  <Image src="spinnerLogo2.svg" w={40} h={40} />
+                  <Image radius="100%" src="spinnerLogo2.svg" w={40} h={40} />
                   <svg
                     width="100"
                     height="32"
@@ -111,7 +104,8 @@ export default function RootLayout({
                     </text>
                   </svg>
                 </Stack>
-              </ActionIcon>
+              </ActionIcon> */}
+              <FixedSpinnerLogo />
             </Box>
             <Footer />
           </Box>
