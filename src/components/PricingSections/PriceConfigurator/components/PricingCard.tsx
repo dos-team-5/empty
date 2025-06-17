@@ -15,6 +15,7 @@ import { ADDONS, currencyOptions, PLAN_CONFIGS } from '../data';
 import { Calendar, CreditCard } from 'lucide-react';
 import FeatureList from './FeatureList';
 import { motion } from 'framer-motion';
+import { formatPrice } from '../../utils/formatPrice';
 
 interface FeatureComparisonProps {
   planType: 'basic' | 'premium';
@@ -81,7 +82,7 @@ export const PricingCard = ({
 
         <Card.Section p={24} className="space-y-6">
           <SegmentedControl
-            defaultValue="usd"
+            color="var(--color-primary)"
             value={currencyType}
             onChange={(value) => setCurrencyType(value as Currency)}
             data={currencyOptions}
@@ -91,7 +92,10 @@ export const PricingCard = ({
           <Flex align="center" justify="space-between">
             <Text fw={500}>Installation Fee</Text>
             <Text fw={700} fz={18}>
-              ${pricing.totalInstallationFee.toLocaleString()}
+              {formatPrice(
+                pricing.totalInstallationFee,
+                currencyType
+              ).toLocaleString()}
             </Text>
           </Flex>
 
@@ -100,11 +104,16 @@ export const PricingCard = ({
             <Flex align="center" justify="space-between">
               <Text fw={500}>Monthly Price</Text>
               <Text fw={700} fz={18}>
-                ${pricing.totalMonthlyPrice.toLocaleString()}/month
+                {formatPrice(
+                  pricing.totalMonthlyPrice,
+                  currencyType
+                ).toLocaleString()}
+                /month
               </Text>
             </Flex>
             <Text fz={14} fw={600} c="dimmed">
-              ${pricing.monthlyPricePerCar}/car/month × {carCount} car
+              {formatPrice(pricing.monthlyPricePerCar, currencyType)}
+              /car/month × {carCount} car
               {carCount !== 1 ? 's' : ''}
             </Text>
           </Box>

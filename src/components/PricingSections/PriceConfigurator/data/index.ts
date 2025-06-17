@@ -68,6 +68,12 @@ export const ADDONS: AddonConfig[] = [
       'Filtered by radius, signal strength, and location',
       'Used for audience modeling and retargeting',
       'Fully privacy-compliant (USA, Canada, Europe)',
+      {
+        pricing: [
+          ' $0.50 per device collected through Device ID PassBack - (Scan & Spin).',
+          '$0.01 per device collected through Device ID PassBack - (Geofencing).',
+        ],
+      },
     ],
   },
 ];

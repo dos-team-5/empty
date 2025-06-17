@@ -258,8 +258,18 @@ export default function PricingConfigurator() {
                   onChange={(value: string) => setPlanType(value as PlanType)}
                 >
                   <Box className="grid gap-4 md:grid-cols-2">
-                    <PlanCard planType="basic" value="basic" />
-                    <PlanCard planType="premium" value="premium" />
+                    <PlanCard
+                      planType="basic"
+                      value="basic"
+                      currency={currency}
+                      exchangeRate={exchangeRate}
+                    />
+                    <PlanCard
+                      planType="premium"
+                      value="premium"
+                      currency={currency}
+                      exchangeRate={exchangeRate}
+                    />
                   </Box>
                 </RadioGroup>
               </Card.Section>

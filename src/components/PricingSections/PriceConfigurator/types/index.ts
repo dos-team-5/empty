@@ -24,7 +24,7 @@ export interface AddonConfig {
   id: string;
   label: string;
   subLabel?: string;
-  features: string[];
+  features: (string | { [key: string]: string[] })[];
   availableFor: PlanType[];
   pricing?: Pricing;
   samePrice?: boolean;
