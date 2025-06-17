@@ -7,7 +7,7 @@ import {
   Card,
   Divider,
   Flex,
-  SegmentedControl,
+  Radio,
   Text,
   Title,
 } from '@mantine/core';
@@ -19,6 +19,7 @@ import FeatureList from './FeatureList';
 import { motion } from 'framer-motion';
 import { formatPrice } from '../../utils/formatPrice';
 import { useRouter } from 'next/navigation';
+import classes from './Demo.module.css';
 
 interface FeatureComparisonProps {
   planType: 'basic' | 'premium';
@@ -47,6 +48,21 @@ const FeatureComparison = ({ planType }: FeatureComparisonProps) => {
     </Flex>
   );
 };
+
+const cards = currencyOptions.map((item) => (
+  <Radio.Card
+    className={classes.root}
+    w={60}
+    py={8}
+    radius="md"
+    value={item.value}
+    key={item.label}
+  >
+    <Text className="!text-center" fw={700} fz={12}>
+      {item.label}
+    </Text>
+  </Radio.Card>
+));
 
 type CheckoutButtonProps = {
   onCheckout: (price: number, cars: number) => Promise<void>;
@@ -98,12 +114,14 @@ export const PricingCard = ({
         </Card.Section>
 
         <Card.Section p={{ base: 16, md: 24 }} className="space-y-6">
-          <SegmentedControl
-            color="var(--color-primary)"
+          <Radio.Group
             value={currencyType}
             onChange={(value) => setCurrencyType(value as Currency)}
-            data={currencyOptions}
-          />
+          >
+            <Flex pt="md" gap="xs">
+              {cards}
+            </Flex>
+          </Radio.Group>
 
           {/* Installation Fee */}
           <Flex align="center" justify="space-between">
