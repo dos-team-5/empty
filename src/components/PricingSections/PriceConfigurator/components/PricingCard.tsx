@@ -51,13 +51,16 @@ const FeatureComparison = ({ planType }: FeatureComparisonProps) => {
 
 const cards = currencyOptions.map((item) => (
   <Radio.Card
-    w={60}
     className={classes.root}
+    w={60}
+    py={8}
     radius="md"
     value={item.value}
     key={item.label}
   >
-    <Text fz={12}>{item.label}</Text>
+    <Text className="!text-center" fw={700} fz={12}>
+      {item.label}
+    </Text>
   </Radio.Card>
 ));
 
