@@ -92,7 +92,7 @@ export default function PricingConfigurator() {
       <Box maw={1400} className="mx-auto">
         <SimpleGrid spacing={32} cols={{ base: 1, lg: 2 }}>
           {/* Left Side - Pricing Card */}
-          <Box className="flex-grow" h="100%">
+          <Box style={{ order: 2 }} className="flex-grow" h="100%">
             <PricingCard
               planType={planType}
               carCount={carCount}
@@ -104,6 +104,7 @@ export default function PricingConfigurator() {
 
           {/* Right Side - Configurator Steps */}
           <Box
+            style={{ order: 1 }}
             p={24}
             bg="white"
             h="100%"
