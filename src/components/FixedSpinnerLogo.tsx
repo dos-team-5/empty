@@ -14,7 +14,7 @@ const FixedSpinnerLogo = () => {
   return (
     <ActionIcon
       component={Link}
-      href="/scan&spin-attributation"
+      href="/attribution"
       variant="transparent"
       className="group !fixed right-1 bottom-2 z-50 transition-all duration-300 hover:scale-125 md:right-4 md:bottom-4"
       size="2xl"

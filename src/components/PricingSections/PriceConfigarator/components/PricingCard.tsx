@@ -14,6 +14,7 @@ import { PlanType } from '../types';
 import { usePricingCalculation } from '../hooks/usePriceCalculation';
 import { ADDONS, PLAN_CONFIGS } from '../data';
 import { Calendar, CreditCard } from 'lucide-react';
+import { motion } from 'motion/react';
 
 const FeatureList = ({ features }: { features: string[] }) => (
   <List mt={12}>
@@ -49,93 +50,110 @@ export const PricingCard = ({
   const config = PLAN_CONFIGS[planType];
 
   return (
-    <Card radius={10} className="!border-primary border-2">
-      <Card.Section p={24} className="text-center" bg="var(--color-primary)">
-        <Title fz={24} c="white">
-          {planType === 'basic' ? 'Basic Plan' : 'Premium Plan'}
-        </Title>
-        <Text c="white">
-          {carCount} car{carCount !== 1 ? 's' : ''} selected
-        </Text>
-      </Card.Section>
-
-      <Card.Section p={24} className="space-y-6">
-        {/* Installation Fee */}
-        <Flex align="center" justify="space-between">
-          <Text fw={500}>Installation Fee</Text>
-          <Text fw={700} fz={18}>
-            ${pricing.totalInstallationFee.toLocaleString()}
+    <motion.div
+      initial={{ scale: 0.3, opacity: 0 }}
+      whileInView={{
+        scale: 1,
+        opacity: 1,
+        transition: {
+          duration: 0.7,
+          ease: 'easeInOut',
+        },
+      }}
+      viewport={{ once: true }}
+    >
+      <Card radius={10} className="!border-primary border-2">
+        <Card.Section p={24} className="text-center" bg="var(--color-primary)">
+          <Title fz={24} c="white">
+            {planType === 'basic' ? 'Basic Plan' : 'Premium Plan'}
+          </Title>
+          <Text c="white">
+            {carCount} car{carCount !== 1 ? 's' : ''} selected
           </Text>
-        </Flex>
+        </Card.Section>
 
-        {/* Monthly Pricing */}
-        <Box className="space-y-2">
+        <Card.Section p={24} className="space-y-6">
+          {/* Installation Fee */}
           <Flex align="center" justify="space-between">
-            <Text fw={500}>Monthly Price</Text>
+            <Text fw={500}>Installation Fee</Text>
             <Text fw={700} fz={18}>
-              ${pricing.totalMonthlyPrice.toLocaleString()}/month
+              ${pricing.totalInstallationFee.toLocaleString()}
             </Text>
           </Flex>
-          <Text fz={14} fw={600} c="dimmed">
-            ${pricing.monthlyPricePerCar}/car/month × {carCount} car
-            {carCount !== 1 ? 's' : ''}
-          </Text>
-        </Box>
 
-        <Divider />
+          {/* Monthly Pricing */}
+          <Box className="space-y-2">
+            <Flex align="center" justify="space-between">
+              <Text fw={500}>Monthly Price</Text>
+              <Text fw={700} fz={18}>
+                ${pricing.totalMonthlyPrice.toLocaleString()}/month
+              </Text>
+            </Flex>
+            <Text fz={14} fw={600} c="dimmed">
+              ${pricing.monthlyPricePerCar}/car/month × {carCount} car
+              {carCount !== 1 ? 's' : ''}
+            </Text>
+          </Box>
 
-        {/* Features */}
-        <Box>
-          <Text fz={24} fw={700}>
-            Included Features:
-          </Text>
-          <FeatureList features={config.features} />
-        </Box>
+          <Divider />
 
-        {/* Add-ons */}
+          {/* Features */}
+          <Box>
+            <Text fz={24} fw={700}>
+              Included Features:
+            </Text>
+            <FeatureList features={config.features} />
+          </Box>
 
-        <Divider />
-        <Flex align="center" gap={36}>
-          <Text fw={600}>Add-ons:</Text>
-          <Flex align="center" gap={12}>
-            {selectedAddons.length === 0
-              ? 'N/A'
-              : selectedAddons.map((addonId) => {
-                  const addon = ADDONS.find((a) => a.id === addonId);
-                  return addon ? (
-                    <Badge key={addonId}>
-                      {addon.label.replace('Add ', '').replace('Passive ', '')}
-                    </Badge>
-                  ) : null;
-                })}
+          {/* Add-ons */}
+
+          <Divider />
+          <Flex align="center" gap={36}>
+            <Text fw={600}>Add-ons:</Text>
+            <Flex align="center" gap={12}>
+              {selectedAddons.length === 0
+                ? 'N/A'
+                : selectedAddons.map((addonId) => {
+                    const addon = ADDONS.find((a) => a.id === addonId);
+                    return addon ? (
+                      <Badge key={addonId}>
+                        {addon.label
+                          .replace('Add ', '')
+                          .replace('Passive ', '')}
+                      </Badge>
+                    ) : null;
+                  })}
+            </Flex>
           </Flex>
-        </Flex>
 
-        <Divider />
+          <Divider />
 
-        {/* Action Button */}
-        <Button
-          w="100%"
-          h={48}
-          fz={18}
-          fw={600}
-          style={{
-            backgroundColor: shouldBookCall ? 'var(--color-primary)' : 'black',
-          }}
-        >
-          {shouldBookCall ? (
-            <>
-              <Calendar className="mr-2 h-5 w-5" />
-              Book a Call
-            </>
-          ) : (
-            <>
-              <CreditCard className="mr-2 h-5 w-5" />
-              Checkout
-            </>
-          )}
-        </Button>
-      </Card.Section>
-    </Card>
+          {/* Action Button */}
+          <Button
+            w="100%"
+            h={48}
+            fz={18}
+            fw={600}
+            style={{
+              backgroundColor: shouldBookCall
+                ? 'var(--color-primary)'
+                : 'black',
+            }}
+          >
+            {shouldBookCall ? (
+              <>
+                <Calendar className="mr-2 h-5 w-5" />
+                Book a Call
+              </>
+            ) : (
+              <>
+                <CreditCard className="mr-2 h-5 w-5" />
+                Checkout
+              </>
+            )}
+          </Button>
+        </Card.Section>
+      </Card>
+    </motion.div>
   );
 };

@@ -1,5 +1,6 @@
+import GiftStepsSvg from '@/components/Icons/GiftStepsSvg';
 import { TextAnimate } from '@/components/TextAnimation';
-import { Image, Stack, Text, Title } from '@mantine/core';
+import { Stack, Text, Title } from '@mantine/core';
 
 const GiftSteps = () => {
   return (
@@ -32,7 +33,10 @@ const GiftSteps = () => {
         simple and secure to earn extra cash just by driving your car as usual.
       </Text>
       {/* svg image */}
-      <Image src="/giftDetails/giftSteps.svg" />
+      {/* <Image src="/giftDetails/giftSteps.svg" /> */}
+      <div className="flex w-full items-start justify-center">
+        <GiftStepsSvg />
+      </div>
     </Stack>
   );
 };

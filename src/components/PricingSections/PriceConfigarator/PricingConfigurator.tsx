@@ -19,6 +19,7 @@ import { PricingCard } from './components/PricingCard';
 import { PlanCard } from './components/PlanCard';
 import { AddonItem } from './components/AddOnItem';
 import { TextAnimate } from '@/components/TextAnimation';
+import { motion } from 'motion/react';
 
 // Main Component
 export default function PricingConfigurator() {
@@ -33,7 +34,6 @@ export default function PricingConfigurator() {
   });
 
   const pricing = usePricingCalculation(planType, carCount);
-
 
   const TitleSection = memo(() => (
     <div className="mb-12 space-y-6 rounded-3xl text-start">
@@ -69,7 +69,7 @@ export default function PricingConfigurator() {
       </Title>
     </div>
   ));
-  
+
   TitleSection.displayName = 'TitleSection';
 
   const selectedAddons = useMemo(
@@ -133,82 +133,96 @@ export default function PricingConfigurator() {
           </Box>
 
           {/* Right Side - Configurator Steps */}
-          <Box
-            p={24}
-            bg="white"
-            h="100%"
-            className="space-y-6 !rounded-[10px] border-2 border-pink-50"
+          <motion.div
+            initial={{ scale: 0.3, opacity: 0 }}
+            whileInView={{
+              scale: 1,
+              opacity: 1,
+              transition: {
+                duration: 0.7,
+                delay: 0.3,
+                ease: 'easeInOut',
+              },
+            }}
+            viewport={{ once: true }}
           >
-            {/* Step 1 - Plan Selection */}
-            <Card>
-              <Card.Section>
-                <Title>Choose Your Plan</Title>
-              </Card.Section>
-              <Card.Section className="space-y-6">
-                <Box className="space-y-4">
-                  <InputLabel
-                    htmlFor="car-count"
-                    className="text-base font-medium"
-                  >
-                    Number of Cars
-                  </InputLabel>
+            <Box
+              p={24}
+              bg="white"
+              h="100%"
+              className="space-y-6 !rounded-[10px] border-2 border-pink-50"
+            >
+              {/* Step 1 - Plan Selection */}
+              <Card>
+                <Card.Section>
+                  <Title>Choose Your Plan</Title>
+                </Card.Section>
+                <Card.Section className="space-y-6">
+                  <Box className="space-y-4">
+                    <InputLabel
+                      htmlFor="car-count"
+                      className="text-base font-medium"
+                    >
+                      Number of Cars
+                    </InputLabel>
 
-                  {/* Slider for quick selection */}
-                  <Slider
-                    mb={30}
-                    value={selectedIndex}
-                    onChange={handleSliderChange}
-                    min={0}
-                    max={CAR_OPTIONS.length - 1}
-                    step={1}
-                    marks={CAR_OPTIONS.map((option, index) => ({
-                      value: index,
-                      label: option.label,
-                    }))}
-                    color="var(--mantine-primary-color-4)"
-                    label={(value) =>
-                      `${CAR_OPTIONS[value].cars} car${CAR_OPTIONS[value].cars > 1 ? 's' : ''}`
-                    }
-                  />
+                    {/* Slider for quick selection */}
+                    <Slider
+                      mb={30}
+                      value={selectedIndex}
+                      onChange={handleSliderChange}
+                      min={0}
+                      max={CAR_OPTIONS.length - 1}
+                      step={1}
+                      marks={CAR_OPTIONS.map((option, index) => ({
+                        value: index,
+                        label: option.label,
+                      }))}
+                      color="var(--mantine-primary-color-4)"
+                      label={(value) =>
+                        `${CAR_OPTIONS[value].cars} car${CAR_OPTIONS[value].cars > 1 ? 's' : ''}`
+                      }
+                    />
 
-                  {/* Input for precise entry */}
-                  <Input
-                    type="number"
-                    min={1}
-                    radius="md"
-                    w="100%"
-                    id="car-count"
-                    value={carCount}
-                    onChange={(e) => handleCarCountChange(e.target.value)}
-                    classNames={{ input: '!bg-gray-100' }}
-                    placeholder="Enter exact number of cars"
-                  />
-                </Box>
-
-                <RadioGroup
-                  value={planType}
-                  onChange={(value: string) => setPlanType(value as PlanType)}
-                >
-                  <Box className="grid gap-4 md:grid-cols-2">
-                    <PlanCard planType="basic" value="basic" />
-                    <PlanCard planType="premium" value="premium" />
+                    {/* Input for precise entry */}
+                    <Input
+                      type="number"
+                      min={1}
+                      radius="md"
+                      w="100%"
+                      id="car-count"
+                      value={carCount}
+                      onChange={(e) => handleCarCountChange(e.target.value)}
+                      classNames={{ input: '!bg-gray-100' }}
+                      placeholder="Enter exact number of cars"
+                    />
                   </Box>
-                </RadioGroup>
-              </Card.Section>
-            </Card>
 
-            {/* Add-ons */}
-            <Accordion variant="separated">
-              {availableAddons.map((addon) => (
-                <AddonItem
-                  key={addon.id}
-                  addon={addon}
-                  checked={addonSelections[addon.id] || false}
-                  onChange={(checked) => handleAddonChange(addon.id, checked)}
-                />
-              ))}
-            </Accordion>
-          </Box>
+                  <RadioGroup
+                    value={planType}
+                    onChange={(value: string) => setPlanType(value as PlanType)}
+                  >
+                    <Box className="grid gap-4 md:grid-cols-2">
+                      <PlanCard planType="basic" value="basic" />
+                      <PlanCard planType="premium" value="premium" />
+                    </Box>
+                  </RadioGroup>
+                </Card.Section>
+              </Card>
+
+              {/* Add-ons */}
+              <Accordion variant="separated">
+                {availableAddons.map((addon) => (
+                  <AddonItem
+                    key={addon.id}
+                    addon={addon}
+                    checked={addonSelections[addon.id] || false}
+                    onChange={(checked) => handleAddonChange(addon.id, checked)}
+                  />
+                ))}
+              </Accordion>
+            </Box>
+          </motion.div>
         </SimpleGrid>
       </Box>
     </Box>
