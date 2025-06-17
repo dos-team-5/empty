@@ -29,7 +29,11 @@ export const AddonItem = ({
           checked={checked}
           onChange={(event) => onChange(event.currentTarget.checked)}
         />
-        <Flex align="center" gap={8}>
+        <Flex
+          direction={{ base: 'column', md: 'row' }}
+          align={{ base: 'start', md: 'center' }}
+          gap={8}
+        >
           <InputLabel
             fz={16}
             htmlFor={addon.id}

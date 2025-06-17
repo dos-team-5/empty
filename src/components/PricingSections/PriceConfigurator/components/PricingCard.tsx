@@ -27,7 +27,12 @@ const FeatureComparison = ({ planType }: FeatureComparisonProps) => {
     planType === 'premium' ? PLAN_CONFIGS.premium.features : [];
 
   return (
-    <Flex gap={48} mt={24} align="flex-start">
+    <Flex
+      direction={{ base: 'column', md: 'row' }}
+      gap={48}
+      mt={24}
+      align="flex-start"
+    >
       <Box>
         <FeatureList features={basicFeatures} />
       </Box>
@@ -80,7 +85,7 @@ export const PricingCard = ({
           </Text>
         </Card.Section>
 
-        <Card.Section p={24} className="space-y-6">
+        <Card.Section p={{ base: 16, md: 24 }} className="space-y-6">
           <SegmentedControl
             color="var(--color-primary)"
             value={currencyType}
@@ -128,33 +133,44 @@ export const PricingCard = ({
             <FeatureComparison planType={planType} />
           </Box>
 
-          <Divider />
-
           {/* Add-on Pricing Summary */}
-          <Box pos={'relative'}>
-            {selectedAddons.map((addonId) => {
-              const addon = ADDONS.find((a) => a.id === addonId);
-              return addon?.pricing ? (
-                <Flex align="center" gap={4} key={addonId}>
-                  {Object.entries(addon.pricing).map(([label, value]) => (
-                    <Badge key={label} variant="light" color="gray" ml={4}>
-                      ${value.toFixed(2)}
-                    </Badge>
-                  ))}
-                  <Text fz={12} c="dimmed" ml={4}>
-                    per interactive device ID
-                  </Text>
-                </Flex>
-              ) : null;
-            })}
-          </Box>
+          {/* Add-on Pricing Summary */}
+          {selectedAddons.some((addonId) => {
+            const addon = ADDONS.find((a) => a.id === addonId);
+            return addon?.pricing;
+          }) && (
+            <Box pos="relative">
+              <Divider mb={16} />
+              {selectedAddons.map((addonId) => {
+                const addon = ADDONS.find((a) => a.id === addonId);
+                return addon?.pricing ? (
+                  <Flex
+                    direction="column"
+                    align="center"
+                    gap={16}
+                    key={addonId}
+                  >
+                    {Object.entries(addon.pricing).map(([label, value]) => (
+                      <Badge size="lg" key={label} variant="outline">
+                        ${value}
+                      </Badge>
+                    ))}
+                  </Flex>
+                ) : null;
+              })}
+            </Box>
+          )}
 
           <Divider />
 
           {/* Add-ons List */}
-          <Flex align="center" gap={36}>
+          <Flex
+            direction={{ base: 'column', md: 'row' }}
+            align={{ base: 'start', md: 'center' }}
+            gap={{ base: 12, md: 24, lg: 36 }}
+          >
             <Text fw={600}>Add-ons:</Text>
-            <Flex align="center" gap={12}>
+            <Flex align="center" gap={12} wrap={{ base: 'wrap', md: 'nowrap' }}>
               {selectedAddons.length === 0 ? (
                 <Text fz={12} c={'dimmed'}>
                   No add-ons selected

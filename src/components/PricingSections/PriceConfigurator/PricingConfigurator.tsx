@@ -191,13 +191,15 @@ export default function PricingConfigurator() {
             <Card>
               <Card.Section>
                 <Flex align={'center'} justify="space-between">
-                  <Title>Choose Your Plan</Title>
+                  <Title fz={{ base: 20, sm: 32, md: 36 }}>
+                    Choose Your Plan
+                  </Title>
                   <Button
                     mt={8}
                     mr={16}
                     bg={'#ffffff'}
-                    w={60}
-                    h={60}
+                    w={{ base: 40, sm: 60 }}
+                    h={{ base: 40, sm: 60 }}
                     className="flex items-center justify-center rounded-full"
                     unstyled
                     onClick={() => handleReset()}
