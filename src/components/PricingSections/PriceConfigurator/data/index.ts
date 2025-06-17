@@ -44,12 +44,24 @@ export const ADDONS: AddonConfig[] = [
     subLabel: 'Add Scan & Spin Engagement',
     availableFor: ['basic', 'premium'],
     samePrice: true,
+    pricing: {
+      'spin & scan':
+        '$0.50 per device collected through Device ID PassBack - (Scan & Spin)',
+      // 'geo fencing':
+      //   '$0.01 per device collected through Device ID PassBack - (Geofencing)',
+    },
     features: [
       'Device IDs collected for retargeting & attribution',
       'QR codes placed on vehicle exteriors',
       'Users scan for deals or promo codes',
       'High-intent leads from real-world interaction',
       'Email capture',
+      {
+        pricing: [
+          ' $0.50 per device collected through Device ID PassBack - (Scan & Spin).',
+          // '$0.01 per device collected through Device ID PassBack - (Geofencing).',
+        ],
+      },
     ],
   },
   {
@@ -59,8 +71,8 @@ export const ADDONS: AddonConfig[] = [
     availableFor: ['premium'],
     samePrice: true,
     pricing: {
-      'spin & scan':
-        '$0.50 per device collected through Device ID PassBack - (Scan & Spin)',
+      // 'spin & scan':
+      //   '$0.50 per device collected through Device ID PassBack - (Scan & Spin)',
       'geo fencing':
         '$0.01 per device collected through Device ID PassBack - (Geofencing)',
     },
@@ -72,7 +84,7 @@ export const ADDONS: AddonConfig[] = [
       'Fully privacy-compliant (USA, Canada, Europe)',
       {
         pricing: [
-          ' $0.50 per device collected through Device ID PassBack - (Scan & Spin).',
+          // ' $0.50 per device collected through Device ID PassBack - (Scan & Spin).',
           '$0.01 per device collected through Device ID PassBack - (Geofencing).',
         ],
       },
@@ -97,6 +109,21 @@ export const CAR_OPTIONS = [
   { cars: 50, label: '50' },
   { cars: 75, label: '75' },
   { cars: 100, label: '100+' },
+];
+
+export const MONTH_OPTIONS = [
+  { month: 1, label: '1' },
+  { month: 2, label: '2' },
+  { month: 3, label: '3' },
+  { month: 4, label: '4' },
+  { month: 5, label: '5' },
+  { month: 6, label: '6' },
+  { month: 7, label: '7' },
+  { month: 8, label: '8' },
+  { month: 9, label: '9' },
+  { month: 10, label: '10' },
+  { month: 11, label: '11' },
+  { month: 12, label: '12' },
 ];
 
 export const currencyOptions: { label: string; value: Currency }[] = [

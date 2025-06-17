@@ -16,7 +16,7 @@ import {
 } from '@mantine/core';
 import { Currency, PlanType } from './types';
 import { usePricingCalculation } from './hooks/usePriceCalculation';
-import { ADDONS, CAR_OPTIONS } from './data';
+import { ADDONS, CAR_OPTIONS, MONTH_OPTIONS } from './data';
 import { PricingCard } from './components/PricingCard';
 import { PlanCard } from './components/PlanCard';
 import { AddonItem } from './components/AddOnItem';
@@ -42,9 +42,9 @@ const TitleSection = memo(() => (
         once
         className="md:text-[52px] lg:text-[48px] xl:text-[52px] 2xl:text-[64px]"
       >
-        Why rent a wall when
+        Build your ad campaign
       </TextAnimate>
-      <TextAnimate
+      {/* <TextAnimate
         animation="blurInUp"
         by="word"
         startOnView
@@ -54,7 +54,7 @@ const TitleSection = memo(() => (
         className="md:text-[52px] lg:text-[48px] xl:text-[52px] 2xl:text-[64px]"
       >
         you can own the road?
-      </TextAnimate>
+      </TextAnimate> */}
     </Title>
   </div>
 ));
@@ -76,6 +76,7 @@ export default function PricingConfigurator() {
     deviceIdPassBack: false,
   });
   const [carOptions, setCarOptions] = useState(CAR_OPTIONS);
+  const [monthOption, setMonthOptions] = useState(MONTH_OPTIONS);
 
   // Fetch exchange rate on toggle or initial load
   useEffect(() => {
@@ -274,6 +275,30 @@ export default function PricingConfigurator() {
                       `${carOptions[value].cars} car${carOptions[value].cars > 1 ? 's' : ''}`
                     }
                   />
+                  {/* <InputLabel
+                    htmlFor="car-count"
+                    className="text-base font-medium"
+                  >
+                    Number of Months
+                  </InputLabel>
+                  <Slider
+                    key={resetKey}
+                    px={16}
+                    mb={30}
+                    value={selectedIndex}
+                    onChange={handleSliderChange}
+                    min={0}
+                    max={carOptions.length - 1}
+                    step={1}
+                    marks={monthOption.map((option, index) => ({
+                      value: index,
+                      label: option.label,
+                    }))}
+                    color="var(--mantine-primary-color-4)"
+                    label={(value) =>
+                      `${carOptions[value].cars} car${carOptions[value].cars > 1 ? 's' : ''}`
+                    }
+                  /> */}
 
                   {/* Input for precise entry */}
                   <NumberInput
