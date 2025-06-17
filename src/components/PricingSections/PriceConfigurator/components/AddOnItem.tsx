@@ -8,6 +8,7 @@ import {
   Text,
 } from '@mantine/core';
 import { AddonConfig } from '../types';
+import React from 'react';
 
 export const AddonItem = ({
   addon,
@@ -67,7 +68,7 @@ export const AddonItem = ({
         {addon.features.map((feature, index) => {
           if (typeof feature === 'object' && 'pricing' in feature) {
             return (
-              <>
+              <React.Fragment key={index}>
                 <Text px={16} mt={'sm'} fw={600} fz={14}>
                   Pricing
                 </Text>
@@ -87,7 +88,7 @@ export const AddonItem = ({
                     )
                   )}
                 </List>
-              </>
+              </React.Fragment>
             );
           }
           return null;

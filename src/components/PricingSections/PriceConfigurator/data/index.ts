@@ -60,7 +60,7 @@ export const ADDONS: AddonConfig[] = [
     samePrice: true,
     pricing: {
       'spin & scan':
-        '$0.50 per device collected through Device ID PassBack - (Scan & Spin).',
+        '$0.50 per device collected through Device ID PassBack - (Scan & Spin)',
       'geo fencing':
         '$0.01 per device collected through Device ID PassBack - (Geofencing)',
     },

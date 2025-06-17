@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useMemo, memo, useEffect } from 'react';
+import { useState, useMemo, memo, useEffect, useCallback } from 'react';
 import {
   Accordion,
   Box,
@@ -162,6 +162,38 @@ export default function PricingConfigurator() {
     setCarOptions(CAR_OPTIONS);
   };
 
+  if (!process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY) {
+    throw new Error('Stripe publishable key is not defined');
+  }
+
+  const fetchClientSecret = useCallback(async (price: number, cars: number) => {
+    if (price === null || price === undefined) {
+      throw new Error('Price not available for selected option');
+    }
+
+    try {
+      const response = await fetch('/api/create-checkout-session', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ price, cars }),
+      });
+
+      const data = await response.json();
+      console.log('API response:', data);
+
+      if (data.redirectUrl) {
+        window.location.href = data.redirectUrl;
+      } else {
+        console.error('Error:', data.error);
+      }
+    } catch (error) {
+      console.error('Error fetching client secret:', error);
+      throw error;
+    }
+  }, []);
+
   return (
     <Box mih="100vh" p={16}>
       <Box maw={1400} className="mx-auto">
@@ -177,6 +209,7 @@ export default function PricingConfigurator() {
               shouldBookCall={shouldBookCall}
               currencyType={currency}
               setCurrencyType={setCurrency}
+              onCheckout={fetchClientSecret}
             />
           </Box>
 
