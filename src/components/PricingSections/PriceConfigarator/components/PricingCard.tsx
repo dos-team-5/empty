@@ -105,7 +105,7 @@ export const PricingCard = ({
             : selectedAddons.map((addonId) => {
                 const addon = ADDONS.find((a) => a.id === addonId);
                 return addon ? (
-                  <Box>
+                  <>
                     {addon.pricing && (
                       <Flex align="center" gap={4}>
                         {Object.entries(addon.pricing).map(([label, value]) => (
@@ -123,7 +123,7 @@ export const PricingCard = ({
                         </Text>
                       </Flex>
                     )}
-                  </Box>
+                  </>
                 ) : null;
               })}
         </Box>
@@ -132,20 +132,22 @@ export const PricingCard = ({
         <Flex align="center" gap={36}>
           <Text fw={600}>Add-ons:</Text>
           <Flex align="center" gap={12}>
-            {selectedAddons.length === 0
-              ? 'N/A'
-              : selectedAddons.map((addonId) => {
-                  const addon = ADDONS.find((a) => a.id === addonId);
-                  return addon ? (
-                    <Box>
-                      <Badge key={addonId}>
-                        {addon.label
-                          .replace('Add ', '')
-                          .replace('Passive ', '')}
-                      </Badge>
-                    </Box>
-                  ) : null;
-                })}
+            {selectedAddons.length === 0 ? (
+              <Text fz={12} c={'dimmed'}>
+                No add-ons selected
+              </Text>
+            ) : (
+              selectedAddons.map((addonId) => {
+                const addon = ADDONS.find((a) => a.id === addonId);
+                return addon ? (
+                  <Box>
+                    <Badge key={addonId}>
+                      {addon.label.replace('Add ', '').replace('Passive ', '')}
+                    </Badge>
+                  </Box>
+                ) : null;
+              })
+            )}
           </Flex>
         </Flex>
 

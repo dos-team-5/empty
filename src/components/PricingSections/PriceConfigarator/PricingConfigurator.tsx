@@ -4,9 +4,11 @@ import { useState, useMemo } from 'react';
 import {
   Accordion,
   Box,
+  Button,
   Card,
-  Input,
+  Flex,
   InputLabel,
+  NumberInput,
   RadioGroup,
   SimpleGrid,
   Slider,
@@ -18,9 +20,11 @@ import { ADDONS, CAR_OPTIONS } from './data';
 import { PricingCard } from './components/PricingCard';
 import { PlanCard } from './components/PlanCard';
 import { AddonItem } from './components/AddOnItem';
+import { Icon } from '@iconify/react/dist/iconify.js';
 
 // Main Component
 export default function PricingConfigurator() {
+  const [resetKey, setResetKey] = useState(0);
   const [planType, setPlanType] = useState<PlanType>('basic');
   const [carCount, setCarCount] = useState<number>(1);
   const [selectedIndex, setSelectedIndex] = useState<number>(0);
@@ -87,6 +91,15 @@ export default function PricingConfigurator() {
     [planType]
   );
 
+  const handleReset = () => {
+    setPlanType('basic');
+    setCarCount(1);
+    setSelectedIndex(0);
+    setAddonSelections({ scanAndSpin: false, deviceIdPassBack: false });
+    setResetKey((prev) => prev + 1); // force re-render on Slider
+    setCarOptions(CAR_OPTIONS);
+  };
+
   return (
     <Box mih="100vh" p={16}>
       <Box maw={1400} className="mx-auto">
@@ -112,7 +125,26 @@ export default function PricingConfigurator() {
             {/* Step 1 - Plan Selection */}
             <Card>
               <Card.Section>
-                <Title>Choose Your Plan</Title>
+                <Flex align={'center'} justify="space-between">
+                  <Title>Choose Your Plan</Title>
+                  <Button
+                    mt={8}
+                    mr={16}
+                    bg={'#ffffff'}
+                    w={60}
+                    h={60}
+                    className="flex items-center justify-center rounded-full"
+                    unstyled
+                    onClick={() => handleReset()}
+                    style={{ boxShadow: '2px 2px 13px 2px #FF83D58A' }}
+                  >
+                    <Icon
+                      width={30}
+                      icon="ri:reset-left-line"
+                      color="#FF83D5"
+                    />
+                  </Button>
+                </Flex>
               </Card.Section>
               <Card.Section className="space-y-6">
                 <Box className="space-y-4">
@@ -125,6 +157,7 @@ export default function PricingConfigurator() {
 
                   {/* Slider for quick selection */}
                   <Slider
+                    key={resetKey}
                     px={16}
                     mb={30}
                     value={selectedIndex}
@@ -143,14 +176,13 @@ export default function PricingConfigurator() {
                   />
 
                   {/* Input for precise entry */}
-                  <Input
-                    type="number"
-                    min={1}
+                  <NumberInput
+                    hideControls
                     radius="md"
                     w="100%"
                     id="car-count"
-                    defaultValue={carCount}
-                    onChange={(e) => handleCarCountChange(e.target.value)}
+                    value={carCount}
+                    onChange={(value) => handleCarCountChange(value.toString())}
                     classNames={{ input: '!bg-gray-100' }}
                     placeholder="Enter exact number of cars"
                   />

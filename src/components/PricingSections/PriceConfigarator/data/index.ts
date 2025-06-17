@@ -43,6 +43,7 @@ export const ADDONS: AddonConfig[] = [
     label: 'Add Scan & Spin ',
     subLabel: 'Add Scan & Spin Engagement',
     availableFor: ['basic', 'premium'],
+    samePrice: true,
     features: [
       'Device IDs collected for retargeting & attribution',
       'QR codes placed on vehicle exteriors',

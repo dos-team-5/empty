@@ -25,4 +25,5 @@ export interface AddonConfig {
   features: string[];
   availableFor: PlanType[];
   pricing?: Pricing;
+  samePrice?: boolean;
 }

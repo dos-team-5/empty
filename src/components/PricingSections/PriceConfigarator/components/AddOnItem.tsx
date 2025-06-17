@@ -43,7 +43,7 @@ export const AddonItem = ({
             )}
           </InputLabel>
 
-          <Badge variant="outline">Same Pricing</Badge>
+          {addon.samePrice && <Badge variant="outline">Same Pricing</Badge>}
         </Flex>
       </Flex>
     </Accordion.Control>
