@@ -1,3 +1,5 @@
+'use client';
+
 import {
   Badge,
   Box,
@@ -16,6 +18,7 @@ import { Calendar, CreditCard } from 'lucide-react';
 import FeatureList from './FeatureList';
 import { motion } from 'framer-motion';
 import { formatPrice } from '../../utils/formatPrice';
+import { useRouter } from 'next/navigation';
 
 interface FeatureComparisonProps {
   planType: 'basic' | 'premium';
@@ -45,6 +48,10 @@ const FeatureComparison = ({ planType }: FeatureComparisonProps) => {
   );
 };
 
+type CheckoutButtonProps = {
+  onCheckout: (price: number, cars: number) => Promise<void>;
+};
+
 export const PricingCard = ({
   planType,
   carCount,
@@ -53,6 +60,7 @@ export const PricingCard = ({
   shouldBookCall,
   currencyType,
   setCurrencyType,
+  onCheckout,
 }: {
   planType: PlanType;
   carCount: number;
@@ -61,7 +69,11 @@ export const PricingCard = ({
   shouldBookCall: boolean;
   currencyType: Currency;
   setCurrencyType: (currency: Currency) => void;
+  onCheckout: CheckoutButtonProps['onCheckout'];
 }) => {
+  const router = useRouter();
+  const totalPrice = pricing.totalMonthlyPrice + pricing.totalInstallationFee;
+
   return (
     <motion.div
       initial={{ scale: 0.3, opacity: 0 }}
@@ -134,7 +146,6 @@ export const PricingCard = ({
           </Box>
 
           {/* Add-on Pricing Summary */}
-          {/* Add-on Pricing Summary */}
           {selectedAddons.some((addonId) => {
             const addon = ADDONS.find((a) => a.id === addonId);
             return addon?.pricing;
@@ -144,14 +155,9 @@ export const PricingCard = ({
               {selectedAddons.map((addonId) => {
                 const addon = ADDONS.find((a) => a.id === addonId);
                 return addon?.pricing ? (
-                  <Flex
-                    direction="column"
-                    align="center"
-                    gap={16}
-                    key={addonId}
-                  >
+                  <Flex direction="column" align="start" gap={16} key={addonId}>
                     {Object.entries(addon.pricing).map(([label, value]) => (
-                      <Badge size="lg" key={label} variant="outline">
+                      <Badge size="sm" key={label} variant="outline">
                         ${value}
                       </Badge>
                     ))}
@@ -190,8 +196,22 @@ export const PricingCard = ({
 
           <Divider />
 
+          <Flex align="center" justify="space-between">
+            <Text fw={500}>Total Fee</Text>
+            <Text fw={700} fz={18}>
+              {formatPrice(totalPrice, currencyType).toLocaleString()}
+            </Text>
+          </Flex>
+
+          <Divider />
+
           {/* Action Button */}
           <Button
+            onClick={
+              shouldBookCall
+                ? () => router.push('/contact')
+                : () => onCheckout(totalPrice, carCount)
+            }
             w="100%"
             h={48}
             fz={18}

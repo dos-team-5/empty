@@ -2,6 +2,7 @@ import {
   Faq,
   FeatureSection,
   HeroSection,
+  PricingCards,
   TextRevealByWord,
   TimelineSectionAd,
 } from '@/components';
@@ -22,7 +23,7 @@ export default function Home() {
       <FeatureSection />
       <FeatureCard />
       <TimelineSectionAd />
-      {/* <PricingCards /> */}
+      <PricingCards />
 
       <PricingConfigurator />
       <Faq />
