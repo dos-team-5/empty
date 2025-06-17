@@ -19,6 +19,7 @@ import FeatureList from './FeatureList';
 import { motion } from 'framer-motion';
 import { formatPrice } from '../../utils/formatPrice';
 import { useRouter } from 'next/navigation';
+import { useState } from 'react';
 
 interface FeatureComparisonProps {
   planType: 'basic' | 'premium';
@@ -73,6 +74,8 @@ export const PricingCard = ({
 }) => {
   const router = useRouter();
   const totalPrice = pricing.totalMonthlyPrice + pricing.totalInstallationFee;
+
+  const [checked, setChecked] = useState(false);
 
   return (
     <motion.div
