@@ -40,7 +40,8 @@ export const PLAN_CONFIGS: Record<PlanType, PlanConfig> = {
 export const ADDONS: AddonConfig[] = [
   {
     id: 'scanAndSpin',
-    label: 'Add Scan & Spin Engagement',
+    label: 'Add Scan & Spin ',
+    subLabel: 'Add Scan & Spin Engagement',
     availableFor: ['basic', 'premium'],
     features: [
       'Device IDs collected for retargeting & attribution',
@@ -52,8 +53,13 @@ export const ADDONS: AddonConfig[] = [
   },
   {
     id: 'deviceIdPassBack',
-    label: 'Passive Device ID Capture & PassBack',
+    label: 'Add Device ID PassBack',
+    subLabel: 'Passive Device ID Capture & PassBack',
     availableFor: ['premium'],
+    pricing: {
+      'spin & scan': 0.5,
+      'geo fencing': 0.1,
+    },
     features: [
       'Personal device information collected via WiFi and Bluetooth proximity',
       'IDs collected without any user interaction',

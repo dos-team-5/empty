@@ -99,6 +99,35 @@ export const PricingCard = ({
 
         {/* Add-ons */}
 
+        <Box pos={'relative'}>
+          {selectedAddons.length === 0
+            ? null
+            : selectedAddons.map((addonId) => {
+                const addon = ADDONS.find((a) => a.id === addonId);
+                return addon ? (
+                  <Box>
+                    {addon.pricing && (
+                      <Flex align="center" gap={4}>
+                        {Object.entries(addon.pricing).map(([label, value]) => (
+                          <Badge
+                            key={label}
+                            variant="light"
+                            color="gray"
+                            ml={4}
+                          >
+                            ${value.toFixed(2)}
+                          </Badge>
+                        ))}
+                        <Text fz={12} c="dimmed" ml={4}>
+                          per interactive device ID
+                        </Text>
+                      </Flex>
+                    )}
+                  </Box>
+                ) : null;
+              })}
+        </Box>
+
         <Divider />
         <Flex align="center" gap={36}>
           <Text fw={600}>Add-ons:</Text>
@@ -108,9 +137,13 @@ export const PricingCard = ({
               : selectedAddons.map((addonId) => {
                   const addon = ADDONS.find((a) => a.id === addonId);
                   return addon ? (
-                    <Badge key={addonId}>
-                      {addon.label.replace('Add ', '').replace('Passive ', '')}
-                    </Badge>
+                    <Box>
+                      <Badge key={addonId}>
+                        {addon.label
+                          .replace('Add ', '')
+                          .replace('Passive ', '')}
+                      </Badge>
+                    </Box>
                   ) : null;
                 })}
           </Flex>

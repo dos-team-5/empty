@@ -5,6 +5,7 @@ import {
   Flex,
   InputLabel,
   List,
+  Text,
 } from '@mantine/core';
 import { AddonConfig } from '../types';
 
@@ -35,7 +36,13 @@ export const AddonItem = ({
             className="cursor-pointer text-base font-medium"
           >
             {addon.label}
+            {addon.subLabel && (
+              <Text fz={12} my={4} c={'dimmed'}>
+                {addon.subLabel}
+              </Text>
+            )}
           </InputLabel>
+
           <Badge variant="outline">Same Pricing</Badge>
         </Flex>
       </Flex>

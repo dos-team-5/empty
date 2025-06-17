@@ -1,6 +1,10 @@
 // Types
 export type PlanType = 'basic' | 'premium';
 
+export type Pricing = {
+  [key: string]: number; // allows dynamic pricing names
+};
+
 export interface PricingTier {
   tier1: number;
   tier2: number;
@@ -17,6 +21,8 @@ export interface PlanConfig {
 export interface AddonConfig {
   id: string;
   label: string;
+  subLabel?: string;
   features: string[];
   availableFor: PlanType[];
+  pricing?: Pricing;
 }
