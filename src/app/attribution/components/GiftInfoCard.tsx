@@ -48,10 +48,10 @@ const GiftInfoCard = () => {
     <Stack maw={1000} mx="auto" mb={200}>
       {/* title */}
       <Stack>
-        <Text ta="center" fz={{ base: 25, sm: 35 }} fw={400}>
+        <Text ta="center" fz={{ base: 25, sm: 35 }} fw={400} mb={40}>
           Why Scan & Spin? Your Key Advantages
         </Text>
-        <Text
+        {/* <Text
           fz={{ base: 13, sm: 16 }}
           maw={540}
           mx="auto"
@@ -62,7 +62,7 @@ const GiftInfoCard = () => {
           Ready to turn your everyday commute into passive income? We make it
           simple and secure to earn extra cash just by driving your car as
           usual.
-        </Text>
+        </Text> */}
 
         {/* card */}
         <SimpleGrid cols={{ base: 1, sm: 2, md: 3 }} spacing={0}>
@@ -72,7 +72,7 @@ const GiftInfoCard = () => {
               mih={192}
               key={i}
               bg={i % 2 == 0 ? 'white' : '#FFF8FD'}
-              className="cursor-pointer transition-all duration-200 hover:z-40 hover:scale-110 !shadow-[20px_20px_60px_#bebebe,-20px_-20px_60px_#ffffff]"
+              className="cursor-pointer !shadow-[20px_20px_60px_#bebebe,-20px_-20px_60px_#ffffff] transition-all duration-200 hover:z-40 hover:scale-110"
             >
               {card.id === 3 ? (
                 <Flex h="100%" justify="center" align="center">

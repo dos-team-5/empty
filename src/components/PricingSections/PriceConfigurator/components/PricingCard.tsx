@@ -125,7 +125,7 @@ export const PricingCard = ({
 
           {/* Installation Fee */}
           <Flex align="center" justify="space-between">
-            <Text fw={500}>Installation Fee</Text>
+            <Text fw={500}>One-Time Installation Fee</Text>
             <Text fw={700} fz={18}>
               {formatPrice(
                 pricing.totalInstallationFee,
@@ -175,7 +175,7 @@ export const PricingCard = ({
                 return addon?.pricing ? (
                   <Flex direction="column" align="start" gap={16} key={addonId}>
                     {Object.entries(addon.pricing).map(([label, value]) => (
-                      <Badge size="sm" key={label} variant="outline">
+                      <Badge size="sm" key={label} variant="outline" mb={10}>
                         ${value}
                       </Badge>
                     ))}
@@ -215,7 +215,7 @@ export const PricingCard = ({
           <Divider />
 
           <Flex align="center" justify="space-between">
-            <Text fw={500}>Total Fee</Text>
+            <Text fw={500}>Total: </Text>
             <Text fw={700} fz={18}>
               {formatPrice(totalPrice, currencyType).toLocaleString()}
             </Text>

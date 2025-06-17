@@ -1,6 +1,6 @@
 import GiftStepsSvg from '@/components/Icons/GiftStepsSvg';
 import { TextAnimate } from '@/components/TextAnimation';
-import { Stack, Text, Title } from '@mantine/core';
+import { Stack, Title } from '@mantine/core';
 
 const GiftSteps = () => {
   return (
@@ -11,7 +11,7 @@ const GiftSteps = () => {
       mb={{ base: 80, sm: 250 }}
     >
       {/* title */}
-      <Title ta="center" fz={{ base: 25, sm: 35 }} fw={600}>
+      <Title ta="center" fz={{ base: 25, sm: 35 }} fw={600} pb={30}>
         <TextAnimate
           animation="blurInUp"
           by="word"
@@ -22,7 +22,7 @@ const GiftSteps = () => {
           How It Works: The Scan & Spin Journey
         </TextAnimate>
       </Title>
-      <Text
+      {/* <Text
         ta="center"
         fz={{ base: 13, sm: 16 }}
         maw={540}
@@ -31,7 +31,7 @@ const GiftSteps = () => {
       >
         Ready to turn your everyday commute into passive income? We make it
         simple and secure to earn extra cash just by driving your car as usual.
-      </Text>
+      </Text> */}
       {/* svg image */}
       {/* <Image src="/giftDetails/giftSteps.svg" /> */}
       <div className="flex w-full items-start justify-center">

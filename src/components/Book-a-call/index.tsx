@@ -39,7 +39,7 @@ const Meeting = () => {
               animation="blurInUp"
               by="word"
               duration={0.5}
-              className="text-[25px] md:text-[50px] lg:text-[30px] xl:text-[27px] 2xl:text-[40px]"
+              className="text-[25px] md:text-[50px] lg:text-[30px] xl:text-[35px] 2xl:text-[40px]"
               once
             >
               Lowest CPM in OOH. Period.
@@ -67,7 +67,7 @@ const Meeting = () => {
               by="word"
               duration={0.5}
               delay={0.5}
-              className="lg:text-md text-sm normal-case md:text-lg xl:text-[13px] 2xl:text-xl"
+              className="lg:text-md max-w-[400px] text-sm normal-case md:max-w-[500px] md:text-[13px] xl:text-[12px] 2xl:text-xl"
               once
             >
               Our CPM is the lowest in out-of-home and rivals digital. We’ll
@@ -79,7 +79,7 @@ const Meeting = () => {
               by="word"
               duration={0.5}
               delay={0.7}
-              className="lg:text-md mt-2 text-sm normal-case md:text-lg xl:text-[13px] 2xl:text-xl"
+              className="lg:text-md mt-2 max-w-[400px] text-sm normal-case md:max-w-[500px] md:text-[13px] xl:text-[12px] 2xl:text-xl"
               once
             >
               Re-target your real-world audience online for results that scale
@@ -101,11 +101,11 @@ const Meeting = () => {
               className="text-lg md:text-2xl lg:text-xl xl:text-xl 2xl:text-2xl"
               once
             >
-              In 20 Minutes; You&apos;ll discover how to:
+              In 20 Minutes You&apos;ll discover how to...
             </TextAnimate>
           </Title>
 
-          <div className="mt-2 grid grid-cols-1 gap-2 px-6 md:grid-cols-2">
+          <div className="mt-2 grid grid-cols-1 gap-2 md:grid-cols-2">
             {[
               {
                 title: 'Unlock full attribution from your ads',
