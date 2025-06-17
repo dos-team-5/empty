@@ -7,14 +7,9 @@ import {
 } from '@/components';
 import FeatureCard from '@/components/AdvertisingSection/FeatureCard';
 import { WhyChooseUsSection } from '@/components/AdvertisingSection/WhyAdvertisers';
-import { getExchangeRates } from '@/components/PricingSections/PriceConfigurator/action/getExchangeRates';
 import PricingConfigurator from '@/components/PricingSections/PriceConfigurator/PricingConfigurator';
 
-export default async function Home() {
-  const { usdToCad, date, source, error } = await getExchangeRates();
-
-  console.log('Exchange rates:', usdToCad, date, source, error);
-
+export default function Home() {
   return (
     <main>
       <HeroSection />

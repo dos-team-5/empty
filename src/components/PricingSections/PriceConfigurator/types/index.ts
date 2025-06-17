@@ -5,7 +5,7 @@ export type Pricing = {
   [key: string]: number; // allows dynamic pricing names
 };
 
-export type Currency = 'cad' | 'usd';
+export type Currency = 'usd' | 'cad';
 
 export interface PricingTier {
   tier1: number;

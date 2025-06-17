@@ -5,12 +5,13 @@ import {
   Card,
   Divider,
   Flex,
+  SegmentedControl,
   Text,
   Title,
 } from '@mantine/core';
-import { PlanType } from '../types';
+import { Currency, PlanType } from '../types';
 import { usePricingCalculation } from '../hooks/usePriceCalculation';
-import { ADDONS, PLAN_CONFIGS } from '../data';
+import { ADDONS, currencyOptions, PLAN_CONFIGS } from '../data';
 import { Calendar, CreditCard } from 'lucide-react';
 import FeatureList from './FeatureList';
 
@@ -46,12 +47,16 @@ export const PricingCard = ({
   pricing,
   selectedAddons,
   shouldBookCall,
+  currencyType,
+  setCurrencyType,
 }: {
   planType: PlanType;
   carCount: number;
   pricing: ReturnType<typeof usePricingCalculation>;
   selectedAddons: string[];
   shouldBookCall: boolean;
+  currencyType: Currency;
+  setCurrencyType: (currency: Currency) => void;
 }) => {
   return (
     <Card radius={10} className="!border-primary border-2">
@@ -65,6 +70,11 @@ export const PricingCard = ({
       </Card.Section>
 
       <Card.Section p={24} className="space-y-6">
+        <SegmentedControl
+          value={currencyType}
+          onChange={(value) => setCurrencyType(value as Currency)}
+          data={currencyOptions}
+        />
         {/* Installation Fee */}
         <Flex align="center" justify="space-between">
           <Text fw={500}>Installation Fee</Text>

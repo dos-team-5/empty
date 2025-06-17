@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useMemo, memo } from 'react';
+import { useState, useMemo, memo, useEffect } from 'react';
 import {
   Accordion,
   Box,
@@ -14,7 +14,7 @@ import {
   Slider,
   Title,
 } from '@mantine/core';
-import { PlanType } from './types';
+import { Currency, PlanType } from './types';
 import { usePricingCalculation } from './hooks/usePriceCalculation';
 import { ADDONS, CAR_OPTIONS } from './data';
 import { PricingCard } from './components/PricingCard';
@@ -22,6 +22,7 @@ import { PlanCard } from './components/PlanCard';
 import { AddonItem } from './components/AddOnItem';
 import { Icon } from '@iconify/react/dist/iconify.js';
 import { TextAnimate } from '@/components/TextAnimation';
+import { getExchangeRates } from './action/getExchangeRates';
 
 const TitleSection = memo(() => (
   <div className="mb-12 space-y-6 rounded-3xl text-start">
@@ -62,6 +63,8 @@ TitleSection.displayName = 'TitleSection';
 
 // Main Component
 export default function PricingConfigurator() {
+  const [currency, setCurrency] = useState<Currency>('usd');
+  const [exchangeRate, setExchangeRate] = useState<number>(1);
   const [resetKey, setResetKey] = useState(0);
   const [planType, setPlanType] = useState<PlanType>('basic');
   const [carCount, setCarCount] = useState<number>(1);
@@ -74,7 +77,28 @@ export default function PricingConfigurator() {
   });
   const [carOptions, setCarOptions] = useState(CAR_OPTIONS);
 
-  const pricing = usePricingCalculation(planType, carCount);
+  // Fetch exchange rate on toggle or initial load
+  useEffect(() => {
+    const fetchRate = async () => {
+      if (currency === 'cad') {
+        const res = await getExchangeRates(); // this will call your server action
+        if (res.usdToCad) {
+          setExchangeRate(res.usdToCad);
+        }
+      } else {
+        setExchangeRate(1); // USD is the base
+      }
+    };
+
+    fetchRate();
+  }, [currency]);
+
+  const pricing = usePricingCalculation(
+    planType,
+    carCount,
+    currency,
+    exchangeRate
+  );
 
   const selectedAddons = useMemo(
     () =>
@@ -151,6 +175,8 @@ export default function PricingConfigurator() {
               pricing={pricing}
               selectedAddons={selectedAddons}
               shouldBookCall={shouldBookCall}
+              currencyType={currency}
+              setCurrencyType={setCurrency}
             />
           </Box>
 

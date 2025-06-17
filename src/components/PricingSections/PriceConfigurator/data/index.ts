@@ -1,4 +1,4 @@
-import { AddonConfig, PlanConfig, PlanType } from '../types';
+import { AddonConfig, Currency, PlanConfig, PlanType } from '../types';
 
 // Constants
 export const PLAN_CONFIGS: Record<PlanType, PlanConfig> = {
@@ -88,4 +88,9 @@ export const CAR_OPTIONS = [
   { cars: 50, label: '50' },
   { cars: 75, label: '75' },
   { cars: 100, label: '100+' },
+];
+
+export const currencyOptions: { label: string; value: Currency }[] = [
+  { label: 'USD', value: 'usd' },
+  { label: 'CAD', value: 'cad' },
 ];
