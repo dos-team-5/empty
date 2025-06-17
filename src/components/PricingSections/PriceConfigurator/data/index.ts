@@ -57,6 +57,7 @@ export const ADDONS: AddonConfig[] = [
     label: 'Add Device ID PassBack',
     subLabel: 'Passive Device ID Capture & PassBack',
     availableFor: ['premium'],
+    samePrice: true,
     pricing: {
       'spin & scan': 0.5,
       'geo fencing': 0.1,

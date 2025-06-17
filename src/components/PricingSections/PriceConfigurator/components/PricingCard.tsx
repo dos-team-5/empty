@@ -81,6 +81,7 @@ export const PricingCard = ({
 
         <Card.Section p={24} className="space-y-6">
           <SegmentedControl
+            defaultValue="usd"
             value={currencyType}
             onChange={(value) => setCurrencyType(value as Currency)}
             data={currencyOptions}
