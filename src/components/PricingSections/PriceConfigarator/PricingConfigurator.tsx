@@ -30,6 +30,7 @@ export default function PricingConfigurator() {
     scanAndSpin: false,
     deviceIdPassBack: false,
   });
+  const [carOptions, setCarOptions] = useState(CAR_OPTIONS);
 
   const pricing = usePricingCalculation(planType, carCount);
 
@@ -57,19 +58,28 @@ export default function PricingConfigurator() {
     const newCount = Math.max(1, Number.parseInt(value) || 1);
     setCarCount(newCount);
 
-    // Find the closest index for the slider
-    const closestIndex = CAR_OPTIONS.reduce((closest, option, index) => {
-      return Math.abs(option.cars - newCount) <
-        Math.abs(CAR_OPTIONS[closest].cars - newCount)
-        ? index
-        : closest;
-    }, 0);
-    setSelectedIndex(closestIndex);
+    // Inject custom value if it doesn't already exist
+    if (!carOptions.find((opt) => opt.cars === newCount)) {
+      const newOption = {
+        cars: newCount,
+        label: `${newCount} `,
+      };
+      const updatedOptions = [...carOptions, newOption].sort(
+        (a, b) => a.cars - b.cars
+      );
+      setCarOptions(updatedOptions);
+      setSelectedIndex(
+        updatedOptions.findIndex((opt) => opt.cars === newCount)
+      );
+    } else {
+      const index = carOptions.findIndex((opt) => opt.cars === newCount);
+      setSelectedIndex(index);
+    }
   };
 
   const handleSliderChange = (value: number) => {
     setSelectedIndex(value);
-    setCarCount(CAR_OPTIONS[value].cars);
+    setCarCount(carOptions[value].cars);
   };
 
   const availableAddons = useMemo(
@@ -115,19 +125,20 @@ export default function PricingConfigurator() {
 
                   {/* Slider for quick selection */}
                   <Slider
+                    px={16}
                     mb={30}
                     value={selectedIndex}
                     onChange={handleSliderChange}
                     min={0}
-                    max={CAR_OPTIONS.length - 1}
+                    max={carOptions.length - 1}
                     step={1}
-                    marks={CAR_OPTIONS.map((option, index) => ({
+                    marks={carOptions.map((option, index) => ({
                       value: index,
                       label: option.label,
                     }))}
                     color="var(--mantine-primary-color-4)"
                     label={(value) =>
-                      `${CAR_OPTIONS[value].cars} car${CAR_OPTIONS[value].cars > 1 ? 's' : ''}`
+                      `${carOptions[value].cars} car${carOptions[value].cars > 1 ? 's' : ''}`
                     }
                   />
 
@@ -138,7 +149,7 @@ export default function PricingConfigurator() {
                     radius="md"
                     w="100%"
                     id="car-count"
-                    value={carCount}
+                    defaultValue={carCount}
                     onChange={(e) => handleCarCountChange(e.target.value)}
                     classNames={{ input: '!bg-gray-100' }}
                     placeholder="Enter exact number of cars"
