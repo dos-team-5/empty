@@ -39,9 +39,10 @@ const FixedSpinnerLogo = () => {
         <Image
           alt="Spinner logo"
           radius="100%"
-          src="spinner.png"
+          src="/spinner.png"
           w={40}
           h={40}
+          fallbackSrc="/spinnerLogo.svg"
           className="transition-transform duration-500 group-hover:animate-[spin_0.7s_linear_infinite]"
         />
         <svg width="100" height="32" viewBox="0 0 100 20" className="fill-none">
