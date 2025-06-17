@@ -7,23 +7,32 @@ export const PLAN_CONFIGS: Record<PlanType, PlanConfig> = {
     pricing: { tier1: 269, tier2: 250, tier3: 241, tier4: 232 },
     features: [
       '40+ hours of exposure per car per week',
-      'Ads displayed across high traffic areas',
-      'Weekly reports with heatmap',
-      'Estimated CPM & impressions',
-      'Hours driven tracking',
-      'Proof of ad delivery',
+      'Ads displayed across high-traffic areas in the city',
+      {
+        'Weekly Reports:': [
+          'Heatmap of coverage',
+          'Estimated CPM',
+          'Estimated impressions',
+          'Hours driven',
+          'Proof of ad delivery',
+        ],
+      },
     ],
   },
+
   premium: {
     installationFee: 210,
     pricing: { tier1: 303, tier2: 282, tier3: 271, tier4: 261 },
     features: [
-      'All basic features included',
       '95-99% confidence rate in impression accuracy',
       'Industry-leading measurement technology',
-      'Total impressions by neighborhood',
-      'Hourly impression breakdown',
-      'Daily and weekly impression trends',
+      {
+        'Comprehensive report includes:': [
+          'Total impressions by neighborhood',
+          'Hourly impression breakdown',
+          'Daily and weekly impression trends',
+        ],
+      },
     ],
   },
 };

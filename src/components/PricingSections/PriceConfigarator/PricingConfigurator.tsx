@@ -79,7 +79,7 @@ export default function PricingConfigurator() {
 
   return (
     <Box mih="100vh" p={16}>
-      <Box className="mx-auto max-w-7xl">
+      <Box maw={1400} className="mx-auto">
         <SimpleGrid spacing={32} cols={{ base: 1, lg: 2 }}>
           {/* Left Side - Pricing Card */}
           <Box className="flex-grow" h="100%">

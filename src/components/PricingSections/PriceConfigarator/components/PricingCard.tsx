@@ -1,4 +1,3 @@
-import { Icon } from '@iconify/react/dist/iconify.js';
 import {
   Badge,
   Box,
@@ -6,7 +5,6 @@ import {
   Card,
   Divider,
   Flex,
-  List,
   Text,
   Title,
 } from '@mantine/core';
@@ -14,24 +12,33 @@ import { PlanType } from '../types';
 import { usePricingCalculation } from '../hooks/usePriceCalculation';
 import { ADDONS, PLAN_CONFIGS } from '../data';
 import { Calendar, CreditCard } from 'lucide-react';
+import FeatureList from './FeatureList';
 
-const FeatureList = ({ features }: { features: string[] }) => (
-  <List mt={12}>
-    {features.map((feature, index) => (
-      <List.Item mt={8} key={index}>
-        <Flex align="center" gap={12}>
-          <Icon
-            icon="tabler:check"
-            width={16}
-            height={16}
-            color="var(--color-primary)"
-          />
-          <span>{feature}</span>
-        </Flex>
-      </List.Item>
-    ))}
-  </List>
-);
+interface FeatureComparisonProps {
+  planType: 'basic' | 'premium';
+}
+
+const FeatureComparison = ({ planType }: FeatureComparisonProps) => {
+  const basicFeatures = PLAN_CONFIGS.basic.features;
+  const premiumOnlyFeatures =
+    planType === 'premium' ? PLAN_CONFIGS.premium.features : [];
+
+  return (
+    <Flex gap={48} mt={24} align="flex-start">
+      {/* Basic Features Column */}
+      <Box>
+        <FeatureList features={basicFeatures} />
+      </Box>
+
+      {/* Premium-Only Features Column */}
+      {planType === 'premium' && (
+        <Box>
+          <FeatureList features={premiumOnlyFeatures} />
+        </Box>
+      )}
+    </Flex>
+  );
+};
 
 export const PricingCard = ({
   planType,
@@ -46,8 +53,6 @@ export const PricingCard = ({
   selectedAddons: string[];
   shouldBookCall: boolean;
 }) => {
-  const config = PLAN_CONFIGS[planType];
-
   return (
     <Card radius={10} className="!border-primary border-2">
       <Card.Section p={24} className="text-center" bg="var(--color-primary)">
@@ -89,7 +94,7 @@ export const PricingCard = ({
           <Text fz={24} fw={700}>
             Included Features:
           </Text>
-          <FeatureList features={config.features} />
+          <FeatureComparison planType={planType} />
         </Box>
 
         {/* Add-ons */}

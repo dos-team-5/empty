@@ -11,7 +11,7 @@ export interface PricingTier {
 export interface PlanConfig {
   installationFee: number;
   pricing: PricingTier;
-  features: string[];
+  features: (string | { [key: string]: string[] })[];
 }
 
 export interface AddonConfig {
