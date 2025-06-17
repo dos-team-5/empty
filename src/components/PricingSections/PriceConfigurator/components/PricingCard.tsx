@@ -1,4 +1,3 @@
-import { Icon } from '@iconify/react/dist/iconify.js';
 import {
   Badge,
   Box,
@@ -6,33 +5,39 @@ import {
   Card,
   Divider,
   Flex,
-  List,
+  SegmentedControl,
   Text,
   Title,
 } from '@mantine/core';
-import { PlanType } from '../types';
+import { Currency, PlanType } from '../types';
 import { usePricingCalculation } from '../hooks/usePriceCalculation';
-import { ADDONS, PLAN_CONFIGS } from '../data';
+import { ADDONS, currencyOptions, PLAN_CONFIGS } from '../data';
 import { Calendar, CreditCard } from 'lucide-react';
-import { motion } from 'motion/react';
+import FeatureList from './FeatureList';
+import { motion } from 'framer-motion';
 
-const FeatureList = ({ features }: { features: string[] }) => (
-  <List mt={12}>
-    {features.map((feature, index) => (
-      <List.Item mt={8} key={index}>
-        <Flex align="center" gap={12}>
-          <Icon
-            icon="tabler:check"
-            width={16}
-            height={16}
-            color="var(--color-primary)"
-          />
-          <span>{feature}</span>
-        </Flex>
-      </List.Item>
-    ))}
-  </List>
-);
+interface FeatureComparisonProps {
+  planType: 'basic' | 'premium';
+}
+
+const FeatureComparison = ({ planType }: FeatureComparisonProps) => {
+  const basicFeatures = PLAN_CONFIGS.basic.features;
+  const premiumOnlyFeatures =
+    planType === 'premium' ? PLAN_CONFIGS.premium.features : [];
+
+  return (
+    <Flex gap={48} mt={24} align="flex-start">
+      <Box>
+        <FeatureList features={basicFeatures} />
+      </Box>
+      {planType === 'premium' && (
+        <Box>
+          <FeatureList features={premiumOnlyFeatures} />
+        </Box>
+      )}
+    </Flex>
+  );
+};
 
 export const PricingCard = ({
   planType,
@@ -40,15 +45,17 @@ export const PricingCard = ({
   pricing,
   selectedAddons,
   shouldBookCall,
+  currencyType,
+  setCurrencyType,
 }: {
   planType: PlanType;
   carCount: number;
   pricing: ReturnType<typeof usePricingCalculation>;
   selectedAddons: string[];
   shouldBookCall: boolean;
+  currencyType: Currency;
+  setCurrencyType: (currency: Currency) => void;
 }) => {
-  const config = PLAN_CONFIGS[planType];
-
   return (
     <motion.div
       initial={{ scale: 0.3, opacity: 0 }}
@@ -73,6 +80,12 @@ export const PricingCard = ({
         </Card.Section>
 
         <Card.Section p={24} className="space-y-6">
+          <SegmentedControl
+            value={currencyType}
+            onChange={(value) => setCurrencyType(value as Currency)}
+            data={currencyOptions}
+          />
+
           {/* Installation Fee */}
           <Flex align="center" justify="space-between">
             <Text fw={500}>Installation Fee</Text>
@@ -102,27 +115,50 @@ export const PricingCard = ({
             <Text fz={24} fw={700}>
               Included Features:
             </Text>
-            <FeatureList features={config.features} />
+            <FeatureComparison planType={planType} />
           </Box>
 
-          {/* Add-ons */}
+          <Divider />
+
+          {/* Add-on Pricing Summary */}
+          <Box pos={'relative'}>
+            {selectedAddons.map((addonId) => {
+              const addon = ADDONS.find((a) => a.id === addonId);
+              return addon?.pricing ? (
+                <Flex align="center" gap={4} key={addonId}>
+                  {Object.entries(addon.pricing).map(([label, value]) => (
+                    <Badge key={label} variant="light" color="gray" ml={4}>
+                      ${value.toFixed(2)}
+                    </Badge>
+                  ))}
+                  <Text fz={12} c="dimmed" ml={4}>
+                    per interactive device ID
+                  </Text>
+                </Flex>
+              ) : null;
+            })}
+          </Box>
 
           <Divider />
+
+          {/* Add-ons List */}
           <Flex align="center" gap={36}>
             <Text fw={600}>Add-ons:</Text>
             <Flex align="center" gap={12}>
-              {selectedAddons.length === 0
-                ? 'N/A'
-                : selectedAddons.map((addonId) => {
-                    const addon = ADDONS.find((a) => a.id === addonId);
-                    return addon ? (
-                      <Badge key={addonId}>
-                        {addon.label
-                          .replace('Add ', '')
-                          .replace('Passive ', '')}
-                      </Badge>
-                    ) : null;
-                  })}
+              {selectedAddons.length === 0 ? (
+                <Text fz={12} c={'dimmed'}>
+                  No add-ons selected
+                </Text>
+              ) : (
+                selectedAddons.map((addonId) => {
+                  const addon = ADDONS.find((a) => a.id === addonId);
+                  return addon ? (
+                    <Badge key={addonId}>
+                      {addon.label.replace('Add ', '').replace('Passive ', '')}
+                    </Badge>
+                  ) : null;
+                })
+              )}
             </Flex>
           </Flex>
 

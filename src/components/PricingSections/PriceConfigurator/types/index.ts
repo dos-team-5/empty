@@ -1,6 +1,12 @@
 // Types
 export type PlanType = 'basic' | 'premium';
 
+export type Pricing = {
+  [key: string]: number; // allows dynamic pricing names
+};
+
+export type Currency = 'usd' | 'cad';
+
 export interface PricingTier {
   tier1: number;
   tier2: number;
@@ -11,12 +17,15 @@ export interface PricingTier {
 export interface PlanConfig {
   installationFee: number;
   pricing: PricingTier;
-  features: string[];
+  features: (string | { [key: string]: string[] })[];
 }
 
 export interface AddonConfig {
   id: string;
   label: string;
+  subLabel?: string;
   features: string[];
   availableFor: PlanType[];
+  pricing?: Pricing;
+  samePrice?: boolean;
 }

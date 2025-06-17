@@ -4,7 +4,6 @@ import PrimaryBtn from './PrimaryBtn';
 import HeroSection from './HeroSection/HeroSection';
 import FeatureSection from './AdvertisingSection/Feature';
 import Advertisement from './AdvertisingSection/Advertisement';
-import PricingCards from './PricingSections/PricingCards';
 import DriveHeroSection from './DriveHero';
 import DriveAfterHeroSection from './DriveAfterHero';
 import DriveQualificationSection from './DriveQualification';
@@ -20,6 +19,8 @@ import TimelineSectionAd from './TimelineSectionAd';
 import TimelineSectionDrive from './TimelineSectionDrive';
 import { TextReveal } from './TextReveal';
 import { TextRevealByWord } from './TextRevealByWord';
+import PricingCards from './PricingSections/PricingCards';
+import PricingConfigurator from './PricingSections/PriceConfigurator/PricingConfigurator';
 
 export {
   ToggleModeSwitch,
@@ -44,4 +45,5 @@ export {
   TimelineSectionDrive,
   TextReveal,
   TextRevealByWord,
+  PricingConfigurator,
 };

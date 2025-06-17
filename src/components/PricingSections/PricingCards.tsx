@@ -9,12 +9,13 @@ import {
   Slider,
   Button,
 } from '@mantine/core';
-import { useCallback, useState } from 'react';
-import { TextAnimate } from '../TextAnimation';
+import { useCallback, useState, memo } from 'react';
+
 import { motion } from 'framer-motion';
-import { memo } from 'react';
+
 import { useRouter } from 'next/navigation';
-import { Icon } from '../FileManager/lib/Icon';
+import { TextAnimate } from '@/components/TextAnimation';
+import { Icon } from '@iconify/react/dist/iconify.js';
 
 // Features data
 const features = [

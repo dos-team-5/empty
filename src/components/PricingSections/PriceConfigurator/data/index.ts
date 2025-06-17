@@ -1,4 +1,4 @@
-import { AddonConfig, PlanConfig, PlanType } from '../types';
+import { AddonConfig, Currency, PlanConfig, PlanType } from '../types';
 
 // Constants
 export const PLAN_CONFIGS: Record<PlanType, PlanConfig> = {
@@ -7,23 +7,32 @@ export const PLAN_CONFIGS: Record<PlanType, PlanConfig> = {
     pricing: { tier1: 269, tier2: 250, tier3: 241, tier4: 232 },
     features: [
       '40+ hours of exposure per car per week',
-      'Ads displayed across high traffic areas',
-      'Weekly reports with heatmap',
-      'Estimated CPM & impressions',
-      'Hours driven tracking',
-      'Proof of ad delivery',
+      'Ads displayed across high-traffic areas in the city',
+      {
+        'Weekly Reports:': [
+          'Heatmap of coverage',
+          'Estimated CPM',
+          'Estimated impressions',
+          'Hours driven',
+          'Proof of ad delivery',
+        ],
+      },
     ],
   },
+
   premium: {
     installationFee: 210,
     pricing: { tier1: 303, tier2: 282, tier3: 271, tier4: 261 },
     features: [
-      'All basic features included',
       '95-99% confidence rate in impression accuracy',
       'Industry-leading measurement technology',
-      'Total impressions by neighborhood',
-      'Hourly impression breakdown',
-      'Daily and weekly impression trends',
+      {
+        'Comprehensive report includes:': [
+          'Total impressions by neighborhood',
+          'Hourly impression breakdown',
+          'Daily and weekly impression trends',
+        ],
+      },
     ],
   },
 };
@@ -31,8 +40,10 @@ export const PLAN_CONFIGS: Record<PlanType, PlanConfig> = {
 export const ADDONS: AddonConfig[] = [
   {
     id: 'scanAndSpin',
-    label: 'Add Scan & Spin Engagement',
+    label: 'Add Scan & Spin ',
+    subLabel: 'Add Scan & Spin Engagement',
     availableFor: ['basic', 'premium'],
+    samePrice: true,
     features: [
       'Device IDs collected for retargeting & attribution',
       'QR codes placed on vehicle exteriors',
@@ -43,8 +54,13 @@ export const ADDONS: AddonConfig[] = [
   },
   {
     id: 'deviceIdPassBack',
-    label: 'Passive Device ID Capture & PassBack',
+    label: 'Add Device ID PassBack',
+    subLabel: 'Passive Device ID Capture & PassBack',
     availableFor: ['premium'],
+    pricing: {
+      'spin & scan': 0.5,
+      'geo fencing': 0.1,
+    },
     features: [
       'Personal device information collected via WiFi and Bluetooth proximity',
       'IDs collected without any user interaction',
@@ -72,4 +88,9 @@ export const CAR_OPTIONS = [
   { cars: 50, label: '50' },
   { cars: 75, label: '75' },
   { cars: 100, label: '100+' },
+];
+
+export const currencyOptions: { label: string; value: Currency }[] = [
+  { label: 'USD', value: 'usd' },
+  { label: 'CAD', value: 'cad' },
 ];

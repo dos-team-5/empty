@@ -1,7 +1,6 @@
 'use client';
 import { Box, Title, Text, Button } from '@mantine/core';
-import { useRouter } from 'next/navigation';
-import { useSearchParams } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { useEffect } from 'react';
 
 export default function PaymentResult() {
