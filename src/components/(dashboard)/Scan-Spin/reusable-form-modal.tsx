@@ -11,17 +11,18 @@ import {
   Text,
   ActionIcon,
   Paper,
-  FileInput,
   Divider,
   Container,
   Card,
-  Textarea,
   rem,
 } from '@mantine/core';
 import { useForm } from '@mantine/form';
 import { DateTimePicker } from '@mantine/dates';
-import { Plus, Trash2, Upload, Save } from 'lucide-react';
+import { Plus, Trash2, Save } from 'lucide-react';
 import { useEffect } from 'react';
+import { FileHandlerRes, ImageHandler } from '@/components/FileManager';
+import { notifications } from '@mantine/notifications';
+import { FileAttachment } from '@/schema';
 
 interface FormOption {
   label: string;
@@ -31,8 +32,7 @@ interface FormOption {
 interface FormData {
   title: string;
   companyName: string;
-  description?: string;
-  companyLogo: File | null;
+  companyLogo: FileAttachment | null;
   deadline: Date | null;
   options: FormOption[];
   userLimit: number;
@@ -57,7 +57,6 @@ interface ReusableFormModalProps {
 const defaultFormValues: FormData = {
   title: '',
   companyName: '',
-  description: '',
   companyLogo: null,
   deadline: null,
   options: [{ label: '', coupon: '' }],
@@ -114,7 +113,7 @@ export default function ReusableFormModal({
         form.setValues({
           title: initialData.title ?? '',
           companyName: initialData.companyName ?? '',
-          description: initialData.description ?? '',
+
           companyLogo: null,
           deadline: initialData.deadline ?? null,
           options:
@@ -167,6 +166,21 @@ export default function ReusableFormModal({
 
   const getSubmitIcon = () => {
     return mode === 'create' ? <Plus size={16} /> : <Save size={16} />;
+  };
+
+  const handleFileUpload = (files: FileHandlerRes[]) => {
+    const file = files?.[0] ?? null;
+
+    form.setFieldValue('companyLogo', file);
+
+    console.log('File uploaded:', file);
+
+    notifications.show({
+      title: 'File Uploaded',
+      message: `1 file uploaded successfully!`,
+      color: 'green',
+      autoClose: 3000,
+    });
   };
 
   return (
@@ -253,42 +267,8 @@ export default function ReusableFormModal({
                     />
                   </Group>
 
-                  <Textarea
-                    label="Description"
-                    placeholder="Enter description (optional)"
-                    size="md"
-                    minRows={3}
-                    styles={{
-                      label: { fontWeight: 500, marginBottom: rem(8) },
-                      input: {
-                        '&:focus': {
-                          borderColor: PRIMARY_COLOR,
-                        },
-                      },
-                    }}
-                    {...form.getInputProps('description')}
-                  />
+                  <ImageHandler onUploadSuccess={handleFileUpload} />
 
-                  <FileInput
-                    label="Company Logo"
-                    placeholder={
-                      mode === 'edit'
-                        ? 'Upload new logo (optional)'
-                        : 'Upload company logo'
-                    }
-                    accept="image/*"
-                    size="md"
-                    leftSection={<Upload size={18} />}
-                    styles={{
-                      label: { fontWeight: 500, marginBottom: rem(8) },
-                      input: {
-                        '&:focus': {
-                          borderColor: PRIMARY_COLOR,
-                        },
-                      },
-                    }}
-                    {...form.getInputProps('companyLogo')}
-                  />
                   {mode === 'edit' && (
                     <Text size="sm" c="dimmed" mt={rem(-8)}>
                       Leave empty to keep current logo

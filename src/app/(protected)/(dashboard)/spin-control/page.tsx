@@ -21,9 +21,7 @@ const SpinControl = async () => {
 
   return (
     <Box>
-      {campaignData.companyLogo !== null && (
-        <SpinCampaignCard data={campaignData} />
-      )}
+      <SpinCampaignCard data={campaignData} />
       <SpinDataTable />
     </Box>
   );

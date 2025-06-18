@@ -21,6 +21,9 @@ import {
 import { Calendar, Clock, Coffee, Gift, Users, Plus, Edit } from 'lucide-react';
 import ReusableFormModal from './reusable-form-modal';
 import { SpinnerCampaign } from '@/schema';
+import { createCampaign } from '@/app/(protected)/(dashboard)/spin-control/action/createCampaign';
+import { notifications } from '@mantine/notifications';
+import { updateCampaign } from '@/app/(protected)/(dashboard)/spin-control/action/updateCampaign';
 
 const PRIMARY_COLOR = '#CB6AA7';
 
@@ -32,6 +35,8 @@ export default function SpinCampaignCard({
   const [activeTab, setActiveTab] = useState<string | null>('details');
   const [modalOpened, setModalOpened] = useState(false);
   const [modalMode, setModalMode] = useState<'create' | 'edit'>('create');
+  const [createLoading, setCreateLoading] = useState(false);
+  const [editLoading, setEditLoading] = useState(false);
 
   // Sample campaign data
   const [campaign, setCampaign] = useState<SpinnerCampaign>(data);
@@ -46,14 +51,38 @@ export default function SpinCampaignCard({
     setModalOpened(true);
   };
 
-  const handleFormSubmit = (data: any, mode: 'create' | 'edit') => {
+  const handleFormSubmit = async (data: any, mode: 'create' | 'edit') => {
     console.log(`${mode} campaign:`, data);
 
     if (mode === 'create') {
+      setCreateLoading(true);
       console.log('Creating new campaign...');
+      const res = await createCampaign(data);
+      if (res.success) {
+        notifications.show({
+          title: 'Campaign Created',
+          message: `${res.message}`,
+          color: 'green',
+          autoClose: 3000,
+        });
+      }
+      setCreateLoading(false);
+      console.log('Create campaign response:', createLoading);
       // Handle create logic here
     } else {
+      setEditLoading(true);
       console.log('Updating existing campaign...');
+      const res = await updateCampaign({ id: campaign?.id, data });
+      if (res.success) {
+        notifications.show({
+          title: 'Campaign Updated',
+          message: `${res.message}`,
+          color: 'green',
+          autoClose: 3000,
+        });
+      }
+      setEditLoading(false);
+      console.log('Update campaign response:', editLoading);
       // Update local state for demo
       setCampaign((prev) => ({
         ...prev,
@@ -136,7 +165,8 @@ export default function SpinCampaignCard({
                     <Image
                       w={80}
                       h={80}
-                      src={campaign.companyLogo?.url ?? ''}
+                      src={campaign.companyLogo?.url}
+                      fallbackSrc="/elementor-placeholder-image.webp"
                       alt={campaign.companyName}
                       style={{ objectFit: 'contain' }}
                     />
