@@ -197,7 +197,7 @@ const DriveHeroSection: React.FC = () => {
           </motion.div>
         </Stack>
         <div className="w-full overflow-hidden lg:w-[45%]">
-          <div
+          {/* <div
             // initial={{ x: '100%', opacity: 0 }}
             // animate={{ x: '0%', opacity: 1 }}
             // transition={{ duration: 2 }}
@@ -210,6 +210,21 @@ const DriveHeroSection: React.FC = () => {
               height={1000}
               priority
               className="rounded-xl lg:origin-left lg:scale-110 xl:origin-center xl:scale-100"
+            />
+          </div> */}
+          <div
+            className="mt-10"
+            // initial={{ x: '100%', opacity: 0 }}
+            // animate={{ x: '0%', opacity: 1 }}
+            // transition={{ duration: 2 }}
+          >
+            <Image
+              src={'/Empty-Drive-Car-Illustration.png'}
+              alt="Drive Hero Image"
+              width={1000}
+              height={1000}
+              priority
+              className="w-[1400px] rounded-xl lg:origin-left lg:scale-130 xl:origin-center xl:scale-100"
             />
           </div>
         </div>
