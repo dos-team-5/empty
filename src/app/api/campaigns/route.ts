@@ -3,8 +3,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { NewSpinnerCampaign, spinnerCampaigns } from '@/schema/campaigns';
 import { db } from '@/config/db';
-import { getServerSession } from 'next-auth';
-import { authOptions } from '../auth/[...nextauth]/utils/authOptions';
 import { count } from 'drizzle-orm';
 
 // --- GET Function (Add this to your existing route.ts file) ---
@@ -12,13 +10,13 @@ import { count } from 'drizzle-orm';
 export async function GET(req: NextRequest) {
   try {
     // --- Authorization Check ---
-    const session = await getServerSession(authOptions);
-    if (!session || session.user.role !== 'super_admin') {
-      return NextResponse.json(
-        { success: false, message: 'Forbidden: Access is denied.' },
-        { status: 403 }
-      );
-    }
+    // const session = await getServerSession(authOptions);
+    // if (!session || session.user.role !== 'super_admin') {
+    //   return NextResponse.json(
+    //     { success: false, message: 'Forbidden: Access is denied.' },
+    //     { status: 403 }
+    //   );
+    // }
 
     // --- Pagination Logic ---
     const { searchParams } = new URL(req.url);
@@ -74,13 +72,13 @@ type CreateCampaignPayload = Omit<NewSpinnerCampaign, 'id' | 'createdAt'>;
 export async function POST(req: NextRequest) {
   try {
     // --- Authorization Check ---
-    const session = await getServerSession(authOptions);
-    if (!session || session.user.role !== 'super_admin') {
-      return NextResponse.json(
-        { success: false, message: 'Forbidden: Access is denied.' },
-        { status: 403 }
-      );
-    }
+    // const session = await getServerSession(authOptions);
+    // if (!session || session.user.role !== 'super_admin') {
+    //   return NextResponse.json(
+    //     { success: false, message: 'Forbidden: Access is denied.' },
+    //     { status: 403 }
+    //   );
+    // }
 
     // --- Input Validation ---
     const body: CreateCampaignPayload = await req.json();

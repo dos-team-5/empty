@@ -13,13 +13,13 @@ export async function GET(
 ) {
   try {
     // --- Authorization Check ---
-    const session = await getServerSession(authOptions);
-    if (!session || session.user.role !== 'super_admin') {
-      return NextResponse.json(
-        { success: false, message: 'Forbidden: Access is denied.' },
-        { status: 403 }
-      );
-    }
+    // const session = await getServerSession(authOptions);
+    // if (!session || session.user.role !== 'super_admin') {
+    //   return NextResponse.json(
+    //     { success: false, message: 'Forbidden: Access is denied.' },
+    //     { status: 403 }
+    //   );
+    // }
 
     // --- ID Validation ---
     const campaignId = parseInt(params.id, 10);
@@ -62,13 +62,13 @@ export async function PATCH(
 ) {
   try {
     // --- Authorization Check ---
-    const session = await getServerSession(authOptions);
-    if (!session || session.user.role !== 'super_admin') {
-      return NextResponse.json(
-        { success: false, message: 'Forbidden: Access is denied.' },
-        { status: 403 }
-      );
-    }
+    // const session = await getServerSession(authOptions);
+    // if (!session || session.user.role !== 'super_admin') {
+    //   return NextResponse.json(
+    //     { success: false, message: 'Forbidden: Access is denied.' },
+    //     { status: 403 }
+    //   );
+    // }
 
     // --- ID Validation ---
     const campaignId = parseInt(params.id, 10);

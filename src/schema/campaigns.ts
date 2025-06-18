@@ -76,7 +76,10 @@ export const spinnerCampaigns = pgTable('spinner_campaigns', {
 export const spinnerParticipants = pgTable(
   'spinner_participants',
   {
-    userId: varchar('user_id', { length: 255 }).notNull(), // Can be a session ID, IP address, or user account ID
+    email: varchar('email', { length: 255 }).notNull(), // User's email address
+    name: varchar('name', { length: 255 }).notNull(), // User's full name
+    phone: varchar('phone', { length: 20 }), // User's phone number (optional)
+
     campaignId: integer('campaign_id')
       .notNull()
       .references(() => spinnerCampaigns.id),
@@ -89,7 +92,7 @@ export const spinnerParticipants = pgTable(
   (table) => {
     // A composite primary key ensures a user can only be listed once per campaign.
     return {
-      pk: primaryKey({ columns: [table.userId, table.campaignId] }),
+      pk: primaryKey({ columns: [table.email, table.campaignId] }),
     };
   }
 );
