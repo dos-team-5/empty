@@ -77,6 +77,7 @@ export const PricingCard = ({
   currencyType,
   setCurrencyType,
   onCheckout,
+  months,
 }: {
   planType: PlanType;
   carCount: number;
@@ -86,9 +87,11 @@ export const PricingCard = ({
   currencyType: Currency;
   setCurrencyType: (currency: Currency) => void;
   onCheckout: CheckoutButtonProps['onCheckout'];
+  months: number;
 }) => {
   const router = useRouter();
-  const totalPrice = pricing.totalMonthlyPrice + pricing.totalInstallationFee;
+  const totalPrice =
+    pricing.totalMonthlyPrice * months + pricing.totalInstallationFee;
 
   return (
     <motion.div
@@ -234,11 +237,11 @@ export const PricingCard = ({
             h={48}
             fz={18}
             fw={600}
-            style={{
-              backgroundColor: shouldBookCall
-                ? 'var(--color-primary)'
-                : 'black',
-            }}
+            // style={{
+            //   backgroundColor: shouldBookCall
+            //     ? 'var(--color-primary)'
+            //     : 'black',
+            // }}
           >
             {shouldBookCall ? (
               <>
