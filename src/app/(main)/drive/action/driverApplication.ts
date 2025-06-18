@@ -111,12 +111,14 @@ export function greetDrivers() {
   }
 }
 
+
+
 export async function sendDriverApplicationEmail(
   applicationData: DriverApplication
 ): Promise<{ success: boolean; message: string }> {
-  console.log('Sending driver application email with data:', applicationData);
+  // Step 1: Save the application to the database by calling our new API route
   try {
-    const response = await fetch('/api/send-email', {
+    const saveResponse = await fetch('/api/drivers/create', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -124,6 +126,47 @@ export async function sendDriverApplicationEmail(
       body: JSON.stringify(applicationData),
     });
 
+    const saveResult = await saveResponse.json();
+    // If saving the data fails, we stop the process immediately.
+    if (!saveResponse.ok) {
+      console.error('Failed to save application data:', saveResult.message);
+      return {
+        success: false,
+        message: saveResult.message || 'Could not save the application.',
+      };
+    }
+    console.log('Driver application data saved successfully.');
+  } catch (error: any) {
+    console.error('Network error while saving driver data:', error);
+    return {
+      success: false,
+      message: 'A network error occurred while saving your application.',
+    };
+  }
+
+  // Step 2: If saving was successful, now we send the notification email.
+  console.log('Sending driver application email with data:', applicationData);
+  try {
+    const emailResponse = await fetch('/api/send-email', {
+
+    const emailResult = await emailResponse.json();
+
+    if (!emailResponse.ok) {
+      // The data was saved, but the email failed. We should inform the user.
+      return {
+        success: false,
+        message: `Your application was saved, but the confirmation email failed to send. Reason: ${emailResult.error || 'Unknown server error'}`,
+      };
+    }
+
+    // Both steps were successful!
+    return { success: true, message: 'Application submitted successfully!' };
+  } catch (error: any) {
+    console.error('Network error sending email:', error);
+    return {
+      success: false,
+      message: `Your application was saved, but the confirmation email failed with a network error: ${error.message}`,
+    };
     console.log('Response status:', response);
 
     const result = await response.json();
