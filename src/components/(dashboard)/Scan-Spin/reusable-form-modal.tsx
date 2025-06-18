@@ -134,6 +134,7 @@ export default function ReusableFormModal({
         form.setValues(defaultFormValues);
       }
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [opened, mode, initialData]);
 
   const handleSubmit = (values: FormData) => {
