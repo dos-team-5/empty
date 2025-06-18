@@ -1,6 +1,6 @@
 'use client';
 
-import { Box, Flex, Group, ScrollArea } from '@mantine/core';
+import { Box, Flex, Group, ScrollArea, Text } from '@mantine/core';
 import { AnimatePresence, motion } from 'framer-motion';
 import { usePathname } from 'next/navigation';
 import { useState, useEffect } from 'react';
@@ -52,7 +52,7 @@ export function UserSideNav({ menus, onClose }: UserSidenavProps) {
     const isActive = pathname === item.path;
 
     return (
-      <Box mt={4} px={8} key={item.id}>
+      <Box key={item.id}>
         {item.children.length > 0 ? (
           <Box className={`${openMenus[item.id] ? 'nav-neumorphic' : ''}`}>
             <Box
@@ -113,11 +113,11 @@ export function UserSideNav({ menus, onClose }: UserSidenavProps) {
           <Link
             onClick={linkClickHandler}
             href={item.path ?? '#'}
-            className={`mb-3 flex w-full cursor-pointer items-center justify-between px-4 py-4 transition hover:bg-neutral-200 ${
-              isActive ? 'nav-neumorphic' : ''
+            className={`mb-3 flex cursor-pointer items-center px-[55px] py-3 transition hover:bg-white ${
+              isActive ? 'bg-white' : ''
             } `}
           >
-            <Group>
+            <Group justify="center">
               <Icon color="#ee7b1f" icon={item.icon} width={20} />
               <span className="text-[14px] font-medium">{item.label}</span>
             </Group>
@@ -128,10 +128,23 @@ export function UserSideNav({ menus, onClose }: UserSidenavProps) {
   });
 
   return (
-    <nav className={`h-[calc(100dvh-88px)] w-full md:w-[300px]`}>
+    <Box component="nav">
       <ScrollArea w="100%" h="100%" px={16}>
         {sideNavLinks}
       </ScrollArea>
-    </nav>
+      <Flex
+        align={'center'}
+        justify={'center'}
+        gap={12}
+        className=""
+        pos={'absolute'}
+        w={'100%'}
+        bottom={40}
+        component="button"
+      >
+        <Text>Logout</Text>
+        <Icon icon="ic:round-logout" width={20} height={20} />
+      </Flex>
+    </Box>
   );
 }

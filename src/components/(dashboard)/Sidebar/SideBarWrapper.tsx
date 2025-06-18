@@ -1,8 +1,10 @@
 'use client';
 
-import { Box, Image } from '@mantine/core';
+import { Box, Center } from '@mantine/core';
 import { SideNavItem } from '../../../types/dashboard';
 import { UserSideNav } from './UserSideNav';
+import Link from 'next/link';
+import Image from 'next/image';
 
 type SideBarWrapperProps = {
   readonly menus?: SideNavItem[];
@@ -10,10 +12,19 @@ type SideBarWrapperProps = {
 
 const SideBarWrapper = ({ menus }: SideBarWrapperProps) => {
   return (
-    <Box className="sidebar-shadow mt-2 ml-2 hidden h-[98dvh] space-y-7 rounded-tl-[20px] rounded-tr-[12px] rounded-br-[12px] rounded-bl-[20px] lg:block">
-      <Box mx={'auto'} w={148} h={20} py={16}>
-        <Image alt="logo" src="/logo.png" w={40} h={40} />
-      </Box>
+    <Box w={290} pos={'relative'}>
+      <Center mt={40} mb={52}>
+        <Link href="/">
+          <Image
+            src={'/EMPTY-Logo.png'}
+            width={1000}
+            height={1000}
+            alt="logo"
+            className="w-32 xl:w-36"
+            priority
+          />
+        </Link>
+      </Center>
       <UserSideNav menus={menus} />
     </Box>
   );
