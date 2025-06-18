@@ -1,6 +1,5 @@
 // This file should be placed at: /app/api/drivers/create/route.ts
-
-import { DriverApplication } from '@/app/drive/action/driverApplication';
+import { DriverApplication } from '@/app/(main)/drive/action/driverApplication';
 import { db } from '@/config/db';
 import { drivers, NewDriver } from '@/schema/drivers';
 import { NextRequest, NextResponse } from 'next/server';
