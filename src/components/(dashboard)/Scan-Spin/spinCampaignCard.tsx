@@ -20,39 +20,21 @@ import {
 } from '@mantine/core';
 import { Calendar, Clock, Coffee, Gift, Users, Plus, Edit } from 'lucide-react';
 import ReusableFormModal from './reusable-form-modal';
-import { AttemptConfiguration, FileAttachment } from '@/schema';
-
-interface FormOption {
-  label: string;
-  coupon: string;
-}
-
-interface CampaignData {
-  readonly id: number;
-  readonly title: string;
-  readonly companyName: string;
-  readonly description?: string;
-  readonly companyLogo: FileAttachment | null;
-  readonly deadline: Date;
-  readonly options: FormOption[];
-  readonly userLimit: number | null;
-  readonly attemptConfiguration: AttemptConfiguration;
-  readonly createdAt: Date;
-}
+import { SpinnerCampaign } from '@/schema';
 
 const PRIMARY_COLOR = '#CB6AA7';
 
 export default function SpinCampaignCard({
   data,
 }: {
-  readonly data: CampaignData;
+  readonly data: SpinnerCampaign;
 }) {
   const [activeTab, setActiveTab] = useState<string | null>('details');
   const [modalOpened, setModalOpened] = useState(false);
   const [modalMode, setModalMode] = useState<'create' | 'edit'>('create');
 
   // Sample campaign data
-  const [campaign, setCampaign] = useState<CampaignData>(data);
+  const [campaign, setCampaign] = useState<SpinnerCampaign>(data);
 
   const handleCreateCampaign = () => {
     setModalMode('create');
@@ -91,7 +73,6 @@ export default function SpinCampaignCard({
       return {
         title: campaign.title,
         companyName: campaign.companyName,
-        description: campaign.description,
         deadline: new Date(campaign.deadline),
         options: campaign.options,
         userLimit: campaign.userLimit ?? undefined,
@@ -167,11 +148,6 @@ export default function SpinCampaignCard({
                     <Text size="lg" c="dimmed" fw={500}>
                       {campaign.companyName}
                     </Text>
-                    {campaign.description && (
-                      <Text size="md" c="dimmed" lineClamp={2}>
-                        {campaign.description}
-                      </Text>
-                    )}
                   </Stack>
                 </Group>
               </Grid.Col>
