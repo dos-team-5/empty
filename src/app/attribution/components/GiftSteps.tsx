@@ -1,6 +1,8 @@
+'use client';
 import GiftStepsSvg from '@/components/Icons/GiftStepsSvg';
 import { TextAnimate } from '@/components/TextAnimation';
 import { Stack, Title } from '@mantine/core';
+import { motion } from 'motion/react';
 
 const GiftSteps = () => {
   return (
@@ -34,9 +36,14 @@ const GiftSteps = () => {
       </Text> */}
       {/* svg image */}
       {/* <Image src="/giftDetails/giftSteps.svg" /> */}
-      <div className="flex w-full items-start justify-center">
+      <motion.div
+        initial={{ opacity: 0, scale: 0.3 }}
+        whileInView={{ opacity: 1, scale: 1 }}
+        transition={{ duration: 0.7, ease: 'easeInOut' }}
+        className="flex w-full items-start justify-center"
+      >
         <GiftStepsSvg />
-      </div>
+      </motion.div>
     </Stack>
   );
 };
