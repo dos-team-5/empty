@@ -136,14 +136,13 @@ export function UserSideNav({ menus, onClose }: UserSidenavProps) {
         align={'center'}
         justify={'center'}
         gap={12}
-        className=""
         pos={'absolute'}
         w={'100%'}
         bottom={40}
         component="button"
       >
         <Text>Logout</Text>
-        <Icon icon="ic:round-logout" width={20} height={20} />
+        <Icon icon="vaadin:sign-out" width={20} height={20} />
       </Flex>
     </Box>
   );
