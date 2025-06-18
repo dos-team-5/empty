@@ -3,8 +3,8 @@ import { AddonConfig, Currency, PlanConfig, PlanType } from '../types';
 // Constants
 export const PLAN_CONFIGS: Record<PlanType, PlanConfig> = {
   basic: {
-    installationFee: 48.64,
-    pricing: { tier1: 198.25, tier2: 184.25, tier3: 177.61, tier4: 170.98 },
+    installationFee: 66.0,
+    pricing: { tier1: 269.0, tier2: 250.0, tier3: 241.0, tier4: 232.0 },
     features: [
       '40+ hours of exposure per car per week',
       'Ads displayed across high-traffic areas in the city',
@@ -21,8 +21,8 @@ export const PLAN_CONFIGS: Record<PlanType, PlanConfig> = {
   },
 
   premium: {
-    installationFee: 154.77,
-    pricing: { tier1: 223.31, tier2: 207.83, tier3: 199.72, tier4: 192.35 },
+    installationFee: 210,
+    pricing: { tier1: 303.0, tier2: 282.0, tier3: 271.0, tier4: 261.0 },
     features: [
       '95-99% confidence rate in impression accuracy',
       'Industry-leading measurement technology',
