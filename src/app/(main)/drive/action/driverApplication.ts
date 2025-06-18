@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 export type DriverApplication = {
   from: string;
   to: string;
@@ -114,9 +115,9 @@ export function greetDrivers() {
 export async function sendDriverApplicationEmail(
   applicationData: DriverApplication
 ): Promise<{ success: boolean; message: string }> {
-  console.log('Sending driver application email with data:', applicationData);
+  // Step 1: Save the application to the database
   try {
-    const response = await fetch('/api/send-email', {
+    const saveResponse = await fetch('/api/drivers/create', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -124,24 +125,53 @@ export async function sendDriverApplicationEmail(
       body: JSON.stringify(applicationData),
     });
 
-    console.log('Response status:', response);
+    const saveResult = await saveResponse.json();
 
-    const result = await response.json();
-
-    if (!response.ok) {
+    if (!saveResponse.ok) {
+      console.error('Failed to save application data:', saveResult.message);
       return {
         success: false,
-        message: result.error ?? 'Unknown server error',
+        message: saveResult.message ?? 'Could not save the application.',
+      };
+    }
+
+    console.log('Driver application data saved successfully.');
+  } catch (error: any) {
+    console.error('Network error while saving driver data:', error);
+    return {
+      success: false,
+      message: 'A network error occurred while saving your application.',
+    };
+  }
+
+  // Step 2: Send the email notification
+  try {
+    const emailResponse = await fetch('/api/send-email', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(applicationData),
+    });
+
+    const emailResult = await emailResponse.json();
+
+    if (!emailResponse.ok) {
+      return {
+        success: false,
+        message: `Your application was saved, but the confirmation email failed to send. Reason: ${emailResult.error ?? 'Unknown server error'}`,
       };
     }
 
     return {
       success: true,
-      message: result.message ?? 'Email sent successfully',
+      message: 'Application submitted successfully!',
     };
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (error: any) {
-    console.error('Error sending email:', error);
-    return { success: false, message: error.message ?? 'Network error' };
+    console.error('Network error sending email:', error);
+    return {
+      success: false,
+      message: `Your application was saved, but the confirmation email failed with a network error: ${error.message}`,
+    };
   }
 }

@@ -11,12 +11,12 @@ export default async function DashboardLayout({
   const menus = adminSideNavData as SideNavItem[];
 
   return (
-    <Flex h="100vh" bg={'#FFF0FA'}>
+    <Flex pos={'relative'} bg={'#FFF0FA'}>
       {/* Sidebar (non-scrollable) */}
       <SideBarWrapper menus={menus} />
 
       {/* Scrollable main content */}
-      <ScrollArea type="auto" px={32} bg="white" w="100%" h="100vh">
+      <ScrollArea px={32} bg="white" w="100%">
         <Flex
           style={{ zIndex: 100 }}
           top={20}
