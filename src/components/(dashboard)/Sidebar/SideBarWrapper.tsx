@@ -5,6 +5,7 @@ import { SideNavItem } from '../../../types/dashboard';
 import { UserSideNav } from './UserSideNav';
 import Link from 'next/link';
 import Image from 'next/image';
+import Logout from '../Logout';
 
 type SideBarWrapperProps = {
   readonly menus?: SideNavItem[];
@@ -26,6 +27,9 @@ const SideBarWrapper = ({ menus }: SideBarWrapperProps) => {
         </Link>
       </Center>
       <UserSideNav menus={menus} />
+      <Box>
+        <Logout />
+      </Box>
     </Box>
   );
 };

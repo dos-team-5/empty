@@ -21,9 +21,9 @@ import {
 import { Calendar, Clock, Coffee, Gift, Users, Plus, Edit } from 'lucide-react';
 import ReusableFormModal from './reusable-form-modal';
 import { SpinnerCampaign } from '@/schema';
-import { createCampaign } from '@/app/(protected)/(dashboard)/spin-control/action/createCampaign';
+import { createCampaign } from '@/app/(protected)/(dashboard)/admin/spin-control/action/createCampaign';
 import { notifications } from '@mantine/notifications';
-import { updateCampaign } from '@/app/(protected)/(dashboard)/spin-control/action/updateCampaign';
+import { updateCampaign } from '@/app/(protected)/(dashboard)/admin/spin-control/action/updateCampaign';
 
 const PRIMARY_COLOR = '#CB6AA7';
 

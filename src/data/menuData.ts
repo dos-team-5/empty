@@ -81,7 +81,7 @@ export const adminSideNavData = [
   {
     id: 1,
     label: 'Spin Control',
-    path: '/spin-control',
+    path: '/admin/spin-control',
     icon: '',
     children: [],
   },
@@ -89,7 +89,7 @@ export const adminSideNavData = [
     id: 2,
     label: 'Driver Data',
     icon: '',
-    path: '/driver-data',
+    path: '/admin/driver-data',
     children: [],
   },
 ];
