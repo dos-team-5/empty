@@ -11,30 +11,25 @@ export default async function DashboardLayout({
   const menus = adminSideNavData as SideNavItem[];
 
   return (
-    <Flex bg={'#FFF0FA'} mx={'auto'}>
+    <Flex h="100vh" bg={'#FFF0FA'}>
+      {/* Sidebar (non-scrollable) */}
       <SideBarWrapper menus={menus} />
 
-      <ScrollArea
-        px={32}
-        py={40}
-        bg={'white'}
-        pos={'relative'}
-        w={'100%'}
-        className="h-screen"
-      >
+      {/* Scrollable main content */}
+      <ScrollArea type="auto" px={32} bg="white" w="100%" h="100vh">
         <Flex
           style={{ zIndex: 100 }}
           top={20}
           right={44}
-          pos={'fixed'}
-          w={'100%'}
-          align={'center'}
+          w="100%"
+          align="center"
           justify={{ base: 'space-between', md: 'flex-end' }}
           gap={20}
         >
           <MobileSideBar menus={menus} />
         </Flex>
-        <Box>{children}</Box>
+
+        <Box py={40}>{children}</Box>
       </ScrollArea>
     </Flex>
   );
