@@ -20,7 +20,7 @@ import { useForm } from '@mantine/form';
 import { DateTimePicker } from '@mantine/dates';
 import { Plus, Trash2, Save } from 'lucide-react';
 import { useEffect } from 'react';
-import { FileHandlerRes, ImageHandler } from '@/components/FileManager';
+import { FileHandlerRes } from '@/components/FileManager';
 import { notifications } from '@mantine/notifications';
 import { FileAttachment } from '@/schema';
 
@@ -250,7 +250,8 @@ export default function ReusableFormModal({
                       {...form.getInputProps('title')}
                     />
 
-                    <TextInput
+                    {/* <TextInput
+                      hidden
                       label="Company Name"
                       placeholder="Enter company name"
                       required
@@ -264,16 +265,16 @@ export default function ReusableFormModal({
                         },
                       }}
                       {...form.getInputProps('companyName')}
-                    />
+                    /> */}
                   </Group>
 
-                  <ImageHandler onUploadSuccess={handleFileUpload} />
+                  {/* <ImageHandler onUploadSuccess={handleFileUpload} /> */}
 
-                  {mode === 'edit' && (
+                  {/* {mode === 'edit' && (
                     <Text size="sm" c="dimmed" mt={rem(-8)}>
                       Leave empty to keep current logo
                     </Text>
-                  )}
+                  )} */}
                 </Stack>
               </Box>
 

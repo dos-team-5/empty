@@ -1,9 +1,10 @@
-import DriverInformationCard from '@/components/(dashboard)/Driver-Data/DriverInformationCard';
+import SpinDataTable from '@/components/(dashboard)/Tables/SpinDataTable';
 
 const DriverData = () => {
   return (
     <div>
-      <DriverInformationCard />
+      {/* <DriverInformationCard /> */}
+      <SpinDataTable />
     </div>
   );
 };

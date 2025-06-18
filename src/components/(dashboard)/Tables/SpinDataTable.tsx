@@ -1,3 +1,5 @@
+'use client';
+
 import { DataTable } from 'mantine-datatable';
 import { userSpinTableColumns } from './columns/spin-column';
 import { FAKE_USERS } from './data/spin-data';
@@ -14,6 +16,12 @@ const SpinDataTable = () => {
           backgroundColor: '#FFF5F5',
         },
       }}
+      // onCellClick={({ event, record, index, column, columnIndex }) => {
+      //   openModal({
+      //     title: 'Cell click information',
+      //     children: <DriverInformationCard />,
+      //   });
+      // }}
     />
   );
 };
