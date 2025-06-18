@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { Inter, Sora } from 'next/font/google';
 import '@mantine/core/styles.css';
 import './globals.css';
+import '@mantine/dates/styles.css';
 import { Providers } from '@/providers';
 import { ColorSchemeScript, mantineHtmlProps } from '@mantine/core';
 

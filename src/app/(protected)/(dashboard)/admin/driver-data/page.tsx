@@ -1,12 +1,12 @@
 import SpinDataTable from '@/components/(dashboard)/Tables/SpinDataTable';
-import { Box } from '@mantine/core';
 
-const SpinControl = () => {
+const DriverData = () => {
   return (
-    <Box>
+    <div>
+      {/* <DriverInformationCard /> */}
       <SpinDataTable />
-    </Box>
+    </div>
   );
 };
 
-export default SpinControl;
+export default DriverData;

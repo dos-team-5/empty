@@ -67,7 +67,10 @@ export async function GET(req: NextRequest) {
 }
 
 // Define a type for the request body for validation purposes
-type CreateCampaignPayload = Omit<NewSpinnerCampaign, 'id' | 'createdAt'>;
+export type CreateCampaignPayload = Omit<
+  NewSpinnerCampaign,
+  'id' | 'createdAt'
+>;
 
 export async function POST(req: NextRequest) {
   try {
