@@ -16,7 +16,7 @@ export default async function DashboardLayout({
       <SideBarWrapper menus={menus} />
 
       {/* Scrollable main content */}
-      <ScrollArea px={32} bg="white" w="100%">
+      <ScrollArea px={32} bg="white" w="100%" h={'100vh'}>
         <Flex
           style={{ zIndex: 100 }}
           top={20}
