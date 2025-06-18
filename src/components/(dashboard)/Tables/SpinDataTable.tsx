@@ -126,6 +126,7 @@ const SpinDataTable = () => {
           { accessor: 'city' },
           { accessor: 'state' },
         ]}
+        noRecordsText={''}
         records={companies}
       />
     </>
