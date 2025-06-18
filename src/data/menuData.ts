@@ -1,0 +1,95 @@
+export const userSidenavData = [
+  {
+    id: 1,
+    label: 'Dashboard',
+    path: '/dashboard',
+    icon: 'tabler:gauge',
+    children: [],
+  },
+  {
+    id: 2,
+    label: 'Plan',
+    path: '/plan',
+    icon: 'tabler:calendar',
+    children: [],
+  },
+  {
+    id: 5,
+    label: 'Deposit',
+    path: '/deposit',
+    icon: 'tabler:upload',
+    children: [],
+  },
+  {
+    id: 6,
+    label: 'Withdraw',
+    path: '/withdraw',
+    icon: 'tabler:download',
+    children: [],
+  },
+  {
+    id: 3,
+    label: 'Shop',
+    path: '/shop',
+    icon: 'tabler:shopping-cart',
+    children: [],
+  },
+  {
+    id: 4,
+    label: 'Earn Money',
+    icon: 'tabler:coin',
+    children: [
+      {
+        id: 4.1,
+        label: 'View Ads',
+        path: '/ads',
+        icon: '',
+        children: [],
+      },
+      {
+        id: 4.3,
+        label: 'My Jobs',
+        path: '/my-jobs',
+        icon: '',
+        children: [],
+      },
+      {
+        id: 4.4,
+        label: 'History',
+        path: '/history',
+        icon: '',
+        children: [],
+      },
+    ],
+  },
+  {
+    id: 8,
+    label: 'All Transactions',
+    path: '/all-transactions',
+    icon: 'tabler:report',
+    children: [],
+  },
+  {
+    id: 9,
+    label: 'Support Ticket',
+    path: '/support-ticket',
+    icon: 'tabler:help-circle',
+    children: [],
+  },
+];
+export const adminSideNavData = [
+  {
+    id: 1,
+    label: 'Spin Control',
+    path: '/spin-control',
+    icon: '',
+    children: [],
+  },
+  {
+    id: 2,
+    label: 'Driver Data',
+    icon: '',
+    path: '/driver-data',
+    children: [],
+  },
+];

@@ -31,7 +31,7 @@ import {
   getDriverApplicationFromLocalStorage,
   greetDrivers,
   sendDriverApplicationEmail,
-} from '@/app/drive/action/driverApplication';
+} from '@/app/(main)/drive/action/driverApplication';
 import { deleteFile } from '../FileManager/actions/fileActions';
 
 // Zod validation schema

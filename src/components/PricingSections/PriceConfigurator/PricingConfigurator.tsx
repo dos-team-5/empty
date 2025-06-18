@@ -3,6 +3,7 @@
 import { useState, useMemo, memo, useEffect, useCallback } from 'react';
 import {
   Accordion,
+  Badge,
   Box,
   Button,
   Card,
@@ -16,13 +17,14 @@ import {
 } from '@mantine/core';
 import { Currency, PlanType } from './types';
 import { usePricingCalculation } from './hooks/usePriceCalculation';
-import { ADDONS, CAR_OPTIONS, MONTH_OPTIONS } from './data';
+import { ADDONS, CAR_OPTIONS } from './data';
 import { PricingCard } from './components/PricingCard';
 import { PlanCard } from './components/PlanCard';
 import { AddonItem } from './components/AddOnItem';
 import { Icon } from '@iconify/react/dist/iconify.js';
 import { TextAnimate } from '@/components/TextAnimation';
 import { getExchangeRates } from './action/getExchangeRates';
+import { useHover } from '@mantine/hooks';
 
 const TitleSection = memo(() => (
   <div className="mb-12 space-y-6 rounded-3xl text-start">
@@ -76,7 +78,8 @@ export default function PricingConfigurator() {
     deviceIdPassBack: false,
   });
   const [carOptions, setCarOptions] = useState(CAR_OPTIONS);
-  const [monthOption, setMonthOptions] = useState(MONTH_OPTIONS);
+  const { ref } = useHover();
+  const [months, setMonths] = useState<number>(1);
 
   // Fetch exchange rate on toggle or initial load
   useEffect(() => {
@@ -211,6 +214,7 @@ export default function PricingConfigurator() {
               currencyType={currency}
               setCurrencyType={setCurrency}
               onCheckout={fetchClientSecret}
+              months={months}
             />
           </Box>
 
@@ -275,31 +279,6 @@ export default function PricingConfigurator() {
                       `${carOptions[value].cars} car${carOptions[value].cars > 1 ? 's' : ''}`
                     }
                   />
-                  {/* <InputLabel
-                    htmlFor="car-count"
-                    className="text-base font-medium"
-                  >
-                    Number of Months
-                  </InputLabel>
-                  <Slider
-                    key={resetKey}
-                    px={16}
-                    mb={30}
-                    value={selectedIndex}
-                    onChange={handleSliderChange}
-                    min={0}
-                    max={carOptions.length - 1}
-                    step={1}
-                    marks={monthOption.map((option, index) => ({
-                      value: index,
-                      label: option.label,
-                    }))}
-                    color="var(--mantine-primary-color-4)"
-                    label={(value) =>
-                      `${carOptions[value].cars} car${carOptions[value].cars > 1 ? 's' : ''}`
-                    }
-                  /> */}
-
                   {/* Input for precise entry */}
                   <NumberInput
                     hideControls
@@ -310,6 +289,35 @@ export default function PricingConfigurator() {
                     onChange={(value) => handleCarCountChange(value.toString())}
                     classNames={{ input: '!bg-gray-100' }}
                     placeholder="Enter exact number of cars"
+                  />
+                </Box>
+
+                <Box className="space-y-4">
+                  <Flex gap={8}>
+                    <InputLabel
+                      htmlFor="months"
+                      className="text-base font-medium"
+                    >
+                      Months Selected
+                    </InputLabel>
+                    <Badge variant="outline">{`${months} Month${months > 1 ? 's' : ''}`}</Badge>
+                  </Flex>
+
+                  {/* Slider for quick selection */}
+                  <Slider
+                    id="months"
+                    value={months}
+                    onChange={setMonths}
+                    defaultValue={1}
+                    min={1}
+                    max={12}
+                    ref={ref}
+                    label={null}
+                    styles={{
+                      thumb: {
+                        transition: 'opacity 150ms ease',
+                      },
+                    }}
                   />
                 </Box>
 
