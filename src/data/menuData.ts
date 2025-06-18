@@ -80,131 +80,16 @@ export const userSidenavData = [
 export const adminSideNavData = [
   {
     id: 1,
-    label: 'Dashboard',
-    path: '/admin/dashboard',
-    icon: 'material-symbols:dashboard-outline',
+    label: 'Spin Control',
+    path: '/spin-control',
+    icon: '',
     children: [],
   },
   {
     id: 2,
-    label: 'Users',
-    icon: 'lucide:users-round',
-    path: '/admin/users',
-    children: [],
-  },
-  {
-    id: 3,
-    label: 'Ads',
-    path: '/admin/ads',
-    icon: 'material-symbols:ads-click',
-    children: [],
-  },
-  // MANAGE JOBS
-  {
-    id: 4,
-    label: 'Manage Jobs',
-    icon: 'gg:list',
-    children: [
-      {
-        id: 4.1,
-        label: 'Jobs',
-        path: '/admin/jobs',
-        icon: 'gg:list',
-        children: [],
-      },
-      {
-        id: 4.2,
-        label: 'Job Applications',
-        path: '/admin/job-application',
-        icon: 'hugeicons:job-search',
-        children: [],
-      },
-      {
-        id: 4.3,
-        label: 'Job Submissions',
-        path: '/admin/job-submissions',
-        icon: 'hugeicons:job-search',
-        children: [],
-      },
-    ],
-  },
-  // MANAGE PLANS
-  {
-    id: 5,
-    label: 'Manage Plan',
-    icon: 'icon-park-outline:plan',
-    children: [
-      {
-        id: 5.1,
-        label: 'Plan',
-        path: '/admin/plans',
-        icon: 'icon-park-outline:plan',
-      },
-      {
-        id: 5.2,
-        label: 'User Plan',
-        path: '/admin/user-plan',
-        icon: 'icon-park-outline:plan',
-        children: [],
-      },
-    ],
-  },
-
-  {
-    id: 6,
-    label: 'Products',
-    path: '/admin/products',
-    icon: 'tabler:shopping-cart',
-    children: [],
-  },
-  // MANAGE TRANSACTIONS
-  {
-    id: 7,
-    label: 'Manage Transactions',
-    icon: 'tabler:report',
-    children: [
-      {
-        id: 7.1,
-        label: 'All Transactions',
-        path: '/admin/all-transactions',
-        icon: 'tabler:report',
-        children: [],
-      },
-      {
-        id: 7.2,
-        label: 'Deposit',
-        path: '/admin/deposits',
-        icon: 'ph:hand-deposit',
-        children: [],
-      },
-      {
-        id: 7.3,
-        label: 'Withdraw',
-        path: '/admin/withdrawals',
-        icon: 'ph:hand-withdraw',
-        children: [],
-      },
-      {
-        id: 7.4,
-        label: 'Payout',
-        path: '/admin/payout-accounts',
-        icon: 'mdi-light:bank',
-        children: [],
-      },
-    ],
-  },
-  {
-    id: 8,
-    label: 'Support Ticket',
-    path: '/admin/support-ticket',
-    icon: 'tabler:help-circle',
-    children: [],
-  },
-  {
-    id: 9,
-    label: 'Settings',
-    path: '/admin/site-settings',
-    icon: 'akar-icons:gear',
+    label: 'Driver Data',
+    icon: '',
+    path: '/driver-data',
     children: [],
   },
 ];

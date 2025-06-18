@@ -15,8 +15,6 @@ body {
   /* Firefox */
 }
 
-
-
 ::-webkit-scrollbar {
   width: 12px;
   /* Scrollbar width for WebKit browsers */
@@ -89,7 +87,8 @@ body {
   --font-inter: 'Inter', sans-serif;
 
   --animate-slide-in: slide-in 0.15s ease-in-out;
-  --animate-shimmer-slide: shimmer-slide var(--speed) ease-in-out infinite alternate;
+  --animate-shimmer-slide: shimmer-slide var(--speed) ease-in-out infinite
+    alternate;
   --animate-spin-around: spin-around calc(var(--speed) * 2) infinite linear;
   --animate-infinite-tilt: infinite-tilt 2s ease-in-out infinite;
 
