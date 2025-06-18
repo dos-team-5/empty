@@ -39,7 +39,7 @@ export default function RootLayout({
         />
       </head>
       <body
-        className={`${poppins.variable} ${inter.variable} relative overflow-clip antialiased`}
+        className={`${poppins.variable} ${inter.variable} relative antialiased`}
       >
         <Providers>{children}</Providers>
       </body>
