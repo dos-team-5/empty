@@ -27,9 +27,9 @@ const SideBarWrapper = ({ menus }: SideBarWrapperProps) => {
         </Link>
       </Center>
       <UserSideNav menus={menus} />
-      <Box>
+      <Center pos={'absolute'} bottom={40} w={'100%'}>
         <Logout />
-      </Box>
+      </Center>
     </Box>
   );
 };

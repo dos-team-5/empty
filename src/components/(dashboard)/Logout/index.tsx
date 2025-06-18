@@ -1,4 +1,5 @@
 'use client';
+import { Icon } from '@iconify/react/dist/iconify.js';
 import { Button } from '@mantine/core';
 import { signOut } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
@@ -10,7 +11,12 @@ const Logout = () => {
     router.push('/');
   };
   return (
-    <Button unstyled onClick={handleLogout} color="red">
+    <Button
+      c={'black'}
+      variant="subtle"
+      leftSection={<Icon icon="material-symbols:logout-rounded" />}
+      onClick={handleLogout}
+    >
       Logout
     </Button>
   );
