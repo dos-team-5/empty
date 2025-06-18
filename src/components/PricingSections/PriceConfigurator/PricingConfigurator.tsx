@@ -65,7 +65,7 @@ TitleSection.displayName = 'TitleSection';
 
 // Main Component
 export default function PricingConfigurator() {
-  const [currency, setCurrency] = useState<Currency>('usd');
+  const [currency, setCurrency] = useState<Currency>('cad');
   const [exchangeRate, setExchangeRate] = useState<number>(1);
   const [resetKey, setResetKey] = useState(0);
   const [planType, setPlanType] = useState<PlanType>('basic');
@@ -84,10 +84,10 @@ export default function PricingConfigurator() {
   // Fetch exchange rate on toggle or initial load
   useEffect(() => {
     const fetchRate = async () => {
-      if (currency === 'cad') {
+      if (currency === 'usd') {
         const res = await getExchangeRates(); // this will call your server action
-        if (res.usdToCad) {
-          setExchangeRate(res.usdToCad);
+        if (res.cadToUsd) {
+          setExchangeRate(res.cadToUsd ?? 1);
         }
       } else {
         setExchangeRate(1); // USD is the base
@@ -96,6 +96,8 @@ export default function PricingConfigurator() {
 
     fetchRate();
   }, [currency]);
+
+  console.log('exchangeRate', exchangeRate);
 
   const pricing = usePricingCalculation(
     planType,

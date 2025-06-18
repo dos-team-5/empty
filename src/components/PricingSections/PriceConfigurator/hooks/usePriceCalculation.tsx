@@ -5,7 +5,7 @@ import { CAR_COUNT_TIERS, PLAN_CONFIGS } from '../data';
 export const usePricingCalculation = (
   planType: PlanType,
   carCount: number,
-  currency: Currency = 'usd', // 'usd' | 'cad'
+  currency: Currency = 'cad', // 'usd' | 'cad'
   exchangeRate: number = 1 // USD to CAD rate
 ) => {
   return useMemo(() => {
@@ -18,7 +18,7 @@ export const usePricingCalculation = (
     let installationFee = config.installationFee;
 
     // Convert if CAD
-    if (currency === 'cad') {
+    if (currency === 'usd') {
       monthlyPricePerCar = Math.round(monthlyPricePerCar * exchangeRate);
       installationFee = Math.round(installationFee * exchangeRate);
     }

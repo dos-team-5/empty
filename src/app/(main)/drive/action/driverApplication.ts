@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 export type DriverApplication = {
   from: string;
   to: string;
@@ -111,45 +112,10 @@ export function greetDrivers() {
   }
 }
 
-// export async function sendDriverApplicationEmail(
-//   applicationData: DriverApplication
-// ): Promise<{ success: boolean; message: string }> {
-//   console.log('Sending driver application email with data:', applicationData);
-//   try {
-//     const response = await fetch('/api/send-email', {
-//       method: 'POST',
-//       headers: {
-//         'Content-Type': 'application/json',
-//       },
-//       body: JSON.stringify(applicationData),
-//     });
-
-//     console.log('Response status:', response);
-
-//     const result = await response.json();
-
-//     if (!response.ok) {
-//       return {
-//         success: false,
-//         message: result.error ?? 'Unknown server error',
-//       };
-//     }
-
-//     return {
-//       success: true,
-//       message: result.message ?? 'Email sent successfully',
-//     };
-//     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-//   } catch (error: any) {
-//     console.error('Error sending email:', error);
-//     return { success: false, message: error.message ?? 'Network error' };
-//   }
-// }
-
 export async function sendDriverApplicationEmail(
   applicationData: DriverApplication
 ): Promise<{ success: boolean; message: string }> {
-  // Step 1: Save the application to the database by calling our new API route
+  // Step 1: Save the application to the database
   try {
     const saveResponse = await fetch('/api/drivers/create', {
       method: 'POST',
@@ -160,14 +126,15 @@ export async function sendDriverApplicationEmail(
     });
 
     const saveResult = await saveResponse.json();
-    // If saving the data fails, we stop the process immediately.
+
     if (!saveResponse.ok) {
       console.error('Failed to save application data:', saveResult.message);
       return {
         success: false,
-        message: saveResult.message || 'Could not save the application.',
+        message: saveResult.message ?? 'Could not save the application.',
       };
     }
+
     console.log('Driver application data saved successfully.');
   } catch (error: any) {
     console.error('Network error while saving driver data:', error);
@@ -177,8 +144,7 @@ export async function sendDriverApplicationEmail(
     };
   }
 
-  // Step 2: If saving was successful, now we send the notification email.
-  console.log('Sending driver application email with data:', applicationData);
+  // Step 2: Send the email notification
   try {
     const emailResponse = await fetch('/api/send-email', {
       method: 'POST',
@@ -191,15 +157,16 @@ export async function sendDriverApplicationEmail(
     const emailResult = await emailResponse.json();
 
     if (!emailResponse.ok) {
-      // The data was saved, but the email failed. We should inform the user.
       return {
         success: false,
-        message: `Your application was saved, but the confirmation email failed to send. Reason: ${emailResult.error || 'Unknown server error'}`,
+        message: `Your application was saved, but the confirmation email failed to send. Reason: ${emailResult.error ?? 'Unknown server error'}`,
       };
     }
 
-    // Both steps were successful!
-    return { success: true, message: 'Application submitted successfully!' };
+    return {
+      success: true,
+      message: 'Application submitted successfully!',
+    };
   } catch (error: any) {
     console.error('Network error sending email:', error);
     return {
