@@ -169,7 +169,7 @@ export default function DriverInformationCard() {
               <User className="h-5 w-5" style={{ color: '#CB6AA7' }} />
               Personal Information
             </Text>
-            <SimpleGrid spacing={16} cols={{ base: 1, md: 2 }}>
+            <SimpleGrid mt={20} spacing={16} cols={{ base: 1, md: 2 }}>
               <Flex align={'center'} gap={8}>
                 <User className="text-muted-foreground h-4 w-4" />
                 <span className="font-medium">Name:</span>

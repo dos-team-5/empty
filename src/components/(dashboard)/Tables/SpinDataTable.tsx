@@ -111,6 +111,8 @@ const SpinDataTable = () => {
   return (
     <>
       <DataTable
+        noRecordsText={''}
+        noRecordsIcon={true}
         columns={[
           { accessor: 'name' },
           { accessor: 'streetAddress' },
@@ -126,6 +128,8 @@ const SpinDataTable = () => {
           { accessor: 'city' },
           { accessor: 'state' },
         ]}
+        noRecordsText={''}
+        noRecordsIcon={<></>}
         records={companies}
       />
     </>

@@ -7,7 +7,7 @@
 html,
 body {
   font-family: var(--font-poppins);
-  overflow: visible !important;
+  /* overflow: visible !important; */
   /* Ensure scrollbar is always visible */
   scrollbar-width: auto;
   /* Firefox */
