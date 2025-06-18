@@ -67,7 +67,7 @@ const Meeting = () => {
               by="word"
               duration={0.5}
               delay={0.5}
-              className="lg:text-md max-w-[400px] text-sm normal-case md:max-w-[500px] md:text-[13px] xl:text-[12px] 2xl:text-xl"
+              className="lg:text-md max-w-[400px] text-sm normal-case md:max-w-[500px] 2xl:max-w-[600px] md:text-[13px] xl:text-[12px] 2xl:text-base"
               once
             >
               Our CPM is the lowest in out-of-home and rivals digital. We’ll
@@ -79,7 +79,7 @@ const Meeting = () => {
               by="word"
               duration={0.5}
               delay={0.7}
-              className="lg:text-md mt-2 max-w-[400px] text-sm normal-case md:max-w-[500px] md:text-[13px] xl:text-[12px] 2xl:text-xl"
+              className="lg:text-md mt-2 max-w-[400px] text-sm normal-case md:max-w-[500px] md:text-[13px] xl:text-[12px] 2xl:text-base"
               once
             >
               Re-target your real-world audience online for results that scale
