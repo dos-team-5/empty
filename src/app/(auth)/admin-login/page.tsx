@@ -61,7 +61,7 @@ export default function LoginPage() {
         setError(result.error);
       }
     } else {
-      router.push('/admin/dashboard');
+      router.push('/admin/spin-control');
     }
   };
 

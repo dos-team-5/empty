@@ -37,7 +37,7 @@ export async function middleware(request: NextRequest) {
 
   if (isPublicRoute && isAuthenticated) {
     // Redirect to profile if trying to access public route while authenticated
-    return NextResponse.redirect(new URL('/admin', request.url));
+    return NextResponse.redirect(new URL('/admin/spin-control', request.url));
   }
 
   // Continue for global routes or properly authenticated routes
