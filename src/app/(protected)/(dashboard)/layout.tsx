@@ -1,4 +1,4 @@
-import { Box, Flex, ScrollArea } from '@mantine/core';
+import { Box, Flex } from '@mantine/core';
 import { SideNavItem } from '../../../types/dashboard';
 import { adminSideNavData } from '../../../data/menuData';
 import { MobileSideBar, SideBarWrapper } from '@/components';
@@ -16,7 +16,13 @@ export default async function DashboardLayout({
       <SideBarWrapper menus={menus} />
 
       {/* Scrollable main content */}
-      <ScrollArea px={32} bg="white" w="100%" h={'100vh'}>
+      <Box
+        className="overflow-y-scroll"
+        px={32}
+        bg="white"
+        w="100%"
+        h={'100vh'}
+      >
         <Flex
           style={{ zIndex: 100 }}
           top={20}
@@ -30,7 +36,7 @@ export default async function DashboardLayout({
         </Flex>
 
         <Box py={40}>{children}</Box>
-      </ScrollArea>
+      </Box>
     </Flex>
   );
 }
