@@ -1,7 +1,9 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 'use client';
 
 import { useState } from 'react';
 import {
+  Container,
   Paper,
   Badge,
   Button,
@@ -11,26 +13,30 @@ import {
   Group,
   Stack,
   Box,
-  Container,
+  Grid,
+  Card,
+  rem,
 } from '@mantine/core';
-import { Calendar, Clock, Coffee, Gift, Users } from 'lucide-react';
+import { Calendar, Clock, Coffee, Gift, Users, Plus, Edit } from 'lucide-react';
 import Image from 'next/image';
+import ReusableFormModal from './reusable-form-modal';
 
-interface CampaignOption {
+interface FormOption {
   label: string;
   coupon: string;
 }
 
-interface CampaignProps {
+interface CampaignData {
   id: number;
   title: string;
   companyName: string;
+  description?: string;
   companyLogo: {
     url: string;
     name: string;
   };
   deadline: string;
-  options: CampaignOption[];
+  options: FormOption[];
   userLimit: number;
   attemptConfiguration: {
     timePeriod: string;
@@ -40,14 +46,19 @@ interface CampaignProps {
   createdAt: string;
 }
 
-export default function CampaignCard() {
-  const [activeTab, setActiveTab] = useState<string | null>('details');
+const PRIMARY_COLOR = '#CB6AA7';
 
-  // Campaign data from the JSON response
-  const campaign: CampaignProps = {
+export default function DemoPage() {
+  const [activeTab, setActiveTab] = useState<string | null>('details');
+  const [modalOpened, setModalOpened] = useState(false);
+  const [modalMode, setModalMode] = useState<'create' | 'edit'>('create');
+
+  // Sample campaign data
+  const [campaign, setCampaign] = useState<CampaignData>({
     id: 1,
     title: 'Summer Spin Fest 2025',
     companyName: 'The Local Coffee Shop',
+    description: 'Join our exciting summer campaign and win amazing prizes!',
     companyLogo: {
       url: 'https://storage.example.com/logos/coffee_shop_logo.png',
       name: 'coffee_shop_logo.png',
@@ -78,9 +89,8 @@ export default function CampaignCard() {
       attemptsPerPeriod: 1,
     },
     createdAt: '2025-06-18T13:34:48.746Z',
-  };
+  });
 
-  // Format the deadline date
   const formatDate = (dateString: string) => {
     const date = new Date(dateString);
     return new Intl.DateTimeFormat('en-US', {
@@ -92,170 +102,328 @@ export default function CampaignCard() {
     }).format(date);
   };
 
+  const handleCreateCampaign = () => {
+    setModalMode('create');
+    setModalOpened(true);
+  };
+
+  const handleEditCampaign = () => {
+    setModalMode('edit');
+    setModalOpened(true);
+  };
+
+  const handleFormSubmit = (data: any, mode: 'create' | 'edit') => {
+    console.log(`${mode} campaign:`, data);
+
+    if (mode === 'create') {
+      console.log('Creating new campaign...');
+      // Handle create logic here
+    } else {
+      console.log('Updating existing campaign...');
+      // Update local state for demo
+      setCampaign((prev) => ({
+        ...prev,
+        title: data.title,
+        companyName: data.companyName,
+        description: data.description,
+        deadline: data.deadline.toISOString(),
+        options: data.options,
+        userLimit: data.userLimit,
+        attemptConfiguration: data.attemptConfiguration,
+      }));
+    }
+  };
+
+  const getInitialFormData = () => {
+    if (modalMode === 'edit') {
+      return {
+        title: campaign.title,
+        companyName: campaign.companyName,
+        description: campaign.description,
+        deadline: new Date(campaign.deadline),
+        options: campaign.options,
+        userLimit: campaign.userLimit,
+        attemptConfiguration: campaign.attemptConfiguration,
+      };
+    }
+    return undefined;
+  };
+
   return (
-    <Container size="md" px="md">
-      <Paper shadow="md" radius="lg" withBorder style={{ overflow: 'hidden' }}>
-        {/* Header Section */}
-        <Box
+    <Container size="100%" px="md" py="xl">
+      <Stack gap="xl">
+        {/* Header Actions */}
+        <Group justify="space-between" align="center">
+          <Title order={1} size={rem(32)} c={PRIMARY_COLOR}>
+            Campaign Management
+          </Title>
+          <Button
+            leftSection={<Plus size={18} />}
+            onClick={handleCreateCampaign}
+            size="md"
+            style={{
+              backgroundColor: PRIMARY_COLOR,
+            }}
+            styles={{
+              root: {
+                '&:hover': {
+                  backgroundColor: `${PRIMARY_COLOR}dd`,
+                },
+              },
+            }}
+          >
+            Create New Campaign
+          </Button>
+        </Group>
+
+        {/* Main Campaign Card - Full Width */}
+        <Card
+          withBorder
           style={{
-            // background: 'linear-gradient(135deg, #fef3c7 0%, #fde68a 100%)',
-            borderBottom: '1px solid #e5e7eb',
-            padding: '1.5rem',
+            width: '100%',
+            overflow: 'hidden',
+            borderColor: `${PRIMARY_COLOR}30`,
           }}
         >
-          <Group justify="space-between" align="flex-start">
-            <Group align="center" gap="lg">
-              <Paper shadow="sm" p="sm" bg="white" radius="md">
-                <Image
-                  src="/placeholder.svg?height=60&width=60"
-                  alt={campaign.companyName}
-                  width={60}
-                  height={60}
-                  style={{ objectFit: 'contain' }}
-                />
-              </Paper>
-              <Stack gap="xs">
-                <Title order={2} size="xl" fw={700}>
-                  {campaign.title}
-                </Title>
-                <Text size="lg" c="dimmed">
-                  {campaign.companyName}
-                </Text>
-              </Stack>
-            </Group>
-            <Badge
-              variant="outline"
-              size="md"
-              leftSection={<Calendar size={14} />}
-            >
-              Created {new Date(campaign.createdAt).toLocaleDateString()}
-            </Badge>
-          </Group>
-        </Box>
-
-        {/* Tabs Section */}
-        <Tabs value={activeTab} onChange={setActiveTab} variant="default">
-          <Tabs.List grow>
-            <Tabs.Tab value="details">Campaign Details</Tabs.Tab>
-            <Tabs.Tab value="prizes">Prize Options</Tabs.Tab>
-          </Tabs.List>
-
-          <Tabs.Panel value="details" pt="xl" px="xl" pb="md">
-            <Stack gap="xl">
-              <Group align="flex-start" gap="md">
-                <Box
-                  style={{
-                    color: '#d97706',
-                    marginTop: '2px',
-                  }}
-                >
-                  <Clock size={20} style={{ color: '#CB6AA7' }} />
-                </Box>
-                <Stack gap="xs">
-                  <Text fw={500} size="sm">
-                    Deadline
-                  </Text>
-                  <Text size="sm" c="dimmed">
-                    {formatDate(campaign.deadline)}
-                  </Text>
+          {/* Header Section */}
+          <Box
+            style={{
+              background: `linear-gradient(135deg, ${PRIMARY_COLOR}15 0%, ${PRIMARY_COLOR}25 100%)`,
+              borderBottom: `2px solid ${PRIMARY_COLOR}30`,
+              padding: rem(24),
+            }}
+          >
+            <Grid align="center">
+              <Grid.Col span={{ base: 12, md: 8 }}>
+                <Group align="center" gap="xl">
+                  <Paper shadow="md" p="md" bg="white" radius="lg">
+                    <Image
+                      src="/placeholder.svg?height=80&width=80"
+                      alt={campaign.companyName}
+                      width={80}
+                      height={80}
+                      style={{ objectFit: 'contain' }}
+                    />
+                  </Paper>
+                  <Stack gap="xs">
+                    <Title order={2} size={rem(28)} fw={700} c={PRIMARY_COLOR}>
+                      {campaign.title}
+                    </Title>
+                    <Text size="lg" c="dimmed" fw={500}>
+                      {campaign.companyName}
+                    </Text>
+                    {campaign.description && (
+                      <Text size="md" c="dimmed" lineClamp={2}>
+                        {campaign.description}
+                      </Text>
+                    )}
+                  </Stack>
+                </Group>
+              </Grid.Col>
+              <Grid.Col span={{ base: 12, md: 4 }}>
+                <Stack gap="sm" align="flex-end">
+                  <Badge
+                    variant="light"
+                    size="lg"
+                    leftSection={<Calendar size={16} />}
+                    color="gray"
+                    style={{
+                      backgroundColor: `${PRIMARY_COLOR}15`,
+                      color: PRIMARY_COLOR,
+                    }}
+                  >
+                    Created {new Date(campaign.createdAt).toLocaleDateString()}
+                  </Badge>
                 </Stack>
-              </Group>
+              </Grid.Col>
+            </Grid>
+          </Box>
 
-              <Group align="flex-start" gap="md">
-                <Box
-                  style={{
-                    color: '#d97706',
-                    marginTop: '2px',
-                  }}
-                >
-                  <Users size={20} style={{ color: '#CB6AA7' }} />
-                </Box>
-                <Stack gap="xs">
-                  <Text fw={500} size="sm">
-                    User Limit
-                  </Text>
-                  <Text size="sm" c="dimmed">
-                    {campaign.userLimit.toLocaleString()} participants
-                  </Text>
-                </Stack>
-              </Group>
+          {/* Tabs Section */}
+          <Tabs
+            value={activeTab}
+            onChange={setActiveTab}
+            variant="default"
+            styles={{
+              tab: {
+                '&[dataActive]': {
+                  color: PRIMARY_COLOR,
+                  borderColor: PRIMARY_COLOR,
+                },
+                '&:hover': {
+                  backgroundColor: `${PRIMARY_COLOR}10`,
+                },
+              },
+            }}
+          >
+            <Tabs.List grow>
+              <Tabs.Tab value="details">Campaign Details</Tabs.Tab>
+              <Tabs.Tab value="prizes">Prize Options</Tabs.Tab>
+            </Tabs.List>
 
-              <Group align="flex-start" gap="md">
-                <Box
-                  style={{
-                    color: '#d97706',
-                    marginTop: '2px',
-                  }}
-                >
-                  <Coffee size={20} style={{ color: '#CB6AA7' }} />
-                </Box>
-                <Stack gap="xs">
-                  <Text fw={500} size="sm">
-                    Attempt Configuration
-                  </Text>
-                  <Text size="sm" c="dimmed">
-                    {campaign.attemptConfiguration.attemptsPerPeriod} attempt
-                    per {campaign.attemptConfiguration.timePeriod},{' '}
-                    {campaign.attemptConfiguration.totalAttempts} total attempts
-                  </Text>
-                </Stack>
-              </Group>
-            </Stack>
-          </Tabs.Panel>
-
-          <Tabs.Panel value="prizes" pt="xl" px="xl" pb="md">
-            <Stack gap="md">
-              {campaign.options.map((option, index) => (
-                <Paper
-                  key={index}
-                  p="md"
-                  withBorder
-                  radius="md"
-                  style={{ backgroundColor: '#fafafa' }}
-                >
-                  <Group justify="space-between" align="center">
-                    <Group align="center" gap="md">
-                      <Box
-                        style={{
-                          backgroundColor: '#FFF0FA',
-                          padding: '8px',
-                          borderRadius: '50%',
-                          display: 'flex',
-                          alignItems: 'center',
-                          justifyContent: 'center',
-                        }}
-                      >
-                        <Gift size={20} style={{ color: '#CB6AA7' }} />
-                      </Box>
-                      <Text fw={500}>{option.label}</Text>
-                    </Group>
-                    <Badge
-                      variant="light"
-                      color="gray"
-                      style={{ fontFamily: 'monospace' }}
+            <Tabs.Panel value="details" pt="xl" px="xl" pb="md">
+              <Grid>
+                <Grid.Col span={{ base: 12, md: 4 }}>
+                  <Group align="flex-start" gap="md">
+                    <Box
+                      style={{
+                        color: PRIMARY_COLOR,
+                        marginTop: rem(2),
+                      }}
                     >
-                      {option.coupon}
-                    </Badge>
+                      <Clock size={24} />
+                    </Box>
+                    <Stack gap="xs">
+                      <Text fw={600} size="md" c={PRIMARY_COLOR}>
+                        Deadline
+                      </Text>
+                      <Text size="sm" c="dimmed">
+                        {formatDate(campaign.deadline)}
+                      </Text>
+                    </Stack>
                   </Group>
-                </Paper>
-              ))}
-            </Stack>
-          </Tabs.Panel>
-        </Tabs>
+                </Grid.Col>
 
-        {/* Footer Section */}
-        <Box
-          style={{
-            borderTop: '1px solid #e5e7eb',
-            padding: '1rem 1.5rem',
-            backgroundColor: '#f8fafc',
-          }}
-        >
-          <Group justify="space-between">
-            <Button>Edit Campaign</Button>
-          </Group>
-        </Box>
-      </Paper>
+                <Grid.Col span={{ base: 12, md: 4 }}>
+                  <Group align="flex-start" gap="md">
+                    <Box
+                      style={{
+                        color: PRIMARY_COLOR,
+                        marginTop: rem(2),
+                      }}
+                    >
+                      <Users size={24} />
+                    </Box>
+                    <Stack gap="xs">
+                      <Text fw={600} size="md" c={PRIMARY_COLOR}>
+                        User Limit
+                      </Text>
+                      <Text size="sm" c="dimmed">
+                        {campaign.userLimit.toLocaleString()} participants
+                      </Text>
+                    </Stack>
+                  </Group>
+                </Grid.Col>
+
+                <Grid.Col span={{ base: 12, md: 4 }}>
+                  <Group align="flex-start" gap="md">
+                    <Box
+                      style={{
+                        color: PRIMARY_COLOR,
+                        marginTop: rem(2),
+                      }}
+                    >
+                      <Coffee size={24} />
+                    </Box>
+                    <Stack gap="xs">
+                      <Text fw={600} size="md" c={PRIMARY_COLOR}>
+                        Attempt Configuration
+                      </Text>
+                      <Text size="sm" c="dimmed">
+                        {campaign.attemptConfiguration.attemptsPerPeriod}{' '}
+                        attempt per {campaign.attemptConfiguration.timePeriod},{' '}
+                        {campaign.attemptConfiguration.totalAttempts} total
+                        attempts
+                      </Text>
+                    </Stack>
+                  </Group>
+                </Grid.Col>
+              </Grid>
+            </Tabs.Panel>
+
+            <Tabs.Panel value="prizes" pt="xl" px="xl" pb="md">
+              <Grid>
+                {campaign.options.map((option, index) => (
+                  <Grid.Col key={index} span={{ base: 12, sm: 6, md: 4 }}>
+                    <Paper
+                      p="lg"
+                      withBorder
+                      radius="lg"
+                      style={{
+                        backgroundColor: `${PRIMARY_COLOR}08`,
+                        borderColor: `${PRIMARY_COLOR}20`,
+                        height: '100%',
+                      }}
+                    >
+                      <Stack gap="md" align="center">
+                        <Box
+                          style={{
+                            backgroundColor: `${PRIMARY_COLOR}20`,
+                            padding: rem(12),
+                            borderRadius: '50%',
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                          }}
+                        >
+                          <Gift size={24} style={{ color: PRIMARY_COLOR }} />
+                        </Box>
+                        <Text fw={600} ta="center" c={PRIMARY_COLOR}>
+                          {option.label}
+                        </Text>
+                        <Badge
+                          variant="light"
+                          color="gray"
+                          style={{
+                            fontFamily: 'monospace',
+                            backgroundColor: `${PRIMARY_COLOR}15`,
+                            color: PRIMARY_COLOR,
+                          }}
+                        >
+                          {option.coupon}
+                        </Badge>
+                      </Stack>
+                    </Paper>
+                  </Grid.Col>
+                ))}
+              </Grid>
+            </Tabs.Panel>
+          </Tabs>
+
+          {/* Footer Actions */}
+          <Box
+            style={{
+              borderTop: `2px solid ${PRIMARY_COLOR}20`,
+              padding: rem(24),
+              backgroundColor: `${PRIMARY_COLOR}05`,
+            }}
+          >
+            <Group justify="space-between">
+              <Button
+                variant="outline"
+                leftSection={<Edit size={18} />}
+                onClick={handleEditCampaign}
+                size="md"
+                style={{
+                  borderColor: PRIMARY_COLOR,
+                  color: PRIMARY_COLOR,
+                }}
+                styles={{
+                  root: {
+                    '&:hover': {
+                      backgroundColor: `${PRIMARY_COLOR}15`,
+                    },
+                  },
+                }}
+              >
+                Edit Campaign
+              </Button>
+            </Group>
+          </Box>
+        </Card>
+      </Stack>
+
+      {/* Reusable Form Modal */}
+      <ReusableFormModal
+        opened={modalOpened}
+        onClose={() => setModalOpened(false)}
+        onSubmit={handleFormSubmit}
+        mode={modalMode}
+        initialData={getInitialFormData()}
+        entityId={modalMode === 'edit' ? campaign.id : undefined}
+        title={modalMode === 'create' ? 'Create New Campaign' : 'Edit Campaign'}
+        size={'xl'}
+      />
     </Container>
   );
 }
