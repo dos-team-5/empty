@@ -22,6 +22,10 @@ import { TextRevealByWord } from './TextRevealByWord';
 import PricingCards from './PricingSections/PricingCards';
 import PricingConfigurator from './PricingSections/PriceConfigurator/PricingConfigurator';
 
+// dashboard
+import { UserSideNav } from './(dashboard)/Sidebar/UserSideNav';
+import SideBarWrapper from './(dashboard)/Sidebar/SideBarWrapper';
+import MobileSideBar from './(dashboard)/Sidebar/MobileSideBar';
 export {
   ToggleModeSwitch,
   Navbar,
@@ -46,4 +50,9 @@ export {
   TextReveal,
   TextRevealByWord,
   PricingConfigurator,
+
+  // dashboard
+  UserSideNav,
+  SideBarWrapper,
+  MobileSideBar,
 };
