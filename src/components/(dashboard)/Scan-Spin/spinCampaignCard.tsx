@@ -27,69 +27,38 @@ interface FormOption {
 }
 
 interface CampaignData {
-  id: number;
-  title: string;
-  companyName: string;
-  description?: string;
-  companyLogo: {
+  readonly id: number;
+  readonly title: string;
+  readonly companyName: string;
+  readonly description?: string;
+  readonly companyLogo: {
     url: string;
     name: string;
   };
-  deadline: string;
-  options: FormOption[];
-  userLimit: number;
-  attemptConfiguration: {
+  readonly deadline: string;
+  readonly options: FormOption[];
+  readonly userLimit: number;
+  readonly attemptConfiguration: {
     timePeriod: string;
     totalAttempts: number;
     attemptsPerPeriod: number;
   };
-  createdAt: string;
+  readonly createdAt: string;
 }
 
 const PRIMARY_COLOR = '#CB6AA7';
 
-export default function DemoPage() {
+export default function SpinCampaignCard({
+  data,
+}: {
+  readonly data: CampaignData;
+}) {
   const [activeTab, setActiveTab] = useState<string | null>('details');
   const [modalOpened, setModalOpened] = useState(false);
   const [modalMode, setModalMode] = useState<'create' | 'edit'>('create');
 
   // Sample campaign data
-  const [campaign, setCampaign] = useState<CampaignData>({
-    id: 1,
-    title: 'Summer Spin Fest 2025',
-    companyName: 'The Local Coffee Shop',
-    description: 'Join our exciting summer campaign and win amazing prizes!',
-    companyLogo: {
-      url: 'https://storage.example.com/logos/coffee_shop_logo.png',
-      name: 'coffee_shop_logo.png',
-    },
-    deadline: '2025-09-01T17:59:59.000Z',
-    options: [
-      {
-        label: 'Free Espresso',
-        coupon: 'FREE-ESPRESSO-2025',
-      },
-      {
-        label: '15% Off Any Purchase',
-        coupon: 'SUMMER-SAVE-15',
-      },
-      {
-        label: 'Try Again Tomorrow!',
-        coupon: 'TRY-AGAIN',
-      },
-      {
-        label: 'Buy One, Get One Free',
-        coupon: 'BOGO-DRINK-25',
-      },
-    ],
-    userLimit: 1000,
-    attemptConfiguration: {
-      timePeriod: 'day',
-      totalAttempts: 10,
-      attemptsPerPeriod: 1,
-    },
-    createdAt: '2025-06-18T13:34:48.746Z',
-  });
+  const [campaign, setCampaign] = useState<CampaignData>(data);
 
   const formatDate = (dateString: string) => {
     const date = new Date(dateString);
@@ -198,7 +167,7 @@ export default function DemoPage() {
                 <Group align="center" gap="xl">
                   <Paper shadow="md" p="md" bg="white" radius="lg">
                     <Image
-                      src="/placeholder.svg?height=80&width=80"
+                      src={campaign.companyLogo.url}
                       alt={campaign.companyName}
                       width={80}
                       height={80}
