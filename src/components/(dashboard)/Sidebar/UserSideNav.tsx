@@ -117,8 +117,8 @@ export function UserSideNav({ menus, onClose }: UserSidenavProps) {
           <Link
             onClick={linkClickHandler}
             href={item.path ?? '#'}
-            className={`mb-3 flex w-full cursor-pointer items-center justify-between px-4 py-4 transition hover:bg-neutral-200 ${
-              isActive ? 'nav-neumorphic' : ''
+            className={`mb-3 flex cursor-pointer items-center justify-between px-[55px] py-3 transition hover:bg-white ${
+              isActive ? 'bg-white' : ''
             } `}
           >
             <Group>
