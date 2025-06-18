@@ -16,10 +16,11 @@ import {
   Grid,
   Card,
   rem,
+  Image,
 } from '@mantine/core';
 import { Calendar, Clock, Coffee, Gift, Users, Plus, Edit } from 'lucide-react';
-import Image from 'next/image';
 import ReusableFormModal from './reusable-form-modal';
+import { AttemptConfiguration, FileAttachment } from '@/schema';
 
 interface FormOption {
   label: string;
@@ -31,19 +32,12 @@ interface CampaignData {
   readonly title: string;
   readonly companyName: string;
   readonly description?: string;
-  readonly companyLogo: {
-    url: string;
-    name: string;
-  };
-  readonly deadline: string;
+  readonly companyLogo: FileAttachment | null;
+  readonly deadline: Date;
   readonly options: FormOption[];
-  readonly userLimit: number;
-  readonly attemptConfiguration: {
-    timePeriod: string;
-    totalAttempts: number;
-    attemptsPerPeriod: number;
-  };
-  readonly createdAt: string;
+  readonly userLimit: number | null;
+  readonly attemptConfiguration: AttemptConfiguration;
+  readonly createdAt: Date;
 }
 
 const PRIMARY_COLOR = '#CB6AA7';
@@ -59,17 +53,6 @@ export default function SpinCampaignCard({
 
   // Sample campaign data
   const [campaign, setCampaign] = useState<CampaignData>(data);
-
-  const formatDate = (dateString: string) => {
-    const date = new Date(dateString);
-    return new Intl.DateTimeFormat('en-US', {
-      year: 'numeric',
-      month: 'long',
-      day: 'numeric',
-      hour: '2-digit',
-      minute: '2-digit',
-    }).format(date);
-  };
 
   const handleCreateCampaign = () => {
     setModalMode('create');
@@ -111,8 +94,11 @@ export default function SpinCampaignCard({
         description: campaign.description,
         deadline: new Date(campaign.deadline),
         options: campaign.options,
-        userLimit: campaign.userLimit,
-        attemptConfiguration: campaign.attemptConfiguration,
+        userLimit: campaign.userLimit ?? undefined,
+        attemptConfiguration: {
+          ...campaign.attemptConfiguration,
+          timePeriod: campaign.attemptConfiguration.timePeriod ?? '', // Ensure timePeriod is always a string
+        },
       };
     }
     return undefined;
@@ -167,10 +153,10 @@ export default function SpinCampaignCard({
                 <Group align="center" gap="xl">
                   <Paper shadow="md" p="md" bg="white" radius="lg">
                     <Image
-                      src={campaign.companyLogo.url}
+                      w={80}
+                      h={80}
+                      src={campaign.companyLogo?.url ?? ''}
                       alt={campaign.companyName}
-                      width={80}
-                      height={80}
                       style={{ objectFit: 'contain' }}
                     />
                   </Paper>
@@ -247,7 +233,11 @@ export default function SpinCampaignCard({
                         Deadline
                       </Text>
                       <Text size="sm" c="dimmed">
-                        {formatDate(campaign.deadline)}
+                        {
+                          new Date(campaign.deadline)
+                            .toISOString()
+                            .split('T')[0]
+                        }
                       </Text>
                     </Stack>
                   </Group>
@@ -268,7 +258,7 @@ export default function SpinCampaignCard({
                         User Limit
                       </Text>
                       <Text size="sm" c="dimmed">
-                        {campaign.userLimit.toLocaleString()} participants
+                        {campaign.userLimit} participants
                       </Text>
                     </Stack>
                   </Group>
