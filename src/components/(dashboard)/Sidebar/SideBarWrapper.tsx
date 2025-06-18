@@ -12,9 +12,9 @@ type SideBarWrapperProps = {
 
 const SideBarWrapper = ({ menus }: SideBarWrapperProps) => {
   return (
-    <Box w={290} pos={'relative'}>
+    <Box mah={'100vh'} w={290} pos={'relative'}>
       <Center mt={40} mb={52}>
-        <Link href="/">
+        <Link href="/" className="py-6">
           <Image
             src={'/EMPTY-Logo.png'}
             width={1000}

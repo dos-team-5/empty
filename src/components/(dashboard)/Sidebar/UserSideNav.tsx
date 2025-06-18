@@ -1,11 +1,15 @@
+//
+// NOTE: Change the text color and background once the theme is set up in the app
+//BUG: Improve the dropdown animation
+
 'use client';
 
-import { Box, Flex, Group, ScrollArea, Text } from '@mantine/core';
+import { Box, Flex, Group, ScrollArea } from '@mantine/core';
 import { AnimatePresence, motion } from 'framer-motion';
 import { usePathname } from 'next/navigation';
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { SideNavItem } from '../../../types/dashboard';
+import { SideNavItem } from '@/types/dashboard';
 import { Icon } from '@iconify/react/dist/iconify.js';
 
 type UserSidenavProps = {
@@ -52,7 +56,7 @@ export function UserSideNav({ menus, onClose }: UserSidenavProps) {
     const isActive = pathname === item.path;
 
     return (
-      <Box key={item.id}>
+      <Box mt={4} px={8} key={item.id}>
         {item.children.length > 0 ? (
           <Box className={`${openMenus[item.id] ? 'nav-neumorphic' : ''}`}>
             <Box
@@ -113,11 +117,11 @@ export function UserSideNav({ menus, onClose }: UserSidenavProps) {
           <Link
             onClick={linkClickHandler}
             href={item.path ?? '#'}
-            className={`mb-3 flex cursor-pointer items-center px-[55px] py-3 transition hover:bg-white ${
-              isActive ? 'bg-white' : ''
+            className={`mb-3 flex w-full cursor-pointer items-center justify-between px-4 py-4 transition hover:bg-neutral-200 ${
+              isActive ? 'nav-neumorphic' : ''
             } `}
           >
-            <Group justify="center">
+            <Group>
               <Icon color="#ee7b1f" icon={item.icon} width={20} />
               <span className="text-[14px] font-medium">{item.label}</span>
             </Group>
@@ -128,22 +132,10 @@ export function UserSideNav({ menus, onClose }: UserSidenavProps) {
   });
 
   return (
-    <Box component="nav">
+    <nav className={`w-full md:w-[300px]`}>
       <ScrollArea w="100%" h="100%" px={16}>
         {sideNavLinks}
       </ScrollArea>
-      <Flex
-        align={'center'}
-        justify={'center'}
-        gap={12}
-        pos={'absolute'}
-        w={'100%'}
-        bottom={40}
-        component="button"
-      >
-        <Text>Logout</Text>
-        <Icon icon="vaadin:sign-out" width={20} height={20} />
-      </Flex>
-    </Box>
+    </nav>
   );
 }
