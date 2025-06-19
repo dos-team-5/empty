@@ -155,19 +155,33 @@ export async function sendDriverApplicationEmail(
       }
 
       // Step 3: Greet the driver
-      const greetingEmail = greetDrivers();
-      if (!greetingEmail) {
-        console.error('Failed to create greeting email');
+      const greetingEmailInfo = greetDrivers();
+      if (!greetingEmailInfo) {
         return {
           success: false,
           message:
-            'Your application was saved, but we could not send a greeting email.',
+            'Your application was saved, could not send greeting email due to missing driver info.',
         };
       }
+      const greetingResponse = await fetch('/api/send-email', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(greetingEmailInfo),
+      });
 
+      const greetingResult = await greetingResponse.json();
+      if (!greetingResponse.ok) {
+        return {
+          success: false,
+          message: `Your application was saved, but the greeting email failed to send. Reason: ${greetingResult.error ?? 'Unknown server error'}`,
+        };
+      }
       return {
         success: true,
-        message: 'Application submitted successfully!',
+        message:
+          'Your application was saved and a confirmation email has been sent.',
       };
     } catch (error: any) {
       console.error('Network error sending email:', error);
