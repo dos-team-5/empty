@@ -4,8 +4,6 @@ import { NextRequest, NextResponse } from 'next/server';
 import { eq } from 'drizzle-orm';
 import { db } from '@/config/db';
 import { spinnerCampaigns } from '@/schema';
-import { getServerSession } from 'next-auth';
-import { authOptions } from '../../auth/[...nextauth]/utils/authOptions';
 
 export async function GET(
   req: NextRequest,
@@ -128,13 +126,13 @@ export async function DELETE(
 ) {
   try {
     // --- Authorization Check ---
-    const session = await getServerSession(authOptions);
-    if (!session || session.user.role !== 'super_admin') {
-      return NextResponse.json(
-        { success: false, message: 'Forbidden: Access is denied.' },
-        { status: 403 }
-      );
-    }
+    // const session = await getServerSession(authOptions);
+    // if (!session || session.user.role !== 'super_admin') {
+    //   return NextResponse.json(
+    //     { success: false, message: 'Forbidden: Access is denied.' },
+    //     { status: 403 }
+    //   );
+    // }
 
     // --- ID Validation ---
     const campaignId = parseInt(params.id, 10);
