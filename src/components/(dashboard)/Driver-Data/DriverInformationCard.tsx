@@ -25,7 +25,13 @@ import {
   Download,
 } from 'lucide-react';
 
-export default function DriverInformationCard(data: Readonly<Driver>) {
+interface DriverInformationCardProps {
+  readonly data: Driver;
+}
+
+export default function DriverInformationCard({
+  data,
+}: DriverInformationCardProps) {
   const formatFileSize = (bytes: number) => {
     if (bytes === 0) return '0 Bytes';
     const k = 1024;

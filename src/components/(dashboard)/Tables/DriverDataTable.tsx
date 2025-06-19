@@ -98,7 +98,7 @@ const DriverDataTable = ({
         onClose={close}
         title="Driver Information"
       >
-        <DriverInformationCard />
+        <DriverInformationCard data={driverData ?? ({} as Driver)} />
       </Modal>
     </Card>
   );
