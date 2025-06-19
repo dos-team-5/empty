@@ -2,6 +2,7 @@ import { Box, InputLabel, Radio } from '@mantine/core';
 import { Currency, PlanType } from '../types';
 import { PLAN_CONFIGS } from '../data';
 import { formatPrice } from '../../utils/formatPrice';
+import { Dispatch, SetStateAction } from 'react';
 
 // Components
 export const PlanCard = ({
@@ -9,11 +10,13 @@ export const PlanCard = ({
   value,
   currency,
   exchangeRate,
+  setAddonSelections,
 }: {
   planType: PlanType;
   value: string;
   currency: Currency;
   exchangeRate: number;
+  setAddonSelections: Dispatch<SetStateAction<Record<string, boolean>>>;
 }) => {
   const config = PLAN_CONFIGS[planType];
   const minPrice = Math.min(...Object.values(config.pricing)) * exchangeRate;
@@ -26,7 +29,13 @@ export const PlanCard = ({
       className="[&:has(:checked)]:border-primary [&:has(:checked)]:bg-primary/5 block cursor-pointer rounded-lg border-2 border-gray-300 p-4 hover:border-gray-300"
     >
       <Box className="mb-3 flex items-center space-x-2">
-        <Radio value={value} id={planType} />
+        <Radio
+          value={value}
+          id={planType}
+          onChange={() => {
+            setAddonSelections({ scanAndSpin: false, deviceIdPassBack: false });
+          }}
+        />
         <span className="text-lg font-semibold capitalize">{planType}</span>
       </Box>
       <Box className="space-y-2 text-sm">

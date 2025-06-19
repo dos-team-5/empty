@@ -331,12 +331,15 @@ export default function PricingConfigurator() {
                       value="basic"
                       currency={currency}
                       exchangeRate={exchangeRate}
+                      setAddonSelections={setAddonSelections}
                     />
+
                     <PlanCard
                       planType="premium"
                       value="premium"
                       currency={currency}
                       exchangeRate={exchangeRate}
+                      setAddonSelections={setAddonSelections}
                     />
                   </Box>
                 </RadioGroup>
