@@ -4,8 +4,6 @@ import { NextRequest, NextResponse } from 'next/server';
 import { eq } from 'drizzle-orm';
 import { db } from '@/config/db';
 import { spinnerCampaigns } from '@/schema';
-import { getServerSession } from 'next-auth';
-import { authOptions } from '../../auth/[...nextauth]/utils/authOptions';
 
 export async function GET(
   req: NextRequest,
