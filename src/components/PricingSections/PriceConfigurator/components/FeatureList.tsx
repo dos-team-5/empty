@@ -8,11 +8,11 @@ interface FeatureListProps {
 }
 
 const FeatureList = ({ features }: FeatureListProps) => (
-  <List mt={12}>
+  <List fz={14} mt={4}>
     {features.map((feature, index) => {
       if (typeof feature === 'string') {
         return (
-          <List.Item mt={8} key={index}>
+          <List.Item mt={4} key={index}>
             <Flex align="center" gap={12}>
               <Icon
                 icon="tabler:check"
@@ -28,7 +28,7 @@ const FeatureList = ({ features }: FeatureListProps) => (
         // Only one key expected per object
         const [title, subFeatures] = Object.entries(feature)[0];
         return (
-          <List.Item mt={8} key={index}>
+          <List.Item fz={14} mt={4} key={index}>
             <Flex align="center" gap={12}>
               <Icon
                 icon="tabler:check"
@@ -36,12 +36,12 @@ const FeatureList = ({ features }: FeatureListProps) => (
                 height={12}
                 color="var(--color-primary)"
               />
-              <span>{title}</span>
+              <span className="!text-[14px]">{title}</span>
             </Flex>
-            <List ml={28} mt={4}>
+            <List fz={14} ml={16} mt={4}>
               {subFeatures.map((sub, subIndex) => (
                 <List.Item key={subIndex}>
-                  <Flex align="center" gap={12}>
+                  <Flex align="center" gap={8}>
                     <Icon
                       icon="pepicons-print:square-filled"
                       width={12}
