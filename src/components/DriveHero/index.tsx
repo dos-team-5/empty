@@ -129,7 +129,7 @@ const DriveHeroSection: React.FC = () => {
               by="word"
               startOnView
               duration={0.5}
-              className="!text-nowrap md:text-[32px] xl:text-[42px] 2xl:text-[64px]"
+              className="md:text-[32px] xl:text-[42px] 2xl:text-[64px]"
               once
             >
               Earn extra monthly income.
@@ -140,7 +140,7 @@ const DriveHeroSection: React.FC = () => {
               startOnView
               duration={0.5}
               delay={0.5}
-              className="!text-nowrap md:text-[32px] xl:text-[42px] 2xl:text-[64px]"
+              className="md:text-[32px] xl:text-[42px] 2xl:text-[64px]"
               once
             >
               Drive as you normally do.
