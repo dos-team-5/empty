@@ -57,13 +57,6 @@ const DriverDataTable = ({
           router.push(`/admin/driver-data?page=1&limit=${pageSize}`);
         }}
         recordsPerPageLabel="Showing"
-
-        // onCellClick={({ event, record, index, column, columnIndex }) => {
-        //   openModal({
-        //     title: 'Cell click information',
-        //     children: <DriverInformationCard />,
-        //   });
-        // }}
       />
     </Card>
   );
