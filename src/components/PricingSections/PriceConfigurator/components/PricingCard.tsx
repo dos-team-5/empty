@@ -31,12 +31,7 @@ const FeatureComparison = ({ planType }: FeatureComparisonProps) => {
     planType === 'premium' ? PLAN_CONFIGS.premium.features : [];
 
   return (
-    <Flex
-      direction={{ base: 'column', md: 'row' }}
-      gap={48}
-      mt={24}
-      align="flex-start"
-    >
+    <Flex direction={{ base: 'column', md: 'row' }} gap={32} align="flex-start">
       <Box>
         <FeatureList features={basicFeatures} />
       </Box>
@@ -107,23 +102,21 @@ export const PricingCard = ({
       viewport={{ once: true }}
     >
       <Card radius={10} className="!border-primary border-2">
-        <Card.Section p={24} className="text-center" bg="var(--color-primary)">
-          <Title fz={24} c="white">
+        <Card.Section p={16} className="text-center" bg="var(--color-primary)">
+          <Title fz={18} c="white">
             {planType === 'basic' ? 'Basic Plan' : 'Premium Plan'}
           </Title>
-          <Text c="white">
+          <Text mt={2} c="white">
             {carCount} car{carCount !== 1 ? 's' : ''} selected
           </Text>
         </Card.Section>
 
-        <Card.Section p={{ base: 16, md: 24 }} className="space-y-6">
+        <Card.Section p={16} className="space-y-2">
           <Radio.Group
             value={currencyType}
             onChange={(value) => setCurrencyType(value as Currency)}
           >
-            <Flex pt="md" gap="xs">
-              {cards}
-            </Flex>
+            <Flex gap="xs">{cards}</Flex>
           </Radio.Group>
 
           {/* Installation Fee */}
@@ -138,7 +131,7 @@ export const PricingCard = ({
           </Flex>
 
           {/* Monthly Pricing */}
-          <Box className="space-y-2">
+          <Box>
             <Flex align="center" justify="space-between">
               <Text fw={500}>Monthly Price</Text>
               <Text fw={700} fz={18}>
