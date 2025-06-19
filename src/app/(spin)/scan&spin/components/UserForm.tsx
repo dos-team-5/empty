@@ -17,10 +17,8 @@ interface UserData {
 // Define Zod schema for validation
 const userSchema = z.object({
   name: z.string().trim().min(1, { message: 'Name is required' }),
-  phoneNumber: z
-    .string()
-    .min(1, { message: 'Phone number is required' })
-    .regex(/^\+\d[\d\s-]{8,}$/, { message: 'Invalid phone number format' }),
+  phoneNumber: z.string().min(1, { message: 'Phone number is required' }),
+
   email: z.string().email({ message: 'Invalid email address' }),
   agreeToEmails: z.literal(true, {
     message: 'You must agree to receive email updates',
