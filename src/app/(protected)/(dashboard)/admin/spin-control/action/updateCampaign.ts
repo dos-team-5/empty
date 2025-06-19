@@ -1,13 +1,12 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 'use server';
 
-import { db } from '@/config/db';
 import {
   AttemptConfiguration,
   FileAttachment,
-  spinnerCampaigns,
+  SpinnerCampaign,
   SpinnerOption,
 } from '@/schema';
-import { eq } from 'drizzle-orm';
 
 type UpdateCampaignPayload = {
   id: number;
@@ -22,48 +21,61 @@ type UpdateCampaignPayload = {
   }>;
 };
 
+type UpdateCampaignInput = {
+  id: number;
+  data: Record<string, UpdateCampaignPayload>; // ideally replace with a stricter type
+};
+
 export async function updateCampaign({
   id,
   data,
-}: UpdateCampaignPayload): Promise<
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  | { success: true; message: string; campaign: any }
-  | { success: false; message: string }
-> {
-  try {
-    if (isNaN(id)) {
-      return { success: false, message: 'Invalid campaign ID provided.' };
-    }
-
-    const updateData = {
-      ...data,
-      deadline: data.deadline ? new Date(data.deadline) : new Date(),
-      companyLogo: data.companyLogo, // Convert string to FileAttachment object
+}: UpdateCampaignInput): Promise<{
+  success: boolean;
+  message: string;
+  campaign?: SpinnerCampaign; // replace `any` with your Campaign type if available
+}> {
+  // Step 1: Validate ID
+  if (!id || isNaN(id)) {
+    return {
+      success: false,
+      message: 'Invalid campaign ID.',
     };
+  }
 
-    const [updatedCampaign] = await db
-      .update(spinnerCampaigns)
-      .set(updateData)
-      .where(eq(spinnerCampaigns.id, id))
-      .returning();
+  // Step 2: Send PATCH request to your API
+  try {
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_BASE_URL}/api/campaigns/${id}`,
+      {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+        cache: 'no-store',
+      }
+    );
 
-    if (!updatedCampaign) {
+    const result = await response.json();
+
+    if (!response.ok) {
+      console.error('Failed to update campaign:', result.message);
       return {
         success: false,
-        message: 'Campaign not found or no changes made.',
+        message: result.message ?? 'Failed to update campaign.',
       };
     }
 
     return {
       success: true,
       message: 'Campaign updated successfully.',
-      campaign: updatedCampaign,
+      campaign: result.campaign,
     };
-  } catch (error) {
-    console.error('Error in updateCampaign action:', error);
+  } catch (error: any) {
+    console.error('Network error updating campaign:', error);
     return {
       success: false,
-      message: 'Failed to update campaign due to a server error.',
+      message: 'A network error occurred while updating the campaign.',
     };
   }
 }

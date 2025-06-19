@@ -202,7 +202,7 @@ export default function PricingConfigurator() {
 
   return (
     <Box mih="100vh" p={16}>
-      <Box maw={1200} className="mx-auto">
+      <Box className="mx-auto xl:!max-w-[1000px] 2xl:!max-w-[1100px]">
         <TitleSection />
         <SimpleGrid spacing={32} cols={{ base: 1, lg: 2 }}>
           {/* Left Side - Pricing Card */}
@@ -222,7 +222,7 @@ export default function PricingConfigurator() {
 
           {/* Right Side - Configurator Steps */}
           <Box
-            p={24}
+            p={16}
             bg="white"
             h="100%"
             className="!order-1 space-y-6 !rounded-[10px] border-2 border-pink-50 md:!order-2"
@@ -231,9 +231,7 @@ export default function PricingConfigurator() {
             <Card>
               <Card.Section>
                 <Flex align={'center'} justify="space-between">
-                  <Title fz={{ base: 20, sm: 32, md: 36 }}>
-                    Choose Your Plan
-                  </Title>
+                  <Title fz={{ base: 20, sm: 32 }}>Choose Your Plan</Title>
                   <Button
                     mt={8}
                     mr={16}
