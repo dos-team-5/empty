@@ -67,7 +67,7 @@ const Meeting = () => {
               by="word"
               duration={0.5}
               delay={0.5}
-              className="lg:text-md max-w-[400px] text-sm normal-case md:max-w-[500px] 2xl:max-w-[600px] md:text-[13px] xl:text-[12px] 2xl:text-base"
+              className="lg:text-md max-w-[400px] text-sm normal-case md:max-w-[500px] md:text-[13px] xl:text-[12px] 2xl:max-w-[600px] 2xl:text-base"
               once
             >
               Our CPM is the lowest in out-of-home and rivals digital. We’ll
@@ -86,80 +86,82 @@ const Meeting = () => {
               fast, without the usual media buying headaches.
             </TextAnimate>
           </Title>
-          <Title
-            order={2}
-            fw={700}
-            c="#5E5E5E"
-            ff={'var(--font-poppins)'}
-            className="!mt-16 capitalize"
-          >
-            <TextAnimate
-              animation="blurInUp"
-              by="word"
-              duration={0.5}
-              delay={1}
-              className="text-lg md:text-2xl lg:text-xl xl:text-xl 2xl:text-2xl"
-              once
+          <div className="border-[#FFDFDF] bg-[#FFFBFB] mt-16 rounded-lg border-1 p-8">
+            <Title
+              order={2}
+              fw={700}
+              c="#5E5E5E"
+              ff={'var(--font-poppins)'}
+              className="capitalize"
             >
-              In 20 Minutes You&apos;ll discover how to...
-            </TextAnimate>
-          </Title>
-
-          <div className="mt-2 grid grid-cols-1 gap-2 md:grid-cols-2">
-            {[
-              {
-                title: 'Unlock full attribution from your ads',
-                description:
-                  'Track scans, leads, and conversions with Scan & Spin',
-              },
-
-              {
-                title: 'Analyze your impression data',
-                description:
-                  ' Get weekly reports powered by real GPS and device tracking',
-              },
-              {
-                title: 'Cut your CPM and boost ROI',
-                description:
-                  'Leverage our high-volume model for the lowest CPM in OOH',
-              },
-              {
-                title: 'Scale as you go',
-                description:
-                  ' Launch with one car or expand to hundreds in days',
-              },
-              {
-                title: 'Get Citywide visibility',
-                description:
-                  'Get seen across the city without paying billboard prices.',
-              },
-              {
-                title: 'Own 100% share of voice',
-                description: 'On each vehicle, no competition',
-              },
-            ].map((item, index) => (
-              <motion.div
-                key={index}
-                variants={checkItemVariants}
-                initial="hidden"
-                animate="visible"
-                transition={{ delay: (index + 1) * 0.5 }}
-                className="flex min-w-2xs items-start justify-start gap-x-4 py-4 lg:min-w-auto"
+              <TextAnimate
+                animation="blurInUp"
+                by="word"
+                duration={0.5}
+                delay={1}
+                className="text-lg md:text-2xl lg:text-xl xl:text-xl 2xl:text-2xl"
+                once
               >
-                <Icon
-                  icon="lets-icons:check-fill"
-                  className="text-primary-400 size-6 flex-shrink-0 rounded-md text-lg"
-                />
-                <ul className="max-w-max">
-                  <h3 className="mb-0.5 text-lg font-medium xl:text-[15px] 2xl:text-xl">
-                    {item.title}
-                  </h3>
-                  <div className="text-base font-normal text-[#5E5E5E] xl:text-[12px] 2xl:text-sm">
-                    {item.description}
-                  </div>
-                </ul>
-              </motion.div>
-            ))}
+                In 20 Minutes You&apos;ll discover how to...
+              </TextAnimate>
+            </Title>
+
+            <div className="mt-4 grid grid-cols-1 gap-2 md:grid-cols-2">
+              {[
+                {
+                  title: 'Unlock full attribution from your ads',
+                  description:
+                    'Track scans, leads, and conversions with Scan & Spin',
+                },
+
+                {
+                  title: 'Analyze your impression data',
+                  description:
+                    ' Get weekly reports powered by real GPS and device tracking',
+                },
+                {
+                  title: 'Cut your CPM and boost ROI',
+                  description:
+                    'Leverage our high-volume model for the lowest CPM in OOH',
+                },
+                {
+                  title: 'Scale as you go',
+                  description:
+                    ' Launch with one car or expand to hundreds in days',
+                },
+                {
+                  title: 'Get Citywide visibility',
+                  description:
+                    'Get seen across the city without paying billboard prices.',
+                },
+                {
+                  title: 'Own 100% share of voice',
+                  description: 'On each vehicle, no competition',
+                },
+              ].map((item, index) => (
+                <motion.div
+                  key={index}
+                  variants={checkItemVariants}
+                  initial="hidden"
+                  animate="visible"
+                  transition={{ delay: (index + 1) * 0.5 }}
+                  className="flex min-w-2xs items-start justify-start gap-x-4 py-4 lg:min-w-auto"
+                >
+                  <Icon
+                    icon="lets-icons:check-fill"
+                    className="text-primary-400 size-6 flex-shrink-0 rounded-md text-lg"
+                  />
+                  <ul className="max-w-max">
+                    <h3 className="mb-0.5 text-lg font-semibold xl:text-[15px] 2xl:text-xl">
+                      {item.title}
+                    </h3>
+                    <div className="text-base font-normal text-[#5E5E5E] xl:text-[12px] 2xl:text-sm">
+                      {item.description}
+                    </div>
+                  </ul>
+                </motion.div>
+              ))}
+            </div>
           </div>
         </div>
 

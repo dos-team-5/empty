@@ -17,7 +17,7 @@ interface AnimatedGradientProps {
 }
 
 const AnimatedGradient: React.FC<AnimatedGradientProps> = ({
-  gradientColors = ['#ffffff', 'var(--mantine-primary-color-1)'],
+  gradientColors = ['#ffffff', 'var(--mantine-primary-color-0)'],
   className = 'fixed top-0 left-0 -z-10 h-dvh w-full',
   transitionDuration = 0.7,
 }) => {
