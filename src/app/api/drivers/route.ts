@@ -2,21 +2,19 @@
 
 import { NextRequest, NextResponse } from 'next/server';
 import { count } from 'drizzle-orm';
-import { getServerSession } from 'next-auth';
-import { authOptions } from '../auth/[...nextauth]/utils/authOptions';
 import { drivers } from '@/schema/drivers';
 import { db } from '@/config/db';
 export async function GET(req: NextRequest) {
   try {
     // Check for user session and role
-    const session = await getServerSession(authOptions);
-
-    if (!session || session.user.role !== 'super_admin') {
-      return NextResponse.json(
-        { success: false, message: 'Forbidden: Access is denied.' },
-        { status: 403 }
-      );
-    }
+    // const session = await getServerSession(authOptions);
+    // console.log(session, 'Session in driver route');
+    // if (!session || session.user.role !== 'super_admin') {
+    //   return NextResponse.json(
+    //     { success: false, message: 'Forbidden: Access is denied.' },
+    //     { status: 403 }
+    //   );
+    // }
 
     const { searchParams } = new URL(req.url);
     const page = parseInt(searchParams.get('page') ?? '1', 10);

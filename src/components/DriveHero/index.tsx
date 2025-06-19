@@ -115,7 +115,7 @@ const DriveHeroSection: React.FC = () => {
       className="relative min-h-dvh overflow-hidden"
       mt={{ base: 30, md: 55 }}
     >
-      <Box className="flex h-full w-full flex-col items-start justify-start gap-12 px-4 pt-20 sm:px-8 md:px-16 lg:mt-0 lg:flex-row lg:items-center lg:justify-between lg:gap-4 lg:px-20 xl:px-24 2xl:px-32">
+      <Box className="flex h-full w-full flex-col items-start justify-start gap-12 px-4 pt-20 sm:px-8 md:px-16 lg:mt-0 lg:flex-row lg:items-center lg:justify-between lg:gap-4 lg:px-20 xl:mt-[10dvh] xl:px-24 2xl:px-32">
         <Stack className="w-full lg:w-[55%]">
           <Title
             order={1}
@@ -129,7 +129,7 @@ const DriveHeroSection: React.FC = () => {
               by="word"
               startOnView
               duration={0.5}
-              className="md:text-[52px] lg:text-[48px] xl:text-[42px] 2xl:text-[64px]"
+              className="md:text-[32px] xl:text-[42px] 2xl:text-[64px]"
               once
             >
               Earn extra monthly income.
@@ -140,7 +140,7 @@ const DriveHeroSection: React.FC = () => {
               startOnView
               duration={0.5}
               delay={0.5}
-              className="md:text-[52px] lg:text-[40px] xl:text-[42px] 2xl:text-[64px]"
+              className="md:text-[32px] xl:text-[42px] 2xl:text-[64px]"
               once
             >
               Drive as you normally do.
@@ -173,7 +173,7 @@ const DriveHeroSection: React.FC = () => {
                     icon="lets-icons:check-fill"
                     className="text-primary-400 size-6 flex-shrink-0 rounded-md text-lg"
                   />
-                  <p className="font-inter fon max-w-md text-base leading-6 !font-semibold text-black 2xl:text-lg">
+                  <p className="font-inter fon max-w-md text-sm leading-6 !font-semibold text-black md:text-base 2xl:text-xl">
                     {feature}
                   </p>
                 </Group>
@@ -196,7 +196,7 @@ const DriveHeroSection: React.FC = () => {
             </Box>
           </motion.div>
         </Stack>
-        <div className="w-full overflow-hidden lg:w-[45%]">
+        <div className="w-full lg:w-[45%]">
           {/* <div
             // initial={{ x: '100%', opacity: 0 }}
             // animate={{ x: '0%', opacity: 1 }}
@@ -224,7 +224,7 @@ const DriveHeroSection: React.FC = () => {
               width={1000}
               height={1000}
               priority
-              className="w-[1400px] rounded-xl lg:origin-left lg:scale-130 xl:origin-center xl:scale-100"
+              className="w-[1400px] rounded-xl lg:scale-140 xl:origin-center xl:scale-140"
             />
           </div>
         </div>

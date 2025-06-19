@@ -128,10 +128,13 @@ export default function Home() {
           }
 
           // Show form for winners only
-          setTimeout(() => {
-            setShowForm(true);
-          }, 2000); // Show form 2 seconds after winning
+          // setTimeout(() => {
+          //   setShowForm(true);
+          // }, 2000); // Show form 2 seconds after winning
         }
+        setTimeout(() => {
+          setShowForm(true);
+        }, 2000); // Show form 2 seconds after winning
 
         // Hide confetti after 3 seconds
         setTimeout(() => setShowConfetti(false), 3000);
@@ -143,7 +146,7 @@ export default function Home() {
   };
 
   return (
-    <div className="flex h-screen max-h-screen items-center justify-center bg-[url(/Spiner-background.jpg)] bg-cover bg-center bg-no-repeat p-4">
+    <div className="flex h-screen max-h-screen items-center justify-center overflow-hidden bg-[url(/Spiner-background.jpg)] bg-cover bg-center bg-no-repeat p-4">
       {/* Background blur when form is shown */}
       <div
         className={`mx-auto flex w-full flex-col items-center justify-center gap-8 transition-all duration-300 md:gap-16 lg:flex-row lg:items-center lg:justify-between lg:gap-0 ${
@@ -188,10 +191,10 @@ export default function Home() {
             <motion.div
               initial={{ opacity: 0, scale: 0.8 }}
               animate={{ opacity: 1, scale: 1 }}
-              className="max-w-md rounded-lg bg-white p-6 text-center shadow-xl md:mt-8 xl:mt-20 2xl:mt-40"
+              className="max-w-md rounded-lg bg-white p-6 text-center shadow-xl md:mt-8 xl:mt-20 2xl:mt-40 lg:scale-80"
             >
               {spinResult.isWinning ? (
-                <div>
+                <div className=''>
                   <div className="flex items-center justify-center">
                     <Image
                       src={'/Emoji1.png'}
@@ -236,7 +239,7 @@ export default function Home() {
                   )}
                 </div>
               ) : (
-                <div>
+                <div className=''>
                   <div className="flex items-center justify-center">
                     <Image
                       src={'/Emoji2.png'}
@@ -254,7 +257,7 @@ export default function Home() {
                     You didn't win this time.
                   </p>
                   <p className="mt-2 text-sm text-gray-500">
-                    Better Luck Next Time!
+                    Better Luck Next Time!...
                   </p>
                 </div>
               )}
@@ -276,7 +279,7 @@ export default function Home() {
               initial={{ scale: 0.9, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.9, opacity: 0 }}
-              className="relative w-full max-w-md rounded-lg bg-white p-6"
+              className="relative w-full max-w-md rounded-lg bg-white p-6 lg:scale-90 xl:scale-100"
             >
               <div className="mb-6 flex flex-col items-center justify-center text-center">
                 <Image
@@ -296,7 +299,45 @@ export default function Home() {
                   </p>
                 </div>
               </div>
-              <UserForm onSubmit={handleFormSubmit} />
+              <UserForm onSubmit={handleFormSubmit} spinResult={spinResult} />
+            </motion.div>
+          </motion.div>
+        )}
+        {showForm && spinResult?.isWinning === false && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="bg-opacity-50 fixed inset-0 z-50 flex items-center justify-center bg-black p-4"
+          >
+            <motion.div
+              initial={{ scale: 0.9, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.9, opacity: 0 }}
+              className="relative w-full max-w-md rounded-lg bg-white p-6 lg:scale-90 xl:scale-100"
+            >
+              <div className="mb-6 flex flex-col items-center justify-center text-center">
+                <Image
+                  src={'/Emoji2.png'}
+                  alt="happy"
+                  width={1000}
+                  height={1000}
+                  priority
+                  className="w-32"
+                />
+                <div>
+                  <h2 className="mb-2 text-2xl font-bold text-gray-800">
+                    Sorry, you didn't win this round.
+                  </h2>
+                  <p className="mb-4 text-gray-600">
+                    Don't Miss Out on Future Chances to Win! <br /> Sorry, you
+                    didn't win this round. But that doesn't mean the fun stops
+                    here! Get exclusive access to future promotions and special
+                    offers by joining our list.
+                  </p>
+                </div>
+              </div>
+              <UserForm onSubmit={handleFormSubmit} spinResult={spinResult} />
             </motion.div>
           </motion.div>
         )}

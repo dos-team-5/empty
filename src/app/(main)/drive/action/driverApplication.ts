@@ -135,43 +135,66 @@ export async function sendDriverApplicationEmail(
       };
     }
 
-    console.log('Driver application data saved successfully.');
+    // Step 2: Send the email notification
+    try {
+      const emailResponse = await fetch('/api/send-email', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(applicationData),
+      });
+
+      const emailResult = await emailResponse.json();
+
+      if (!emailResponse.ok) {
+        return {
+          success: false,
+          message: `Your application was saved, but the confirmation email failed to send. Reason: ${emailResult.error ?? 'Unknown server error'}`,
+        };
+      }
+
+      // Step 3: Greet the driver
+      const greetingEmailInfo = greetDrivers();
+      if (!greetingEmailInfo) {
+        return {
+          success: false,
+          message:
+            'Your application was saved, could not send greeting email due to missing driver info.',
+        };
+      }
+      const greetingResponse = await fetch('/api/send-email', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(greetingEmailInfo),
+      });
+
+      const greetingResult = await greetingResponse.json();
+      if (!greetingResponse.ok) {
+        return {
+          success: false,
+          message: `Your application was saved, but the greeting email failed to send. Reason: ${greetingResult.error ?? 'Unknown server error'}`,
+        };
+      }
+      return {
+        success: true,
+        message:
+          'Your application was saved and a confirmation email has been sent.',
+      };
+    } catch (error: any) {
+      console.error('Network error sending email:', error);
+      return {
+        success: false,
+        message: `Your application was saved, but the confirmation email failed with a network error: ${error.message}`,
+      };
+    }
   } catch (error: any) {
     console.error('Network error while saving driver data:', error);
     return {
       success: false,
       message: 'A network error occurred while saving your application.',
-    };
-  }
-
-  // Step 2: Send the email notification
-  try {
-    const emailResponse = await fetch('/api/send-email', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(applicationData),
-    });
-
-    const emailResult = await emailResponse.json();
-
-    if (!emailResponse.ok) {
-      return {
-        success: false,
-        message: `Your application was saved, but the confirmation email failed to send. Reason: ${emailResult.error ?? 'Unknown server error'}`,
-      };
-    }
-
-    return {
-      success: true,
-      message: 'Application submitted successfully!',
-    };
-  } catch (error: any) {
-    console.error('Network error sending email:', error);
-    return {
-      success: false,
-      message: `Your application was saved, but the confirmation email failed with a network error: ${error.message}`,
     };
   }
 }

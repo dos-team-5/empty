@@ -12,7 +12,7 @@ type SideBarWrapperProps = {
 
 const SideBarWrapper = ({ menus }: SideBarWrapperProps) => {
   return (
-    <Box className="hidden" h={'100vh'} w={290} top={0} pos={'sticky'}>
+    <Box h={'100vh'} w={290} top={0} pos={'sticky'} className="hidden md:block">
       <Center mt={40} mb={52}>
         <Link href="/" className="py-6">
           <Image
