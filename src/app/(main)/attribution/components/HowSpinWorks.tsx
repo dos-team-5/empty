@@ -27,11 +27,11 @@ const HowSpinWorks = () => {
   ];
   return (
     <Stack>
-      {newImages.map((item, i) => (
+      {newImages.map((item) => (
         <motion.div
           initial={{ x: 200 * Math.pow(-1, item.id), opacity: 0 }}
           whileInView={{ x: 0, opacity: 1 }}
-          transition={{ delay: 0.5 * i }}
+          transition={{ delay: 0.5 }}
           viewport={{ once: true }}
           key={item.id}
         >
