@@ -5,19 +5,27 @@ import SpinCampaignCard from '@/components/(dashboard)/Scan-Spin/spinCampaignCar
 import { SpinnerCampaign } from '@/schema';
 import { getParticipants } from './action/getParticipants';
 
-const SpinControl = async () => {
-  const response = await getAllCampaigns(1, 10);
+type SearchParams = Promise<{ [key: string]: string | string[] | undefined }>;
+
+const SpinControl = async (props: { searchParams: SearchParams }) => {
+  const searchParams = await props.searchParams;
+  const page = searchParams.page;
+  const limit = searchParams.limit;
+  const response = await getAllCampaigns(
+    Number(page) || 1,
+    Number(limit) || 10
+  );
   const campaign = response.data?.records[0];
-  const participantResponse = await getParticipants(campaign?.id as number);
-
-  console.log('All Campaigns ==>', response.data?.records);
-
-  console.log('Participant Response ==>', participantResponse);
+  const participantResponse = await getParticipants(
+    campaign?.id as number,
+    Number(page) || 1,
+    Number(limit) || 10
+  );
 
   return (
     <Box>
       <SpinCampaignCard data={response.data?.records[0] as SpinnerCampaign} />
-      <SpinDataTable />
+      <SpinDataTable data={participantResponse.data} />
     </Box>
   );
 };

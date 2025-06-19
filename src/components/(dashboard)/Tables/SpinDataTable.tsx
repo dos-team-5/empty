@@ -2,27 +2,74 @@
 
 import { DataTable } from 'mantine-datatable';
 import { userSpinTableColumns } from './columns/spin-column';
-import { FAKE_USERS } from './data/spin-data';
+import { Card, Text, Flex } from '@mantine/core';
+import { SpinnerParticipant } from '@/schema';
+import { Icon } from '@iconify/react/dist/iconify.js';
+import { useSearchParams, useRouter } from 'next/navigation';
+import { useState } from 'react';
+import { useMediaQuery } from '@mantine/hooks';
 
-const SpinDataTable = () => {
+interface SpinDataTableProps {
+  data?: {
+    records: SpinnerParticipant[];
+    pagination: {
+      totalCount: number;
+      totalPages: number;
+      currentPage: number;
+    };
+  };
+}
+
+const SpinDataTable = ({ data }: SpinDataTableProps) => {
+  const hasRecords = data?.records && data.records.length > 0;
+  const searchParams = useSearchParams();
+  const isMobile = useMediaQuery('(max-width: 768px)');
+  const PAGE_SIZES = [10, 15, 20];
+  const pramPageNumber = searchParams.get('page');
+  const [page, setPage] = useState(pramPageNumber ? Number(pramPageNumber) : 1);
+  const router = useRouter();
+  const [pageSize, setPageSize] = useState(PAGE_SIZES[0]);
+
   return (
-    <DataTable
-      noRecordsText={''}
-      noRecordsIcon={true}
-      columns={userSpinTableColumns}
-      records={FAKE_USERS}
-      defaultColumnProps={{
-        titleStyle: {
-          backgroundColor: '#FFF5F5',
-        },
-      }}
-      // onCellClick={({ event, record, index, column, columnIndex }) => {
-      //   openModal({
-      //     title: 'Cell click information',
-      //     children: <DriverInformationCard />,
-      //   });
-      // }}
-    />
+    <Card p={0} radius="md" withBorder>
+      {hasRecords ? (
+        <DataTable
+          columns={userSpinTableColumns}
+          records={data.records}
+          defaultColumnProps={{
+            titleStyle: {
+              backgroundColor: '#FFF5F5',
+            },
+          }}
+          height={isMobile ? 'calc(100dvh - 225px)' : 'calc(100dvh - 210px)'}
+          pinLastColumn
+          scrollAreaProps={{
+            offsetScrollbars: false,
+          }}
+          totalRecords={data.pagination.totalCount}
+          page={page}
+          onPageChange={(page) => {
+            setPage(page);
+            router.push(`/admin/driver-data?limit=${pageSize}&page=${page}`);
+          }}
+          recordsPerPage={pageSize}
+          recordsPerPageOptions={PAGE_SIZES}
+          onRecordsPerPageChange={(pageSize) => {
+            setPageSize(pageSize);
+            setPage(1);
+            router.push(`/admin/driver-data?page=1&limit=${pageSize}`);
+          }}
+          recordsPerPageLabel="Showing"
+        />
+      ) : (
+        <Flex align="center" justify="center" gap={12} py="xl">
+          <Icon icon="material-symbols:info-rounded" width={24} height={24} />
+          <Text c="dimmed" fw={500}>
+            No participants found.
+          </Text>
+        </Flex>
+      )}
+    </Card>
   );
 };
 
