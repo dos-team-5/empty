@@ -5,7 +5,6 @@ import { SideNavItem } from '../../../types/dashboard';
 import { UserSideNav } from './UserSideNav';
 import Link from 'next/link';
 import Image from 'next/image';
-import Logout from '../Logout';
 
 type SideBarWrapperProps = {
   readonly menus?: SideNavItem[];
@@ -13,7 +12,7 @@ type SideBarWrapperProps = {
 
 const SideBarWrapper = ({ menus }: SideBarWrapperProps) => {
   return (
-    <Box h={'100vh'} w={290} top={0} pos={'sticky'}>
+    <Box className="hidden" h={'100vh'} w={290} top={0} pos={'sticky'}>
       <Center mt={40} mb={52}>
         <Link href="/" className="py-6">
           <Image
@@ -27,9 +26,6 @@ const SideBarWrapper = ({ menus }: SideBarWrapperProps) => {
         </Link>
       </Center>
       <UserSideNav menus={menus} />
-      <Center pos={'absolute'} bottom={40} w={'100%'}>
-        <Logout />
-      </Center>
     </Box>
   );
 };

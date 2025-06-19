@@ -1,7 +1,8 @@
 import { Box, Flex, ScrollArea } from '@mantine/core';
 import { SideNavItem } from '../../../types/dashboard';
 import { adminSideNavData } from '../../../data/menuData';
-import { MobileSideBar, SideBarWrapper } from '@/components';
+import { SideBarWrapper } from '@/components';
+import SidebarTopNav from '@/components/(dashboard)/Sidebar/SidebarTopNav';
 
 export default async function DashboardLayout({
   children,
@@ -17,18 +18,7 @@ export default async function DashboardLayout({
 
       {/* Scrollable main content */}
       <ScrollArea px={32} bg="white" w="100%">
-        <Flex
-          style={{ zIndex: 100 }}
-          top={20}
-          right={44}
-          w="100%"
-          align="center"
-          justify={{ base: 'space-between', md: 'flex-end' }}
-          gap={20}
-        >
-          <MobileSideBar menus={menus} />
-        </Flex>
-
+        <SidebarTopNav menus={menus} />
         <Box py={40}>{children}</Box>
       </ScrollArea>
     </Flex>

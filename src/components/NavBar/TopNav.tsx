@@ -23,12 +23,6 @@ const TopNav = () => {
     setMobileMenuOpen(!mobileMenuOpen);
   };
 
-  // useEffect(() => {
-  //   document.onkeydown = function () {
-  //     return false;
-  //   };
-  // }, []);
-
   return (
     <motion.div
       initial={{ y: -100 }}
