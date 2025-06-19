@@ -1,3 +1,4 @@
+import { Box } from '@mantine/core';
 import { getDrivers } from './action/getDriversData';
 import DriverDataTable from '@/components/(dashboard)/Tables/DriverDataTable';
 
@@ -10,7 +11,7 @@ const DriverData = async (props: { searchParams: SearchParams }) => {
   const result = await getDrivers(Number(page) || 1, Number(limit) || 10);
   console.log('Driver Data ==>', result);
   return (
-    <div>
+    <Box>
       {/* <DriverInformationCard /> */}
       <DriverDataTable
         data={result.data?.records ?? []}
@@ -22,7 +23,7 @@ const DriverData = async (props: { searchParams: SearchParams }) => {
           }
         }
       />
-    </div>
+    </Box>
   );
 };
 

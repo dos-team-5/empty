@@ -6,7 +6,7 @@ import { useSearchParams, useRouter } from 'next/navigation';
 import { useState } from 'react';
 
 import { useMediaQuery } from '@mantine/hooks';
-import { Card, Flex, Text } from '@mantine/core';
+import { Button, Card, Flex, Text } from '@mantine/core';
 import { Icon } from '@iconify/react/dist/iconify.js';
 
 const DriverDataTable = ({
@@ -31,10 +31,19 @@ const DriverDataTable = ({
   const hasRecords = data && data.length > 0;
 
   return (
-    <Card p={0} radius="md" withBorder>
+    <Card radius="md" withBorder>
       {hasRecords ? (
         <Card.Section>
+          <Flex align={'center'} justify="space-between" px={32} py={20}>
+            <Text fz={20} fw={700}>
+              Driver Information
+            </Text>
+            <Button leftSection={<Icon icon="tdesign:file-pdf" width={16} />}>
+              Pdf Download
+            </Button>
+          </Flex>
           <DataTable
+            mt={8}
             noRecordsText={''}
             noRecordsIcon={true}
             columns={driverTableColumns}
