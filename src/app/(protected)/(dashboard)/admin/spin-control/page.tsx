@@ -2,6 +2,7 @@ import SpinDataTable from '@/components/(dashboard)/Tables/SpinDataTable';
 import { Box } from '@mantine/core';
 import { getCampaigns } from './action/getAllCampaign';
 import SpinCampaignCard from '@/components/(dashboard)/Scan-Spin/spinCampaignCard';
+import { getCampaignParticipants } from './action/getParticipants';
 
 const SpinControl = async () => {
   const { success, records, message } = await getCampaigns(1, 10);
@@ -18,6 +19,16 @@ const SpinControl = async () => {
   }
 
   console.log('Campaign Data:', records);
+
+  const campaignId = campaignData.id;
+
+  const result = await getCampaignParticipants({
+    campaignId,
+    page: 1,
+    limit: 10,
+  });
+
+  console.log('Campaign Participants ==>', result);
 
   return (
     <Box>
