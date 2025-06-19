@@ -1,39 +1,55 @@
-import { db } from '@/config/db';
-import { spinnerCampaigns } from '@/schema';
-import { count } from 'drizzle-orm';
+/* eslint-disable @typescript-eslint/no-explicit-any */
+'use server';
 
-export async function getCampaigns(page = 1, limit = 10) {
+import { NewSpinnerCampaign } from '@/schema';
+
+export async function getAllCampaigns(
+  page = 1,
+  limit = 10
+): Promise<{
+  success: boolean;
+  message: string;
+  data?: {
+    records: NewSpinnerCampaign[];
+    pagination: {
+      totalCount: number;
+      totalPages: number;
+      currentPage: number;
+    };
+  };
+}> {
+  // Step 1: Fetch the paginated campaign data from the API
   try {
-    const pageNumber = page > 0 ? page : 1;
-    const limitNumber = limit > 0 ? limit : 10;
-    const offset = (pageNumber - 1) * limitNumber;
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_BASE_URL}/api/campaigns?page=${page}&limit=${limit}`,
+      {
+        method: 'GET',
+      }
+    );
 
-    const [totalRecordsResult, campaignRecords] = await Promise.all([
-      db.select({ totalCount: count() }).from(spinnerCampaigns),
-      db.query.spinnerCampaigns.findMany({
-        limit: limitNumber,
-        offset,
-        orderBy: (campaigns, { desc }) => [desc(campaigns.createdAt)],
-      }),
-    ]);
+    const result = await response.json();
 
-    const totalCount = totalRecordsResult[0].totalCount;
-    const totalPages = Math.ceil(totalCount / limitNumber);
+    if (!response.ok) {
+      console.error('Failed to fetch campaigns:', result.message);
+      return {
+        success: false,
+        message: result.message ?? 'Failed to fetch campaigns from server.',
+      };
+    }
 
     return {
       success: true,
-      records: campaignRecords,
-      pagination: {
-        totalCount,
-        totalPages,
-        currentPage: pageNumber,
+      message: 'Campaigns fetched successfully.',
+      data: {
+        records: result.records,
+        pagination: result.pagination,
       },
     };
-  } catch (error) {
-    console.error('Error in getCampaigns:', error);
+  } catch (error: any) {
+    console.error('Network error while fetching campaigns:', error);
     return {
       success: false,
-      message: 'Failed to fetch campaigns due to a server error.',
+      message: 'A network error occurred while fetching campaign data.',
     };
   }
 }

@@ -1,7 +1,7 @@
 import { DataTableColumn } from 'mantine-datatable';
-import { FAKE_USERS } from '../data/spin-data';
+import { SpinnerParticipant } from '@/schema';
 
-export const userSpinTableColumns: DataTableColumn<(typeof FAKE_USERS)[0]>[] = [
+export const userSpinTableColumns: DataTableColumn<SpinnerParticipant>[] = [
   {
     accessor: 'id',
     title: 'ID',
