@@ -1,63 +1,76 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 'use server';
 
-import { getServerSession } from 'next-auth';
-import { count } from 'drizzle-orm';
+import { cookies } from 'next/headers';
+import { getServerSession } from 'next-auth/next';
+import { Driver } from '@/schema';
 import { authOptions } from '@/app/api/auth/[...nextauth]/utils/authOptions';
-import { db } from '@/config/db';
-import { drivers } from '@/schema';
 
-type GetDriversOptions = {
-  page?: number;
-  limit?: number;
-};
-
-export async function getDrivers({ page = 1, limit = 10 }: GetDriversOptions) {
+export async function getDrivers(
+  page: number = 1,
+  limit: number = 10
+): Promise<{
+  success: boolean;
+  message: string;
+  data?: {
+    records: Driver[];
+    pagination: {
+      totalCount: number;
+      totalPages: number;
+      currentPage: number;
+    };
+  };
+}> {
   try {
-    // --- Auth check ---
+    // Get NextAuth session server-side
     const session = await getServerSession(authOptions);
-    if (!session || session.user.role !== 'super_admin') {
+
+    if (!session) {
       return {
         success: false,
-        message: 'Forbidden: Access is denied.',
-        records: [],
-        pagination: null,
+        message: 'Unauthorized: No active session',
       };
     }
 
-    // --- Pagination logic ---
-    const pageNumber = page > 0 ? page : 1;
-    const limitNumber = limit > 0 ? limit : 10;
-    const offset = (pageNumber - 1) * limitNumber;
+    // Grab cookies from Next.js headers
+    const cookieStore = cookies();
 
-    // --- DB Queries ---
-    const [totalRecordsResult, driverRecords] = await Promise.all([
-      db.select({ totalCount: count() }).from(drivers),
-      db.query.drivers.findMany({
-        limit: limitNumber,
-        offset: offset,
-        orderBy: (drivers, { desc }) => [desc(drivers.createdAt)],
-      }),
-    ]);
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_BASE_URL}/api/drivers?page=${page}&limit=${limit}`,
+      {
+        method: 'GET',
+        headers: {
+          // Forward cookies so API can verify session, or
+          // alternatively pass Authorization header if using JWT or Bearer token
+          Cookie: cookieStore.toString(),
+        },
+        cache: 'no-store',
+      }
+    );
 
-    const totalCount = totalRecordsResult[0]?.totalCount ?? 0;
-    const totalPages = Math.ceil(totalCount / limitNumber);
+    const result = await res.json();
+
+    if (!res.ok) {
+      console.error('Failed to fetch drivers:', result.message);
+      return {
+        success: false,
+        message: result.message ?? 'Failed to fetch driver records.',
+      };
+    }
 
     return {
       success: true,
-      records: driverRecords,
-      pagination: {
-        totalCount,
-        totalPages,
-        currentPage: pageNumber,
+      message: 'Drivers fetched successfully.',
+      data: {
+        records: result.records,
+        pagination: result.pagination,
       },
     };
-  } catch (error) {
-    console.error('Error fetching drivers:', error);
+  } catch (error: any) {
+    console.error('Network error while fetching drivers:', error);
     return {
       success: false,
-      message: 'Failed to fetch drivers due to a server error.',
-      records: [],
-      pagination: null,
+      message: 'A network error occurred while fetching drivers.',
     };
   }
 }
