@@ -5,9 +5,10 @@ import { Driver } from '@/schema';
 import { useSearchParams, useRouter } from 'next/navigation';
 import { useState } from 'react';
 
-import { useMediaQuery } from '@mantine/hooks';
-import { Button, Card, Flex, Text } from '@mantine/core';
+import { useDisclosure, useMediaQuery } from '@mantine/hooks';
+import { Button, Card, Flex, Modal, Text } from '@mantine/core';
 import { Icon } from '@iconify/react/dist/iconify.js';
+import DriverInformationCard from '../Driver-Data/DriverInformationCard';
 
 const DriverDataTable = ({
   data,
@@ -27,8 +28,12 @@ const DriverDataTable = ({
   const [page, setPage] = useState(pramPageNumber ? Number(pramPageNumber) : 1);
   const router = useRouter();
   const [pageSize, setPageSize] = useState(PAGE_SIZES[0]);
+  const [opened, { open, close }] = useDisclosure(false);
+  const [driverData, setDriverData] = useState<Driver | null>(null);
 
   const hasRecords = data && data.length > 0;
+
+  console.log('Driver Data ==>', driverData);
 
   return (
     <Card radius="md" withBorder>
@@ -46,7 +51,10 @@ const DriverDataTable = ({
             mt={8}
             noRecordsText={''}
             noRecordsIcon={true}
-            columns={driverTableColumns}
+            columns={driverTableColumns({
+              openModal: open,
+              setDriver: setDriverData,
+            })}
             records={data}
             defaultColumnProps={{
               titleStyle: {
@@ -84,6 +92,14 @@ const DriverDataTable = ({
           </Flex>
         </Card.Section>
       )}
+      <Modal
+        size={'xl'}
+        opened={opened}
+        onClose={close}
+        title="Driver Information"
+      >
+        <DriverInformationCard />
+      </Modal>
     </Card>
   );
 };

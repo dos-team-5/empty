@@ -1,9 +1,16 @@
+// driver-column.ts
 import { Driver } from '@/schema';
 import { Button } from '@mantine/core';
 import { DataTableColumn } from 'mantine-datatable';
 import Link from 'next/link';
 
-export const driverTableColumns: DataTableColumn<Driver>[] = [
+export const driverTableColumns = ({
+  openModal,
+  setDriver,
+}: {
+  openModal: () => void;
+  setDriver: (driver: Driver) => void;
+}): DataTableColumn<Driver>[] => [
   {
     accessor: 'fullName',
     title: 'Full Name',
@@ -38,7 +45,7 @@ export const driverTableColumns: DataTableColumn<Driver>[] = [
     },
   },
   {
-    accessor: ' driversLicense',
+    accessor: 'driversLicense',
     title: "Picture of Driver's License",
     render: ({ driversLicense }) => {
       if (!Array.isArray(driversLicense) || driversLicense.length === 0) {
@@ -58,11 +65,20 @@ export const driverTableColumns: DataTableColumn<Driver>[] = [
       ));
     },
   },
-
   {
     accessor: 'actions',
     title: '',
     textAlign: 'right',
-    render: () => <Button size="sm">View All</Button>,
+    render: (driver) => (
+      <Button
+        size="sm"
+        onClick={() => {
+          setDriver(driver);
+          openModal();
+        }}
+      >
+        View All
+      </Button>
+    ),
   },
 ];
