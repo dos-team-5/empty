@@ -1,45 +1,47 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 'use server';
 
-import { CreateCampaignPayload } from '@/app/api/campaigns/route';
-import { db } from '@/config/db';
-import { spinnerCampaigns } from '@/schema';
+import type { CreateCampaignPayload } from '@/app/api/campaigns/route';
+import { SpinnerCampaign } from '@/schema';
 
-export async function createCampaign(body: CreateCampaignPayload) {
+export async function createCampaign(data: CreateCampaignPayload): Promise<{
+  success: boolean;
+  message: string;
+  campaign?: SpinnerCampaign; // Replace with Campaign type if available
+}> {
   try {
-    const { title, companyName, deadline, options, attemptConfiguration } =
-      body;
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_BASE_URL}/api/campaigns`,
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+        cache: 'no-store',
+      }
+    );
 
-    if (
-      !title ||
-      !companyName ||
-      !deadline ||
-      !options ||
-      !attemptConfiguration
-    ) {
+    const result = await res.json();
+
+    if (!res.ok) {
+      console.error('Failed to create campaign:', result.message);
       return {
         success: false,
-        message: 'Missing required campaign fields.',
+        message: result.message ?? 'Failed to create campaign.',
       };
     }
-
-    const [newCampaign] = await db
-      .insert(spinnerCampaigns)
-      .values({
-        ...body,
-        deadline: new Date(deadline),
-      })
-      .returning();
 
     return {
       success: true,
       message: 'Campaign created successfully.',
-      campaign: newCampaign,
+      campaign: result.campaign,
     };
-  } catch (error) {
-    console.error('Error creating campaign:', error);
+  } catch (error: any) {
+    console.error('Network error creating campaign:', error);
     return {
       success: false,
-      message: 'Failed to create campaign due to a server error.',
+      message: 'A network error occurred while creating the campaign.',
     };
   }
 }

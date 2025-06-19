@@ -1,38 +1,22 @@
 import SpinDataTable from '@/components/(dashboard)/Tables/SpinDataTable';
 import { Box } from '@mantine/core';
-import { getCampaigns } from './action/getAllCampaign';
+import { getAllCampaigns } from './action/getAllCampaign';
 import SpinCampaignCard from '@/components/(dashboard)/Scan-Spin/spinCampaignCard';
-import { getCampaignParticipants } from './action/getParticipants';
+import { SpinnerCampaign } from '@/schema';
+import { getParticipants } from './action/getParticipants';
 
 const SpinControl = async () => {
-  const { success, records, message } = await getCampaigns(1, 10);
+  const response = await getAllCampaigns(1, 10);
+  const campaign = response.data?.records[0];
+  const participantResponse = await getParticipants(campaign?.id as number);
 
-  console.log('Campaign success ==>', success, records);
-  if (!success || records?.length === 0) {
-    return <p>Error: {message ?? 'No campaigns found.'}</p>;
-  }
+  console.log('All Campaigns ==>', response.data?.records);
 
-  const campaignData = records?.[0];
-  console.log('Campaign ==>', campaignData);
-  if (!campaignData) {
-    return <p>No campaign data available.</p>;
-  }
-
-  console.log('Campaign Data:', records);
-
-  const campaignId = campaignData.id;
-
-  const result = await getCampaignParticipants({
-    campaignId,
-    page: 1,
-    limit: 10,
-  });
-
-  console.log('Campaign Participants ==>', result);
+  console.log('Participant Response ==>', participantResponse);
 
   return (
     <Box>
-      <SpinCampaignCard data={campaignData} />
+      <SpinCampaignCard data={response.data?.records[0] as SpinnerCampaign} />
       <SpinDataTable />
     </Box>
   );

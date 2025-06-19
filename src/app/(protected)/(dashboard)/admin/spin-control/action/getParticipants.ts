@@ -1,70 +1,64 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 'use server';
 
-import { db } from '@/config/db';
-import { spinnerParticipants } from '@/schema';
-import { eq, count } from 'drizzle-orm';
+import { SpinnerParticipant } from '@/schema';
 
-type GetParticipantsParams = {
-  campaignId: number;
-  page?: number;
-  limit?: number;
-};
+export async function getParticipants(
+  id: number,
+  page: number = 1,
+  limit: number = 10
+): Promise<{
+  success: boolean;
+  message: string;
+  data?: {
+    records: SpinnerParticipant[]; // Replace `any` with Participant type if available
+    pagination: {
+      totalCount: number;
+      totalPages: number;
+      currentPage: number;
+    };
+  };
+}> {
+  // --- ID Validation ---
+  if (!id || isNaN(id)) {
+    return {
+      success: false,
+      message: 'Invalid campaign ID.',
+    };
+  }
 
-export async function getCampaignParticipants({
-  campaignId,
-  page = 1,
-  limit = 10,
-}: GetParticipantsParams) {
   try {
-    // --- ID Validation ---
-    if (isNaN(campaignId)) {
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_BASE_URL}/api/campaigns/${id}?page=${page}&limit=${limit}`,
+      {
+        method: 'GET',
+        cache: 'no-store',
+      }
+    );
+
+    const result = await res.json();
+
+    if (!res.ok) {
+      console.error('Failed to fetch participants:', result.message);
       return {
         success: false,
-        message: 'Invalid campaign ID provided.',
-        records: [],
-        pagination: null,
+        message: result.message ?? 'Failed to fetch participants.',
       };
     }
 
-    // --- Pagination ---
-    const pageNumber = page > 0 ? page : 1;
-    const limitNumber = limit > 0 ? limit : 10;
-    const offset = (pageNumber - 1) * limitNumber;
-
-    // --- Database Queries ---
-    const [totalRecordsResult, participantRecords] = await Promise.all([
-      db
-        .select({ totalCount: count() })
-        .from(spinnerParticipants)
-        .where(eq(spinnerParticipants.campaignId, campaignId)),
-
-      db.query.spinnerParticipants.findMany({
-        where: eq(spinnerParticipants.campaignId, campaignId),
-        limit: limitNumber,
-        offset: offset,
-        orderBy: (participants, { desc }) => [desc(participants.lastAttemptAt)],
-      }),
-    ]);
-
-    const totalCount = totalRecordsResult[0]?.totalCount ?? 0;
-    const totalPages = Math.ceil(totalCount / limitNumber);
-
     return {
       success: true,
-      records: participantRecords,
-      pagination: {
-        totalCount,
-        totalPages,
-        currentPage: pageNumber,
+      message: 'Participants fetched successfully.',
+      data: {
+        records: result.records,
+        pagination: result.pagination,
       },
     };
-  } catch (error) {
-    console.error('Error fetching campaign participants:', error);
+  } catch (error: any) {
+    console.error('Network error fetching participants:', error);
     return {
       success: false,
-      message: 'Failed to fetch participants due to a server error.',
-      records: [],
-      pagination: null,
+      message: 'A network error occurred while fetching participants.',
     };
   }
 }

@@ -28,6 +28,7 @@ const DriverDataTable = ({
   const [pageSize, setPageSize] = useState(PAGE_SIZES[0]);
   return (
     <Card p={0} radius="md" withBorder>
+      <Card.Section></Card.Section>
       <DataTable
         noRecordsText={''}
         noRecordsIcon={true}
