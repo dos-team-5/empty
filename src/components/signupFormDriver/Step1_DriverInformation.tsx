@@ -36,7 +36,7 @@ export const fileHandlerResSchema = z
 const schema = z.object({
   fullName: z.string().min(1, 'Full name is required'),
   email: z.string().email('Invalid email address'),
-  phone: z.string().regex(/^\+?\d{10,15}$/, 'Invalid phone number'),
+  phone: z.string().min(1, 'Phone number is required'),
   cityProvince: z.string().min(1, 'City & Province is required'),
   shippingAddress: z.string().min(1, 'Shipping address is required'),
   vehicleMake: z.string().min(1, 'Vehicle make is required'),

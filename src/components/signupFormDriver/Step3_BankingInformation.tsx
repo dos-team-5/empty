@@ -124,18 +124,13 @@ const Step3_BankingInformation = ({
         await sendDriverApplicationEmail(driverApplication);
 
       if (success) {
-        const { success: greetingSuccess } =
-          await sendDriverApplicationEmail(greetingMsg);
-        if (greetingSuccess) {
-          setIsBankingInfoSubmitted(true); // Mark form as submitted
-          notifications.show({
-            title: 'Form Submitted. Please check you Email for confirmation',
-            message,
-            color: 'green',
-            autoClose: 3000,
-          });
-          onNext();
-        }
+        notifications.show({
+          title: 'Form Submitted. Please check you Email for confirmation',
+          message,
+          color: 'green',
+          autoClose: 3000,
+        });
+        onNext();
       } else {
         notifications.show({
           title: 'Submission Failed',
