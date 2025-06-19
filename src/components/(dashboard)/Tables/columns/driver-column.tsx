@@ -1,4 +1,5 @@
 import { Driver } from '@/schema';
+import { Button } from '@mantine/core';
 import { DataTableColumn } from 'mantine-datatable';
 import Link from 'next/link';
 
@@ -62,10 +63,6 @@ export const driverTableColumns: DataTableColumn<Driver>[] = [
     accessor: 'actions',
     title: '',
     textAlign: 'right',
-    render: () => (
-      <button className="rounded bg-pink-500 px-3 py-1 text-sm text-white hover:bg-pink-600">
-        View All
-      </button>
-    ),
+    render: () => <Button size="sm">View All</Button>,
   },
 ];

@@ -1,4 +1,5 @@
 @import 'tailwindcss';
+@layer mantine, mantine-datatable;
 
 :root {
   --font-poppins: 'Poppins', sans-serif;

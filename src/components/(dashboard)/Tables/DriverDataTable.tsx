@@ -27,7 +27,7 @@ const DriverDataTable = ({
   const router = useRouter();
   const [pageSize, setPageSize] = useState(PAGE_SIZES[0]);
   return (
-    <Card>
+    <Card p={0} radius="md" withBorder>
       <DataTable
         noRecordsText={''}
         noRecordsIcon={true}
@@ -56,6 +56,7 @@ const DriverDataTable = ({
           setPage(1);
           router.push(`/admin/driver-data?page=1&limit=${pageSize}`);
         }}
+        recordsPerPageLabel="Showing"
 
         // onCellClick={({ event, record, index, column, columnIndex }) => {
         //   openModal({
