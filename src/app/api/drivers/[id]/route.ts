@@ -4,8 +4,6 @@ import { NextRequest, NextResponse } from 'next/server';
 import { eq } from 'drizzle-orm';
 import { db } from '@/config/db';
 import { drivers } from '@/schema/drivers';
-import { getServerSession } from 'next-auth';
-import { authOptions } from '../../auth/[...nextauth]/utils/authOptions';
 
 export async function GET(
   req: NextRequest,
@@ -13,14 +11,14 @@ export async function GET(
 ) {
   try {
     // Check for user session and role
-    const session = await getServerSession(authOptions);
+    // const session = await getServerSession(authOptions);
 
-    if (!session || session.user.role !== 'super_admin') {
-      return NextResponse.json(
-        { success: false, message: 'Forbidden: Access is denied.' },
-        { status: 403 }
-      );
-    }
+    // if (!session || session.user.role !== 'super_admin') {
+    //   return NextResponse.json(
+    //     { success: false, message: 'Forbidden: Access is denied.' },
+    //     { status: 403 }
+    //   );
+    // }
 
     const driverId = parseInt(params.id, 10);
     if (isNaN(driverId)) {
