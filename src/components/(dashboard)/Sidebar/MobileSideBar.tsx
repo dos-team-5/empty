@@ -12,7 +12,7 @@ const MobileSideBar = ({ menus }: MobileSideBarProps) => {
   const [opened, { open, close }] = useDisclosure(false);
   return (
     <Box>
-      <Burger opened={false} onClick={open} size="sm" mr="md" hiddenFrom="lg" />
+      <Burger opened={false} onClick={open} size="sm" mr="md" hiddenFrom="sm" mt='md' />
       <Drawer
         radius="md"
         opened={opened}
