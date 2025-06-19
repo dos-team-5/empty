@@ -17,7 +17,7 @@ export default async function DashboardLayout({
       <SideBarWrapper menus={menus} />
 
       {/* Scrollable main content */}
-      <ScrollArea px={32} bg="white" w="100%">
+      <ScrollArea px={{ base: 0, md: 32 }} bg="white" w="100%">
         <SidebarTopNav menus={menus} />
         <Box py={40}>{children}</Box>
       </ScrollArea>

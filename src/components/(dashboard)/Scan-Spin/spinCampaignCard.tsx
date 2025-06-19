@@ -115,11 +115,16 @@ export default function SpinCampaignCard({
   };
 
   return (
-    <Container size="100%" px="md" py="xl">
+    <Container
+      size="100%"
+      px={{ base: 12, md: 'xl' }}
+      mt={{ base: 24, md: 0 }}
+      py="xl"
+    >
       <Stack gap="xl">
         {/* Header Actions */}
         <Group justify="space-between" align="center">
-          <Title order={1} size={rem(32)} c={PRIMARY_COLOR}>
+          <Title order={1} fz={{ base: 20, xl: 32 }} c={PRIMARY_COLOR}>
             Campaign Management
           </Title>
           <Button
@@ -162,10 +167,15 @@ export default function SpinCampaignCard({
             <Grid align="center">
               <Grid.Col span={{ base: 12, md: 8 }}>
                 <Group align="center" gap="xl">
-                  <Paper shadow="md" p="md" bg="white" radius="lg">
+                  <Paper
+                    shadow="md"
+                    p={{ base: 8, md: 'md' }}
+                    bg="white"
+                    radius="lg"
+                  >
                     <Image
-                      w={80}
-                      h={80}
+                      w={{ base: 40, md: 80 }}
+                      h={{ base: 40, md: 80 }}
                       src={campaign.companyLogo?.url}
                       fallbackSrc="/elementor-placeholder-image.webp"
                       alt={campaign.companyName}
@@ -173,7 +183,12 @@ export default function SpinCampaignCard({
                     />
                   </Paper>
                   <Stack gap="xs">
-                    <Title order={2} size={rem(28)} fw={700} c={PRIMARY_COLOR}>
+                    <Title
+                      order={2}
+                      fz={{ base: 16, xl: 28 }}
+                      fw={700}
+                      c={PRIMARY_COLOR}
+                    >
                       {campaign.title}
                     </Title>
                     <Text size="lg" c="dimmed" fw={500}>

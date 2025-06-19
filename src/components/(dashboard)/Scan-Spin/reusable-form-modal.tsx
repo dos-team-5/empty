@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 'use client';
 import {
   Modal,
@@ -15,6 +16,7 @@ import {
   Container,
   Card,
   rem,
+  Flex,
 } from '@mantine/core';
 import { useForm } from '@mantine/form';
 import { DateTimePicker } from '@mantine/dates';
@@ -94,8 +96,7 @@ export default function ReusableFormModal({
       options: {
         label: (value) =>
           value.length < 1 ? 'Option label is required' : null,
-        coupon: (value) =>
-          value.length < 1 ? 'Coupon code is required' : null,
+        coupon: (_value) => null,
       },
       attemptConfiguration: {
         totalAttempts: (value) =>
@@ -208,7 +209,7 @@ export default function ReusableFormModal({
       <Container size="100%" p={0}>
         <Card
           shadow="none"
-          padding="xl"
+          p={{ base: 'md', xl: 'xl' }}
           radius={0}
           style={{
             width: '100%',
@@ -296,8 +297,12 @@ export default function ReusableFormModal({
                   </Text>
                 </Group>
                 <Stack gap="md">
-                  <Group grow>
+                  <Flex
+                    direction={{ base: 'column', md: 'row' }}
+                    gap={{ base: 16, md: 32 }}
+                  >
                     <DateTimePicker
+                      w={'100%'}
                       label="Deadline"
                       placeholder="Select deadline"
                       required
@@ -314,6 +319,7 @@ export default function ReusableFormModal({
                     />
 
                     <NumberInput
+                      w={'100%'}
                       label="User Limit"
                       placeholder="Maximum participants"
                       min={1}
@@ -329,7 +335,7 @@ export default function ReusableFormModal({
                       }}
                       {...form.getInputProps('userLimit')}
                     />
-                  </Group>
+                  </Flex>
                 </Stack>
               </Box>
 
@@ -350,8 +356,12 @@ export default function ReusableFormModal({
                     ATTEMPT CONFIGURATION
                   </Text>
                 </Group>
-                <Group grow>
+                <Flex
+                  direction={{ base: 'column', md: 'row' }}
+                  gap={{ base: 16, md: 32 }}
+                >
                   <NumberInput
+                    w={'100%'}
                     label="Total Attempts"
                     placeholder="Total attempts"
                     min={1}
@@ -410,7 +420,7 @@ export default function ReusableFormModal({
                       'attemptConfiguration.attemptsPerPeriod'
                     )}
                   />
-                </Group>
+                </Flex>
               </Box>
 
               <Divider color={`${PRIMARY_COLOR}30`} />
@@ -501,7 +511,6 @@ export default function ReusableFormModal({
                           <TextInput
                             label="Coupon Code"
                             placeholder="e.g., FREE-COFFEE-2025"
-                            required
                             size="md"
                             styles={{
                               label: { fontWeight: 500, marginBottom: rem(8) },

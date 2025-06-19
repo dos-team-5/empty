@@ -28,7 +28,7 @@ const SidebarTopNav = ({ menus }: SidebarTopNavProps) => {
       <Group
         w={'full'}
         mx={'auto'}
-        className={`bg-default/80 fixed top-0 right-0 left-0 z-50 shadow-lg backdrop-blur-md`}
+        className={`bg-default/80 fixed top-0 right-0 left-0 z-50 shadow-lg backdrop-blur-md md:!hidden`}
       >
         <Group
           maw={1800}
