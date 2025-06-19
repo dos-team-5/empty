@@ -191,10 +191,10 @@ export default function Home() {
             <motion.div
               initial={{ opacity: 0, scale: 0.8 }}
               animate={{ opacity: 1, scale: 1 }}
-              className="max-w-md rounded-lg bg-white p-6 text-center shadow-xl md:mt-8 xl:mt-20 2xl:mt-40"
+              className="max-w-md rounded-lg bg-white p-6 text-center shadow-xl md:mt-8 xl:mt-20 2xl:mt-40 lg:scale-80"
             >
               {spinResult.isWinning ? (
-                <div>
+                <div className=''>
                   <div className="flex items-center justify-center">
                     <Image
                       src={'/Emoji1.png'}
@@ -239,7 +239,7 @@ export default function Home() {
                   )}
                 </div>
               ) : (
-                <div>
+                <div className=''>
                   <div className="flex items-center justify-center">
                     <Image
                       src={'/Emoji2.png'}
