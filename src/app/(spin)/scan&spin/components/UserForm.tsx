@@ -40,7 +40,7 @@ export default function UserForm({ onSubmit, spinResult }: UserFormProps) {
       name: '',
       phoneNumber: '+1',
       email: '',
-      agreeToEmails: false,
+      agreeToEmails: true,
     },
   });
 
@@ -52,7 +52,7 @@ export default function UserForm({ onSubmit, spinResult }: UserFormProps) {
     <form
       onSubmit={form.onSubmit(handleSubmit)}
       style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}
-      className=''
+      className=""
     >
       <TextInput
         label="Name"
@@ -82,6 +82,7 @@ export default function UserForm({ onSubmit, spinResult }: UserFormProps) {
 
       {spinResult?.isWinning && (
         <Checkbox
+          checked
           id="agreeToEmails"
           {...form.getInputProps('agreeToEmails', { type: 'checkbox' })}
           label="I agree to receive email updates and promotional offers about similar contests and products"
