@@ -50,14 +50,14 @@ const SpinDataTable = ({ data }: SpinDataTableProps) => {
           page={page}
           onPageChange={(page) => {
             setPage(page);
-            router.push(`/admin/driver-data?limit=${pageSize}&page=${page}`);
+            router.push(`/admin/spin-control?limit=${pageSize}&page=${page}`);
           }}
           recordsPerPage={pageSize}
           recordsPerPageOptions={PAGE_SIZES}
           onRecordsPerPageChange={(pageSize) => {
             setPageSize(pageSize);
             setPage(1);
-            router.push(`/admin/driver-data?page=1&limit=${pageSize}`);
+            router.push(`/admin/spin-control?page=1&limit=${pageSize}`);
           }}
           recordsPerPageLabel="Showing"
         />
