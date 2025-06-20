@@ -3,26 +3,15 @@
 import { Driver } from '@/schema';
 import { cookies } from 'next/headers'; // 1. Import the cookies function from next/headers
 
-export async function getDrivers(
-  page: number = 1,
-  limit: number = 10
-): Promise<{
+export async function getDriverProfile(id: string): Promise<{
   success: boolean;
   message: string;
-  data?: {
-    records: Driver[];
-    pagination: {
-      totalCount: number;
-      totalPages: number;
-      currentPage: number;
-    };
-  };
+  data?: Driver;
 }> {
   try {
-    const url = new URL(`${process.env.NEXT_PUBLIC_BASE_URL}/api/drivers`);
-    url.searchParams.set('page', page.toString());
-    url.searchParams.set('limit', limit.toString());
-
+    const url = new URL(
+      `${process.env.NEXT_PUBLIC_BASE_URL}/api/drivers/${id}`
+    );
     // 2. Get the cookie store from the incoming request
     const cookieStore = await cookies();
 
@@ -45,14 +34,10 @@ export async function getDrivers(
         message: result.message ?? 'Failed to fetch driver records.',
       };
     }
-
     return {
       success: true,
       message: 'Drivers fetched successfully.',
-      data: {
-        records: result.records,
-        pagination: result.pagination,
-      },
+      data: result.driver, // Assuming the API returns a single driver object
     };
   } catch (error: any) {
     console.error('Network error while fetching drivers:', error);
