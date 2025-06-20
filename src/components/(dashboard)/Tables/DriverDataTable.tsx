@@ -44,7 +44,7 @@ const DriverDataTable = ({
               Driver Information
             </Text>
             <Button leftSection={<Icon icon="tdesign:file-pdf" width={16} />}>
-              Pdf Download
+              Export Document
             </Button>
           </Flex>
           <DataTable

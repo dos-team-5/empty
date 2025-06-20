@@ -26,10 +26,7 @@ import {
   IconFileText,
   IconDownload,
   IconCircleCheck,
-  IconStar,
   IconClock,
-  IconShield,
-  IconExternalLink,
 } from '@tabler/icons-react';
 import { useState } from 'react';
 import { InfoCard } from './InfoCard';
@@ -150,61 +147,7 @@ export default function DriverInfoCard({ data }: DriverInformationCardProps) {
                     <Text size="lg" c="rgba(255,255,255,0.9)" mb="sm">
                       Professional Driver Application
                     </Text>
-                    <Group gap="lg">
-                      <Group gap="xs">
-                        <IconStar size={16} color="white" fill="currentColor" />
-                        <Text size="sm" c="white">
-                          Verified Profile
-                        </Text>
-                      </Group>
-                      <Group gap="xs">
-                        <IconShield size={16} color="white" />
-                        <Text size="sm" c="white">
-                          Background Checked
-                        </Text>
-                      </Group>
-                    </Group>
                   </Stack>
-                </Group>
-
-                <Group gap="sm">
-                  <Button
-                    leftSection={<IconExternalLink size={16} />}
-                    variant="white"
-                    color="dark"
-                    size="md"
-                    radius="xl"
-                    style={{
-                      color: '#CB6AA7',
-                      fontWeight: 600,
-                      transition: 'all 0.3s ease',
-                    }}
-                    onMouseEnter={(e) => {
-                      e.currentTarget.style.transform = 'scale(1.05)';
-                      e.currentTarget.style.boxShadow =
-                        '0 10px 25px rgba(0,0,0,0.15)';
-                    }}
-                    onMouseLeave={(e) => {
-                      e.currentTarget.style.transform = 'scale(1)';
-                      e.currentTarget.style.boxShadow = 'none';
-                    }}
-                  >
-                    View Full Profile
-                  </Button>
-                  <Button
-                    leftSection={<IconDownload size={16} />}
-                    variant="outline"
-                    size="md"
-                    radius="xl"
-                    style={{
-                      borderColor: 'rgba(255,255,255,0.3)',
-                      color: 'white',
-                      fontWeight: 600,
-                      backdropFilter: 'blur(10px)',
-                    }}
-                  >
-                    Download Resume
-                  </Button>
                 </Group>
               </Group>
             </Box>
@@ -316,7 +259,7 @@ export default function DriverInfoCard({ data }: DriverInformationCardProps) {
                           <Grid.Col span={{ base: 12, md: 6 }}>
                             <InfoCard
                               icon={IconMapPin}
-                              label="City/Province"
+                              label="City"
                               value={data.cityProvince ?? ''}
                             />
                           </Grid.Col>

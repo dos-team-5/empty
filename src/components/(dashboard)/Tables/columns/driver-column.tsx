@@ -67,8 +67,8 @@ export const driverTableColumns = ({
   },
   {
     accessor: 'actions',
-    title: '',
-    textAlign: 'right',
+    title: 'Actions',
+    textAlign: 'center',
     render: (driver) => (
       <Button
         size="sm"
@@ -77,7 +77,7 @@ export const driverTableColumns = ({
           openModal();
         }}
       >
-        View All
+        View
       </Button>
     ),
   },
