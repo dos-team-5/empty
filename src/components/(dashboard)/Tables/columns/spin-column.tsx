@@ -7,6 +7,7 @@ export const userSpinTableColumns: DataTableColumn<SpinnerParticipant>[] = [
     accessor: 'name',
     title: 'Participants',
     textAlign: 'left',
+    sortable: true,
   },
   {
     accessor: 'email',
