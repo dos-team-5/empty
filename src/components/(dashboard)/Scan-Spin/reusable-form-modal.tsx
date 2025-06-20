@@ -381,6 +381,7 @@ export default function ReusableFormModal({
                   />
 
                   <Select
+                    w={'100%'}
                     label="Time Period"
                     placeholder="Select period"
                     data={[
@@ -403,6 +404,7 @@ export default function ReusableFormModal({
                   />
 
                   <NumberInput
+                    w={'100%'}
                     label="Attempts Per Period"
                     placeholder="Per period"
                     min={1}

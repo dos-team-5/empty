@@ -133,11 +133,11 @@ export function UserSideNav({ menus, onClose }: UserSidenavProps) {
   });
 
   return (
-    <nav className={`relative h-[88vh] w-full md:w-[300px]`}>
+    <nav className={`relative h-[88vh] w-full md:w-[300px] xl:h-0`}>
       <ScrollArea w="100%" h="100%" px={16}>
         {sideNavLinks}
       </ScrollArea>
-      <Center pos={'absolute'} bottom={40} w={'100%'}>
+      <Center pos={'absolute'} bottom={0} w={'100%'}>
         <Logout />
       </Center>
     </nav>
