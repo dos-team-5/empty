@@ -4,17 +4,22 @@ import { NextRequest, NextResponse } from 'next/server';
 import { count } from 'drizzle-orm';
 import { drivers } from '@/schema/drivers';
 import { db } from '@/config/db';
+import { getServerSession } from 'next-auth';
+import { authOptions } from '../auth/[...nextauth]/utils/authOptions';
 export async function GET(req: NextRequest) {
   try {
-    // Check for user session and role
-    // const session = await getServerSession(authOptions);
-    // console.log(session, 'Session in driver route');
-    // if (!session || session.user.role !== 'super_admin') {
-    //   return NextResponse.json(
-    //     { success: false, message: 'Forbidden: Access is denied.' },
-    //     { status: 403 }
-    //   );
-    // }
+    // --- Authorization Check ---
+    // Get the server-side session using your authOptions
+    const session = await getServerSession(authOptions);
+    // Check if a session exists and if the user's role is 'super_admin'
+    // Note: The role is available on `session.user.role` based on your session callback
+    if (!session || session.user?.role !== 'super_admin') {
+      return NextResponse.json(
+        { success: false, message: 'Forbidden: Access is denied.' },
+        { status: 403 }
+      );
+    }
+    // --- End Authorization Check ---
 
     const { searchParams } = new URL(req.url);
     const page = parseInt(searchParams.get('page') ?? '1', 10);
