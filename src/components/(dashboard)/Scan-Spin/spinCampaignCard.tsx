@@ -17,13 +17,15 @@ import {
   Card,
   rem,
   Image,
+  ActionIcon,
 } from '@mantine/core';
-import { Calendar, Clock, Coffee, Gift, Users, Plus, Edit } from 'lucide-react';
+import { Calendar, Clock, Coffee, Gift, Users, Edit, Eye } from 'lucide-react';
 import ReusableFormModal from './reusable-form-modal';
 import { SpinnerCampaign } from '@/schema';
 import { createCampaign } from '@/app/(protected)/(dashboard)/admin/spin-control/action/createCampaign';
 import { notifications } from '@mantine/notifications';
 import { updateCampaign } from '@/app/(protected)/(dashboard)/admin/spin-control/action/updateCampaign';
+import Link from 'next/link';
 
 const PRIMARY_COLOR = '#CB6AA7';
 
@@ -103,7 +105,10 @@ export default function SpinCampaignCard({
         title: campaign.title,
         companyName: campaign.companyName,
         deadline: new Date(campaign.deadline),
-        options: campaign.options,
+        options: campaign.options.map((option) => ({
+          ...option,
+          coupon: option.coupon ?? '',
+        })),
         userLimit: campaign.userLimit ?? undefined,
         attemptConfiguration: {
           ...campaign.attemptConfiguration,
@@ -122,8 +127,8 @@ export default function SpinCampaignCard({
           <Title order={1} fz={{ base: 20, xl: 32 }} c={PRIMARY_COLOR}>
             Campaign Management
           </Title>
-          <Button
-            hidden
+          {/* <Button
+            // hidden
             leftSection={<Plus size={18} />}
             onClick={handleCreateCampaign}
             size="md"
@@ -139,7 +144,7 @@ export default function SpinCampaignCard({
             }}
           >
             Create New Campaign
-          </Button>
+          </Button> */}
         </Group>
 
         {/* Main Campaign Card - Full Width */}
@@ -158,7 +163,21 @@ export default function SpinCampaignCard({
               borderBottom: `2px solid ${PRIMARY_COLOR}30`,
               padding: rem(24),
             }}
+            pos={'relative'}
           >
+            {/* preview */}
+            <ActionIcon
+              variant="light"
+              size="md"
+              pos="absolute"
+              top={rem(16)}
+              right={rem(16)}
+              component={Link}
+              href={`/scan&spin?campaignId=${campaign.id}`}
+            >
+              <Eye size={18} style={{ color: PRIMARY_COLOR }} />
+            </ActionIcon>
+
             <Grid align="center">
               <Grid.Col span={{ base: 12, md: 8 }}>
                 <Group align="center" gap="xl">

@@ -15,8 +15,10 @@ import { FileAttachment } from './drivers';
  * Defines the structure for a single prize option on the spinner wheel.
  */
 export type SpinnerOption = {
+  id: string; // Unique identifier for the prize option
   label: string; // The text displayed for the prize (e.g., "10% Off")
-  coupon: string; // The coupon code or prize identifier
+  coupon?: string; // The coupon code or prize identifier
+  ratio: number; // The probability of this option being selected, represented as a percentage (0-100)
 };
 
 /**

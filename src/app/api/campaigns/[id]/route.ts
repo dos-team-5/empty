@@ -7,9 +7,10 @@ import { spinnerCampaigns } from '@/schema';
 
 export async function GET(
   req: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
+    const { id } = await params;
     // --- Authorization Check ---
     // const session = await getServerSession(authOptions);
     // if (!session || session.user.role !== 'super_admin') {
@@ -20,7 +21,7 @@ export async function GET(
     // }
 
     // --- ID Validation ---
-    const campaignId = parseInt(params.id, 10);
+    const campaignId = parseInt(id, 10);
     if (isNaN(campaignId)) {
       return NextResponse.json(
         { success: false, message: 'Invalid campaign ID provided.' },
@@ -39,9 +40,23 @@ export async function GET(
         { status: 404 } // Not Found
       );
     }
+    // --- Data Sanitization ---
+    // Remove the 'coupon' field from each option before sending the response.
+    const sanitizedOptions = campaign.options.map((option) => {
+      const { coupon, ...rest } = option; // Destructure to exclude coupon
+      return rest; // Returns an object with { id, label, ratio }
+    });
+
+    const publicCampaignData = {
+      ...campaign,
+      options: sanitizedOptions,
+    };
 
     // --- Success Response ---
-    return NextResponse.json({ success: true, campaign }, { status: 200 });
+    return NextResponse.json(
+      { success: true, campaign: publicCampaignData },
+      { status: 200 }
+    );
   } catch (error) {
     console.error('Error fetching single campaign:', error);
     return NextResponse.json(

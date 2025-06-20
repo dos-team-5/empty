@@ -32,47 +32,31 @@ const hasPeriodReset = (
   return false;
 };
 
+// This GET function is for fetching the participant list (as provided before)
 export async function GET(
   req: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
-    // --- Authorization Check ---
-    // const session = await getServerSession(authOptions);
-    // if (!session || session.user.role !== 'super_admin') {
-    //   return NextResponse.json(
-    //     { success: false, message: 'Forbidden: Access is denied.' },
-    //     { status: 403 }
-    //   );
-    // }
-
-    // --- ID Validation ---
-    const campaignId = parseInt(params.id, 10);
+    const { id } = await params;
+    const campaignId = parseInt(id, 10);
     if (isNaN(campaignId)) {
       return NextResponse.json(
         { success: false, message: 'Invalid campaign ID provided.' },
         { status: 400 }
       );
     }
-
-    // --- Pagination Logic ---
     const { searchParams } = new URL(req.url);
     const page = parseInt(searchParams.get('page') ?? '1', 10);
     const limit = parseInt(searchParams.get('limit') ?? '10', 10);
-
     const pageNumber = page > 0 ? page : 1;
     const limitNumber = limit > 0 ? limit : 10;
     const offset = (pageNumber - 1) * limitNumber;
-
-    // --- Database Queries ---
     const [totalRecordsResult, participantRecords] = await Promise.all([
-      // Query 1: Get the total count of participants for this specific campaign
       db
         .select({ totalCount: count() })
         .from(spinnerParticipants)
         .where(eq(spinnerParticipants.campaignId, campaignId)),
-
-      // Query 2: Get the paginated list of participants for this campaign
       db.query.spinnerParticipants.findMany({
         where: eq(spinnerParticipants.campaignId, campaignId),
         limit: limitNumber,
@@ -80,20 +64,12 @@ export async function GET(
         orderBy: (participants, { desc }) => [desc(participants.lastAttemptAt)],
       }),
     ]);
-
     const totalCount = totalRecordsResult[0]?.totalCount ?? 0;
     const totalPages = Math.ceil(totalCount / limitNumber);
-
-    // --- Response Formatting ---
     const response = {
       records: participantRecords,
-      pagination: {
-        totalCount,
-        totalPages,
-        currentPage: pageNumber,
-      },
+      pagination: { totalCount, totalPages, currentPage: pageNumber },
     };
-
     return NextResponse.json(response, { status: 200 });
   } catch (error) {
     console.error('Error fetching campaign participants:', error);
@@ -107,6 +83,7 @@ export async function GET(
   }
 }
 
+// --- UPDATED POST FUNCTION for pre-spin registration ---
 export async function POST(
   req: NextRequest,
   { params }: { params: { id: string } }
@@ -129,6 +106,8 @@ export async function POST(
         { status: 400 }
       );
     }
+
+    const { name, email, phone } = body;
 
     // --- Fetch the Campaign ---
     const campaign = await db.query.spinnerCampaigns.findFirst({
@@ -154,7 +133,7 @@ export async function POST(
     let participant = await db.query.spinnerParticipants.findFirst({
       where: and(
         eq(spinnerParticipants.campaignId, campaignId),
-        eq(spinnerParticipants.email, body.email)
+        eq(spinnerParticipants.email, email)
       ),
     });
 
@@ -162,13 +141,12 @@ export async function POST(
 
     // New Participant
     if (!participant) {
-      const totalParticipants = await db
-        .select({ count: eq(spinnerParticipants.campaignId, campaignId) })
-        .from(spinnerParticipants);
-      if (
-        campaign.userLimit &&
-        totalParticipants.length >= campaign.userLimit
-      ) {
+      const totalParticipantsResult = await db
+        .select({ value: count() })
+        .from(spinnerParticipants)
+        .where(eq(spinnerParticipants.campaignId, campaignId));
+      const totalParticipants = totalParticipantsResult[0].value;
+      if (campaign.userLimit && totalParticipants >= campaign.userLimit) {
         return NextResponse.json(
           { message: 'This campaign has reached its participant limit.' },
           { status: 403 }
@@ -190,13 +168,10 @@ export async function POST(
 
       // Check time-based attempts
       if (config.timePeriod && participant.periodStart) {
-        // If the period has reset, update the participant's period stats
         if (hasPeriodReset(participant.periodStart, config.timePeriod)) {
           participant.periodAttempts = 0;
           participant.periodStart = new Date();
-        }
-        // If still within the period, check attempts
-        else if (participant.periodAttempts >= config.attemptsPerPeriod) {
+        } else if (participant.periodAttempts >= config.attemptsPerPeriod) {
           return NextResponse.json(
             {
               message: `You have reached the attempt limit for this ${config.timePeriod}. Please try again later.`,
@@ -207,45 +182,41 @@ export async function POST(
       }
     }
 
-    // --- Spin the Wheel ---
-    const winningOption =
-      campaign.options[Math.floor(Math.random() * campaign.options.length)];
-
-    // --- Upsert Participant Data ---
+    // --- Upsert Participant Data (without prize) ---
     const now = new Date();
     const participantDataToUpsert: NewSpinnerParticipant = {
-      name: body.name,
-      email: body.email,
-      phone: body.phone,
+      name: name,
+      email: email,
+      phone: phone,
       campaignId: campaignId,
       totalAttempts: (participant?.totalAttempts || 0) + 1,
       periodAttempts: (participant?.periodAttempts || 0) + 1,
       periodStart: participant?.periodStart || now,
-      wonPrizes: [...(participant?.wonPrizes || []), winningOption],
+      wonPrizes: participant?.wonPrizes || [], // Do not add a prize yet
       lastAttemptAt: now,
     };
 
-    const [savedParticipant] = await db
+    await db
       .insert(spinnerParticipants)
       .values(participantDataToUpsert)
       .onConflictDoUpdate({
         target: [spinnerParticipants.email, spinnerParticipants.campaignId],
         set: {
+          name: participantDataToUpsert.name,
+          phone: participantDataToUpsert.phone,
           totalAttempts: participantDataToUpsert.totalAttempts,
           periodAttempts: participantDataToUpsert.periodAttempts,
           periodStart: participantDataToUpsert.periodStart,
-          wonPrizes: participantDataToUpsert.wonPrizes,
           lastAttemptAt: participantDataToUpsert.lastAttemptAt,
         },
-      })
-      .returning();
+      });
 
     // --- Success Response ---
+    // Return a success message indicating the user is now eligible to spin.
     return NextResponse.json(
       {
         success: true,
-        message: 'Congratulations!',
-        prize: winningOption,
+        message: 'Participation recorded. You can now spin the wheel!',
       },
       { status: 200 }
     );

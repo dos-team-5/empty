@@ -29,7 +29,7 @@ export async function getParticipants(
 
   try {
     const res = await fetch(
-      `${process.env.NEXT_PUBLIC_BASE_URL}/api/campaigns/${id}?page=${page}&limit=${limit}`,
+      `${process.env.NEXT_PUBLIC_BASE_URL}/api/campaigns/${id}/participate`,
       {
         method: 'GET',
         cache: 'no-store',
@@ -45,7 +45,7 @@ export async function getParticipants(
         message: result.message ?? 'Failed to fetch participants.',
       };
     }
-
+    console.log(result);
     return {
       success: true,
       message: 'Participants fetched successfully.',
