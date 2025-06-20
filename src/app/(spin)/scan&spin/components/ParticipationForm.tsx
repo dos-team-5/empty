@@ -79,7 +79,6 @@ export default function ParticipationForm({
             id="agreeToEmails"
             {...form.getInputProps('agreeToEmails', { type: 'checkbox' })}
             label="I agree to receive email updates and promotional offers."
-            required
           />
           <Button type="submit" fullWidth mt="md" size="md" loading={isLoading}>
             I'm Ready to Spin!

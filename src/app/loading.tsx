@@ -95,7 +95,7 @@ export default function Loading() {
           <div className="mt-80 ml-8 text-center xl:ml-16">
             <h1
               className="text-3xl font-bold xl:text-4xl 2xl:text-5xl"
-              style={{ color: 'var(--color-primary)' }}
+              style={{ color: '#d481b6' }}
             >
               LOADING...
             </h1>
