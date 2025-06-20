@@ -8,7 +8,7 @@ import { useState } from 'react';
 import { useDisclosure, useMediaQuery } from '@mantine/hooks';
 import { Button, Card, Flex, Modal, Text } from '@mantine/core';
 import { Icon } from '@iconify/react/dist/iconify.js';
-import DriverInformationCard from '../Driver-Data/DriverInformationCard';
+import DriverInfoCard from '../Driver-Data/DriverInfoCard';
 
 const DriverDataTable = ({
   data,
@@ -94,11 +94,12 @@ const DriverDataTable = ({
       )}
       <Modal
         size={'xl'}
+        fullScreen
         opened={opened}
         onClose={close}
         title="Driver Information"
       >
-        <DriverInformationCard data={driverData ?? ({} as Driver)} />
+        <DriverInfoCard data={driverData ?? ({} as Driver)} />
       </Modal>
     </Card>
   );
