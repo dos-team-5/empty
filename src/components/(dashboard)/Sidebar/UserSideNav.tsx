@@ -4,13 +4,14 @@
 
 'use client';
 
-import { Box, Flex, Group, ScrollArea } from '@mantine/core';
+import { Box, Center, Flex, Group, ScrollArea } from '@mantine/core';
 import { AnimatePresence, motion } from 'framer-motion';
 import { usePathname } from 'next/navigation';
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { SideNavItem } from '@/types/dashboard';
 import { Icon } from '@iconify/react/dist/iconify.js';
+import Logout from '../Logout';
 
 type UserSidenavProps = {
   readonly menus?: SideNavItem[];
@@ -117,14 +118,14 @@ export function UserSideNav({ menus, onClose }: UserSidenavProps) {
           <Link
             onClick={linkClickHandler}
             href={item.path ?? '#'}
-            className={`mb-3 flex cursor-pointer items-center justify-between px-[55px] py-3 transition hover:bg-white ${
-              isActive ? 'bg-white' : ''
+            className={`hover:bg-primary mb-3 flex cursor-pointer items-center justify-between py-3 transition lg:px-[10px] lg:hover:bg-white 2xl:px-[55px] ${
+              isActive ? 'bg-primary text-white lg:bg-white lg:text-black' : ''
             } `}
           >
-            <Group>
+            <div className="mx-auto flex items-center justify-center">
               <Icon color="#ee7b1f" icon={item.icon} width={20} />
               <span className="text-[14px] font-medium">{item.label}</span>
-            </Group>
+            </div>
           </Link>
         )}
       </Box>
@@ -132,10 +133,13 @@ export function UserSideNav({ menus, onClose }: UserSidenavProps) {
   });
 
   return (
-    <nav className={`w-full md:w-[300px]`}>
+    <nav className={`relative h-[88vh] w-full lg:h-[70vh]`}>
       <ScrollArea w="100%" h="100%" px={16}>
         {sideNavLinks}
       </ScrollArea>
+      <Center className="lg:!hidden" pos={'absolute'} bottom={0} w={'100%'}>
+        <Logout />
+      </Center>
     </nav>
   );
 }

@@ -37,7 +37,7 @@ const schema = z.object({
   fullName: z.string().min(1, 'Full name is required'),
   email: z.string().email('Invalid email address'),
   phone: z.string().min(1, 'Phone number is required'),
-  cityProvince: z.string().min(1, 'City & Province is required'),
+  cityProvince: z.string().min(1, 'City  is required'),
   shippingAddress: z.string().min(1, 'Shipping address is required'),
   vehicleMake: z.string().min(1, 'Vehicle make is required'),
   vehicleModel: z.string().min(1, 'Vehicle model is required'),
@@ -291,7 +291,7 @@ const Step1_DriverInformation = ({
           </Input.Wrapper>
 
           <Input.Wrapper
-            label="City & Province"
+            label="City"
             withAsterisk
             error={form.errors.cityProvince}
             className="font-inter text-xs font-normal text-[#5E6366]"
