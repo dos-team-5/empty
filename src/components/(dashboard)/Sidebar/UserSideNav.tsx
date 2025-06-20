@@ -118,14 +118,14 @@ export function UserSideNav({ menus, onClose }: UserSidenavProps) {
           <Link
             onClick={linkClickHandler}
             href={item.path ?? '#'}
-            className={`hover:bg-primary mb-3 flex cursor-pointer items-center justify-between px-[55px] py-3 transition lg:hover:bg-white ${
+            className={`hover:bg-primary mb-3 flex cursor-pointer items-center justify-between py-3 transition lg:px-[10px] lg:hover:bg-white 2xl:px-[55px] ${
               isActive ? 'bg-primary text-white lg:bg-white lg:text-black' : ''
             } `}
           >
-            <Group>
+            <div className="mx-auto flex items-center justify-center">
               <Icon color="#ee7b1f" icon={item.icon} width={20} />
               <span className="text-[14px] font-medium">{item.label}</span>
-            </Group>
+            </div>
           </Link>
         )}
       </Box>
@@ -133,11 +133,11 @@ export function UserSideNav({ menus, onClose }: UserSidenavProps) {
   });
 
   return (
-    <nav className={`relative h-[88vh] w-full md:w-[300px] xl:h-0`}>
+    <nav className={`relative h-[88vh] w-full lg:h-[70vh]`}>
       <ScrollArea w="100%" h="100%" px={16}>
         {sideNavLinks}
       </ScrollArea>
-      <Center pos={'absolute'} bottom={0} w={'100%'}>
+      <Center className="lg:!hidden" pos={'absolute'} bottom={0} w={'100%'}>
         <Logout />
       </Center>
     </nav>

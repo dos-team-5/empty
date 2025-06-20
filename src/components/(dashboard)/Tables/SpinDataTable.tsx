@@ -31,7 +31,7 @@ const SpinDataTable = ({ data }: SpinDataTableProps) => {
   const [pageSize, setPageSize] = useState(PAGE_SIZES[0]);
 
   return (
-    <Card p={0} radius="md" withBorder>
+    <Card p={0} withBorder>
       {hasRecords ? (
         <DataTable
           columns={userSpinTableColumns}

@@ -115,12 +115,7 @@ export default function SpinCampaignCard({
   };
 
   return (
-    <Container
-      size="100%"
-      px={{ base: 12, md: 'xl' }}
-      mt={{ base: 24, md: 0 }}
-      py="xl"
-    >
+    <Container px={0} size="100%" mt={{ base: 24, md: 0 }} py="xl">
       <Stack gap="xl">
         {/* Header Actions */}
         <Group justify="space-between" align="center">
@@ -238,7 +233,12 @@ export default function SpinCampaignCard({
               <Tabs.Tab value="prizes">Prize Options</Tabs.Tab>
             </Tabs.List>
 
-            <Tabs.Panel value="details" pt="xl" px="xl" pb="md">
+            <Tabs.Panel
+              value="details"
+              pt="xl"
+              px={{ base: 'sm', xl: 'xl' }}
+              pb="md"
+            >
               <Grid>
                 <Grid.Col span={{ base: 12, md: 4 }}>
                   <Group align="flex-start" gap="md">
@@ -312,7 +312,12 @@ export default function SpinCampaignCard({
               </Grid>
             </Tabs.Panel>
 
-            <Tabs.Panel value="prizes" pt="xl" px="xl" pb="md">
+            <Tabs.Panel
+              value="prizes"
+              pt="xl"
+              px={{ base: 'sm', xl: 'xl' }}
+              pb="md"
+            >
               <Grid>
                 {campaign.options.map((option, index) => (
                   <Grid.Col key={index} span={{ base: 12, sm: 6, md: 4 }}>

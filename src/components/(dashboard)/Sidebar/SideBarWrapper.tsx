@@ -13,7 +13,13 @@ type SideBarWrapperProps = {
 
 const SideBarWrapper = ({ menus }: SideBarWrapperProps) => {
   return (
-    <Box h={'100vh'} w={290} top={0} pos={'sticky'} className="hidden md:block">
+    <Box
+      h={'100vh'}
+      w={{ base: 200, lg: 290 }}
+      top={0}
+      pos={'sticky'}
+      className="hidden lg:block"
+    >
       <Center mt={40} mb={52}>
         <Link href="/" className="py-6">
           <Image
@@ -27,7 +33,7 @@ const SideBarWrapper = ({ menus }: SideBarWrapperProps) => {
         </Link>
       </Center>
       <UserSideNav menus={menus} />
-      <Center pos={'absolute'} bottom={0} w={'100%'}>
+      <Center pos={'absolute'} bottom={20} w={'100%'}>
         <Logout />
       </Center>
     </Box>
