@@ -36,51 +36,61 @@ const DriverDataTable = ({
   console.log('Driver Data ==>', driverData);
 
   return (
-    <Card radius="md" withBorder>
+    <Card mx={{ base: 8, md: 0 }} p={0} radius="md" withBorder>
       {hasRecords ? (
         <Card.Section>
-          <Flex align={'center'} justify="space-between" px={32} py={20}>
-            <Text fz={20} fw={700}>
+          <Flex
+            align={'center'}
+            justify="space-between"
+            px={{ base: 24, xl: 32 }}
+            py={20}
+          >
+            <Text fz={{ base: 16, md: 20 }} fw={700}>
               Driver Information
             </Text>
             <Button leftSection={<Icon icon="tdesign:file-pdf" width={16} />}>
               Export Document
             </Button>
           </Flex>
-          <DataTable
-            mt={8}
-            noRecordsText={''}
-            noRecordsIcon={true}
-            columns={driverTableColumns({
-              openModal: open,
-              setDriver: setDriverData,
-            })}
-            records={data}
-            defaultColumnProps={{
-              titleStyle: {
-                backgroundColor: '#FFF5F5',
-              },
-            }}
-            height={isMobile ? 'calc(100dvh - 225px)' : 'calc(100dvh - 210px)'}
-            pinLastColumn
-            scrollAreaProps={{
-              offsetScrollbars: false,
-            }}
-            totalRecords={pagination.totalCount}
-            page={page}
-            onPageChange={(page) => {
-              setPage(page);
-              router.push(`/admin/driver-data?limit=${pageSize}&page=${page}`);
-            }}
-            recordsPerPage={pageSize}
-            recordsPerPageOptions={PAGE_SIZES}
-            onRecordsPerPageChange={(pageSize) => {
-              setPageSize(pageSize);
-              setPage(1);
-              router.push(`/admin/driver-data?page=1&limit=${pageSize}`);
-            }}
-            recordsPerPageLabel="Showing"
-          />
+          <Card.Section p={32}>
+            <DataTable
+              mt={8}
+              noRecordsText={''}
+              noRecordsIcon={true}
+              columns={driverTableColumns({
+                openModal: open,
+                setDriver: setDriverData,
+              })}
+              records={data}
+              defaultColumnProps={{
+                titleStyle: {
+                  backgroundColor: '#FFF5F5',
+                },
+              }}
+              height={
+                isMobile ? 'calc(100dvh - 225px)' : 'calc(100dvh - 210px)'
+              }
+              scrollAreaProps={{
+                offsetScrollbars: false,
+              }}
+              totalRecords={pagination.totalCount}
+              page={page}
+              onPageChange={(page) => {
+                setPage(page);
+                router.push(
+                  `/admin/driver-data?limit=${pageSize}&page=${page}`
+                );
+              }}
+              recordsPerPage={pageSize}
+              recordsPerPageOptions={PAGE_SIZES}
+              onRecordsPerPageChange={(pageSize) => {
+                setPageSize(pageSize);
+                setPage(1);
+                router.push(`/admin/driver-data?page=1&limit=${pageSize}`);
+              }}
+              recordsPerPageLabel="Showing"
+            />
+          </Card.Section>
         </Card.Section>
       ) : (
         <Card.Section>

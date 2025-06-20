@@ -6,9 +6,9 @@ import { motion, AnimatePresence } from 'framer-motion';
 import Image from 'next/image';
 
 interface PrizePopupProps {
-  isWinner: boolean;
-  coupon?: string | null;
-  onClose?: () => void;
+  readonly isWinner: boolean;
+  readonly coupon?: string | null;
+  readonly onClose?: () => void;
 }
 
 // --- SVG Icons for better visuals ---
@@ -85,10 +85,9 @@ export default function PrizePopup({
           onClick={(e) => e.stopPropagation()} // Prevent closing when clicking inside the modal
         >
           <Paper
-            shadow="xl"
+            bg={'transparent'}
             p="xl"
             radius="lg"
-            withBorder
             className="overflow-hidden text-center"
           >
             <motion.div

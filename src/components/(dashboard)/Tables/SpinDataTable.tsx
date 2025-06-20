@@ -1,12 +1,12 @@
 'use client';
 
-import { DataTable } from 'mantine-datatable';
+import { DataTable, DataTableSortStatus } from 'mantine-datatable';
 import { userSpinTableColumns } from './columns/spin-column';
 import { Card, Text, Flex } from '@mantine/core';
 import { SpinnerParticipant } from '@/schema';
-import { Icon } from '@iconify/react/dist/iconify.js';
+import { Icon } from '@iconify/react';
 import { useSearchParams, useRouter } from 'next/navigation';
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 import { useMediaQuery } from '@mantine/hooks';
 
 interface SpinDataTableProps {
@@ -30,19 +30,57 @@ const SpinDataTable = ({ data }: SpinDataTableProps) => {
   const router = useRouter();
   const [pageSize, setPageSize] = useState(PAGE_SIZES[0]);
 
+  const [sortStatus, setSortStatus] = useState<
+    DataTableSortStatus<SpinnerParticipant>
+  >({
+    columnAccessor: 'name',
+    direction: 'asc',
+  });
+
+  // Sorting logic
+  const sortedRecords = useMemo(() => {
+    if (!data?.records) return [];
+
+    const sorted = [...data.records].sort((a, b) => {
+      const { columnAccessor, direction } = sortStatus;
+
+      const valA = a[columnAccessor as keyof SpinnerParticipant];
+      const valB = b[columnAccessor as keyof SpinnerParticipant];
+
+      if (valA == null) return 1;
+      if (valB == null) return -1;
+
+      if (typeof valA === 'string' && typeof valB === 'string') {
+        return direction === 'asc'
+          ? valA.localeCompare(valB)
+          : valB.localeCompare(valA);
+      }
+
+      if (typeof valA === 'number' && typeof valB === 'number') {
+        return direction === 'asc' ? valA - valB : valB - valA;
+      }
+
+      return 0;
+    });
+
+    return sorted;
+  }, [data?.records, sortStatus]);
+
   return (
-    <Card p={0} withBorder>
+    <Card mx={{ base: 8, md: 0 }} p={0} withBorder>
       {hasRecords ? (
         <DataTable
+          key="datatable"
           columns={userSpinTableColumns}
-          records={data.records}
+          records={sortedRecords}
+          sortStatus={sortStatus}
+          onSortStatusChange={setSortStatus}
           defaultColumnProps={{
             titleStyle: {
               backgroundColor: '#FFF5F5',
             },
           }}
           height={isMobile ? 'calc(100dvh - 225px)' : 'calc(100dvh - 210px)'}
-          pinLastColumn
           scrollAreaProps={{
             offsetScrollbars: false,
           }}
@@ -50,14 +88,14 @@ const SpinDataTable = ({ data }: SpinDataTableProps) => {
           page={page}
           onPageChange={(page) => {
             setPage(page);
-            router.push(`/admin/driver-data?limit=${pageSize}&page=${page}`);
+            router.push(`/admin/spin-control?limit=${pageSize}&page=${page}`);
           }}
           recordsPerPage={pageSize}
           recordsPerPageOptions={PAGE_SIZES}
           onRecordsPerPageChange={(pageSize) => {
             setPageSize(pageSize);
             setPage(1);
-            router.push(`/admin/driver-data?page=1&limit=${pageSize}`);
+            router.push(`/admin/spin-control?page=1&limit=${pageSize}`);
           }}
           recordsPerPageLabel="Showing"
         />

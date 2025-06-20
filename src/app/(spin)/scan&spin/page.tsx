@@ -14,7 +14,6 @@ import { notifications } from '@mantine/notifications';
 import { claimPrize } from './actions/claimPrize';
 
 export default function Home() {
-  const [showForm, setShowForm] = useState(false);
   const [showConfetti, setShowConfetti] = useState(false);
   const [isSpinning, setIsSpinning] = useState(false);
   const [participationFormData, setParticipationFormData] = useState({
@@ -122,20 +121,18 @@ export default function Home() {
       withCloseButton: false,
       centered: true,
       classNames: {
-        content: 'bg-transparent backdrop-blur-sm border-none',
-        body: 'bg-transparent border-none',
+        content: 'bg-transparent  border-none',
+        body: 'bg-white border-none',
       },
       children: (
-        <>
-          <PrizePopup
-            isWinner={isWinner}
-            coupon={isWinner ? claimResult.coupon : ''}
-            onClose={() => {
-              setShowConfetti(false);
-              modals.closeAll();
-            }}
-          />
-        </>
+        <PrizePopup
+          isWinner={isWinner}
+          coupon={isWinner ? claimResult.coupon : ''}
+          onClose={() => {
+            setShowConfetti(false);
+            modals.closeAll();
+          }}
+        />
       ),
     });
   };
@@ -144,9 +141,7 @@ export default function Home() {
     <div className="flex h-screen max-h-screen items-center justify-center overflow-hidden bg-[url(/spinner-bg.png)] bg-cover bg-center bg-no-repeat p-4">
       {/* Background blur when form is shown */}
       <div
-        className={`mx-auto flex w-full flex-col items-center justify-center gap-8 transition-all duration-300 md:gap-16 lg:flex-row lg:items-center lg:justify-between lg:gap-0 ${
-          showForm ? 'blur-sm' : ''
-        }`}
+        className={`mx-auto flex w-full flex-col items-center justify-center gap-8 transition-all duration-300 md:gap-16 lg:flex-row lg:items-center lg:justify-between lg:gap-0`}
       >
         <div className="mx-auto flex w-full flex-col items-center justify-center text-center lg:w-[40%]">
           <Image
