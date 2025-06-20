@@ -39,7 +39,7 @@ const FixedSpinnerLogo = () => {
         <Image
           alt="Spinner logo"
           radius="100%"
-          src="/spinner.png"
+          src="/spinLogo.png"
           w={40}
           h={40}
           fallbackSrc="/spinnerLogo.svg"
