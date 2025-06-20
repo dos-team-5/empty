@@ -15,12 +15,14 @@ const SpinControl = async (props: { searchParams: SearchParams }) => {
     Number(page) || 1,
     Number(limit) || 10
   );
-  const campaign = response.data?.records[0];
+
   const participantResponse = await getParticipants(
     1,
     Number(page) || 1,
     Number(limit) || 10
   );
+
+  console.log(participantResponse);
 
   return (
     <Box>

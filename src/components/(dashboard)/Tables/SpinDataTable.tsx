@@ -34,6 +34,7 @@ const SpinDataTable = ({ data }: SpinDataTableProps) => {
     <Card p={0} withBorder>
       {hasRecords ? (
         <DataTable
+          key={'id'}
           columns={userSpinTableColumns}
           records={data.records}
           defaultColumnProps={{
