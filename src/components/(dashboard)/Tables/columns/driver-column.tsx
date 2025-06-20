@@ -2,7 +2,6 @@
 import { Driver } from '@/schema';
 import { Button } from '@mantine/core';
 import { DataTableColumn } from 'mantine-datatable';
-import Link from 'next/link';
 
 export const driverTableColumns = ({
   openModal,
@@ -13,57 +12,36 @@ export const driverTableColumns = ({
 }): DataTableColumn<Driver>[] => [
   {
     accessor: 'fullName',
-    title: 'Full Name',
+    title: 'Name',
+    sortable: true,
   },
   {
     accessor: 'email',
     title: 'Email Address',
+    sortable: true,
+  },
+  {
+    accessor: 'cityProvince',
+    title: 'City',
+    textAlign: 'center',
+    sortable: true,
   },
   {
     accessor: 'phone',
     title: 'Phone Number',
+    sortable: true,
   },
   {
-    accessor: 'vehiclePhotos',
-    title: 'Vehicle Photos (Front & Back)',
-    render: ({ vehiclePhotos }) => {
-      if (!Array.isArray(vehiclePhotos) || vehiclePhotos.length === 0) {
-        return <span className="text-gray-400 italic">No images</span>;
-      }
-
-      return vehiclePhotos.map((photo, i) => (
-        <Link
-          key={i}
-          href={photo.url}
-          target="_blank"
-          rel="noopener noreferrer"
-          style={{ marginRight: 4 }}
-        >
-          image {i + 1} ×
-        </Link>
-      ));
-    },
+    accessor: 'vehicleMake',
+    title: 'Vehicle Make',
+    textAlign: 'center',
+    sortable: true,
   },
   {
-    accessor: 'driversLicense',
-    title: "Picture of Driver's License",
-    render: ({ driversLicense }) => {
-      if (!Array.isArray(driversLicense) || driversLicense.length === 0) {
-        return <span className="text-gray-400 italic">No image</span>;
-      }
-
-      return driversLicense.map((photo, i) => (
-        <Link
-          key={i}
-          href={photo}
-          target="_blank"
-          rel="noopener noreferrer"
-          style={{ marginRight: 4 }}
-        >
-          image {i + 1} ×
-        </Link>
-      ));
-    },
+    accessor: 'vehicleModel',
+    title: 'Vehicle Model',
+    textAlign: 'center',
+    sortable: true,
   },
   {
     accessor: 'actions',

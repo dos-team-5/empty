@@ -1,36 +1,46 @@
 import { DataTableColumn } from 'mantine-datatable';
 import { SpinnerParticipant } from '@/schema';
+import { Badge } from '@mantine/core';
 
 export const userSpinTableColumns: DataTableColumn<SpinnerParticipant>[] = [
   {
-    accessor: 'id',
-    title: 'ID',
-    textAlign: 'right',
-  },
-  {
-    accessor: 'serial',
-    title: 'Serial',
-    sortable: true,
-  },
-  {
     accessor: 'name',
-    title: 'Name',
-    sortable: true,
-  },
-  {
-    accessor: 'wins',
-    title: 'Wins',
-    textAlign: 'center',
+    title: 'Participants',
+    textAlign: 'left',
     sortable: true,
   },
   {
     accessor: 'email',
     title: 'Email',
     sortable: true,
+    textAlign: 'center',
   },
   {
-    accessor: 'ip',
-    title: 'IP Address',
+    accessor: 'phone',
+    title: 'Phone',
     sortable: true,
+    textAlign: 'center',
+  },
+  {
+    accessor: 'wins',
+    title: 'Wins',
+    textAlign: 'center',
+    sortable: true,
+    render: (data) => <span>{data.wonPrizes?.length ?? 0}</span>,
+  },
+  {
+    accessor: 'wonPrizes',
+    title: 'Coupons',
+    textAlign: 'center',
+    sortable: true,
+    render: (data) => (
+      <>
+        {data.wonPrizes?.map((prize, i) => (
+          <Badge variant="outline" key={i}>
+            {prize.coupon}
+          </Badge>
+        ))}
+      </>
+    ),
   },
 ];
