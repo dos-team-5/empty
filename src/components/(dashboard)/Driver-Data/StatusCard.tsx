@@ -1,13 +1,4 @@
-import {
-  Badge,
-  Box,
-  Group,
-  Paper,
-  Progress,
-  Stack,
-  Text,
-  Title,
-} from '@mantine/core';
+import { Badge, Box, Group, Paper, Stack, Text, Title } from '@mantine/core';
 import { IconCircleCheck } from '@tabler/icons-react';
 
 export const StatusValues = {
@@ -38,7 +29,7 @@ const statusGradients: Record<Status, string> = {
 };
 
 const StatusCard = ({ status }: StatusCardProps) => {
-  const { color, progress } = statusInfo[status];
+  const { color } = statusInfo[status];
 
   return (
     <Paper
@@ -80,12 +71,6 @@ const StatusCard = ({ status }: StatusCardProps) => {
             <Text size="sm" fw={500} c="dimmed">
               Application Progress
             </Text>
-            <Text size="sm" fw={700} c={color}>
-              {progress}%
-            </Text>
-          </Group>
-          <Progress value={progress} size="lg" radius="xl" color={color} />
-          <Group justify="center" pt="sm">
             <Badge color={color} size="lg" radius="lg" variant="light">
               {status.replace('_', ' ')}
             </Badge>
