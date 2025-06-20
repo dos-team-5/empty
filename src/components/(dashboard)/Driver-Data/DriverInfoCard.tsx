@@ -14,6 +14,7 @@ import {
   Avatar,
   Box,
   Container,
+  Flex,
 } from '@mantine/core';
 import {
   IconUser,
@@ -320,10 +321,11 @@ export default function DriverInfoCard({ data }: DriverInformationCardProps) {
                               <Text size="sm" fw={500} c="dimmed" mb="sm">
                                 Platforms
                               </Text>
-                              <Group gap="xs">
+                              <Flex gap="xs">
                                 {data?.rideSharePlatforms ??
                                   [].map((platform) => (
                                     <Badge
+                                      bg={platform === 'Uber' ? 'red' : 'blue'}
                                       variant="filled"
                                       key={platform}
                                       size="lg"
@@ -332,7 +334,7 @@ export default function DriverInfoCard({ data }: DriverInformationCardProps) {
                                       {platform}
                                     </Badge>
                                   ))}
-                              </Group>
+                              </Flex>
                             </Box>
 
                             <Box>

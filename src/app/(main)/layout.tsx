@@ -1,6 +1,9 @@
 import { Box } from '@mantine/core';
 import { Footer, Navbar } from '@/components';
 import FixedSpinnerLogo from '@/components/FixedSpinnerLogo';
+import React from 'react';
+import ReactLenis from 'lenis/react';
+import AnimatedGradient from '@/providers/AnimatedGradient';
 
 export default function MainLayout({
   children,
@@ -10,12 +13,21 @@ export default function MainLayout({
   signupModal: React.ReactNode;
 }>) {
   return (
-    <Box maw={2000} mx={'auto'} className="relative">
-      <Navbar />
-      <Box>
-        {signupModal}
-        {children}
-        {/* <ActionIcon
+    <ReactLenis
+      root
+      options={{
+        duration: 1.2, // Smooth and natural scroll duration
+        wheelMultiplier: 0.8, // Slightly slower scroll for better control
+        syncTouch: false, // Sync touch for better mobile experience
+        overscroll: false, // Disable overscroll for a cleaner feel
+      }}
+    >
+      <Box maw={2000} mx={'auto'} className="relative">
+        <Navbar />
+        <Box>
+          {signupModal}
+          {children}
+          {/* <ActionIcon
                 component={Link}
                 href="/scan&spin-attributation"
                 variant="transparent"
@@ -69,9 +81,11 @@ export default function MainLayout({
                   </svg>
                 </Stack>
               </ActionIcon> */}
-        <FixedSpinnerLogo />
+          <FixedSpinnerLogo />
+        </Box>
+        <Footer />
       </Box>
-      <Footer />
-    </Box>
+      <AnimatedGradient />
+    </ReactLenis>
   );
 }
