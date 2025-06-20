@@ -58,6 +58,8 @@ export default function DriverInfoCard({ data }: DriverInformationCardProps) {
     document.body.removeChild(link);
   };
 
+  console.log(data.rideSharePlatforms);
+
   return (
     <Box
       style={{
@@ -309,7 +311,7 @@ export default function DriverInfoCard({ data }: DriverInformationCardProps) {
                               <IconCalendar size={16} color="#CB6AA7" />
                             </Box>
                             <Title order={3} size="h3" c="dark">
-                              Ride Share
+                              Ride Share Hello
                             </Title>
                           </Group>
 
@@ -322,15 +324,10 @@ export default function DriverInfoCard({ data }: DriverInformationCardProps) {
                                 {data?.rideSharePlatforms ??
                                   [].map((platform) => (
                                     <Badge
+                                      variant="filled"
                                       key={platform}
                                       size="lg"
                                       radius="lg"
-                                      style={{
-                                        background:
-                                          'linear-gradient(135deg, #CB6AA7 0%, #D478B8 100%)',
-                                        color: 'white',
-                                        fontWeight: 500,
-                                      }}
                                     >
                                       {platform}
                                     </Badge>
