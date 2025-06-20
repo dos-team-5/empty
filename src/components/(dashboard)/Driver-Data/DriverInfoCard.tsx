@@ -11,7 +11,6 @@ import {
   Stack,
   Grid,
   Tabs,
-  Progress,
   Avatar,
   Box,
   Container,
@@ -31,6 +30,7 @@ import {
 import { useState } from 'react';
 import { InfoCard } from './InfoCard';
 import { ImageCard } from './ImageCard';
+import StatusCard from './StatusCard';
 
 interface DriverInformationCardProps {
   readonly data: Driver;
@@ -367,69 +367,7 @@ export default function DriverInfoCard({ data }: DriverInformationCardProps) {
                       </Paper>
 
                       {/* Status Card */}
-                      <Paper
-                        radius="xl"
-                        withBorder
-                        style={{
-                          overflow: 'hidden',
-                          boxShadow: '0 10px 25px rgba(0,0,0,0.08)',
-                        }}
-                      >
-                        <Box
-                          style={{
-                            height: 4,
-                            background:
-                              'linear-gradient(90deg, #10b981 0%, #059669 100%)',
-                          }}
-                        />
-                        <Box p="xl">
-                          <Group gap="md" mb="xl">
-                            <Box
-                              style={{
-                                width: 32,
-                                height: 32,
-                                borderRadius: 8,
-                                background: 'rgba(16, 185, 129, 0.1)',
-                                display: 'flex',
-                                alignItems: 'center',
-                                justifyContent: 'center',
-                              }}
-                            >
-                              <IconCircleCheck size={16} color="#10b981" />
-                            </Box>
-                            <Title order={3} size="h3" c="dark">
-                              Status
-                            </Title>
-                          </Group>
-
-                          <Stack gap="md">
-                            <Group justify="space-between">
-                              <Text size="sm" fw={500} c="dimmed">
-                                Application Progress
-                              </Text>
-                              <Text size="sm" fw={700} c="#10b981">
-                                100%
-                              </Text>
-                            </Group>
-                            <Progress
-                              value={100}
-                              size="lg"
-                              radius="xl"
-                              color="green"
-                            />
-                            <Group justify="center" pt="sm">
-                              <Badge
-                                color="green"
-                                size="lg"
-                                radius="lg"
-                                variant="light"
-                              >
-                                ✓ Under Review
-                              </Badge>
-                            </Group>
-                          </Stack>
-                        </Box>
-                      </Paper>
+                      <StatusCard status={data.status} />
                     </Stack>
                   </Grid.Col>
                 </Grid>

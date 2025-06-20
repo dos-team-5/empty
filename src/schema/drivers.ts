@@ -70,3 +70,4 @@ export const drivers = pgTable('drivers', {
 // Drizzle type exports for type-safe queries
 export type Driver = typeof drivers.$inferSelect; // type for returning drivers
 export type NewDriver = typeof drivers.$inferInsert; // type for inserting drivers
+export type DriverStatus = typeof driverStatusEnum;
