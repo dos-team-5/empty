@@ -4,7 +4,7 @@ import SpinWheel, { SpinnerPrize } from './components/SpinWheel';
 import ConfettiEffect from './components/ConfettiEffect';
 
 import Image from 'next/image';
-import { UnstyledButton } from '@mantine/core';
+import { ActionIcon, Group, UnstyledButton } from '@mantine/core';
 import { modals } from '@mantine/modals';
 import { winCheck } from './actions/winCheck';
 import PrizePopup from './components/PrizePopup';
@@ -12,6 +12,7 @@ import ParticipationForm from './components/ParticipationForm';
 import { makeParticipation } from './actions/makeParticipation';
 import { notifications } from '@mantine/notifications';
 import { claimPrize } from './actions/claimPrize';
+import { Icon } from '@iconify/react/dist/iconify.js';
 
 export default function Home() {
   const [showConfetti, setShowConfetti] = useState(false);
@@ -50,39 +51,47 @@ export default function Home() {
 
   const handleParticipate = async () => {
     modals.open({
+      withCloseButton: false,
       children: (
-        <ParticipationForm
-          onSubmit={async (formVal) => {
-            try {
-              const res = await makeParticipation({
-                id: 1, // Assuming campaign ID is 1
-                formData: {
+        <>
+          <Group justify="right">
+            <ActionIcon onClick={() => modals.closeAll()} variant="subtle">
+              <Icon icon={'material-symbols:close'} />
+            </ActionIcon>
+          </Group>
+          <ParticipationForm
+            onSubmit={async (formVal) => {
+              try {
+                const res = await makeParticipation({
+                  id: 1, // Assuming campaign ID is 1
+                  formData: {
+                    ...formVal,
+                    agreeToEmails: formVal.agreeToEmails ?? false,
+                  },
+                });
+                if (!res.success) {
+                  throw new Error(res.message);
+                }
+                setParticipationFormData({
                   ...formVal,
                   agreeToEmails: formVal.agreeToEmails ?? false,
-                },
-              });
-              if (!res.success) {
-                throw new Error(res.message);
+                });
+                setIsSpinning(true);
+                setShowConfetti(false);
+                modals.closeAll();
+              } catch (error) {
+                notifications.show({
+                  title: 'Error',
+                  message:
+                    error instanceof Error
+                      ? error.message
+                      : 'An unexpected error occurred.',
+                  color: 'red',
+                });
               }
-              setParticipationFormData({
-                ...formVal,
-                agreeToEmails: formVal.agreeToEmails ?? false,
-              });
-              setIsSpinning(true);
-              setShowConfetti(false);
-              modals.closeAll();
-            } catch (error) {
-              notifications.show({
-                title: 'Error',
-                message:
-                  error instanceof Error
-                    ? error.message
-                    : 'An unexpected error occurred.',
-                color: 'red',
-              });
-            }
-          }}
-        />
+            }}
+          />
+        </>
       ),
     });
   };

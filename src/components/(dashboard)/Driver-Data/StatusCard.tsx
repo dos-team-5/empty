@@ -1,4 +1,13 @@
-import { Badge, Box, Group, Paper, Stack, Text, Title } from '@mantine/core';
+import {
+  Badge,
+  Box,
+  Group,
+  Paper,
+  Select,
+  Stack,
+  Text,
+  Title,
+} from '@mantine/core';
 import { IconCircleCheck } from '@tabler/icons-react';
 
 export const StatusValues = {
@@ -47,23 +56,35 @@ const StatusCard = ({ status }: StatusCardProps) => {
         }}
       />
       <Box p="xl">
-        <Group gap="md" mb="xl">
-          <Box
-            bg={color}
-            style={{
-              width: 32,
-              height: 32,
-              borderRadius: 8,
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-            }}
-          >
-            <IconCircleCheck size={16} color={'white'} />
-          </Box>
-          <Title order={3} size="h3" c="dark">
-            Status
-          </Title>
+        <Group justify="space-between" gap="md" mb="xl">
+          <Group>
+            <Box
+              bg={color}
+              style={{
+                width: 32,
+                height: 32,
+                borderRadius: 8,
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+              }}
+            >
+              <IconCircleCheck size={16} color={'white'} />
+            </Box>
+            <Title order={3} size="h3" c="dark">
+              Status
+            </Title>
+          </Group>
+          <Select
+            w={150}
+            data={[
+              { value: 'pending', label: 'Pending' },
+              { value: 'approved', label: 'Approved' },
+              { value: 'rejected', label: 'Rejected' },
+              { value: 'needs_review', label: 'Needs Review' },
+            ]}
+            defaultValue={status}
+          />
         </Group>
 
         <Stack gap="md">
