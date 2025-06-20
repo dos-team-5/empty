@@ -36,7 +36,7 @@ const DriverDataTable = ({
   console.log('Driver Data ==>', driverData);
 
   return (
-    <Card radius="md" withBorder>
+    <Card mx={{ base: 8, md: 0 }} p={0} radius="md" withBorder>
       {hasRecords ? (
         <Card.Section>
           <Flex align={'center'} justify="space-between" px={32} py={20}>

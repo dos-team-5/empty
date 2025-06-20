@@ -31,7 +31,7 @@ const SpinDataTable = ({ data }: SpinDataTableProps) => {
   const [pageSize, setPageSize] = useState(PAGE_SIZES[0]);
 
   return (
-    <Card p={0} withBorder>
+    <Card mx={{ base: 8, md: 0 }} p={0} withBorder>
       {hasRecords ? (
         <DataTable
           key={'id'}
@@ -43,7 +43,6 @@ const SpinDataTable = ({ data }: SpinDataTableProps) => {
             },
           }}
           height={isMobile ? 'calc(100dvh - 225px)' : 'calc(100dvh - 210px)'}
-          pinLastColumn
           scrollAreaProps={{
             offsetScrollbars: false,
           }}
