@@ -103,7 +103,11 @@ export default function SpinWheel({
   }, [isSpinning, prizes]);
 
   if (prizes.length === 0) {
-    return <div>Loading prizes...</div>;
+    return (
+      <div className="text-xl font-bold text-white capitalize">
+        Loading prizes...
+      </div>
+    );
   }
 
   const segmentAngle = 360 / prizes.length;
@@ -165,14 +169,14 @@ export default function SpinWheel({
                   strokeWidth="2"
                 />
                 <text
-                  x={160 + 80 * Math.cos((startAngleRad + endAngleRad) / 2)}
+                  x={150 + 75 * Math.cos((startAngleRad + endAngleRad) / 2)}
                   y={160 + 80 * Math.sin((startAngleRad + endAngleRad) / 2)}
                   textAnchor="middle"
                   dominantBaseline="middle"
                   fill={index % 2 === 0 ? 'white' : '#FF6FDF'}
-                  fontSize="12"
+                  fontSize="10"
                   fontWeight="bold"
-                  transform={`rotate(${(startAngle + endAngle) / 2 + 90}, ${
+                  transform={`rotate(${(startAngle + endAngle) / 2 + 0}, ${
                     160 + 80 * Math.cos((startAngleRad + endAngleRad) / 2)
                   }, ${
                     160 + 80 * Math.sin((startAngleRad + endAngleRad) / 2)

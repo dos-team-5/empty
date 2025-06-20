@@ -141,7 +141,7 @@ export default function Home() {
   };
 
   return (
-    <div className="flex h-screen max-h-screen items-center justify-center overflow-hidden bg-[url(/Spiner-background.jpg)] bg-cover bg-center bg-no-repeat p-4">
+    <div className="flex h-screen max-h-screen items-center justify-center overflow-hidden bg-[url(/spinner-bg.png)] bg-cover bg-center bg-no-repeat p-4">
       {/* Background blur when form is shown */}
       <div
         className={`mx-auto flex w-full flex-col items-center justify-center gap-8 transition-all duration-300 md:gap-16 lg:flex-row lg:items-center lg:justify-between lg:gap-0 ${
