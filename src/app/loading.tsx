@@ -81,7 +81,7 @@ export default function Loading() {
             className="absolute"
           >
             <div
-              className="mr-6 text-7xl select-none"
+              className="mr-6 text-7xl select-none md:mr-auto"
               style={{
                 color: '#D381B5',
                 fontFamily: "'Sora', sans-serif",
