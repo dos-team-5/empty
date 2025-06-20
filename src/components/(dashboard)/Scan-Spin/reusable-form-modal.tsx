@@ -22,13 +22,15 @@ import { useForm } from '@mantine/form';
 import { DateTimePicker } from '@mantine/dates';
 import { Plus, Trash2, Save } from 'lucide-react';
 import { useEffect } from 'react';
-import { FileHandlerRes } from '@/components/FileManager';
+import { FileHandlerRes, ImageHandler } from '@/components/FileManager';
 import { notifications } from '@mantine/notifications';
 import { FileAttachment } from '@/schema';
 
 interface FormOption {
+  id: string; // Unique identifier for the option, can be used for editing/removing
   label: string;
   coupon: string;
+  ratio?: number; // Percentage or ratio for the option, e.g., 0.
 }
 
 interface FormData {
@@ -61,7 +63,14 @@ const defaultFormValues: FormData = {
   companyName: '',
   companyLogo: null,
   deadline: null,
-  options: [{ label: '', coupon: '' }],
+  options: [
+    {
+      id: crypto.randomUUID(),
+      label: '',
+      coupon: '',
+      ratio: 0,
+    },
+  ],
   userLimit: 1000,
   attemptConfiguration: {
     totalAttempts: 10,
@@ -94,9 +103,14 @@ export default function ReusableFormModal({
       userLimit: (value) =>
         value < 1 ? 'User limit must be at least 1' : null,
       options: {
+        id: (value) => (value ? null : 'Option ID is required'),
         label: (value) =>
           value.length < 1 ? 'Option label is required' : null,
         coupon: (_value) => null,
+        ratio: (value) =>
+          value !== undefined && (value < 0 || value > 100)
+            ? 'Ratio must be between 0 and 100'
+            : null,
       },
       attemptConfiguration: {
         totalAttempts: (value) =>
@@ -114,13 +128,19 @@ export default function ReusableFormModal({
         form.setValues({
           title: initialData.title ?? '',
           companyName: initialData.companyName ?? '',
-
           companyLogo: null,
           deadline: initialData.deadline ?? null,
           options:
             initialData.options && initialData.options.length > 0
               ? initialData.options
-              : [{ label: '', coupon: '' }],
+              : [
+                  {
+                    id: crypto.randomUUID(),
+                    label: '',
+                    coupon: '',
+                    ratio: 0,
+                  },
+                ],
           userLimit: initialData.userLimit ?? 1000,
           attemptConfiguration: {
             totalAttempts:
@@ -149,7 +169,12 @@ export default function ReusableFormModal({
   };
 
   const addOption = () => {
-    form.insertListItem('options', { label: '', coupon: '' });
+    form.insertListItem('options', {
+      id: crypto.randomUUID(),
+      label: '',
+      coupon: '',
+      ratio: 0,
+    });
   };
 
   const removeOption = (index: number) => {
@@ -218,6 +243,16 @@ export default function ReusableFormModal({
         >
           <form onSubmit={form.onSubmit(handleSubmit)}>
             <Stack gap="xl">
+              {/* form error  */}
+              {form.errors && Object.keys(form.errors).length > 0 && (
+                <Box>
+                  <Text color="red" size="sm">
+                    {Object.values(form.errors)
+                      .map((error) => (typeof error === 'string' ? error : ''))
+                      .join(', ')}
+                  </Text>
+                </Box>
+              )}
               {/* Basic Information Section */}
               <Box>
                 <Group align="center" mb="md">
@@ -251,31 +286,34 @@ export default function ReusableFormModal({
                       {...form.getInputProps('title')}
                     />
 
-                    {/* <TextInput
-                      hidden
-                      label="Company Name"
-                      placeholder="Enter company name"
-                      required
-                      size="md"
-                      styles={{
-                        label: { fontWeight: 500, marginBottom: rem(8) },
-                        input: {
-                          '&:focus': {
-                            borderColor: PRIMARY_COLOR,
+                    {mode === 'create' && (
+                      <TextInput
+                        label="Company Name"
+                        placeholder="Enter company name"
+                        required
+                        size="md"
+                        styles={{
+                          label: { fontWeight: 500, marginBottom: rem(8) },
+                          input: {
+                            '&:focus': {
+                              borderColor: PRIMARY_COLOR,
+                            },
                           },
-                        },
-                      }}
-                      {...form.getInputProps('companyName')}
-                    /> */}
+                        }}
+                        {...form.getInputProps('companyName')}
+                      />
+                    )}
                   </Group>
 
-                  {/* <ImageHandler onUploadSuccess={handleFileUpload} /> */}
+                  {mode === 'create' && (
+                    <>
+                      <ImageHandler onUploadSuccess={handleFileUpload} />
 
-                  {/* {mode === 'edit' && (
-                    <Text size="sm" c="dimmed" mt={rem(-8)}>
-                      Leave empty to keep current logo
-                    </Text>
-                  )} */}
+                      <Text size="sm" c="dimmed" mt={rem(-8)}>
+                        Leave empty to keep current logo
+                      </Text>
+                    </>
+                  )}
                 </Stack>
               </Box>
 
@@ -523,6 +561,23 @@ export default function ReusableFormModal({
                               },
                             }}
                             {...form.getInputProps(`options.${index}.coupon`)}
+                          />
+
+                          <NumberInput
+                            label="Winning Ratio (%)"
+                            placeholder="e.g., 10"
+                            min={0}
+                            max={100}
+                            size="md"
+                            styles={{
+                              label: { fontWeight: 500, marginBottom: rem(8) },
+                              input: {
+                                '&:focus': {
+                                  borderColor: PRIMARY_COLOR,
+                                },
+                              },
+                            }}
+                            {...form.getInputProps(`options.${index}.ratio`)}
                           />
                         </Group>
                       </Stack>

@@ -17,7 +17,7 @@ const SpinControl = async (props: { searchParams: SearchParams }) => {
   );
   const campaign = response.data?.records[0];
   const participantResponse = await getParticipants(
-    campaign?.id as number,
+    1,
     Number(page) || 1,
     Number(limit) || 10
   );
