@@ -322,18 +322,19 @@ export default function DriverInfoCard({ data }: DriverInformationCardProps) {
                                 Platforms
                               </Text>
                               <Flex gap="xs">
-                                {data?.rideSharePlatforms ??
-                                  [].map((platform) => (
+                                {(data?.rideSharePlatforms ?? []).map(
+                                  (platform) => (
                                     <Badge
-                                      bg={platform === 'Uber' ? 'red' : 'blue'}
-                                      variant="filled"
+                                      className="!cursor-pointer"
+                                      variant="outline"
                                       key={platform}
-                                      size="lg"
-                                      radius="lg"
+                                      size="md"
+                                      radius="md"
                                     >
                                       {platform}
                                     </Badge>
-                                  ))}
+                                  )
+                                )}
                               </Flex>
                             </Box>
 
