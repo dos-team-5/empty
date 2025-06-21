@@ -360,7 +360,7 @@ const Step2_IdentityConfirmation = ({
             type="submit"
             size="md"
             radius={12}
-            className="!font-inter !w-full !px-16 !text-sm !font-normal !text-black md:!w-auto"
+            className="!font-inter !w-full !px-16 !text-sm !font-normal !text-white md:!w-auto"
             disabled={
               loadingDriversLicense ||
               loadingDriverProfile ||

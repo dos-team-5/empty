@@ -18,6 +18,7 @@ import {
   List,
   Card,
   Loader,
+  Checkbox,
 } from '@mantine/core';
 import { notifications } from '@mantine/notifications';
 import { useForm, zodResolver } from '@mantine/form';
@@ -192,226 +193,239 @@ const Step3_BankingInformation = ({
   };
 
   return (
-    <form onSubmit={form.onSubmit(handleSubmit)}>
-      <Stack>
-        <Input.Wrapper
-          pos={'relative'}
-          label="Void Cheque (Image or PDF)"
-          withAsterisk
-          description="Upload a void cheque or direct deposit form from your bank."
-          error={form.errors.voidCheque}
-          className="font-inter text-xs font-normal text-[#5E6366]"
-        >
-          <Menu width={300} position="bottom-end">
-            <Menu.Target>
-              <ActionIcon
-                top={-2}
-                left={204}
-                pos={'absolute'}
-                variant="subtle"
-                size="sm"
-              >
-                <Icon icon="ix:question-filled" />
-              </ActionIcon>
-            </Menu.Target>
-            <Menu.Dropdown>
-              <Paper p="md" radius="md" withBorder>
-                <Stack gap="md">
-                  <Title fz={16} order={3}>
-                    How to Find and Upload a Void Cheque from Your Banking App
-                  </Title>
+    <Box>
+      <form onSubmit={form.onSubmit(handleSubmit)}>
+        <Stack>
+          <Input.Wrapper
+            pos={'relative'}
+            label="Void Cheque (Image or PDF)"
+            withAsterisk
+            description="Upload a void cheque or direct deposit form from your bank."
+            error={form.errors.voidCheque}
+            className="font-inter text-xs font-normal text-[#5E6366]"
+          >
+            <Menu width={300} position="bottom-end">
+              <Menu.Target>
+                <ActionIcon
+                  top={-2}
+                  left={204}
+                  pos={'absolute'}
+                  variant="subtle"
+                  size="sm"
+                >
+                  <Icon icon="ix:question-filled" />
+                </ActionIcon>
+              </Menu.Target>
+              <Menu.Dropdown>
+                <Paper p="md" radius="md" withBorder>
+                  <Stack gap="md">
+                    <Title fz={16} order={3}>
+                      How to Find and Upload a Void Cheque from Your Banking App
+                    </Title>
 
-                  <Text size="sm" c="dimmed">
-                    Most major Canadian banks allow you to download or take a
-                    screenshot of a void cheque directly from their mobile app.
-                    Here&apos;s how:
-                  </Text>
+                    <Text size="sm" c="dimmed">
+                      Most major Canadian banks allow you to download or take a
+                      screenshot of a void cheque directly from their mobile
+                      app. Here&apos;s how:
+                    </Text>
 
-                  <List listStyleType="disc" size="xs" type="ordered">
-                    <List.Item>Log in to your banking app.</List.Item>
+                    <List listStyleType="disc" size="xs" type="ordered">
+                      <List.Item>Log in to your banking app.</List.Item>
 
-                    <List.Item>
-                      Go to your account details or direct deposit information
-                      section.
-                    </List.Item>
+                      <List.Item>
+                        Go to your account details or direct deposit information
+                        section.
+                      </List.Item>
 
-                    <List.Item>
-                      Look for an option called &quot;Void Cheque,&quot;
-                      &quot;Pre-Authorized Debit Form,&quot; or &quot;Direct
-                      Deposit Form.&quot;
-                    </List.Item>
+                      <List.Item>
+                        Look for an option called &quot;Void Cheque,&quot;
+                        &quot;Pre-Authorized Debit Form,&quot; or &quot;Direct
+                        Deposit Form.&quot;
+                      </List.Item>
 
-                    <List.Item>
-                      Download or take a screenshot of the document showing:
-                      <List
-                        withPadding
-                        ml="md"
-                        mt="xs"
-                        type="unordered"
-                        spacing="xs"
-                        size="sm"
-                        listStyleType="revert"
-                      >
-                        <List.Item>Your full name</List.Item>
-                        <List.Item>Transit number</List.Item>
-                        <List.Item>Institution number</List.Item>
-                        <List.Item>Account number</List.Item>
-                      </List>
-                    </List.Item>
-                  </List>
-                </Stack>
-              </Paper>
-            </Menu.Dropdown>
-          </Menu>
-          <Space h={4} />
-          {(() => {
-            let voidChequeContent = null;
-            if (voidChequeFiles.length > 0 && !changeVoidChequePhotos) {
-              if (isImage) {
-                voidChequeContent = (
-                  <SimpleGrid pos="relative" cols={1} spacing="md" mb="md">
-                    {voidChequeFiles.map((file) => (
-                      <Box h={150} key={file.key}>
-                        <Image
-                          w={'100%'}
-                          h={'100%'}
-                          src={file.url}
-                          alt={`Vehicle Photo ${file.name}`}
-                          radius={'md'}
-                          fallbackSrc="https://via.placeholder.com/150"
-                        />
+                      <List.Item>
+                        Download or take a screenshot of the document showing:
+                        <List
+                          withPadding
+                          ml="md"
+                          mt="xs"
+                          type="unordered"
+                          spacing="xs"
+                          size="sm"
+                          listStyleType="revert"
+                        >
+                          <List.Item>Your full name</List.Item>
+                          <List.Item>Transit number</List.Item>
+                          <List.Item>Institution number</List.Item>
+                          <List.Item>Account number</List.Item>
+                        </List>
+                      </List.Item>
+                    </List>
+                  </Stack>
+                </Paper>
+              </Menu.Dropdown>
+            </Menu>
+            <Space h={4} />
+            {(() => {
+              let voidChequeContent = null;
+              if (voidChequeFiles.length > 0 && !changeVoidChequePhotos) {
+                if (isImage) {
+                  voidChequeContent = (
+                    <SimpleGrid pos="relative" cols={1} spacing="md" mb="md">
+                      {voidChequeFiles.map((file) => (
+                        <Box h={150} key={file.key}>
+                          <Image
+                            w={'100%'}
+                            h={'100%'}
+                            src={file.url}
+                            alt={`Vehicle Photo ${file.name}`}
+                            radius={'md'}
+                            fallbackSrc="https://via.placeholder.com/150"
+                          />
+                        </Box>
+                      ))}
+                      <Box pos="absolute" top={0} right={0}>
+                        <Button
+                          variant="subtle"
+                          size="md"
+                          radius="md"
+                          onClick={() => handleDelete(voidChequeFiles[0].key)}
+                        >
+                          {loading ? (
+                            <Loader size="xs" />
+                          ) : (
+                            <Icon icon={'mingcute:edit-line'} width={20} />
+                          )}
+                        </Button>
                       </Box>
-                    ))}
-                    <Box pos="absolute" top={0} right={0}>
-                      <Button
-                        variant="subtle"
-                        size="md"
-                        radius="md"
-                        onClick={() => handleDelete(voidChequeFiles[0].key)}
-                      >
-                        {loading ? (
-                          <Loader size="xs" />
-                        ) : (
-                          <Icon icon={'mingcute:edit-line'} width={20} />
-                        )}
-                      </Button>
-                    </Box>
-                  </SimpleGrid>
-                );
+                    </SimpleGrid>
+                  );
+                } else {
+                  voidChequeContent = (
+                    <Stack gap="sm" mt="sm">
+                      {voidChequeFiles.map((file) => (
+                        <Card
+                          key={file.key}
+                          shadow="sm"
+                          padding="sm"
+                          radius="md"
+                          withBorder
+                        >
+                          <Group justify="space-between">
+                            <Box>
+                              <Text fw={500} truncate maw={250}>
+                                {file.name}
+                              </Text>
+                              <Text size="sm" c="dimmed">
+                                Size: {(file.size / 1024 / 1024).toFixed(2)} MB
+                              </Text>
+                              <Text size="sm" c="dimmed">
+                                Type: {file.type}
+                              </Text>
+                            </Box>
+                            <ActionIcon
+                              onClick={() => handleDelete(file.key)}
+                              variant="light"
+                              color="red"
+                              size="lg"
+                            >
+                              {loading ? (
+                                <Loader size="xs" />
+                              ) : (
+                                <Icon icon="mingcute:edit-line" width={20} />
+                              )}
+                            </ActionIcon>
+                          </Group>
+                          <Button
+                            component="a"
+                            href={file.url}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            variant="light"
+                            mt="sm"
+                            fullWidth
+                          >
+                            View File
+                          </Button>
+                        </Card>
+                      ))}
+                    </Stack>
+                  );
+                }
               } else {
                 voidChequeContent = (
-                  <Stack gap="sm" mt="sm">
-                    {voidChequeFiles.map((file) => (
-                      <Card
-                        key={file.key}
-                        shadow="sm"
-                        padding="sm"
-                        radius="md"
-                        withBorder
-                      >
-                        <Group justify="space-between">
-                          <Box>
-                            <Text fw={500} truncate maw={250}>
-                              {file.name}
-                            </Text>
-                            <Text size="sm" c="dimmed">
-                              Size: {(file.size / 1024 / 1024).toFixed(2)} MB
-                            </Text>
-                            <Text size="sm" c="dimmed">
-                              Type: {file.type}
-                            </Text>
-                          </Box>
-                          <ActionIcon
-                            onClick={() => handleDelete(file.key)}
-                            variant="light"
-                            color="red"
-                            size="lg"
-                          >
-                            {loading ? (
-                              <Loader size="xs" />
-                            ) : (
-                              <Icon icon="mingcute:edit-line" width={20} />
-                            )}
-                          </ActionIcon>
-                        </Group>
-                        <Button
-                          component="a"
-                          href={file.url}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          variant="light"
-                          mt="sm"
-                          fullWidth
-                        >
-                          View File
-                        </Button>
-                      </Card>
-                    ))}
-                  </Stack>
+                  <>
+                    <Select
+                      value={selectedFileType}
+                      onChange={(value) =>
+                        setSelectedFileType(value as 'image' | 'pdf')
+                      }
+                      data={[
+                        { value: 'image', label: 'Image' },
+                        { value: 'pdf', label: 'PDF' },
+                      ]}
+                    />
+                    <Box hidden={selectedFileType !== 'pdf'}>
+                      <FileHandler
+                        multiple={false}
+                        onUploadSuccess={(files: FileHandlerRes[]) => {
+                          form.setFieldValue('voidCheque', files);
+                        }}
+                      />
+                    </Box>
+                    <Box hidden={selectedFileType !== 'image'}>
+                      <ImageHandler
+                        multiple={false}
+                        onUploadSuccess={(files: FileHandlerRes[]) => {
+                          form.setFieldValue('voidCheque', files);
+                        }}
+                      />
+                    </Box>
+                  </>
                 );
               }
-            } else {
-              voidChequeContent = (
-                <>
-                  <Select
-                    value={selectedFileType}
-                    onChange={(value) =>
-                      setSelectedFileType(value as 'image' | 'pdf')
-                    }
-                    data={[
-                      { value: 'image', label: 'Image' },
-                      { value: 'pdf', label: 'PDF' },
-                    ]}
-                  />
-                  <Box hidden={selectedFileType !== 'pdf'}>
-                    <FileHandler
-                      multiple={false}
-                      onUploadSuccess={(files: FileHandlerRes[]) => {
-                        form.setFieldValue('voidCheque', files);
-                      }}
-                    />
-                  </Box>
-                  <Box hidden={selectedFileType !== 'image'}>
-                    <ImageHandler
-                      multiple={false}
-                      onUploadSuccess={(files: FileHandlerRes[]) => {
-                        form.setFieldValue('voidCheque', files);
-                      }}
-                    />
-                  </Box>
-                </>
-              );
-            }
-            return voidChequeContent;
-          })()}
-        </Input.Wrapper>
+              return voidChequeContent;
+            })()}
+          </Input.Wrapper>
 
-        <Group
-          justify="center"
-          mt="lg"
-          className="!flex-col-reverse md:!flex-row"
-        >
-          <Button
-            variant="outline"
-            size="md"
-            radius={12}
-            className="!font-inter !w-full !border-2 !border-[#111111] !px-12 !text-sm !font-normal !text-black md:!w-auto"
-            onClick={onPrev}
+          <Checkbox
+            label={
+              <Text fz={14}>
+                I have read and agree to be bound by the
+                <span className="!text-primary ml-2">Terms and Conditions</span>
+                {/* and <span className="!text-primary ml-2">Privacy Policy.</span> */}
+              </Text>
+            }
+            required
+          />
+
+          <Group
+            justify="center"
+            mt="lg"
+            className="!flex-col-reverse md:!flex-row"
           >
-            Back
-          </Button>
-          <Button
-            loading={submitting}
-            type="submit"
-            size="md"
-            radius={12}
-            className="!font-inter !w-full !px-16 !text-sm !font-normal !text-black md:!w-auto"
-          >
-            Continue
-          </Button>
-        </Group>
-      </Stack>
-    </form>
+            <Button
+              variant="outline"
+              size="md"
+              radius={12}
+              className="!font-inter !w-full !border-2 !border-[#111111] !px-12 !text-sm !font-normal !text-black md:!w-auto"
+              onClick={onPrev}
+            >
+              Back
+            </Button>
+            <Button
+              loading={submitting}
+              type="submit"
+              size="md"
+              radius={12}
+              className="!font-inter !w-full !px-16 !text-sm !font-normal !text-white md:!w-auto"
+            >
+              Submit
+            </Button>
+          </Group>
+        </Stack>
+      </form>
+    </Box>
   );
 };
 

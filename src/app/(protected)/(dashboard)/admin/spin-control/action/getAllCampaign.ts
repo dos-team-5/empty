@@ -20,12 +20,17 @@ export async function getAllCampaigns(
 }> {
   // Step 1: Fetch the paginated campaign data from the API
   try {
-    const response = await fetch(
-      `${process.env.NEXT_PUBLIC_BASE_URL}/api/campaigns?page=${page}&limit=${limit}`,
-      {
-        method: 'GET',
-      }
+    const url = new URL(
+      `${process.env.NEXT_PUBLIC_BASE_URL}/api/campaigns?page=${page}&limit=${limit}`
     );
+    url.searchParams.set('page', page.toString());
+    url.searchParams.set('limit', limit.toString());
+
+    const response = await fetch(url.toString(), {
+      method: 'GET',
+      // It's often good practice to disable caching for authenticated requests
+      cache: 'no-store',
+    });
 
     const result = await response.json();
 

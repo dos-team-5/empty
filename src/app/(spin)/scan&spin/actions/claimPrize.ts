@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 'use server';
 
-interface ClaimPrizePayload {
+export interface ClaimPrizePayload {
   email: string;
   prizeId: string;
 }

@@ -3,6 +3,7 @@
 import { Paper, Text, Image, ActionIcon, Box } from '@mantine/core';
 import { useState } from 'react';
 import { IconEye } from '@tabler/icons-react'; // Make sure this is installed
+import Link from 'next/link';
 
 interface ImageCardProps {
   src: string;
@@ -87,7 +88,9 @@ export const ImageCard = ({ src, alt, name, size }: ImageCardProps) => {
             color: '#374151',
           }}
         >
-          <IconEye size={16} />
+          <Link href={src} target="_blank">
+            <IconEye size={16} />
+          </Link>
         </ActionIcon>
       </Box>
       <Box p="sm" bg="white">

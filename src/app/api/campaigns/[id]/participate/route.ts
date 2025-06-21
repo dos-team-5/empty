@@ -8,6 +8,8 @@ import {
 } from '@/schema'; // Adjust path to your schema file
 import { eq, and, count } from 'drizzle-orm';
 import { db } from '@/config/db';
+import { getServerSession } from 'next-auth';
+import { authOptions } from '@/app/api/auth/[...nextauth]/utils/authOptions';
 
 // Helper function to check if the attempt period needs to be reset
 const hasPeriodReset = (
@@ -38,6 +40,14 @@ export async function GET(
   { params }: { params: Promise<{ id: string }> }
 ) {
   try {
+    const session = await getServerSession(authOptions);
+    if (!session || session.user.role !== 'super_admin') {
+      return NextResponse.json(
+        { success: false, message: 'Forbidden: Access is denied.' },
+        { status: 403 }
+      );
+    }
+
     const { id } = await params;
     const campaignId = parseInt(id, 10);
     if (isNaN(campaignId)) {
@@ -130,7 +140,7 @@ export async function POST(
     }
 
     // --- Participant & Attempt Logic ---
-    let participant = await db.query.spinnerParticipants.findFirst({
+    const participant = await db.query.spinnerParticipants.findFirst({
       where: and(
         eq(spinnerParticipants.campaignId, campaignId),
         eq(spinnerParticipants.email, email)

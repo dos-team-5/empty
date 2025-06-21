@@ -15,9 +15,9 @@ export interface SpinnerPrize {
 }
 
 interface SpinWheelProps {
-  campaignId: number; // Pass the ID of the campaign to fetch
-  isSpinning: boolean;
-  onSpinComplete: (prize: SpinnerPrize) => void; // Callback now returns the winning prize
+  readonly campaignId: number; // Pass the ID of the campaign to fetch
+  readonly isSpinning: boolean;
+  readonly onSpinComplete: (prize: SpinnerPrize) => void; // Callback now returns the winning prize
 }
 
 export default function SpinWheel({
@@ -42,6 +42,7 @@ export default function SpinWheel({
 
   useEffect(() => {
     fetchPrizes();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   // --- SPINNING LOGIC WITH WEIGHTED SELECTION ---
