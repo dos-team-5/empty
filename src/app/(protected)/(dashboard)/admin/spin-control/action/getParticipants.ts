@@ -29,7 +29,7 @@ export async function getParticipants(
 
   try {
     const res = await fetch(
-      `${process.env.NEXT_PUBLIC_BASE_URL}/api/campaigns/${id}/participate`,
+      `${process.env.NEXT_PUBLIC_BASE_URL}/api/campaigns/${id}/participate?page=${page}&limit=${limit}`,
       {
         method: 'GET',
         cache: 'no-store',
@@ -53,6 +53,52 @@ export async function getParticipants(
         records: result.records,
         pagination: result.pagination,
       },
+    };
+  } catch (error: any) {
+    console.error('Network error fetching participants:', error);
+    return {
+      success: false,
+      message: 'A network error occurred while fetching participants.',
+    };
+  }
+}
+
+export async function getParticipantsAll(id: number): Promise<{
+  success: boolean;
+  message: string;
+  data?: SpinnerParticipant[];
+}> {
+  // --- ID Validation ---
+  if (!id || isNaN(id)) {
+    return {
+      success: false,
+      message: 'Invalid campaign ID.',
+    };
+  }
+
+  try {
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_BASE_URL}/api/campaigns/${id}/participate/all-data`,
+      {
+        method: 'GET',
+        cache: 'no-store',
+      }
+    );
+
+    const result = await res.json();
+
+    if (!res.ok) {
+      console.error('Failed to fetch participants:', result.message);
+      return {
+        success: false,
+        message: result.message ?? 'Failed to fetch participants.',
+      };
+    }
+    console.log(result);
+    return {
+      success: true,
+      message: 'Participants fetched successfully.',
+      data: result,
     };
   } catch (error: any) {
     console.error('Network error fetching participants:', error);

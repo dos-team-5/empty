@@ -18,8 +18,18 @@ import {
   rem,
   Image,
   ActionIcon,
+  LoadingOverlay,
 } from '@mantine/core';
-import { Calendar, Clock, Coffee, Gift, Users, Edit, Eye } from 'lucide-react';
+import {
+  Calendar,
+  Clock,
+  Coffee,
+  Gift,
+  Users,
+  Edit,
+  Eye,
+  Plus,
+} from 'lucide-react';
 import ReusableFormModal from './reusable-form-modal';
 import { SpinnerCampaign } from '@/schema';
 import { createCampaign } from '@/app/(protected)/(dashboard)/admin/spin-control/action/createCampaign';
@@ -43,10 +53,10 @@ export default function SpinCampaignCard({
   // Sample campaign data
   const [campaign, setCampaign] = useState<SpinnerCampaign>(data);
 
-  // const handleCreateCampaign = () => {
-  //   setModalMode('create');
-  //   setModalOpened(true);
-  // };
+  const handleCreateCampaign = () => {
+    setModalMode('create');
+    setModalOpened(true);
+  };
 
   const handleEditCampaign = () => {
     setModalMode('edit');
@@ -119,6 +129,10 @@ export default function SpinCampaignCard({
     return undefined;
   };
 
+  if (!data) {
+    return <LoadingOverlay visible />; // or fallback UI
+  }
+
   return (
     <Container
       mx={{ base: 8, md: 0 }}
@@ -133,7 +147,7 @@ export default function SpinCampaignCard({
           <Title order={1} fz={{ base: 20, xl: 32 }} c={PRIMARY_COLOR}>
             Campaign Management
           </Title>
-          {/* <Button
+          <Button
             // hidden
             leftSection={<Plus size={18} />}
             onClick={handleCreateCampaign}
@@ -150,7 +164,7 @@ export default function SpinCampaignCard({
             }}
           >
             Create New Campaign
-          </Button> */}
+          </Button>
         </Group>
 
         {/* Main Campaign Card - Full Width */}

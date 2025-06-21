@@ -2,32 +2,27 @@ import SpinDataTable from '@/components/(dashboard)/Tables/SpinDataTable';
 import { Box } from '@mantine/core';
 import { getAllCampaigns } from './action/getAllCampaign';
 import SpinCampaignCard from '@/components/(dashboard)/Scan-Spin/spinCampaignCard';
-import { SpinnerCampaign } from '@/schema';
 import { getParticipants } from './action/getParticipants';
+import { SpinnerCampaign } from '@/schema';
 
 type SearchParams = Promise<{ [key: string]: string | string[] | undefined }>;
 
 const SpinControl = async (props: { searchParams: SearchParams }) => {
   const searchParams = await props.searchParams;
-  const page = searchParams.page;
-  const limit = searchParams.limit;
-  const response = await getAllCampaigns(
-    Number(page) || 1,
-    Number(limit) || 10
-  );
+  const page = Number(searchParams.page) || 1;
+  const limit = Number(searchParams.limit) || 10;
 
-  const participantResponse = await getParticipants(
-    1,
-    Number(page) || 1,
-    Number(limit) || 10
-  );
+  const [campaignResponse, participantResponse] = await Promise.all([
+    getAllCampaigns(),
+    getParticipants(1, page, limit),
+  ]);
 
-  console.log('participantResponse ====>', participantResponse);
+  const campaign = campaignResponse?.data?.records?.[0];
 
   return (
     <Box>
-      <SpinCampaignCard data={response.data?.records[0] as SpinnerCampaign} />
-      <SpinDataTable data={participantResponse.data} />
+      <SpinCampaignCard data={campaign as SpinnerCampaign} />
+      <SpinDataTable data={participantResponse.data} id={1} />
     </Box>
   );
 };

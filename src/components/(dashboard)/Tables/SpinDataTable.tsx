@@ -13,8 +13,10 @@ import {
   spinCampaignAttemptColumns,
 } from '@/app/(protected)/(dashboard)/admin/spin-control/excel/spinDataExcelColumn';
 import { exportToExcel } from '@/lib/exportToExcel';
+import { getParticipantsAll } from '@/app/(protected)/(dashboard)/admin/spin-control/action/getParticipants';
 
 interface SpinDataTableProps {
+  id: number;
   data?: {
     records: SpinnerParticipant[];
     pagination: {
@@ -25,7 +27,7 @@ interface SpinDataTableProps {
   };
 }
 
-const SpinDataTable = ({ data }: SpinDataTableProps) => {
+const SpinDataTable = ({ data, id }: SpinDataTableProps) => {
   const hasRecords = data?.records && data.records.length > 0;
   const searchParams = useSearchParams();
   const isMobile = useMediaQuery('(max-width: 768px)');
@@ -73,13 +75,25 @@ const SpinDataTable = ({ data }: SpinDataTableProps) => {
 
   //export to Excel
 
-  const handleExport = () =>
-    exportToExcel({
-      fileName: 'campaign_attempts.xlsx',
-      sheetName: 'Attempts',
-      columns: [...spinCampaignAttemptColumns],
-      data: flattenCampaignAttemptData(data?.records ?? []), // use your actual data variable
-    });
+  const handleExport = async () => {
+    try {
+      const res = await getParticipantsAll(id); // make sure `id` is defined
+
+      if (!res?.success || !res?.data) {
+        console.error('Failed to fetch participants for export.');
+        return;
+      }
+
+      exportToExcel({
+        fileName: 'campaign_attempts.xlsx',
+        sheetName: 'Attempts',
+        columns: [...spinCampaignAttemptColumns], // your defined Excel columns
+        data: flattenCampaignAttemptData(res.data ?? []), // flatten the records before exporting
+      });
+    } catch (error) {
+      console.error('Export failed:', error);
+    }
+  };
 
   return (
     <Card mx={{ base: 8, md: 0 }} p={0} withBorder>
