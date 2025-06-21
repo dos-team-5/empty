@@ -1,6 +1,6 @@
 import { DataTableColumn } from 'mantine-datatable';
 import { SpinnerParticipant } from '@/schema';
-import { Badge, Text } from '@mantine/core';
+import { Badge, Flex, Text } from '@mantine/core';
 import React from 'react';
 
 export const userSpinTableColumns: DataTableColumn<SpinnerParticipant>[] = [
@@ -30,6 +30,13 @@ export const userSpinTableColumns: DataTableColumn<SpinnerParticipant>[] = [
     textAlign: 'center',
   },
   {
+    accessor: 'ipAddress',
+    title: 'IP Address',
+    sortable: true,
+    textAlign: 'center',
+    render: (data) => <span>{data.ipAddress ?? 'N/A'}</span>,
+  },
+  {
     accessor: 'lastAttemptAt',
     title: 'Last Attempt',
     textAlign: 'center',
@@ -49,9 +56,10 @@ export const userSpinTableColumns: DataTableColumn<SpinnerParticipant>[] = [
     accessor: 'wonPrizes',
     title: 'Coupons',
     textAlign: 'center',
+    width: 200,
     sortable: true,
     render: (data) => (
-      <>
+      <Flex justify={'center'} gap={8} wrap={'wrap'}>
         {data.wonPrizes?.length === 0 ? (
           <Text>-</Text>
         ) : (
@@ -65,7 +73,7 @@ export const userSpinTableColumns: DataTableColumn<SpinnerParticipant>[] = [
             </React.Fragment>
           ))
         )}
-      </>
+      </Flex>
     ),
   },
 ];

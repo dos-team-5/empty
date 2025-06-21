@@ -14,6 +14,7 @@ export interface ParticipantData {
   name: string;
   email: string;
   phone: string;
+  ipAddress?: string;
   agreeToEmails?: boolean;
 }
 
@@ -50,6 +51,7 @@ export default function ParticipationForm({
       email: '',
       phone: '',
       agreeToEmails: true,
+      ipAddress: '',
     },
   });
 

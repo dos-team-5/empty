@@ -6,6 +6,7 @@ interface ParticipationPayload {
   phone: string;
   email: string;
   agreeToEmails: boolean | undefined;
+  ipAddress?: string | null;
 }
 
 export async function makeParticipation({
