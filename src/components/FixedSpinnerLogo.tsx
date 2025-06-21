@@ -5,7 +5,6 @@ import { usePathname } from 'next/navigation';
 
 const FixedSpinnerLogo = () => {
   const pathname = usePathname();
-  console.log(pathname, 'path');
 
   if (pathname === '/scan&spin-attributation') {
     return null;

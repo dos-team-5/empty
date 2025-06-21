@@ -2,7 +2,6 @@ import { ClaimPrizePayload } from './claimPrize';
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
 export function couponMail({ data }: any) {
-  console.log('data', data);
   try {
     const app = {
       from: 'contact@emptyad.com',

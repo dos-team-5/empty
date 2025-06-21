@@ -97,8 +97,6 @@ export default function PricingConfigurator() {
     fetchRate();
   }, [currency]);
 
-  console.log('exchangeRate', exchangeRate);
-
   const pricing = usePricingCalculation(
     planType,
     carCount,
@@ -187,7 +185,6 @@ export default function PricingConfigurator() {
       });
 
       const data = await response.json();
-      console.log('API response:', data);
 
       if (data.redirectUrl) {
         window.location.href = data.redirectUrl;

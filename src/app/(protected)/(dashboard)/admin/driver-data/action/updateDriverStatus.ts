@@ -19,8 +19,6 @@ export async function updateDriverStatus(driverId: number, status: string) {
       }
     );
 
-    console.log('Response:', res);
-
     const data = await res.json();
 
     if (!res.ok) {

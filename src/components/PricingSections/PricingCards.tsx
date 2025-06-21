@@ -136,7 +136,7 @@ const PricingCards = () => {
         }),
       });
       const data = await response.json();
-      console.log('API response:', data);
+
       if (data.redirectUrl) {
         window.location.href = data.redirectUrl;
       } else {

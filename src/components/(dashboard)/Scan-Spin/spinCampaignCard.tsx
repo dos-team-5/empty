@@ -65,11 +65,9 @@ export default function SpinCampaignCard({
   };
 
   const handleFormSubmit = async (data: any, mode: 'create' | 'edit') => {
-    console.log(`${mode} campaign:`, data);
-
     if (mode === 'create') {
       setCreateLoading(true);
-      console.log('Creating new campaign...');
+
       const res = await createCampaign(data);
       if (res.success) {
         notifications.show({
@@ -84,7 +82,7 @@ export default function SpinCampaignCard({
       // Handle create logic here
     } else {
       setEditLoading(true);
-      console.log('Updating existing campaign...');
+
       const res = await updateCampaign({ id: campaign?.id, data });
       if (res.success) {
         notifications.show({
