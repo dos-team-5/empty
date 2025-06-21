@@ -22,7 +22,7 @@ const SpinControl = async (props: { searchParams: SearchParams }) => {
     Number(limit) || 10
   );
 
-  console.log(participantResponse);
+  console.log('participantResponse ====>', participantResponse);
 
   return (
     <Box>
