@@ -6,6 +6,7 @@ import '@mantine/dates/styles.css';
 import 'mantine-datatable/styles.layer.css';
 import { Providers } from '@/providers';
 import { ColorSchemeScript, mantineHtmlProps } from '@mantine/core';
+import { FpjsProvider } from '@fingerprintjs/fingerprintjs-pro-react';
 
 const poppins = Sora({
   variable: '--font-poppins',
@@ -31,6 +32,8 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const api_key = process.env.NEXT_PUBLIC_FPJS_API_KEY as string;
+
   return (
     <html lang="en" {...mantineHtmlProps} suppressHydrationWarning>
       <head>
@@ -43,7 +46,13 @@ export default function RootLayout({
       <body
         className={`${poppins.variable} ${inter.variable} relative antialiased`}
       >
-        <Providers>{children}</Providers>
+        <FpjsProvider
+          loadOptions={{
+            apiKey: api_key,
+          }}
+        >
+          <Providers>{children}</Providers>
+        </FpjsProvider>
       </body>
     </html>
   );

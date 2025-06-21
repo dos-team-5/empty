@@ -14,8 +14,13 @@ import { notifications } from '@mantine/notifications';
 import { claimPrize } from './actions/claimPrize';
 import { sendCouponEmail } from './actions/sendCouponMail';
 import { Icon } from '@iconify/react/dist/iconify.js';
+import { useVisitorData } from '@fingerprintjs/fingerprintjs-pro-react';
 
 export default function Home() {
+  const { data } = useVisitorData(
+    { extendedResult: true },
+    { immediate: true }
+  );
   const [showConfetti, setShowConfetti] = useState(false);
   const [isSpinning, setIsSpinning] = useState(false);
   const [participationFormData, setParticipationFormData] = useState({
@@ -69,23 +74,25 @@ export default function Home() {
             </ActionIcon>
           </Group>
           <ParticipationForm
-            onClose={handleModalClose}
             onSubmit={async (formVal) => {
               try {
                 const res = await makeParticipation({
-                  id: 1, // Assuming campaign ID is 1
+                  id: 1,
                   formData: {
                     ...formVal,
                     agreeToEmails: formVal.agreeToEmails ?? false,
+                    ipAddress: data?.ip ?? '', // ✅ inject IP on submit
                   },
                 });
                 if (!res.success) {
                   throw new Error(res.message);
                 }
+
                 setParticipationFormData({
                   ...formVal,
                   agreeToEmails: formVal.agreeToEmails ?? false,
                 });
+
                 setIsSpinning(true);
                 setShowConfetti(false);
                 modals.closeAll();
