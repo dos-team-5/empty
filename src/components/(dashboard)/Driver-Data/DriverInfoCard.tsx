@@ -367,7 +367,7 @@ export default function DriverInfoCard({ data }: DriverInformationCardProps) {
                       </Paper>
 
                       {/* Status Card */}
-                      <StatusCard status={data.status} />
+                      <StatusCard status={data.status} id={data.id} />
                     </Stack>
                   </Grid.Col>
                 </Grid>

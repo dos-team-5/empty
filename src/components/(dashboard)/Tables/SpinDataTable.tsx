@@ -96,7 +96,7 @@ const SpinDataTable = ({ data }: SpinDataTableProps) => {
             </Text>
             <Button
               onClick={handleExport}
-              leftSection={<Icon icon="tdesign:file-pdf" width={16} />}
+              leftSection={<Icon icon="uiw:file-excel" width={16} />}
             >
               Export Document
             </Button>

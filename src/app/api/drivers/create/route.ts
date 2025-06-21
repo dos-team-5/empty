@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { db } from '@/config/db';
 import { drivers, NewDriver } from '@/schema/drivers';
 import { NextRequest, NextResponse } from 'next/server';
