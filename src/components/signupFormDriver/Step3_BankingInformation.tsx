@@ -18,6 +18,7 @@ import {
   List,
   Card,
   Loader,
+  Checkbox,
 } from '@mantine/core';
 import { notifications } from '@mantine/notifications';
 import { useForm, zodResolver } from '@mantine/form';
@@ -386,6 +387,19 @@ const Step3_BankingInformation = ({
           })()}
         </Input.Wrapper>
 
+        <Checkbox
+          label={
+            <Text w={'70%'}>
+              I have read and agree to be bound by the
+              <span className="!text-primary mr-2 ml-2">
+                Terms and Conditions
+              </span>
+              and <span className="!text-primary ml-2">Privacy Policy.</span>
+            </Text>
+          }
+          required
+        />
+
         <Group
           justify="center"
           mt="lg"
@@ -405,9 +419,9 @@ const Step3_BankingInformation = ({
             type="submit"
             size="md"
             radius={12}
-            className="!font-inter !w-full !px-16 !text-sm !font-normal !text-black md:!w-auto"
+            className="!font-inter !w-full !px-16 !text-sm !font-normal !text-white md:!w-auto"
           >
-            Continue
+            Submit
           </Button>
         </Group>
       </Stack>
