@@ -36,6 +36,7 @@ const SpinDataTable = ({ data, id }: SpinDataTableProps) => {
   const [page, setPage] = useState(pramPageNumber ? Number(pramPageNumber) : 1);
   const router = useRouter();
   const [pageSize, setPageSize] = useState(PAGE_SIZES[0]);
+  const [loading, setLoading] = useState(false);
 
   const [sortStatus, setSortStatus] = useState<
     DataTableSortStatus<SpinnerParticipant>
@@ -76,6 +77,7 @@ const SpinDataTable = ({ data, id }: SpinDataTableProps) => {
   //export to Excel
 
   const handleExport = async () => {
+    setLoading(true);
     try {
       const res = await getParticipantsAll(id); // make sure `id` is defined
 
@@ -83,6 +85,8 @@ const SpinDataTable = ({ data, id }: SpinDataTableProps) => {
         console.error('Failed to fetch participants for export.');
         return;
       }
+
+      console.log(res);
 
       exportToExcel({
         fileName: 'campaign_attempts.xlsx',
@@ -93,6 +97,7 @@ const SpinDataTable = ({ data, id }: SpinDataTableProps) => {
     } catch (error) {
       console.error('Export failed:', error);
     }
+    setLoading(false);
   };
 
   return (
@@ -110,7 +115,17 @@ const SpinDataTable = ({ data, id }: SpinDataTableProps) => {
             </Text>
             <Button
               onClick={handleExport}
-              leftSection={<Icon icon="uiw:file-excel" width={16} />}
+              leftSection={
+                loading ? (
+                  <Icon
+                    className="animate-spin"
+                    icon="eos-icons:loading"
+                    width={16}
+                  />
+                ) : (
+                  <Icon icon="uiw:file-excel" width={16} />
+                )
+              }
             >
               Export Document
             </Button>

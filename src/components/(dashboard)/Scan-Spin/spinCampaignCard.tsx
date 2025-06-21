@@ -148,7 +148,7 @@ export default function SpinCampaignCard({
             Campaign Management
           </Title>
           <Button
-            // hidden
+            hidden
             leftSection={<Plus size={18} />}
             onClick={handleCreateCampaign}
             size="md"

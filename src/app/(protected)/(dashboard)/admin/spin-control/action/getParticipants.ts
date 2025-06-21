@@ -98,7 +98,7 @@ export async function getParticipantsAll(id: number): Promise<{
     return {
       success: true,
       message: 'Participants fetched successfully.',
-      data: result,
+      data: result.records,
     };
   } catch (error: any) {
     console.error('Network error fetching participants:', error);

@@ -40,6 +40,7 @@ const DriverDataTable = ({
     columnAccessor: 'createdAt',
     direction: 'asc',
   });
+  const [loading, setLoading] = useState(false);
 
   const hasRecords = data && data.length > 0;
 
@@ -74,15 +75,27 @@ const DriverDataTable = ({
 
   // handle export to excel
   const handleExport = async () => {
-    const res = await getDriversAll();
-    if (!res.success) return;
-    const flatData = flattenDriverData(res.data ?? []); // accepts single or array
-    exportToExcel({
-      fileName: 'DriverInfo.xlsx',
-      sheetName: 'Drivers',
-      columns: [...driverColumns], // Create a new mutable array
-      data: flatData,
-    });
+    setLoading(true);
+    try {
+      const res = await getDriversAll();
+      if (!res.success) {
+        // Optionally handle the failure case with a toast or message
+        return;
+      }
+
+      const flatData = flattenDriverData(res.data ?? []);
+      exportToExcel({
+        fileName: 'DriverInfo.xlsx',
+        sheetName: 'Drivers',
+        columns: [...driverColumns],
+        data: flatData,
+      });
+    } catch (error) {
+      console.error('Export failed:', error);
+      // Optionally show a toast or error notification
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -100,7 +113,17 @@ const DriverDataTable = ({
             </Text>
             <Button
               onClick={handleExport}
-              leftSection={<Icon icon="tdesign:file-pdf" width={16} />}
+              leftSection={
+                loading ? (
+                  <Icon
+                    className="animate-spin"
+                    icon="eos-icons:loading"
+                    width={16}
+                  />
+                ) : (
+                  <Icon icon="uiw:file-excel" width={16} />
+                )
+              }
             >
               Export Document
             </Button>

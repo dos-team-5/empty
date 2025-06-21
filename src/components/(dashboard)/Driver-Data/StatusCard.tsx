@@ -103,7 +103,7 @@ const StatusCard = ({ status, id }: StatusCardProps) => {
               }}
             >
               {loading ? (
-                <Loader size={16} color={'white'} />
+                <Loader className="animate-spin" size={16} color={'white'} />
               ) : (
                 <IconCircleCheck size={16} color={'white'} />
               )}
