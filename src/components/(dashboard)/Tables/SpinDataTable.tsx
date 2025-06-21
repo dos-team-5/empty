@@ -86,8 +86,6 @@ const SpinDataTable = ({ data, id }: SpinDataTableProps) => {
         return;
       }
 
-      console.log(res);
-
       exportToExcel({
         fileName: 'campaign_attempts.xlsx',
         sheetName: 'Attempts',

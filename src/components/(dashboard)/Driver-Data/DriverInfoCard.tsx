@@ -61,8 +61,6 @@ export default function DriverInfoCard({ data }: DriverInformationCardProps) {
     document.body.removeChild(link);
   };
 
-  console.log(data.rideSharePlatforms);
-
   return (
     <Box
       style={{

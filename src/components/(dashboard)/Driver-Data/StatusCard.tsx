@@ -55,7 +55,7 @@ const StatusCard = ({ status, id }: StatusCardProps) => {
   const handleStatusChange = async (newStatus: Status) => {
     setLoading(true);
     const response = await updateDriverStatus(id, newStatus);
-    console.log('Response:', response);
+
     if (!response.success) {
       setDriverStatus(status);
     }

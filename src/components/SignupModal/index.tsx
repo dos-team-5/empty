@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 // components/SignupModal.tsx
 'use client';
 import {
@@ -76,7 +77,7 @@ const SignupModal = ({ opened, onClose, type }: SignupModalProps) => {
 
   // Handle form submission
   const handleSubmit = (values: any) => {
-    console.log(`${type} Signup Data:`, values); // Replace with API call
+    // Replace with API call
     form.reset();
     onClose();
   };

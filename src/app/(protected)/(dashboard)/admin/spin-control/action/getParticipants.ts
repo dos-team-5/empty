@@ -55,7 +55,7 @@ export async function getParticipants(
         message: result.message ?? 'Failed to fetch participants.',
       };
     }
-    console.log(result);
+
     return {
       success: true,
       message: 'Participants fetched successfully.',
@@ -113,7 +113,7 @@ export async function getParticipantsAll(id: number): Promise<{
         message: result.message ?? 'Failed to fetch participants.',
       };
     }
-    console.log(result);
+
     return {
       success: true,
       message: 'Participants fetched successfully.',

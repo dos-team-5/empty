@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 'use client';
 
@@ -64,11 +65,9 @@ export default function SpinCampaignCard({
   };
 
   const handleFormSubmit = async (data: any, mode: 'create' | 'edit') => {
-    console.log(`${mode} campaign:`, data);
-
     if (mode === 'create') {
       setCreateLoading(true);
-      console.log('Creating new campaign...');
+
       const res = await createCampaign(data);
       if (res.success) {
         notifications.show({
@@ -79,11 +78,11 @@ export default function SpinCampaignCard({
         });
       }
       setCreateLoading(false);
-      console.log('Create campaign response:', createLoading);
+
       // Handle create logic here
     } else {
       setEditLoading(true);
-      console.log('Updating existing campaign...');
+
       const res = await updateCampaign({ id: campaign?.id, data });
       if (res.success) {
         notifications.show({
@@ -94,7 +93,7 @@ export default function SpinCampaignCard({
         });
       }
       setEditLoading(false);
-      console.log('Update campaign response:', editLoading);
+
       // Update local state for demo
       setCampaign((prev) => ({
         ...prev,

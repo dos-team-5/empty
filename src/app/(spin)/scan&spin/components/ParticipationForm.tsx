@@ -64,8 +64,6 @@ export default function ParticipationForm({
     fetchCampaign();
   }, []);
 
-  console.log(campaign);
-
   return (
     // In your actual app, the MantineProvider would likely be in your root layout file
     // and not needed inside every component. It is included here for completeness.
