@@ -113,7 +113,7 @@ const DriverDataTable = ({
       ) : (
         <Card.Section>
           <Flex align="center" justify="center" gap={12} py="xl">
-            <Icon icon="material-symbols:info-rounded" width={24} height={24} />
+            <Icon icon="uiw:file-excel" width={24} height={24} />
             <Text c="dimmed" fw={500}>
               No participants found.
             </Text>
