@@ -4,7 +4,7 @@ import SpinWheel, { SpinnerPrize } from './components/SpinWheel';
 import ConfettiEffect from './components/ConfettiEffect';
 
 import Image from 'next/image';
-import { ActionIcon, Group, UnstyledButton } from '@mantine/core';
+import { UnstyledButton } from '@mantine/core';
 import { modals } from '@mantine/modals';
 import { winCheck } from './actions/winCheck';
 import PrizePopup from './components/PrizePopup';
@@ -12,7 +12,6 @@ import ParticipationForm from './components/ParticipationForm';
 import { makeParticipation } from './actions/makeParticipation';
 import { notifications } from '@mantine/notifications';
 import { claimPrize } from './actions/claimPrize';
-import { Icon } from '@iconify/react/dist/iconify.js';
 import { sendCouponEmail } from './actions/sendCouponMail';
 
 export default function Home() {
@@ -53,49 +52,47 @@ export default function Home() {
     handleParticipate();
   };
 
+  const handleModalClose = () => {
+    modals.closeAll();
+  };
+
   const handleParticipate = async () => {
     modals.open({
       withCloseButton: false,
       children: (
-        <>
-          <Group justify="right">
-            <ActionIcon onClick={() => modals.closeAll()} variant="subtle">
-              <Icon icon={'material-symbols:close'} />
-            </ActionIcon>
-          </Group>
-          <ParticipationForm
-            onSubmit={async (formVal) => {
-              try {
-                const res = await makeParticipation({
-                  id: 1, // Assuming campaign ID is 1
-                  formData: {
-                    ...formVal,
-                    agreeToEmails: formVal.agreeToEmails ?? false,
-                  },
-                });
-                if (!res.success) {
-                  throw new Error(res.message);
-                }
-                setParticipationFormData({
+        <ParticipationForm
+          onClose={handleModalClose}
+          onSubmit={async (formVal) => {
+            try {
+              const res = await makeParticipation({
+                id: 1, // Assuming campaign ID is 1
+                formData: {
                   ...formVal,
                   agreeToEmails: formVal.agreeToEmails ?? false,
-                });
-                setIsSpinning(true);
-                setShowConfetti(false);
-                modals.closeAll();
-              } catch (error) {
-                notifications.show({
-                  title: 'Error',
-                  message:
-                    error instanceof Error
-                      ? error.message
-                      : 'An unexpected error occurred.',
-                  color: 'red',
-                });
+                },
+              });
+              if (!res.success) {
+                throw new Error(res.message);
               }
-            }}
-          />
-        </>
+              setParticipationFormData({
+                ...formVal,
+                agreeToEmails: formVal.agreeToEmails ?? false,
+              });
+              setIsSpinning(true);
+              setShowConfetti(false);
+              modals.closeAll();
+            } catch (error) {
+              notifications.show({
+                title: 'Error',
+                message:
+                  error instanceof Error
+                    ? error.message
+                    : 'An unexpected error occurred.',
+                color: 'red',
+              });
+            }
+          }}
+        />
       ),
     });
   };
