@@ -210,7 +210,7 @@ export default function SpinCampaignCard({
                       w={{ base: 40, md: 80 }}
                       h={{ base: 40, md: 80 }}
                       src={campaign.companyLogo?.url}
-                      fallbackSrc="/elementor-placeholder-image.webp"
+                      fallbackSrc="https://upload.wikimedia.org/wikipedia/en/thumb/d/d3/Starbucks_Corporation_Logo_2011.svg/1200px-Starbucks_Corporation_Logo_2011.svg.png"
                       alt={campaign.companyName}
                       style={{ objectFit: 'contain' }}
                     />
