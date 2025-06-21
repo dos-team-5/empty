@@ -34,7 +34,7 @@ export const userSpinTableColumns: DataTableColumn<SpinnerParticipant>[] = [
     title: 'IP Address',
     sortable: true,
     textAlign: 'center',
-    render: (data) => <span>{data.ipAddress ?? 'N/A'}</span>,
+    render: (data) => <span>{data?.ipAddress ?? 'N/A'}</span>,
   },
   {
     accessor: 'lastAttemptAt',

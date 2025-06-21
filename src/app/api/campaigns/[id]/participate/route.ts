@@ -108,8 +108,12 @@ export async function POST(
       );
     }
 
-    const body: { name: string; email: string; phone?: string } =
-      await req.json();
+    const body: {
+      name: string;
+      email: string;
+      phone?: string;
+      ipaddress?: string;
+    } = await req.json();
     if (!body.name || !body.email) {
       return NextResponse.json(
         { message: 'Name and email are required.' },
@@ -117,7 +121,7 @@ export async function POST(
       );
     }
 
-    const { name, email, phone } = body;
+    const { name, email, phone, ipAddress } = body;
 
     // --- Fetch the Campaign ---
     const campaign = await db.query.spinnerCampaigns.findFirst({
@@ -199,6 +203,7 @@ export async function POST(
       email: email,
       phone: phone,
       campaignId: campaignId,
+      ipAddress: ipAddress,
       totalAttempts: (participant?.totalAttempts || 0) + 1,
       periodAttempts: (participant?.periodAttempts || 0) + 1,
       periodStart: participant?.periodStart || now,
@@ -214,6 +219,7 @@ export async function POST(
         set: {
           name: participantDataToUpsert.name,
           phone: participantDataToUpsert.phone,
+          ipAddress: participantDataToUpsert.ipAddress,
           totalAttempts: participantDataToUpsert.totalAttempts,
           periodAttempts: participantDataToUpsert.periodAttempts,
           periodStart: participantDataToUpsert.periodStart,

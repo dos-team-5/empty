@@ -33,7 +33,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   const api_key = process.env.NEXT_PUBLIC_FPJS_API_KEY as string;
-  console.log(api_key);
+
   return (
     <html lang="en" {...mantineHtmlProps} suppressHydrationWarning>
       <head>
