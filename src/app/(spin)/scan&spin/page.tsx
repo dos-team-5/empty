@@ -58,6 +58,7 @@ export default function Home() {
 
   const handleParticipate = async () => {
     modals.open({
+      centered: true,
       withCloseButton: false,
       children: (
         <ParticipationForm

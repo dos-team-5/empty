@@ -29,15 +29,14 @@ export const userSpinTableColumns: DataTableColumn<SpinnerParticipant>[] = [
     textAlign: 'center',
   },
   {
-    accessor: 'periodStart',
-    title: 'Period Start',
+    accessor: 'lastAttemptAt',
+    title: 'Last Attempt',
     textAlign: 'center',
     render: (data) =>
-      data.periodStart
-        ? new Date(data.periodStart).toLocaleDateString()
+      data.lastAttemptAt
+        ? new Date(data.lastAttemptAt).toLocaleDateString()
         : 'N/A',
   },
-
   {
     accessor: 'wins',
     title: 'Wins',

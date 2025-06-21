@@ -2,7 +2,6 @@
 'use server';
 
 import { NewSpinnerCampaign } from '@/schema';
-import { cookies } from 'next/headers';
 
 export async function getAllCampaigns(
   page = 1,
@@ -27,15 +26,8 @@ export async function getAllCampaigns(
     url.searchParams.set('page', page.toString());
     url.searchParams.set('limit', limit.toString());
 
-    // 2. Get the cookie store from the incoming request
-    const cookieStore = await cookies();
-
     const response = await fetch(url.toString(), {
       method: 'GET',
-      headers: {
-        // 3. Pass the cookies in the 'Cookie' header of the fetch request
-        Cookie: cookieStore.toString(),
-      },
       // It's often good practice to disable caching for authenticated requests
       cache: 'no-store',
     });

@@ -29,13 +29,22 @@ export async function getParticipants(
   }
 
   try {
-    const res = await fetch(
-      `${process.env.NEXT_PUBLIC_BASE_URL}/api/campaigns/${id}/participate?page=${page}&limit=${limit}`,
-      {
-        method: 'GET',
-        cache: 'no-store',
-      }
+    const url = new URL(
+      `${process.env.NEXT_PUBLIC_BASE_URL}/api/campaigns/${id}/participate?page=${page}&limit=${limit}`
     );
+
+    // 2. Get the cookie store from the incoming request
+    const cookieStore = await cookies();
+
+    const res = await fetch(url.toString(), {
+      method: 'GET',
+      headers: {
+        // 3. Pass the cookies in the 'Cookie' header of the fetch request
+        Cookie: cookieStore.toString(),
+      },
+      // It's often good practice to disable caching for authenticated requests
+      cache: 'no-store',
+    });
 
     const result = await res.json();
 
