@@ -9,6 +9,11 @@ import { useDisclosure, useMediaQuery } from '@mantine/hooks';
 import { Button, Card, Flex, Modal, Text } from '@mantine/core';
 import { Icon } from '@iconify/react/dist/iconify.js';
 import DriverInfoCard from '../Driver-Data/DriverInfoCard';
+import {
+  driverColumns,
+  flattenDriverData,
+} from '@/app/(protected)/(dashboard)/admin/driver-data/excel/excelDriverColumn';
+import { exportToExcel } from '@/lib/exportToExcel';
 
 const DriverDataTable = ({
   data,
@@ -35,6 +40,16 @@ const DriverDataTable = ({
 
   console.log('Driver Data ==>', driverData);
 
+  const handleExport = () => {
+    const flatData = flattenDriverData(data); // accepts single or array
+    exportToExcel({
+      fileName: 'DriverInfo.xlsx',
+      sheetName: 'Drivers',
+      columns: [...driverColumns], // Create a new mutable array
+      data: flatData,
+    });
+  };
+
   return (
     <Card mx={{ base: 8, md: 0 }} p={0} radius="md" withBorder>
       {hasRecords ? (
@@ -48,7 +63,10 @@ const DriverDataTable = ({
             <Text fz={{ base: 16, md: 20 }} fw={700}>
               Driver Information
             </Text>
-            <Button leftSection={<Icon icon="tdesign:file-pdf" width={16} />}>
+            <Button
+              onClick={handleExport}
+              leftSection={<Icon icon="tdesign:file-pdf" width={16} />}
+            >
               Export Document
             </Button>
           </Flex>

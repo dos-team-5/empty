@@ -43,10 +43,10 @@ export default function SpinCampaignCard({
   // Sample campaign data
   const [campaign, setCampaign] = useState<SpinnerCampaign>(data);
 
-  const handleCreateCampaign = () => {
-    setModalMode('create');
-    setModalOpened(true);
-  };
+  // const handleCreateCampaign = () => {
+  //   setModalMode('create');
+  //   setModalOpened(true);
+  // };
 
   const handleEditCampaign = () => {
     setModalMode('edit');
@@ -120,7 +120,13 @@ export default function SpinCampaignCard({
   };
 
   return (
-    <Container px={0} size="100%" mt={{ base: 24, md: 0 }} py="xl">
+    <Container
+      mx={{ base: 8, md: 0 }}
+      px={0}
+      size="100%"
+      mt={{ base: 24, md: 0 }}
+      py="xl"
+    >
       <Stack gap="xl">
         {/* Header Actions */}
         <Group justify="space-between" align="center">
