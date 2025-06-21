@@ -14,6 +14,7 @@ import {
   flattenDriverData,
 } from '@/app/(protected)/(dashboard)/admin/driver-data/excel/excelDriverColumn';
 import { exportToExcel } from '@/lib/exportToExcel';
+import { getDriversAll } from '@/app/(protected)/(dashboard)/admin/driver-data/action/getAllDriverData';
 
 const DriverDataTable = ({
   data,
@@ -72,8 +73,10 @@ const DriverDataTable = ({
   }, [data, sortStatus]);
 
   // handle export to excel
-  const handleExport = () => {
-    const flatData = flattenDriverData(data); // accepts single or array
+  const handleExport = async () => {
+    const res = await getDriversAll();
+    if (!res.success) return;
+    const flatData = flattenDriverData(res.data ?? []); // accepts single or array
     exportToExcel({
       fileName: 'DriverInfo.xlsx',
       sheetName: 'Drivers',

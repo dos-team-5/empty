@@ -9,9 +9,6 @@ const DriverData = async (props: { searchParams: SearchParams }) => {
   const page = searchParams.page;
   const limit = searchParams.limit;
   const result = await getDrivers(Number(page) || 1, Number(limit) || 10);
-  const resultData = await getDrivers();
-
-  console.log('resultData', resultData);
 
   return (
     <Box mt={{ base: 60, md: 0 }}>
