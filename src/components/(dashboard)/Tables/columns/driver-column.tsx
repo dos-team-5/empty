@@ -54,6 +54,7 @@ export const driverTableColumns = ({
     title: 'Create Date',
     textAlign: 'center',
     render: (driver) => new Date(driver.createdAt).toLocaleDateString(),
+    sortable: true,
   },
   {
     accessor: 'actions',
