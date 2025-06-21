@@ -7,6 +7,7 @@ import {
   SpinnerCampaign,
   SpinnerOption,
 } from '@/schema';
+import { cookies } from 'next/headers';
 
 type UpdateCampaignPayload = {
   id: number;
@@ -42,6 +43,8 @@ export async function updateCampaign({
     };
   }
 
+  const cookie = cookies;
+
   // Step 2: Send PATCH request to your API
   try {
     const response = await fetch(
@@ -50,6 +53,7 @@ export async function updateCampaign({
         method: 'PATCH',
         headers: {
           'Content-Type': 'application/json',
+          Cookie: cookie.toString(),
         },
         body: JSON.stringify(data),
         cache: 'no-store',

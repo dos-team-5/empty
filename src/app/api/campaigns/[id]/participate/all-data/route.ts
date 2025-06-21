@@ -2,12 +2,22 @@ import { NextRequest, NextResponse } from 'next/server';
 import { eq } from 'drizzle-orm';
 import { db } from '@/config/db';
 import { spinnerParticipants } from '@/schema';
+import { getServerSession } from 'next-auth';
+import { authOptions } from '@/app/api/auth/[...nextauth]/utils/authOptions';
 
 export async function GET(
   req: NextRequest,
   { params }: { params: Promise<{ id: string }> }
 ) {
   try {
+    const session = await getServerSession(authOptions);
+    if (!session || session.user.role !== 'super_admin') {
+      return NextResponse.json(
+        { success: false, message: 'Forbidden: Access is denied.' },
+        { status: 403 }
+      );
+    }
+
     const { id } = await params;
     const campaignId = parseInt(id, 10);
     if (isNaN(campaignId)) {

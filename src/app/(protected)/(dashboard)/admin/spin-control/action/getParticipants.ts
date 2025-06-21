@@ -2,6 +2,7 @@
 'use server';
 
 import { SpinnerParticipant } from '@/schema';
+import { cookies } from 'next/headers';
 
 export async function getParticipants(
   id: number,
@@ -76,11 +77,16 @@ export async function getParticipantsAll(id: number): Promise<{
     };
   }
 
+  const cookie = cookies;
+
   try {
     const res = await fetch(
       `${process.env.NEXT_PUBLIC_BASE_URL}/api/campaigns/${id}/participate/all-data`,
       {
         method: 'GET',
+        headers: {
+          Cookie: cookie.toString(),
+        },
         cache: 'no-store',
       }
     );
