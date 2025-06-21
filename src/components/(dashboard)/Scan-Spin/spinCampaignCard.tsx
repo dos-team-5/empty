@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 'use client';
 
@@ -79,7 +80,7 @@ export default function SpinCampaignCard({
         });
       }
       setCreateLoading(false);
-      console.log('Create campaign response:', createLoading);
+
       // Handle create logic here
     } else {
       setEditLoading(true);
@@ -94,7 +95,7 @@ export default function SpinCampaignCard({
         });
       }
       setEditLoading(false);
-      console.log('Update campaign response:', editLoading);
+
       // Update local state for demo
       setCampaign((prev) => ({
         ...prev,

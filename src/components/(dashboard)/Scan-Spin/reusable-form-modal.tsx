@@ -199,8 +199,6 @@ export default function ReusableFormModal({
 
     form.setFieldValue('companyLogo', file);
 
-    console.log('File uploaded:', file);
-
     notifications.show({
       title: 'File Uploaded',
       message: `1 file uploaded successfully!`,
@@ -246,7 +244,7 @@ export default function ReusableFormModal({
               {/* form error  */}
               {form.errors && Object.keys(form.errors).length > 0 && (
                 <Box>
-                  <Text color="red" size="sm">
+                  <Text c="red" size="sm">
                     {Object.values(form.errors)
                       .map((error) => (typeof error === 'string' ? error : ''))
                       .join(', ')}
