@@ -43,22 +43,23 @@ export async function updateCampaign({
     };
   }
 
-  const cookie = cookies;
-
-  // Step 2: Send PATCH request to your API
   try {
-    const response = await fetch(
-      `${process.env.NEXT_PUBLIC_BASE_URL}/api/campaigns/${id}`,
-      {
-        method: 'PATCH',
-        headers: {
-          'Content-Type': 'application/json',
-          Cookie: cookie.toString(),
-        },
-        body: JSON.stringify(data),
-        cache: 'no-store',
-      }
+    const url = new URL(
+      `${process.env.NEXT_PUBLIC_BASE_URL}/api/campaigns/${id}`
     );
+
+    // 2. Get the cookie store from the incoming request
+    const cookieStore = await cookies();
+
+    const response = await fetch(url.toString(), {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json',
+        Cookie: cookieStore.toString(),
+      },
+      body: JSON.stringify(data), // 👈 sending the actual data payload
+      cache: 'no-store',
+    });
 
     const result = await response.json();
 
