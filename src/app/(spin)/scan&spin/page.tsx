@@ -13,6 +13,7 @@ import { makeParticipation } from './actions/makeParticipation';
 import { notifications } from '@mantine/notifications';
 import { claimPrize } from './actions/claimPrize';
 import { Icon } from '@iconify/react/dist/iconify.js';
+import { sendCouponEmail } from './actions/sendCouponMail';
 
 export default function Home() {
   const [showConfetti, setShowConfetti] = useState(false);
@@ -144,6 +145,20 @@ export default function Home() {
         />
       ),
     });
+
+    // send email
+    if (claimResult.coupon) {
+      const res = await sendCouponEmail(
+        {
+          email: participationFormData.email,
+          prizeId: prize.id,
+        },
+        claimResult.coupon
+      );
+      console.log('coupon response', res);
+    } else {
+      console.error('No coupon available');
+    }
   };
 
   return (
