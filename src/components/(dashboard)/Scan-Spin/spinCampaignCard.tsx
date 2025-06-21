@@ -316,7 +316,7 @@ export default function SpinCampaignCard({
                     </Box>
                     <Stack gap="xs">
                       <Text fw={600} size="md" c={PRIMARY_COLOR}>
-                        User Limit
+                        Participation Limit
                       </Text>
                       <Text size="sm" c="dimmed">
                         {campaign.userLimit} participants

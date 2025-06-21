@@ -101,7 +101,7 @@ export default function ReusableFormModal({
           : null,
       deadline: (value) => (!value ? 'Deadline is required' : null),
       userLimit: (value) =>
-        value < 1 ? 'User limit must be at least 1' : null,
+        value < 1 ? 'Participant limit must be at least 1' : null,
       options: {
         id: (value) => (value ? null : 'Option ID is required'),
         label: (value) =>
@@ -358,7 +358,7 @@ export default function ReusableFormModal({
 
                     <NumberInput
                       w={'100%'}
-                      label="User Limit"
+                      label="Participation Limit"
                       placeholder="Maximum participants"
                       min={1}
                       required
@@ -391,7 +391,7 @@ export default function ReusableFormModal({
                     }}
                   />
                   <Text size="lg" fw={600} c={PRIMARY_COLOR}>
-                    ATTEMPT CONFIGURATION
+                    ATTEMPT CONFIGURATION (Per User)
                   </Text>
                 </Group>
                 <Flex
