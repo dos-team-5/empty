@@ -1,6 +1,7 @@
 import { DataTableColumn } from 'mantine-datatable';
 import { SpinnerParticipant } from '@/schema';
 import { Badge, Text } from '@mantine/core';
+import React from 'react';
 
 export const userSpinTableColumns: DataTableColumn<SpinnerParticipant>[] = [
   {
@@ -55,9 +56,13 @@ export const userSpinTableColumns: DataTableColumn<SpinnerParticipant>[] = [
           <Text>-</Text>
         ) : (
           data.wonPrizes?.map((prize, i) => (
-            <Badge variant="outline" key={i}>
-              {prize.coupon}
-            </Badge>
+            <React.Fragment key={i}>
+              {prize.coupon === '' ? (
+                <Text>-</Text>
+              ) : (
+                <Badge variant="outline">{prize.coupon}</Badge>
+              )}
+            </React.Fragment>
           ))
         )}
       </>
