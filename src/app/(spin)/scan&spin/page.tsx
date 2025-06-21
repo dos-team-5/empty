@@ -29,8 +29,11 @@ export default function Home() {
   useEffect(() => {
     const generateDeviceId = () => {
       const deviceId =
-        localStorage.getItem('deviceId') ||
-        'device_' + Math.random().toString(36).substr(2, 9) + '_' + Date.now();
+        localStorage.getItem('deviceId') ??
+        'device_' +
+          Math.random().toString(36).substring(2, 9) +
+          '_' +
+          Date.now();
       localStorage.setItem('deviceId', deviceId);
       return deviceId;
     };
