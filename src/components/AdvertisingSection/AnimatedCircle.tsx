@@ -54,7 +54,7 @@ const features = [
 ];
 
 const AnimatedCircle = () => {
-  const [visibleCard, setVisibleCard] = useState<null | number>(null);
+  const [visibleCard, setVisibleCard] = useState<null | number>(1);
 
   const handleShowCard = (index: number) => {
     setVisibleCard(index);

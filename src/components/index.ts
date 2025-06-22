@@ -22,6 +22,7 @@ import { TextRevealByWord } from './TextRevealByWord';
 import PricingCards from './PricingSections/PricingCards';
 import PricingConfigurator from './PricingSections/PriceConfigurator/PricingConfigurator';
 import AnimatedAdSection from './AdvertisingSection/AnimatedAdSection';
+import CarouselFeature from './CarouselFeature';
 
 // dashboard
 import { UserSideNav } from './(dashboard)/Sidebar/UserSideNav';
@@ -52,6 +53,7 @@ export {
   TextRevealByWord,
   PricingConfigurator,
   AnimatedAdSection,
+  CarouselFeature,
 
   // dashboard
   UserSideNav,
