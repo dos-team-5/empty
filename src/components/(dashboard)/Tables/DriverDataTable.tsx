@@ -9,12 +9,12 @@ import { useDisclosure, useMediaQuery } from '@mantine/hooks';
 import { Button, Card, Flex, Modal, Text } from '@mantine/core';
 import { Icon } from '@iconify/react/dist/iconify.js';
 import DriverInfoCard from '../Driver-Data/DriverInfoCard';
+import { getDriversAll } from '@/app/(protected)/(dashboard)/admin/driver-data/action/getAllDriverData';
 import {
   driverColumns,
   flattenDriverData,
 } from '@/app/(protected)/(dashboard)/admin/driver-data/excel/excelDriverColumn';
 import { exportToExcel } from '@/lib/exportToExcel';
-import { getDriversAll } from '@/app/(protected)/(dashboard)/admin/driver-data/action/getAllDriverData';
 
 const DriverDataTable = ({
   data,
@@ -83,16 +83,21 @@ const DriverDataTable = ({
         return;
       }
 
-      const flatData = flattenDriverData(res.data ?? []);
-      exportToExcel({
-        fileName: 'DriverInfo.xlsx',
-        sheetName: 'Drivers',
-        columns: [...driverColumns],
-        data: flatData,
-      });
+      if (res.data?.records) {
+        const { records } = res.data;
+
+        const flatData = flattenDriverData(records ?? []);
+        exportToExcel({
+          fileName: 'DriverInfo.xlsx',
+          sheetName: 'Drivers',
+          columns: [...driverColumns],
+          data: flatData,
+        });
+      } else {
+        console.error('No records found');
+      }
     } catch (error) {
       console.error('Export failed:', error);
-      // Optionally show a toast or error notification
     } finally {
       setLoading(false);
     }

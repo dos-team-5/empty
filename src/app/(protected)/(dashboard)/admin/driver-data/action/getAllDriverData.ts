@@ -3,20 +3,18 @@
 import { Driver } from '@/schema';
 import { cookies } from 'next/headers'; // 1. Import the cookies function from next/headers
 
-export async function getDriversAll(
-  page: number = 1,
-  limit: number = 10
-): Promise<{
+export async function getDriversAll(): Promise<{
   success: boolean;
   message: string;
-  data?: Driver[];
+  data?: {
+    records: Driver[];
+    totalCount: number;
+  };
 }> {
   try {
     const url = new URL(
       `${process.env.NEXT_PUBLIC_BASE_URL}/api/drivers/all-data`
     );
-    url.searchParams.set('page', page.toString());
-    url.searchParams.set('limit', limit.toString());
 
     // 2. Get the cookie store from the incoming request
     const cookieStore = await cookies();
@@ -44,7 +42,7 @@ export async function getDriversAll(
     return {
       success: true,
       message: 'Drivers fetched successfully.',
-      data: result.drivers,
+      data: result,
     };
   } catch (error: any) {
     console.error('Network error while fetching drivers:', error);
