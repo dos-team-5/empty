@@ -1,0 +1,207 @@
+'use client';
+
+import { useState /*, useEffect */ } from 'react';
+import { Smartphone, Users } from 'lucide-react';
+import {
+  Box,
+  Flex,
+  Group,
+  Image,
+  Paper,
+  Text,
+  Title,
+  ActionIcon,
+} from '@mantine/core';
+import type React from 'react';
+import { Icon } from '@iconify/react';
+
+interface CarouselSlide {
+  id: string;
+  title: string;
+  subtitle: string;
+  description: string;
+  image: string;
+  backgroundColor: string;
+  icon: React.ReactNode;
+}
+
+const slides: CarouselSlide[] = [
+  {
+    id: 'scan-spin',
+    title: 'Scan & Spin',
+    subtitle: 'Engagement That Converts Instantly',
+    description:
+      "Scan & Spin is great for activation, referrals, lead capture, brand recognition, and more. It's a simple, fun, and engaging way to collect leads. It's instant, fun, and memorable. Perfect for campaigns that need immediate engagement and collect real-time leads, and create buzz on the spot. Ideal for in-person marketing campaigns that need immediate action.",
+    image: '/VS_SCANSPIN.png',
+    backgroundColor: 'from-pink-100 to-purple-100',
+    icon: <Smartphone className="h-6 w-6" />,
+  },
+  {
+    id: 'lead-snatcher',
+    title: 'Lead Snatcher',
+    subtitle: 'Passive Reach, Powerful Data',
+    description:
+      'Lead Snatcher captures nearby mobile devices via WiFi and Bluetooth — no app downloads or user interaction required. It runs in the background on your premises, collecting valuable traffic data, dwell times, and return visitor patterns. This method is perfect for advertisers focused on silent frequency, analyzing customer behavior, and building comprehensive databases without requiring direct user interaction.',
+    image: '/VS_LEAD_SNATCHER.png',
+    backgroundColor: 'from-blue-50 to-indigo-100',
+    icon: <Users className="h-6 w-6" />,
+  },
+];
+
+export default function ScanVsLeadSnatcher() {
+  const [currentSlide, setCurrentSlide] = useState(0);
+  const isLast = currentSlide === slides.length - 1;
+  const isFirst = currentSlide === 0;
+
+  // Autoplay (Commented)
+  /*
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentSlide((prev) => (prev + 1) % slides.length);
+    }, 5000);
+
+    return () => clearInterval(interval);
+  }, []);
+  */
+
+  const slide = slides[currentSlide];
+
+  return (
+    <Box
+      my={{ base: 80, xl: 60 }}
+      px={16}
+      mx="auto"
+      maw={{ lg: 900, xl: 1180 }}
+    >
+      {/* Header */}
+      <Group justify="center">
+        <Title
+          className="text-center"
+          fz={{ base: 32, md: 40, xl: 72 }}
+          fw={600}
+          order={1}
+        >
+          Scan & Spin vs Lead Snatcher
+        </Title>
+        <Text
+          mt={{ base: 12, md: 20, xl: 30 }}
+          mb={{ base: 12, md: 20, xl: 55 }}
+          ta="center"
+          fz="md"
+          maw={700}
+        >
+          Choose the right tool for your campaign goals — instant engagement or
+          passive reach.
+        </Text>
+      </Group>
+
+      {/* Slide progress and title */}
+      <Flex align="center" justify="center" mb={32} gap={32} wrap="wrap">
+        <Text fz={28} fw={600} ta="center">
+          {slide.title}
+        </Text>
+        <Box
+          w={300}
+          h={12}
+          bg="#E0E0E0"
+          className="overflow-hidden rounded-full"
+          pos="relative"
+          style={{ display: 'flex' }}
+        >
+          <Box
+            h="100%"
+            w="50%"
+            bg={currentSlide === 0 ? '#FF83D5' : '#E0E0E0'}
+            style={{
+              transition: 'background-color 500ms ease',
+            }}
+          />
+          <Box
+            h="100%"
+            w="50%"
+            bg={currentSlide === 1 ? '#FF83D5' : '#E0E0E0'}
+            style={{
+              transition: 'background-color 500ms ease',
+            }}
+          />
+        </Box>
+      </Flex>
+
+      {/* Slide container with gradient background */}
+      <Flex
+        bg={'#F5F5F5'}
+        key={slide.id}
+        className={`rounded-[40px]`}
+        direction={{ base: 'column', md: 'row' }}
+        gap={0}
+      >
+        {/* Description */}
+        <Flex
+          direction="column"
+          justify="space-between"
+          px={36}
+          pt={55}
+          pb={26}
+          w={{ base: '100%', md: 370 }}
+        >
+          <Group mb="xs">
+            <Text c="#555555" fz={20} fw={500}>
+              {slide.subtitle}
+            </Text>
+          </Group>
+          <Text c="#4A4A4A" fz="sm">
+            {slide.description}
+          </Text>
+
+          {/* Navigation */}
+          <Flex mt={20} gap="xs">
+            <ActionIcon
+              bg="#FF83D5"
+              w={49}
+              h={49}
+              radius="xl"
+              onClick={() => setCurrentSlide((prev) => Math.max(prev - 1, 0))}
+              disabled={isFirst}
+              aria-label="Previous slide"
+            >
+              <Icon icon="mingcute:arrow-left-line" width={24} />
+            </ActionIcon>
+            <ActionIcon
+              bg="#FF83D5"
+              w={49}
+              h={49}
+              radius="xl"
+              onClick={() =>
+                setCurrentSlide((prev) => Math.min(prev + 1, slides.length - 1))
+              }
+              disabled={isLast}
+              aria-label="Next slide"
+            >
+              <Icon icon="mingcute:arrow-right-line" width={24} />
+            </ActionIcon>
+          </Flex>
+        </Flex>
+
+        {/* Image */}
+        <Paper
+          w={{ base: '100%', md: 810 }}
+          py={64}
+          px={36}
+          radius={40}
+          bg="#FFE4F5"
+        >
+          <Paper radius={40} p={12} bg="#FFF0F9" h={390}>
+            <Image
+              src={slide.image}
+              alt={`Image representing ${slide.title}`}
+              w="100%"
+              h="100%"
+              fit="contain"
+              radius={40}
+            />
+          </Paper>
+        </Paper>
+      </Flex>
+    </Box>
+  );
+}
