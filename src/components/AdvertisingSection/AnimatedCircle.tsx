@@ -82,7 +82,7 @@ const AnimatedCircle = () => {
       >
         <g clipPath="url(#clip0_664_644)">
           <path
-            className="origin-center animate-[spin_3s_linear_infinite] !duration-2000"
+            className="origin-center animate-[spin_7s_linear_infinite] !duration-2000"
             d="M0 0H1635V1635H0V0Z"
             fill="url(#pattern0_664_644)"
           />

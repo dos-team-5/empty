@@ -1,19 +1,23 @@
-import { Box, Button, Title } from '@mantine/core';
+'use client';
+import { Box, Button, FileButton, Title } from '@mantine/core';
 import AnimatedTitle from './AnimatedTitle';
 import FeatureCarousel from './FeatureCarousel';
 import { IconUpload } from '@tabler/icons-react';
 import Canvas3D from './Canvas3D';
+import { useState } from 'react';
 
 const CarouselFeature = () => {
+  const [file, setFile] = useState<File | null>(null);
+
   return (
-    <Box className="relative h-screen">
+    <Box className="relative h-screen lg:scale-86 xl:scale-100">
       <Box
         maw={1800}
         mx={'auto'}
         className="flex justify-center px-4 sm:px-8 md:px-16 lg:px-20 xl:px-24 2xl:px-32 2xl:py-16"
         mt={180}
       >
-        <div className="relative flex h-[78vh] w-[90%] flex-col items-start justify-between rounded-[40px] bg-[#FFD0EF] lg:flex-row">
+        <div className="relative flex h-[88vh] w-full flex-col items-start justify-between rounded-[40px] bg-[#FFD0EF] lg:flex-row xl:h-[78vh] xl:w-[90%]">
           {/* Title and Carousel */}
           <div className="w-full p-6 md:p-8 lg:w-1/2 xl:p-10">
             <AnimatedTitle />
@@ -28,7 +32,7 @@ const CarouselFeature = () => {
               viewBox="0 0 974 1043"
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
-              className="absolute -top-2 -right-4 z-0 h-full w-auto origin-right scale-100 lg:scale-115"
+              className="absolute -top-2 -right-2 z-0 h-full w-auto origin-right scale-100 lg:scale-115 xl:-right-4"
             >
               <path
                 fillRule="evenodd"
@@ -38,12 +42,12 @@ const CarouselFeature = () => {
               />
             </svg>
             {/* Content on top of SVG */}
-            <div className="relative z-20 !mr-12 max-w-xs">
+            <div className="relative z-20 max-w-xs xl:!mr-12">
               <Title
                 order={2}
                 fw={700}
                 ff={'var(--font-poppins)'}
-                className="!mt-2 text-start !text-base text-white capitalize"
+                className="!mt-4 text-start !text-base text-white capitalize"
               >
                 Check how your Ad looks
               </Title>
@@ -51,17 +55,22 @@ const CarouselFeature = () => {
                 upload your Advertise banner here to see exactly how its gonna
                 look in real time on our 3D vechile models
               </p>
-              <Button
-                variant="white"
-                radius={6}
-                fullWidth
-                leftSection={<IconUpload size={14} />}
-                className="!font-semibold !text-[#FF83D5]"
-              >
-                Upload Ad
-              </Button>
+              <FileButton onChange={setFile} accept="image/png,image/jpeg">
+                {(props) => (
+                  <Button
+                    {...props}
+                    variant="white"
+                    radius={6}
+                    fullWidth
+                    leftSection={<IconUpload size={14} />}
+                    className="!font-semibold !text-[#FF83D5]"
+                  >
+                    Upload Ad
+                  </Button>
+                )}
+              </FileButton>
               {/* Canvas */}
-              <Canvas3D />
+              <Canvas3D file={file} />
             </div>
           </div>
         </div>
