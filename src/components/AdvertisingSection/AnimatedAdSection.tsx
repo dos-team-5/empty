@@ -4,14 +4,14 @@ import AnimatedCircle from './AnimatedCircle';
 
 const AnimatedAdSection = () => {
   return (
-    <section className="relative mt-48 max-h-dvh overflow-hidden">
+    <section className="relative h-[70vh] w-full overflow-hidden md:h-[80vh] lg:mt-48 lg:h-[90vh] xl:h-[80vh]">
       <Box
         maw={1800}
         mx={'auto'}
         className="px-4 sm:px-8 md:px-16 lg:px-20 xl:px-24 2xl:px-32"
       >
         {/* Section Title */}
-        <Stack gap={10} className="">
+        <Stack gap={10} className=""> 
           <Title
             order={1}
             fw={700}
@@ -48,6 +48,7 @@ const AnimatedAdSection = () => {
             </TextAnimate>
           </Title>
         </Stack>
+        {/* Animated Circle */}
         <AnimatedCircle />
       </Box>
     </section>
