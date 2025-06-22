@@ -1,21 +1,39 @@
 'use client';
-
 import { Canvas } from '@react-three/fiber';
-import { Center, OrbitControls, PerspectiveCamera } from '@react-three/drei';
+import {
+  Environment,
+  OrbitControls,
+  PerspectiveCamera,
+  useProgress,
+} from '@react-three/drei';
+import { LoadingOverlay } from '@mantine/core';
+import { CarModel } from './CarModel';
+import Ramp from './Ramp';
 
-const Canvas3D = () => {
+const Canvas3D = ({ file }: { file: File | null }) => {
+  const { progress } = useProgress();
+
   return (
-    <div className="absolute top-90 -right-4 h-100 w-150 touch-none select-none">
-      <Canvas frameloop="demand" shadows flat>
-        <PerspectiveCamera position={[0, -4, 0]} fov={65} makeDefault />
-        <Center>
-          <mesh>
-            <boxGeometry args={[2, 2, 2]} />
-            <meshNormalMaterial />
-          </mesh>
-        </Center>
-        <EnvironmentSetup />
-      </Canvas>
+    <div className="absolute top-60 -right-54 h-110 w-200 touch-none select-none xl:top-70 2xl:top-90">
+      {progress < 100 ? (
+        <div className="z-[100000002] flex h-full w-full flex-col items-center justify-center !bg-transparent">
+          <LoadingOverlay
+            visible
+            overlayProps={{ radius: 'sm', bg: 'transparent' }}
+            loaderProps={{ color: 'pink', type: 'bars' }}
+            className="!static !bg-transparent"
+          />
+          Loading...
+        </div>
+      ) : (
+        <Canvas frameloop="always" shadows flat>
+          <PerspectiveCamera position={[0, 3, 16]} fov={30} makeDefault />
+          {/* <Center> */}
+          <Model file={file} />
+          {/* </Center> */}
+          <EnvironmentSetup />
+        </Canvas>
+      )}
     </div>
   );
 };
@@ -25,19 +43,28 @@ export default Canvas3D;
 const EnvironmentSetup = () => {
   return (
     <>
-      {/* <color args={['#011910']} attach="background" />
-      <fog attach="fog" args={['#011910', 5, 20]} /> */}
       <OrbitControls
         makeDefault
-        // rotateSpeed={0.3}
-        // dampingFactor={0.02}
-        // zoomSpeed={0.5}
-        // enablePan={false}
-        // minPolarAngle={0}
-        // maxPolarAngle={Math.PI / 2.3}
+        enableZoom={false}
+        minPolarAngle={Math.PI / 2.7}
+        maxPolarAngle={Math.PI / 2.1}
         // minAzimuthAngle={-Math.PI / 2.5}
         // maxAzimuthAngle={Math.PI / 2.5}
       />
+      <Environment
+        preset="city"
+        environmentIntensity={1.5}
+        // backgroundIntensity={1}
+      />
     </>
+  );
+};
+
+const Model = ({ file }: { file: File | null }) => {
+  return (
+    <group name="carWithRamp" position={[0, 0, 0]}>
+      <CarModel file={file} />
+      <Ramp />
+    </group>
   );
 };
