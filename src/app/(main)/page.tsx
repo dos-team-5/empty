@@ -1,12 +1,11 @@
 import {
   AnimatedAdSection,
+  CarouselFeature,
   Faq,
-  FeatureSection,
   HeroSection,
   TextRevealByWord,
   TimelineSectionAd,
 } from '@/components';
-import FeatureCard from '@/components/AdvertisingSection/FeatureCard';
 import PricingConfigurator from '@/components/PricingSections/PriceConfigurator/PricingConfigurator';
 
 export default function Home() {
@@ -20,8 +19,10 @@ export default function Home() {
       {/* <WhyChooseUsSection /> */}
       <AnimatedAdSection />
 
-      <FeatureSection />
-      <FeatureCard />
+      {/* <FeatureSection />
+      <FeatureCard /> */}
+      <CarouselFeature />
+      
       <TimelineSectionAd />
       {/* <PricingCards /> */}
 

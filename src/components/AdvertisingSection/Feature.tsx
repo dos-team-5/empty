@@ -17,10 +17,10 @@ const FeatureSection: React.FC = () => {
       <Box
         maw={1800}
         mx={'auto'}
-        className="mt-16 px-4 sm:px-8 md:px-16 lg:px-20 xl:px-24 2xl:px-32 2xl:py-16"
+        className="px-4 sm:px-8 md:px-16 lg:px-20 xl:px-24 2xl:px-32 2xl:py-16"
         mt={180}
       >
-        <div className=" flex items-center">
+        <div className="flex items-center">
           <Title
             order={1}
             fw={700}
