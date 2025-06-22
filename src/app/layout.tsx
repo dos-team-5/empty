@@ -7,6 +7,7 @@ import 'mantine-datatable/styles.layer.css';
 import { Providers } from '@/providers';
 import { ColorSchemeScript, mantineHtmlProps } from '@mantine/core';
 import { FpjsProvider } from '@fingerprintjs/fingerprintjs-pro-react';
+import '@mantine/carousel/styles.css';
 
 const poppins = Sora({
   variable: '--font-poppins',

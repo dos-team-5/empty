@@ -34,6 +34,7 @@ import {
   sendDriverApplicationEmail,
 } from '@/app/(main)/drive/action/driverApplication';
 import { deleteFile } from '../FileManager/actions/fileActions';
+import Link from 'next/link';
 
 // Zod validation schema
 const schema = z.object({
@@ -392,7 +393,12 @@ const Step3_BankingInformation = ({
             label={
               <Text fz={14}>
                 I have read and agree to be bound by the
-                <span className="!text-primary ml-2">Terms and Conditions</span>
+                <Link
+                  href="/terms-and-conditions"
+                  className="!text-primary ml-2"
+                >
+                  Terms and Conditions
+                </Link>
                 {/* and <span className="!text-primary ml-2">Privacy Policy.</span> */}
               </Text>
             }
