@@ -149,3 +149,18 @@ body {
     }
   }
 }
+
+/* Swiper css */
+.feature-slider > .swiper-pagination {
+  position: absolute !important;
+  top: 0 !important;
+  margin: 0 !important;
+  text-align: start !important;
+}
+.feature-slider > .swiper-pagination > .swiper-pagination-bullet {
+  background: var(--mantine-primary-color-5);
+}
+.feature-slider > .swiper-pagination > .swiper-pagination-bullet-active {
+  width: 20px !important;
+  border-radius: 4px !important;
+}

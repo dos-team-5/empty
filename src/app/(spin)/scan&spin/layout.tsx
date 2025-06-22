@@ -1,5 +1,6 @@
 'use client';
 
+import { Box } from '@mantine/core';
 import { Ads } from './components/Ads';
 import { AdblockDetector } from 'adblock-detector';
 
@@ -14,13 +15,9 @@ export default function SpinLayout({
   console.log('detected add block ====>', adbDetector);
 
   return (
-    <>
+    <Box className="relative">
       {children}
-      {userHasAdblock && (
-        <div>
-          <Ads />
-        </div>
-      )}
-    </>
+      {userHasAdblock && <Ads />}
+    </Box>
   );
 }
