@@ -7,6 +7,7 @@ import {
   TimelineSectionAd,
 } from '@/components';
 import PricingConfigurator from '@/components/PricingSections/PriceConfigurator/PricingConfigurator';
+import ScanVsLeadSnatcher from '@/components/ScanVsLeadSnatcher/ScanVsLeadSnatcher';
 
 export default function Home() {
   return (
@@ -27,6 +28,7 @@ export default function Home() {
       {/* <PricingCards /> */}
 
       <PricingConfigurator />
+      <ScanVsLeadSnatcher />
       <Faq />
     </main>
   );
