@@ -12,9 +12,15 @@ import ParticipationForm from './components/ParticipationForm';
 import { makeParticipation } from './actions/makeParticipation';
 import { notifications } from '@mantine/notifications';
 import { claimPrize } from './actions/claimPrize';
+import { sendCouponEmail } from './actions/sendCouponMail';
 import { Icon } from '@iconify/react/dist/iconify.js';
+import { useVisitorData } from '@fingerprintjs/fingerprintjs-pro-react';
 
 export default function Home() {
+  const { data } = useVisitorData(
+    { extendedResult: true },
+    { immediate: true }
+  );
   const [showConfetti, setShowConfetti] = useState(false);
   const [isSpinning, setIsSpinning] = useState(false);
   const [participationFormData, setParticipationFormData] = useState({
@@ -28,8 +34,11 @@ export default function Home() {
   useEffect(() => {
     const generateDeviceId = () => {
       const deviceId =
-        localStorage.getItem('deviceId') ||
-        'device_' + Math.random().toString(36).substr(2, 9) + '_' + Date.now();
+        localStorage.getItem('deviceId') ??
+        'device_' +
+          Math.random().toString(36).substring(2, 9) +
+          '_' +
+          Date.now();
       localStorage.setItem('deviceId', deviceId);
       return deviceId;
     };
@@ -49,13 +58,18 @@ export default function Home() {
     handleParticipate();
   };
 
+  const handleModalClose = () => {
+    modals.closeAll();
+  };
+
   const handleParticipate = async () => {
     modals.open({
+      centered: true,
       withCloseButton: false,
       children: (
         <>
           <Group justify="right">
-            <ActionIcon onClick={() => modals.closeAll()} variant="subtle">
+            <ActionIcon onClick={handleModalClose} variant="subtle">
               <Icon icon={'material-symbols:close'} />
             </ActionIcon>
           </Group>
@@ -63,19 +77,22 @@ export default function Home() {
             onSubmit={async (formVal) => {
               try {
                 const res = await makeParticipation({
-                  id: 1, // Assuming campaign ID is 1
+                  id: 1,
                   formData: {
                     ...formVal,
                     agreeToEmails: formVal.agreeToEmails ?? false,
+                    ipAddress: data?.ip ?? '', // ✅ inject IP on submit
                   },
                 });
                 if (!res.success) {
                   throw new Error(res.message);
                 }
+
                 setParticipationFormData({
                   ...formVal,
                   agreeToEmails: formVal.agreeToEmails ?? false,
                 });
+
                 setIsSpinning(true);
                 setShowConfetti(false);
                 modals.closeAll();
@@ -144,6 +161,20 @@ export default function Home() {
         />
       ),
     });
+
+    // send email
+    if (claimResult.coupon) {
+      const res = await sendCouponEmail(
+        {
+          email: participationFormData.email,
+          prizeId: prize.id,
+        },
+        claimResult.coupon
+      );
+      console.log('coupon response', res);
+    } else {
+      console.error('No coupon available');
+    }
   };
 
   return (

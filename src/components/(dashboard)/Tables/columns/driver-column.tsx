@@ -11,6 +11,12 @@ export const driverTableColumns = ({
   setDriver: (driver: Driver) => void;
 }): DataTableColumn<Driver>[] => [
   {
+    accessor: 'id',
+    title: 'User Id',
+    textAlign: 'center',
+    sortable: true,
+  },
+  {
     accessor: 'fullName',
     title: 'Name',
     sortable: true,
@@ -41,6 +47,13 @@ export const driverTableColumns = ({
     accessor: 'vehicleModel',
     title: 'Vehicle Model',
     textAlign: 'center',
+    sortable: true,
+  },
+  {
+    accessor: 'createdAt',
+    title: 'Create Date',
+    textAlign: 'center',
+    render: (driver) => new Date(driver.createdAt).toLocaleDateString(),
     sortable: true,
   },
   {

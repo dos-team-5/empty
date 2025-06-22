@@ -1,0 +1,45 @@
+<html>
+  <head>
+    <meta charset='UTF-8' />
+    <title>Your Exclusive Coupon</title>
+    <style>
+      .coupon-box {
+        max-width: 500px;
+        margin: auto;
+        padding: 20px;
+        border: 2px dashed #0070f3;
+        border-radius: 10px;
+        background-color: #f9f9f9;
+        text-align: center;
+        font-family: Arial, sans-serif;
+      }
+      .coupon-code {
+        font-size: 28px;
+        font-weight: bold;
+        color: #0070f3;
+        margin: 20px 0;
+      }
+      .message {
+        font-size: 16px;
+        margin-bottom: 30px;
+      }
+      .cta-button {
+        display: inline-block;
+        padding: 10px 20px;
+        background-color: #0070f3;
+        color: white;
+        text-decoration: none;
+        border-radius: 5px;
+        font-weight: bold;
+      }
+    </style>
+  </head>
+  <body>
+    <div class='coupon-box'>
+      <h2>{{title}}</h2>
+      <p class='message'>{{description}}</p>
+      <div class='coupon-code'>{{couponCode}}</div>
+      <p>Thank you for using our service!</p>
+    </div>
+  </body>
+</html>

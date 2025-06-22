@@ -81,6 +81,7 @@ export const spinnerParticipants = pgTable(
     email: varchar('email', { length: 255 }).notNull(), // User's email address
     name: varchar('name', { length: 255 }).notNull(), // User's full name
     phone: varchar('phone', { length: 20 }), // User's phone number (optional)
+    ipAddress: varchar('ip_address', { length: 255 }), // User's IP address
 
     campaignId: integer('campaign_id')
       .notNull()

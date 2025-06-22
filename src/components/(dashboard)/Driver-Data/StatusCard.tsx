@@ -1,3 +1,6 @@
+'use client';
+import { updateDriverStatus } from '@/app/(protected)/(dashboard)/admin/driver-data/action/updateDriverStatus';
+
 import {
   Badge,
   Box,
@@ -8,7 +11,11 @@ import {
   Text,
   Title,
 } from '@mantine/core';
+import { notifications } from '@mantine/notifications';
 import { IconCircleCheck } from '@tabler/icons-react';
+import { Loader } from 'lucide-react';
+import { useRouter } from 'next/navigation';
+import { useState } from 'react';
 
 export const StatusValues = {
   PENDING: 'pending',
@@ -21,6 +28,7 @@ type Status = (typeof StatusValues)[keyof typeof StatusValues];
 
 interface StatusCardProps {
   status: Status;
+  id: number;
 }
 
 const statusInfo: Record<Status, { color: string; progress: number }> = {
@@ -37,11 +45,36 @@ const statusGradients: Record<Status, string> = {
   needs_review: 'linear-gradient(90deg, #3b82f6 0%, #1e40af 100%)', // blue → navy
 };
 
-const StatusCard = ({ status }: StatusCardProps) => {
-  const { color } = statusInfo[status];
+const StatusCard = ({ status, id }: StatusCardProps) => {
+  const [driverStatus, setDriverStatus] = useState<Status>(status);
+  const [loading, setLoading] = useState(false);
+  const { color } = statusInfo[driverStatus];
+
+  const router = useRouter();
+
+  const handleStatusChange = async (newStatus: Status) => {
+    setLoading(true);
+    const response = await updateDriverStatus(id, newStatus);
+
+    if (!response.success) {
+      setDriverStatus(status);
+    }
+    if (response.success) {
+      setDriverStatus(newStatus);
+      notifications.show({
+        title: 'Status Updated',
+        message: `${response.message}`,
+        color: 'green',
+        autoClose: 3000,
+      });
+    }
+    setLoading(false);
+    router.refresh();
+  };
 
   return (
     <Paper
+      pos={'relative'}
       radius="xl"
       withBorder
       style={{
@@ -52,7 +85,7 @@ const StatusCard = ({ status }: StatusCardProps) => {
       <Box
         style={{
           height: 4,
-          background: statusGradients[status],
+          background: statusGradients[driverStatus],
         }}
       />
       <Box p="xl">
@@ -69,7 +102,11 @@ const StatusCard = ({ status }: StatusCardProps) => {
                 justifyContent: 'center',
               }}
             >
-              <IconCircleCheck size={16} color={'white'} />
+              {loading ? (
+                <Loader className="animate-spin" size={16} color={'white'} />
+              ) : (
+                <IconCircleCheck size={16} color={'white'} />
+              )}
             </Box>
             <Title order={3} size="h3" c="dark">
               Status
@@ -83,7 +120,8 @@ const StatusCard = ({ status }: StatusCardProps) => {
               { value: 'rejected', label: 'Rejected' },
               { value: 'needs_review', label: 'Needs Review' },
             ]}
-            defaultValue={status}
+            value={driverStatus}
+            onChange={(value) => handleStatusChange(value as Status)}
           />
         </Group>
 
@@ -93,7 +131,7 @@ const StatusCard = ({ status }: StatusCardProps) => {
               Application Progress
             </Text>
             <Badge color={color} size="lg" radius="lg" variant="light">
-              {status.replace('_', ' ')}
+              {driverStatus.replace('_', ' ')}
             </Badge>
           </Group>
         </Stack>

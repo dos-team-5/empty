@@ -138,7 +138,7 @@ const Step1_DriverInformation = ({
     }
 
     // Simulate form submission (e.g., API call)
-    console.log('Step 1 submitted:', values);
+
     setIsDriverInfoSubmitted(true); // Mark form as submitted
     notifications.show({
       title: 'Form Submitted',
@@ -227,7 +227,7 @@ const Step1_DriverInformation = ({
   const handleFileUpload = (files: FileHandlerRes[]) => {
     // Update form with uploaded files
     form.setFieldValue('vehiclePhotos', files);
-    console.log('Files uploaded:', files);
+
     notifications.show({
       title: 'Files Uploaded',
       message: ` files uploaded successfully!`,
@@ -483,7 +483,7 @@ const Step1_DriverInformation = ({
             type="submit"
             size="md"
             radius={12}
-            className="!font-inter !w-full !px-16 !text-sm !font-normal !text-black md:!w-auto"
+            className="!font-inter !w-full !px-16 !text-sm !font-normal !text-white md:!w-auto"
           >
             Continue
           </Button>

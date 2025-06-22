@@ -10,7 +10,6 @@ const DriverData = async (props: { searchParams: SearchParams }) => {
   const limit = searchParams.limit;
   const result = await getDrivers(Number(page) || 1, Number(limit) || 10);
 
-  console.log(result);
   return (
     <Box mt={{ base: 60, md: 0 }}>
       {/* <DriverInformationCard /> */}

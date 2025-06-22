@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 'use client';
 
@@ -18,8 +19,18 @@ import {
   rem,
   Image,
   ActionIcon,
+  LoadingOverlay,
 } from '@mantine/core';
-import { Calendar, Clock, Coffee, Gift, Users, Edit, Eye } from 'lucide-react';
+import {
+  Calendar,
+  Clock,
+  Coffee,
+  Gift,
+  Users,
+  Edit,
+  Eye,
+  Plus,
+} from 'lucide-react';
 import ReusableFormModal from './reusable-form-modal';
 import { SpinnerCampaign } from '@/schema';
 import { createCampaign } from '@/app/(protected)/(dashboard)/admin/spin-control/action/createCampaign';
@@ -54,11 +65,9 @@ export default function SpinCampaignCard({
   };
 
   const handleFormSubmit = async (data: any, mode: 'create' | 'edit') => {
-    console.log(`${mode} campaign:`, data);
-
     if (mode === 'create') {
       setCreateLoading(true);
-      console.log('Creating new campaign...');
+
       const res = await createCampaign(data);
       if (res.success) {
         notifications.show({
@@ -69,11 +78,11 @@ export default function SpinCampaignCard({
         });
       }
       setCreateLoading(false);
-      console.log('Create campaign response:', createLoading);
+
       // Handle create logic here
     } else {
       setEditLoading(true);
-      console.log('Updating existing campaign...');
+
       const res = await updateCampaign({ id: campaign?.id, data });
       if (res.success) {
         notifications.show({
@@ -84,7 +93,7 @@ export default function SpinCampaignCard({
         });
       }
       setEditLoading(false);
-      console.log('Update campaign response:', editLoading);
+
       // Update local state for demo
       setCampaign((prev) => ({
         ...prev,
@@ -119,16 +128,26 @@ export default function SpinCampaignCard({
     return undefined;
   };
 
+  if (!data) {
+    return <LoadingOverlay visible />; // or fallback UI
+  }
+
   return (
-    <Container px={0} size="100%" mt={{ base: 24, md: 0 }} py="xl">
+    <Container
+      mx={{ base: 8, md: 0 }}
+      px={0}
+      size="100%"
+      mt={{ base: 24, md: 0 }}
+      py="xl"
+    >
       <Stack gap="xl">
         {/* Header Actions */}
         <Group justify="space-between" align="center">
           <Title order={1} fz={{ base: 20, xl: 32 }} c={PRIMARY_COLOR}>
             Campaign Management
           </Title>
-          {/* <Button
-            // hidden
+          <Button
+            hidden
             leftSection={<Plus size={18} />}
             onClick={handleCreateCampaign}
             size="md"
@@ -144,7 +163,7 @@ export default function SpinCampaignCard({
             }}
           >
             Create New Campaign
-          </Button> */}
+          </Button>
         </Group>
 
         {/* Main Campaign Card - Full Width */}
@@ -191,7 +210,7 @@ export default function SpinCampaignCard({
                       w={{ base: 40, md: 80 }}
                       h={{ base: 40, md: 80 }}
                       src={campaign.companyLogo?.url}
-                      fallbackSrc="/elementor-placeholder-image.webp"
+                      fallbackSrc="https://upload.wikimedia.org/wikipedia/en/thumb/d/d3/Starbucks_Corporation_Logo_2011.svg/1200px-Starbucks_Corporation_Logo_2011.svg.png"
                       alt={campaign.companyName}
                       style={{ objectFit: 'contain' }}
                     />
@@ -296,7 +315,7 @@ export default function SpinCampaignCard({
                     </Box>
                     <Stack gap="xs">
                       <Text fw={600} size="md" c={PRIMARY_COLOR}>
-                        User Limit
+                        Participation Limit
                       </Text>
                       <Text size="sm" c="dimmed">
                         {campaign.userLimit} participants
