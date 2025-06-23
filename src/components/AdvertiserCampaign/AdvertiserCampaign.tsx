@@ -85,26 +85,28 @@ const AdvertiserCampaign = () => {
             <Icon icon="mingcute:arrow-right-line" width={24} />
           </ActionIcon>
         </Group>
-        {campaignSteps.map((slide, index) => (
-          <SwiperSlide className="mt-20 xl:!mt-[185px]" key={index}>
-            <Flex direction={'column'} align="start" gap="lg">
-              <BackgroundImage w={slide.width} h={120} src={slide.bgImage}>
-                <Flex h="100%" justify="start" align="center">
-                  <ThemeIcon radius="100%" bg="#D481B5" w={46} h={46}>
-                    <Icon icon={slide.icon} width={30} height={30} />
-                  </ThemeIcon>
-                </Flex>
-              </BackgroundImage>
+        <Box pos={'relative'}>
+          {campaignSteps.map((slide, index) => (
+            <SwiperSlide className="mt-20 xl:!mt-[185px]" key={index}>
+              <Flex direction={'column'} align="start" gap="lg">
+                <BackgroundImage w={slide.width} h={120} src={slide.bgImage}>
+                  <Flex h="100%" justify="start" align="center">
+                    <ThemeIcon radius="100%" bg="#D481B5" w={46} h={46}>
+                      <Icon icon={slide.icon} width={30} height={30} />
+                    </ThemeIcon>
+                  </Flex>
+                </BackgroundImage>
 
-              <Box>
-                <Title fz={24} mb={16}>
-                  {slide.title}
-                </Title>
-                <Text>{slide.description}</Text>
-              </Box>
-            </Flex>
-          </SwiperSlide>
-        ))}
+                <Box>
+                  <Title fz={24} mb={16}>
+                    {slide.title}
+                  </Title>
+                  <Text>{slide.description}</Text>
+                </Box>
+              </Flex>
+            </SwiperSlide>
+          ))}
+        </Box>
       </Swiper>
     </Box>
   );
