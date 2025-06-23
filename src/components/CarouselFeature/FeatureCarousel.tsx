@@ -63,7 +63,7 @@ const FeatureCarousel = () => {
         onSwiper={(swiper) => {
           swiperRef.current = swiper;
         }}
-        className="feature-slider !mx-0 mt-16 w-80"
+        className="feature-slider !mx-0 mt-4 lg:mt-16 max-w-80"
       >
         <>
           {features.map((feature) => (

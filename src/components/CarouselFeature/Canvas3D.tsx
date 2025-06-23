@@ -14,7 +14,7 @@ const Canvas3D = ({ file }: { file: File | null }) => {
   const { progress } = useProgress();
 
   return (
-    <div className="absolute top-60 -right-54 h-110 w-200 touch-none select-none xl:top-70 2xl:top-90">
+    <div className="absolute top-88 -right-10 mx-auto h-[36%] w-[124%] origin-center touch-none select-none md:-right-32 md:w-[172%] lg:top-60 lg:-right-54 lg:h-110 lg:w-200 xl:top-70 xl:-right-48 2xl:top-90">
       {progress < 100 ? (
         <div className="z-[100000002] flex h-full w-full flex-col items-center justify-center !bg-transparent">
           <LoadingOverlay
@@ -26,7 +26,7 @@ const Canvas3D = ({ file }: { file: File | null }) => {
           Loading...
         </div>
       ) : (
-        <Canvas frameloop="always" shadows flat>
+        <Canvas frameloop="always" shadows flat className="">
           <PerspectiveCamera position={[0, 3, 16]} fov={30} makeDefault />
           {/* <Center> */}
           <Model file={file} />
