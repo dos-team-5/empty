@@ -1,6 +1,6 @@
 'use client';
 
-import { useState /*, useEffect */ } from 'react';
+import { useEffect, useState /*, useEffect */ } from 'react';
 import { Smartphone, Users } from 'lucide-react';
 import {
   Box,
@@ -50,11 +50,9 @@ const slides: CarouselSlide[] = [
 
 export default function ScanVsLeadSnatcher() {
   const [currentSlide, setCurrentSlide] = useState(0);
-  const isLast = currentSlide === slides.length - 1;
-  const isFirst = currentSlide === 0;
 
   // Autoplay (Commented)
-  /*
+
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentSlide((prev) => (prev + 1) % slides.length);
@@ -62,7 +60,6 @@ export default function ScanVsLeadSnatcher() {
 
     return () => clearInterval(interval);
   }, []);
-  */
 
   const slide = slides[currentSlide];
 
@@ -109,20 +106,9 @@ export default function ScanVsLeadSnatcher() {
           style={{ display: 'flex' }}
         >
           <Box
-            h="100%"
             w="50%"
-            bg={currentSlide === 0 ? '#FF83D5' : '#E0E0E0'}
-            style={{
-              transition: 'background-color 500ms ease',
-            }}
-          />
-          <Box
             h="100%"
-            w="50%"
-            bg={currentSlide === 1 ? '#FF83D5' : '#E0E0E0'}
-            style={{
-              transition: 'background-color 500ms ease',
-            }}
+            className={`${currentSlide === 1 ? 'translate-x-full' : ''} bg-[#FF83D5] duration-300`}
           />
         </Box>
       </Flex>
@@ -149,7 +135,7 @@ export default function ScanVsLeadSnatcher() {
               {slide.subtitle}
             </Text>
           </Group>
-          <Text c="#4A4A4A" fz="sm">
+          <Text mih={270} c="#4A4A4A" fz="sm">
             {slide.description}
           </Text>
 
@@ -160,8 +146,11 @@ export default function ScanVsLeadSnatcher() {
               w={49}
               h={49}
               radius="xl"
-              onClick={() => setCurrentSlide((prev) => Math.max(prev - 1, 0))}
-              disabled={isFirst}
+              onClick={() =>
+                setCurrentSlide((prev) =>
+                  prev === 0 ? slides.length - 1 : prev - 1
+                )
+              }
               aria-label="Previous slide"
             >
               <Icon icon="mingcute:arrow-left-line" width={24} />
@@ -172,9 +161,10 @@ export default function ScanVsLeadSnatcher() {
               h={49}
               radius="xl"
               onClick={() =>
-                setCurrentSlide((prev) => Math.min(prev + 1, slides.length - 1))
+                setCurrentSlide((prev) =>
+                  prev === slides.length - 1 ? 0 : prev + 1
+                )
               }
-              disabled={isLast}
               aria-label="Next slide"
             >
               <Icon icon="mingcute:arrow-right-line" width={24} />
