@@ -3,7 +3,6 @@ import { useState, useEffect } from 'react';
 import SpinWheel, { SpinnerPrize } from './components/SpinWheel';
 import ConfettiEffect from './components/ConfettiEffect';
 
-import Image from 'next/image';
 import { ActionIcon, Group, UnstyledButton } from '@mantine/core';
 import { modals } from '@mantine/modals';
 import { winCheck } from './actions/winCheck';
@@ -15,12 +14,18 @@ import { claimPrize } from './actions/claimPrize';
 import { sendCouponEmail } from './actions/sendCouponMail';
 import { Icon } from '@iconify/react/dist/iconify.js';
 import { useVisitorData } from '@fingerprintjs/fingerprintjs-pro-react';
+import { useAdBlockDetection } from '@/hooks/useAdBlockDetection';
+import { useDisclosure } from '@mantine/hooks';
+import { AdBlockerNotice } from './components/Ads';
+import Image from 'next/image';
 
 export default function Home() {
+  const { isAdBlocked, isLoading } = useAdBlockDetection();
   const { data } = useVisitorData(
     { extendedResult: true },
     { immediate: true }
   );
+  const [opened, { open, close }] = useDisclosure(false);
   const [showConfetti, setShowConfetti] = useState(false);
   const [isSpinning, setIsSpinning] = useState(false);
   const [participationFormData, setParticipationFormData] = useState({
@@ -177,48 +182,59 @@ export default function Home() {
     }
   };
 
+  useEffect(() => {
+    if (!isLoading && isAdBlocked) {
+      open();
+    }
+  }, [isAdBlocked, isLoading, open]);
+
+  console.log('isAdBlocked', isAdBlocked);
+
   return (
     <div className="flex h-screen max-h-screen items-center justify-center overflow-hidden bg-[url(/spinner-bg.png)] bg-cover bg-center bg-no-repeat p-4">
       {/* Background blur when form is shown */}
-      <div
-        className={`mx-auto flex w-full flex-col items-center justify-center gap-8 transition-all duration-300 md:gap-16 lg:flex-row lg:items-center lg:justify-between lg:gap-0`}
-      >
-        <div className="mx-auto flex w-full flex-col items-center justify-center text-center lg:w-[40%]">
-          <Image
-            src={'/EMPTY.png'}
-            alt="empty-logo"
-            width={1000}
-            height={1000}
-            className="w-56 md:w-96 2xl:w-120"
-          />
-          <Image
-            src={'/Scan-and-Spin.png'}
-            alt="title"
-            width={1000}
-            height={1000}
-            className="w-48 md:w-88 2xl:w-112"
-          />
-          <p className="text-sm text-white md:text-2xl 2xl:text-3xl">
-            Try your luck and <br /> win amazing prizes!
-          </p>
-        </div>
+      {isAdBlocked && <AdBlockerNotice opened={opened} onClose={close} />}
+      {!isAdBlocked && (
+        <div
+          className={`mx-auto flex w-full flex-col items-center justify-center gap-8 transition-all duration-300 md:gap-16 lg:flex-row lg:items-center lg:justify-between lg:gap-0`}
+        >
+          <div className="mx-auto flex w-full flex-col items-center justify-center text-center lg:w-[40%]">
+            <Image
+              src={'/EMPTY.png'}
+              alt="empty-logo"
+              width={1000}
+              height={1000}
+              className="w-56 md:w-96 2xl:w-120"
+            />
+            <Image
+              src={'/Scan-and-Spin.png'}
+              alt="title"
+              width={1000}
+              height={1000}
+              className="w-48 md:w-88 2xl:w-112"
+            />
+            <p className="text-sm text-white md:text-2xl 2xl:text-3xl">
+              Try your luck and <br /> win amazing prizes!
+            </p>
+          </div>
 
-        <div className="flex w-full flex-col items-center lg:w-[55%]">
-          <SpinWheel
-            campaignId={1}
-            isSpinning={isSpinning}
-            onSpinComplete={handleSpinComplete}
-          />
+          <div className="flex w-full flex-col items-center lg:w-[55%]">
+            <SpinWheel
+              campaignId={1}
+              isSpinning={isSpinning}
+              onSpinComplete={handleSpinComplete}
+            />
 
-          <UnstyledButton
-            onClick={handleSpinStart}
-            disabled={isSpinning}
-            className="!bg-primary relative w-[150px] rounded border-none !p-4 !text-center !font-bold tracking-wider !text-white uppercase opacity-90 shadow-[0_7px_2px_#FF70DF,0_8px_5px_#fff] transition duration-200 hover:opacity-100 active:top-1 active:shadow-[0_3px_2px_#FF70DF,0_3px_5px_#fff] md:mt-12 xl:mt-24 2xl:mt-48"
-          >
-            SPIN
-          </UnstyledButton>
+            <UnstyledButton
+              onClick={handleSpinStart}
+              disabled={isSpinning}
+              className="!bg-primary relative w-[150px] rounded border-none !p-4 !text-center !font-bold tracking-wider !text-white uppercase opacity-90 shadow-[0_7px_2px_#FF70DF,0_8px_5px_#fff] transition duration-200 hover:opacity-100 active:top-1 active:shadow-[0_3px_2px_#FF70DF,0_3px_5px_#fff] md:mt-12 xl:mt-24 2xl:mt-48"
+            >
+              SPIN
+            </UnstyledButton>
+          </div>
         </div>
-      </div>
+      )}
 
       {/* Confetti Effect */}
       {showConfetti && <ConfettiEffect />}
