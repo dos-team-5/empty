@@ -1,0 +1,101 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+'use client';
+import { Icon } from '@iconify/react/dist/iconify.js';
+import {
+  ActionIcon,
+  BackgroundImage,
+  Box,
+  Flex,
+  Group,
+  Text,
+  ThemeIcon,
+  Title,
+} from '@mantine/core';
+import { Swiper, SwiperClass, SwiperSlide } from 'swiper/react';
+import { campaignSteps } from './campaignData';
+import { Autoplay } from 'swiper/modules';
+import { useRef } from 'react';
+
+const AdvertiserCampaign = () => {
+  const swiperRef = useRef<SwiperClass | null>(null);
+
+  const handlePrev = () => {
+    if (swiperRef.current) swiperRef.current.slidePrev();
+  };
+
+  const handleNext = () => {
+    if (swiperRef.current) swiperRef.current.slideNext();
+  };
+
+  return (
+    <Box
+      pos="relative"
+      maw={1552}
+      px={200}
+      w="100%"
+      mx="auto"
+      bg="white"
+      py={24}
+    >
+      <Title></Title>
+      <Swiper
+        loop
+        autoplay={{
+          delay: 5000,
+          disableOnInteraction: false,
+        }}
+        onSwiper={(swiper) => {
+          swiperRef.current = swiper;
+        }}
+        spaceBetween={60}
+        slidesPerView={3}
+        modules={[Autoplay]}
+      >
+        <Group pos={'absolute'} top={0}>
+          <ActionIcon
+            bg="#FF83D5"
+            w={{ base: 36, md: 40, lg: 49 }}
+            h={{ base: 36, md: 40, lg: 49 }}
+            radius="xl"
+            onClick={() => handlePrev()}
+            aria-label="Previous slide"
+          >
+            <Icon icon="mingcute:arrow-left-line" width={24} />
+          </ActionIcon>
+          <ActionIcon
+            bg="#FF83D5"
+            w={{ base: 36, md: 40, lg: 49 }}
+            h={{ base: 36, md: 40, lg: 49 }}
+            radius="xl"
+            onClick={() => handleNext()}
+            aria-label="Next slide"
+          >
+            <Icon icon="mingcute:arrow-right-line" width={24} />
+          </ActionIcon>
+        </Group>
+        {campaignSteps.map((slide, index) => (
+          <SwiperSlide key={index}>
+            <Flex direction={'column'} align="start" gap="lg">
+              <BackgroundImage w={slide.width} h={120} src={slide.bgImage}>
+                <Flex h="100%" justify="center" align="center">
+                  <ThemeIcon radius="100%" bg="#D481B5" w={46} h={46}>
+                    <Icon icon={slide.icon} width={30} height={30} />
+                  </ThemeIcon>
+                </Flex>
+              </BackgroundImage>
+
+              <Box>
+                <Title fz={24} mb={16}>
+                  {slide.title}
+                </Title>
+                <Text>{slide.description}</Text>
+              </Box>
+            </Flex>
+          </SwiperSlide>
+        ))}
+      </Swiper>
+    </Box>
+  );
+};
+
+export default AdvertiserCampaign;
