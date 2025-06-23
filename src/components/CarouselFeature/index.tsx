@@ -60,16 +60,16 @@ const CarouselFeature = () => {
               />
             </svg>
             {/* Content on top of SVG */}
-            <div className="relative z-20 mx-auto h-screen max-w-xs lg:mx-0 lg:h-auto xl:!mr-4 2xl:!mr-12">
+            <div className="relative z-20 mx-auto h-screen max-w-xs lg:mx-0 lg:h-auto xl:!mr-12">
               <Title
                 order={2}
                 fw={700}
                 ff={'var(--font-poppins)'}
-                className="!mt-48 text-start !text-base text-white capitalize lg:!mt-4"
+                className="!mt-48 text-start !text-base text-white capitalize lg:!mt-4 xl:!ml-8"
               >
                 Check how your Ad looks
               </Title>
-              <p className="font-inter my-4 text-start text-xs font-normal text-white">
+              <p className="font-inter my-4 text-start text-xs font-normal text-white xl:!ml-8">
                 upload your Advertise banner here to see exactly how its gonna
                 look in real time on our 3D vechile models
               </p>
@@ -81,7 +81,7 @@ const CarouselFeature = () => {
                     radius={6}
                     fullWidth
                     leftSection={<IconUpload size={14} />}
-                    className="!font-semibold !text-[#FF83D5]"
+                    className="!font-semibold !text-[#FF83D5] xl:!ml-8"
                   >
                     Upload Ad
                   </Button>
