@@ -112,7 +112,7 @@ export async function POST(
       name: string;
       email: string;
       phone?: string;
-      ipaddress?: string;
+      ipAddress?: string;
     } = await req.json();
     if (!body.name || !body.email) {
       return NextResponse.json(

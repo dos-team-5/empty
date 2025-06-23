@@ -6,6 +6,7 @@ import {
   TextRevealByWord,
   TimelineSectionAd,
 } from '@/components';
+import AdvertiserCampaign from '@/components/AdvertiserCampaign/AdvertiserCampaign';
 import PricingConfigurator from '@/components/PricingSections/PriceConfigurator/PricingConfigurator';
 import ScanVsLeadSnatcher from '@/components/ScanVsLeadSnatcher/ScanVsLeadSnatcher';
 
@@ -23,10 +24,10 @@ export default function Home() {
       {/* <FeatureSection />
       <FeatureCard /> */}
       <CarouselFeature />
-      
+
       <TimelineSectionAd />
       {/* <PricingCards /> */}
-
+      <AdvertiserCampaign />
       <PricingConfigurator />
       <ScanVsLeadSnatcher />
       <Faq />

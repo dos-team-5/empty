@@ -22,10 +22,36 @@ const inter = Inter({
   display: 'swap',
 });
 
+// app/layout.tsx or any layout file
+
 export const metadata: Metadata = {
-  title: 'Empty - Advertise On Ride-share Vehicles In High-Traffic Areas',
+  title: 'Empty: Advertise on Rideshare Vehicles in High-Traffic Areas',
   description:
-    'Generate an average of $300 in passive income each month by displaying an advertisement on your front doors',
+    'Earn passive income effortlessly! Drive your normal routes with Empty and earn up to $200 per month. Join our platform to advertise for brands you know and love.',
+  openGraph: {
+    title: 'EmptyAd: Earn Passive Income Driving for Brands',
+    description:
+      'Monetize your commute with EmptyAd! Drivers earn up to $200/month displaying ads on their car. Connect with top brands and start earning effortlessly.',
+    url: 'https://www.emptyad.com/',
+    siteName: 'EmptyAd',
+    images: [
+      {
+        url: 'https://www.emptyad.com/images/og-image.jpg',
+        width: 1200,
+        height: 630,
+        alt: 'EmptyAd: Car Advertising for Passive Income',
+      },
+    ],
+    type: 'website',
+  },
+  // Optional: Add Twitter metadata, icons, etc.
+  // twitter: {
+  //   card: 'summary_large_image',
+  //   site: '@your_twitter',
+  //   title: 'EmptyAd: Earn Passive Income Driving for Brands',
+  //   description: '...',
+  //   images: ['https://...'],
+  // },
 };
 
 export default function RootLayout({

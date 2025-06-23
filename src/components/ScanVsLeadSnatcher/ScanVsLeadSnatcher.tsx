@@ -1,6 +1,6 @@
 'use client';
 
-import { useState /*, useEffect */ } from 'react';
+import { useEffect, useState /*, useEffect */ } from 'react';
 import { Smartphone, Users } from 'lucide-react';
 import {
   Box,
@@ -50,11 +50,9 @@ const slides: CarouselSlide[] = [
 
 export default function ScanVsLeadSnatcher() {
   const [currentSlide, setCurrentSlide] = useState(0);
-  const isLast = currentSlide === slides.length - 1;
-  const isFirst = currentSlide === 0;
 
   // Autoplay (Commented)
-  /*
+
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentSlide((prev) => (prev + 1) % slides.length);
@@ -62,7 +60,6 @@ export default function ScanVsLeadSnatcher() {
 
     return () => clearInterval(interval);
   }, []);
-  */
 
   const slide = slides[currentSlide];
 
@@ -77,7 +74,7 @@ export default function ScanVsLeadSnatcher() {
       <Group justify="center">
         <Title
           className="text-center"
-          fz={{ base: 32, md: 40, xl: 72 }}
+          fz={{ base: 24, md: 40, xl: 72 }}
           fw={600}
           order={1}
         >
@@ -87,7 +84,7 @@ export default function ScanVsLeadSnatcher() {
           mt={{ base: 12, md: 20, xl: 30 }}
           mb={{ base: 12, md: 20, xl: 55 }}
           ta="center"
-          fz="md"
+          fz={{ base: 14, md: 20, xl: 'md' }}
           maw={700}
         >
           Choose the right tool for your campaign goals — instant engagement or
@@ -96,33 +93,28 @@ export default function ScanVsLeadSnatcher() {
       </Group>
 
       {/* Slide progress and title */}
-      <Flex align="center" justify="center" mb={32} gap={32} wrap="wrap">
-        <Text fz={28} fw={600} ta="center">
+      <Flex
+        align="center"
+        justify="center"
+        mb={32}
+        gap={{ base: 16, lg: 32 }}
+        wrap="wrap"
+      >
+        <Text fz={{ base: 22, lg: 28 }} fw={600} ta="center">
           {slide.title}
         </Text>
         <Box
           w={300}
-          h={12}
+          h={{ base: 8, md: 12 }}
           bg="#E0E0E0"
           className="overflow-hidden rounded-full"
           pos="relative"
           style={{ display: 'flex' }}
         >
           <Box
-            h="100%"
             w="50%"
-            bg={currentSlide === 0 ? '#FF83D5' : '#E0E0E0'}
-            style={{
-              transition: 'background-color 500ms ease',
-            }}
-          />
-          <Box
             h="100%"
-            w="50%"
-            bg={currentSlide === 1 ? '#FF83D5' : '#E0E0E0'}
-            style={{
-              transition: 'background-color 500ms ease',
-            }}
+            className={`${currentSlide === 1 ? 'translate-x-full' : ''} bg-[#FF83D5] duration-300`}
           />
         </Box>
       </Flex>
@@ -139,9 +131,9 @@ export default function ScanVsLeadSnatcher() {
         <Flex
           direction="column"
           justify="space-between"
-          px={36}
-          pt={55}
-          pb={26}
+          px={{ base: 16, xl: 36 }}
+          pt={{ base: 16, md: 28, lg: 55 }}
+          pb={{ base: 16, md: 26 }}
           w={{ base: '100%', md: 370 }}
         >
           <Group mb="xs">
@@ -149,7 +141,7 @@ export default function ScanVsLeadSnatcher() {
               {slide.subtitle}
             </Text>
           </Group>
-          <Text c="#4A4A4A" fz="sm">
+          <Text mih={270} c="#4A4A4A" fz="sm">
             {slide.description}
           </Text>
 
@@ -157,24 +149,28 @@ export default function ScanVsLeadSnatcher() {
           <Flex mt={20} gap="xs">
             <ActionIcon
               bg="#FF83D5"
-              w={49}
-              h={49}
+              w={{ base: 36, md: 40, lg: 49 }}
+              h={{ base: 36, md: 40, lg: 49 }}
               radius="xl"
-              onClick={() => setCurrentSlide((prev) => Math.max(prev - 1, 0))}
-              disabled={isFirst}
+              onClick={() =>
+                setCurrentSlide((prev) =>
+                  prev === 0 ? slides.length - 1 : prev - 1
+                )
+              }
               aria-label="Previous slide"
             >
               <Icon icon="mingcute:arrow-left-line" width={24} />
             </ActionIcon>
             <ActionIcon
               bg="#FF83D5"
-              w={49}
-              h={49}
+              w={{ base: 36, md: 40, lg: 49 }}
+              h={{ base: 36, md: 40, lg: 49 }}
               radius="xl"
               onClick={() =>
-                setCurrentSlide((prev) => Math.min(prev + 1, slides.length - 1))
+                setCurrentSlide((prev) =>
+                  prev === slides.length - 1 ? 0 : prev + 1
+                )
               }
-              disabled={isLast}
               aria-label="Next slide"
             >
               <Icon icon="mingcute:arrow-right-line" width={24} />
@@ -185,8 +181,8 @@ export default function ScanVsLeadSnatcher() {
         {/* Image */}
         <Paper
           w={{ base: '100%', md: 810 }}
-          py={64}
-          px={36}
+          py={{ base: 16, md: 36, lg: 64 }}
+          px={{ base: 16, md: 24, lg: 36 }}
           radius={40}
           bg="#FFE4F5"
         >

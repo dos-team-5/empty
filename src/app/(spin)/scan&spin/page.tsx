@@ -3,7 +3,6 @@ import { useState, useEffect } from 'react';
 import SpinWheel, { SpinnerPrize } from './components/SpinWheel';
 import ConfettiEffect from './components/ConfettiEffect';
 
-import Image from 'next/image';
 import { ActionIcon, Group, UnstyledButton } from '@mantine/core';
 import { modals } from '@mantine/modals';
 import { winCheck } from './actions/winCheck';
@@ -15,12 +14,14 @@ import { claimPrize } from './actions/claimPrize';
 import { sendCouponEmail } from './actions/sendCouponMail';
 import { Icon } from '@iconify/react/dist/iconify.js';
 import { useVisitorData } from '@fingerprintjs/fingerprintjs-pro-react';
+import Image from 'next/image';
 
 export default function Home() {
   const { data } = useVisitorData(
     { extendedResult: true },
     { immediate: true }
   );
+
   const [showConfetti, setShowConfetti] = useState(false);
   const [isSpinning, setIsSpinning] = useState(false);
   const [participationFormData, setParticipationFormData] = useState({
@@ -178,8 +179,9 @@ export default function Home() {
   };
 
   return (
-    <div className="flex h-screen max-h-screen items-center justify-center overflow-hidden bg-[url(/spinner-bg.png)] bg-cover bg-center bg-no-repeat p-4">
+    <>
       {/* Background blur when form is shown */}
+
       <div
         className={`mx-auto flex w-full flex-col items-center justify-center gap-8 transition-all duration-300 md:gap-16 lg:flex-row lg:items-center lg:justify-between lg:gap-0`}
       >
@@ -222,6 +224,6 @@ export default function Home() {
 
       {/* Confetti Effect */}
       {showConfetti && <ConfettiEffect />}
-    </div>
+    </>
   );
 }
