@@ -72,19 +72,14 @@ export default function ScanVsLeadSnatcher() {
     >
       {/* Header */}
       <Group justify="center">
-        <Title
-          className="text-center"
-          fz={{ base: 24, md: 40, xl: 72 }}
-          fw={600}
-          order={1}
-        >
+        <Title className="text-center" fz={{ base: 28, xl: 64 }} order={1}>
           Scan & Spin vs Lead Snatcher
         </Title>
         <Text
-          mt={{ base: 12, md: 20, xl: 30 }}
+          mt={{ base: 12 }}
           mb={{ base: 12, md: 20, xl: 55 }}
           ta="center"
-          fz={{ base: 14, md: 20, xl: 'md' }}
+          fz={{ base: 14, md: 20, xl: 22 }}
           maw={700}
         >
           Choose the right tool for your campaign goals — instant engagement or

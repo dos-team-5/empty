@@ -10,14 +10,19 @@ import {
   Text,
   ThemeIcon,
   Title,
+  SimpleGrid,
+  Image,
 } from '@mantine/core';
 import { Swiper, SwiperClass, SwiperSlide } from 'swiper/react';
 import { campaignSteps } from './campaignData';
 import { Autoplay } from 'swiper/modules';
 import { useRef } from 'react';
+import { useMediaQuery } from '@mantine/hooks';
 
 const AdvertiserCampaign = () => {
   const swiperRef = useRef<SwiperClass | null>(null);
+  const isMobile = useMediaQuery('(max-width: 767px)');
+  const tablet = useMediaQuery('(min-width: 768px) and (max-width: 1023px)');
 
   const handlePrev = () => {
     if (swiperRef.current) swiperRef.current.slidePrev();
@@ -26,6 +31,8 @@ const AdvertiserCampaign = () => {
   const handleNext = () => {
     if (swiperRef.current) swiperRef.current.slideNext();
   };
+
+  const cols = isMobile ? 1 : tablet ? 2 : 3;
 
   return (
     <Box
@@ -108,6 +115,20 @@ const AdvertiserCampaign = () => {
           ))}
         </Box>
       </Swiper>
+      <SimpleGrid cols={cols} spacing={0} mt={16}>
+        <Image
+          src="/advertiser-campaign/indicator.png"
+          alt="advertiser campaign"
+        />
+        <Image
+          src="/advertiser-campaign/indicator.png"
+          alt="advertiser campaign"
+        />
+        <Image
+          src="/advertiser-campaign/indicator.png"
+          alt="advertiser campaign"
+        />
+      </SimpleGrid>
     </Box>
   );
 };
