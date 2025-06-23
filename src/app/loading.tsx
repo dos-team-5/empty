@@ -60,7 +60,7 @@ export default function Loading() {
                 alt="Logo"
                 width={100}
                 height={100}
-                className="object-contain"
+                className="w-17 object-contain"
               />
             </div>
           </motion.div>
@@ -69,7 +69,7 @@ export default function Loading() {
           <motion.div
             initial={{ x: 350, opacity: 1 }}
             animate={{
-              x: animationStep >= 2 ? 70 : 350,
+              x: animationStep >= 2 ? 45 : 350,
               opacity: animationStep >= 2 ? 1 : 0,
               y: animationStep >= 3 ? -100 : 0,
             }}
@@ -81,7 +81,7 @@ export default function Loading() {
             className="absolute"
           >
             <div
-              className="mr-6 text-7xl select-none md:mr-auto"
+              className="text-7xl select-none"
               style={{
                 color: '#D381B5',
                 fontFamily: "'Sora', sans-serif",

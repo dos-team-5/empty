@@ -11,7 +11,7 @@ const AnimatedAdSection = () => {
         className="px-4 sm:px-8 md:px-16 lg:px-20 xl:px-24 2xl:px-32"
       >
         {/* Section Title */}
-        <Stack gap={10} className=""> 
+        <Stack gap={10} className="">
           <Title
             order={1}
             fw={700}
@@ -24,7 +24,7 @@ const AnimatedAdSection = () => {
               startOnView
               duration={0.5}
               once
-              className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl md:text-5xl"
+              className="md:text-[52px] lg:text-[48px] xl:text-[48px] 2xl:text-[64px]"
             >
               Why Advertisers
             </TextAnimate>
@@ -42,7 +42,7 @@ const AnimatedAdSection = () => {
               duration={0.5}
               delay={0.5}
               once
-              className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl md:text-5xl"
+              className="md:text-[52px] lg:text-[48px] xl:text-[48px] 2xl:text-[64px]"
             >
               Choose EMPTY
             </TextAnimate>
