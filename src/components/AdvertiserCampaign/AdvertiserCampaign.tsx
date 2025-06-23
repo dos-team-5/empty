@@ -31,13 +31,15 @@ const AdvertiserCampaign = () => {
     <Box
       pos="relative"
       maw={1552}
-      px={200}
+      px={{ base: 16, xl: 200 }}
       w="100%"
       mx="auto"
-      bg="white"
       py={24}
+      mb={160}
     >
-      <Title></Title>
+      <Title className="text-center" fz={{ base: 28, xl: 64 }}>
+        Advertiser Campaign Timeline
+      </Title>
       <Swiper
         loop
         autoplay={{
@@ -47,11 +49,21 @@ const AdvertiserCampaign = () => {
         onSwiper={(swiper) => {
           swiperRef.current = swiper;
         }}
+        breakpoints={{
+          0: {
+            slidesPerView: 1,
+          },
+          768: {
+            slidesPerView: 2,
+          },
+          1024: {
+            slidesPerView: 3,
+          },
+        }}
         spaceBetween={60}
-        slidesPerView={3}
         modules={[Autoplay]}
       >
-        <Group pos={'absolute'} top={0}>
+        <Group justify="right" pos={'absolute'} top={40} right={0}>
           <ActionIcon
             bg="#FF83D5"
             w={{ base: 36, md: 40, lg: 49 }}
@@ -74,10 +86,10 @@ const AdvertiserCampaign = () => {
           </ActionIcon>
         </Group>
         {campaignSteps.map((slide, index) => (
-          <SwiperSlide key={index}>
+          <SwiperSlide className="mt-20 xl:!mt-[185px]" key={index}>
             <Flex direction={'column'} align="start" gap="lg">
               <BackgroundImage w={slide.width} h={120} src={slide.bgImage}>
-                <Flex h="100%" justify="center" align="center">
+                <Flex h="100%" justify="start" align="center">
                   <ThemeIcon radius="100%" bg="#D481B5" w={46} h={46}>
                     <Icon icon={slide.icon} width={30} height={30} />
                   </ThemeIcon>
