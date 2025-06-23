@@ -105,7 +105,7 @@ export default function ScanVsLeadSnatcher() {
         </Text>
         <Box
           w={300}
-          h={12}
+          h={{ base: 8, md: 12 }}
           bg="#E0E0E0"
           className="overflow-hidden rounded-full"
           pos="relative"
