@@ -2,7 +2,15 @@
 
 import { useState, useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
+import { Poppins } from 'next/font/google';
 import Image from 'next/image';
+
+const emptyFont = Poppins({
+  variable: '--font-emptyFont',
+  subsets: ['latin'],
+  weight: ['100', '200', '300', '400', '500', '600', '700', '800'],
+  display: 'swap',
+});
 
 export default function Loading() {
   const [animationStep, setAnimationStep] = useState(0);
@@ -69,7 +77,7 @@ export default function Loading() {
           <motion.div
             initial={{ x: 350, opacity: 1 }}
             animate={{
-              x: animationStep >= 2 ? 45 : 350,
+              x: animationStep >= 2 ? 30 : 350,
               opacity: animationStep >= 2 ? 1 : 0,
               y: animationStep >= 3 ? -100 : 0,
             }}
@@ -81,11 +89,11 @@ export default function Loading() {
             className="absolute"
           >
             <div
-              className="text-7xl select-none"
+              className={`text-7xl select-none ${emptyFont.variable}`}
               style={{
                 color: '#D381B5',
-                fontFamily: "'Sora', sans-serif",
-                fontWeight: 600,
+                fontWeight: 550,
+                fontFamily:'Poppins',
                 letterSpacing: '0.02em',
               }}
             >

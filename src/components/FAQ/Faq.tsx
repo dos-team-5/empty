@@ -88,7 +88,7 @@ const Faq = memo(() => {
       // className="from-default to-primary-100 relative h-dvh bg-gradient-to-b from-55%"
     >
       <Box
-       mt={180}
+        mt={180}
         maw={1400}
         mx="auto"
         className="px-4 sm:px-8 md:px-16 lg:px-20 xl:px-24 2xl:px-32"

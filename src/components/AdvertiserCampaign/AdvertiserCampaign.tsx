@@ -87,8 +87,9 @@ const AdvertiserCampaign = () => {
           }}
           spaceBetween={60}
           modules={[Autoplay]}
+          className="!pb-16"
         >
-          <Group justify="right" pos={'absolute'} top={40} right={0}>
+          <Group justify="right" pos={'absolute'} bottom={0} right={0}>
             <ActionIcon
               bg="#FF83D5"
               w={{ base: 36, md: 40, lg: 49 }}
@@ -110,9 +111,9 @@ const AdvertiserCampaign = () => {
               <Icon icon="mingcute:arrow-right-line" width={24} />
             </ActionIcon>
           </Group>
-          <Box pos={'relative'}>
+          <Box pos={'relative'} className="">
             {campaignSteps.map((slide, index) => (
-              <SwiperSlide className="mt-20 xl:!mt-[185px]" key={index}>
+              <SwiperSlide className="mt-20" key={index}>
                 <Flex direction={'column'} align="start" gap="lg">
                   <BackgroundImage w={slide.width} h={120} src={slide.bgImage}>
                     <Flex h="100%" justify="start" align="center">
@@ -132,8 +133,7 @@ const AdvertiserCampaign = () => {
               </SwiperSlide>
             ))}
           </Box>
-        </Swiper>
-        <SimpleGrid cols={cols} spacing={0} mt={16}>
+          <SimpleGrid cols={cols} spacing={0} mt={16}>
           <Image
             src="/advertiser-campaign/indicator.png"
             alt="advertiser campaign"
@@ -149,6 +149,8 @@ const AdvertiserCampaign = () => {
             alt="advertiser campaign"
           />
         </SimpleGrid>
+        </Swiper>
+        
       </div>
     </Box>
   );
