@@ -62,7 +62,7 @@ const AnimatedCircle = () => {
   };
 
   return (
-    <div className="">
+    <div className="select-none">
       <svg
         width="1635"
         height="1635"
@@ -91,9 +91,12 @@ const AnimatedCircle = () => {
             name="icon1"
             className="group relative cursor-pointer p-2"
             onClick={
-              visibleCard !== null
+              visibleCard === 2
                 ? () => handleHideCard()
-                : () => handleShowCard(2)
+                : () => {
+                    handleHideCard();
+                    handleShowCard(2);
+                  }
             }
           >
             <path
@@ -130,9 +133,12 @@ const AnimatedCircle = () => {
             name="icon2"
             className="group relative cursor-pointer p-2"
             onClick={
-              visibleCard !== null
+              visibleCard === 0
                 ? () => handleHideCard()
-                : () => handleShowCard(0)
+                : () => {
+                    handleHideCard();
+                    handleShowCard(0);
+                  }
             }
           >
             <path
@@ -178,9 +184,12 @@ const AnimatedCircle = () => {
             name="icon3"
             className="group relative cursor-pointer p-2"
             onClick={
-              visibleCard !== null
+              visibleCard === 1
                 ? () => handleHideCard()
-                : () => handleShowCard(1)
+                : () => {
+                    handleHideCard();
+                    handleShowCard(1);
+                  }
             }
           >
             <path
@@ -199,9 +208,12 @@ const AnimatedCircle = () => {
             name="icon4"
             className="group relative cursor-pointer p-2"
             onClick={
-              visibleCard !== null
+              visibleCard === 3
                 ? () => handleHideCard()
-                : () => handleShowCard(3)
+                : () => {
+                    handleHideCard();
+                    handleShowCard(3);
+                  }
             }
           >
             <path
