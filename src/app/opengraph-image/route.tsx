@@ -8,10 +8,10 @@ export async function GET(request: Request) {
     const { searchParams } = new URL(request.url);
 
     const title =
-      searchParams.get('title') ||
+      searchParams.get('title') ??
       'Advertise on Rideshare Vehicles in High-Traffic Areas';
     const subtitle =
-      searchParams.get('subtitle') ||
+      searchParams.get('subtitle') ??
       'Transform your daily commute into a premium revenue stream';
 
     return new ImageResponse(
