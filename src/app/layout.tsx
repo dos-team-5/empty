@@ -25,9 +25,15 @@ const inter = Inter({
 // app/layout.tsx or any layout file
 
 export const metadata: Metadata = {
-  title: 'Empty: Advertise on Rideshare Vehicles in High-Traffic Areas',
+  title: {
+    default: 'Empty: Advertise on Rideshare Vehicles in High-Traffic Areas',
+    template: '%s | EmptyAd',
+  },
   description:
     'Earn passive income effortlessly! Drive your normal routes with Empty and earn up to $200 per month. Join our platform to advertise for brands you know and love.',
+  twitter: {
+    card: 'summary_large_image',
+  },
   openGraph: {
     title: 'EmptyAd: Earn Passive Income Driving for Brands',
     description:
@@ -36,7 +42,7 @@ export const metadata: Metadata = {
     siteName: 'EmptyAd',
     images: [
       {
-        url: 'https://www.emptyad.com/images/og-image.jpg',
+        url: 'https://www.emptyad.com/opengrapgh-image',
         width: 1200,
         height: 630,
         alt: 'EmptyAd: Car Advertising for Passive Income',

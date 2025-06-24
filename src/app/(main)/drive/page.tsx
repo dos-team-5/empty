@@ -4,6 +4,11 @@ import {
   TimelineSectionDrive,
 } from '@/components';
 import { Box } from '@mantine/core';
+import { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: 'Drive',
+};
 
 const Drive = () => {
   return (
