@@ -437,8 +437,7 @@ export default function TermsAndConditions() {
         {/* Footer */}
         <div className="mt-12 border-t border-gray-200 pt-8">
           <p className="text-center text-sm text-gray-500">
-            © {new Date().getFullYear()} Empty Advertising Inc. All rights
-            reserved.
+            © {new Date().getFullYear()} Empty Advertising All rights reserved.
           </p>
         </div>
       </div>
