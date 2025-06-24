@@ -198,7 +198,7 @@ export default function PricingConfigurator() {
   }, []);
 
   return (
-    <Box mb={180} p={16}>
+    <Box id="pricing-configurator" mb={180} p={16}>
       <Box className="mx-auto xl:!max-w-[1000px] 2xl:!max-w-[1100px]">
         <TitleSection />
         <div className="flex w-full origin-top flex-col gap-y-8 md:flex-row md:items-start md:justify-between md:gap-y-0 lg:scale-80 xl:scale-100">

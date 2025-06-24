@@ -16,7 +16,10 @@ const CarouselFeature = () => {
   }, [file]);
 
   return (
-    <Box mt={200} className="relative mb-148 sm:mb-120 md:mb-88 lg:mb-auto lg:h-screen lg:scale-86 xl:scale-100">
+    <Box
+      mt={200}
+      className="relative mb-148 sm:mb-120 md:mb-88 lg:mb-auto lg:h-screen lg:scale-86 xl:scale-100"
+    >
       <Box
         maw={1800}
         mx={'auto'}
@@ -74,9 +77,9 @@ const CarouselFeature = () => {
                 ff={'var(--font-poppins)'}
                 className="!mt-32 text-start !text-base text-white capitalize lg:!mt-4 xl:!ml-8 2xl:!ml-0 2xl:!text-lg"
               >
-                Check how your Ad looks
+                Upload Your Ad Creative
               </Title>
-              <p className="font-inter my-4 text-start text-xs font-normal text-white xl:!ml-8 2xl:!ml-0 2xl:text-sm">
+              <p className="font-inter my-4 text-start text-xs font-normal text-white capitalize xl:!ml-8 2xl:!ml-0 2xl:text-sm">
                 upload your Advertise banner here to see exactly how its gonna
                 look in real time on our 3D vechile models
               </p>

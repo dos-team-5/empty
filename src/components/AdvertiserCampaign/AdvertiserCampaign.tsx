@@ -67,10 +67,10 @@ const AdvertiserCampaign = () => {
       <div className="lg:scale-80 xl:scale-100">
         <Swiper
           loop
-          autoplay={{
-            delay: 5000,
-            disableOnInteraction: false,
-          }}
+          // autoplay={{
+          //   delay: 5000,
+          //   disableOnInteraction: false,
+          // }}
           onSwiper={(swiper) => {
             swiperRef.current = swiper;
           }}
