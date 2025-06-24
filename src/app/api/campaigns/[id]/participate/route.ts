@@ -143,15 +143,53 @@ export async function POST(
       );
     }
 
-    // --- Participant & Attempt Logic ---
-    const participant = await db.query.spinnerParticipants.findFirst({
+    // --- Check for Existing Participant by Email ---
+    const participantByEmail = await db.query.spinnerParticipants.findFirst({
       where: and(
         eq(spinnerParticipants.campaignId, campaignId),
         eq(spinnerParticipants.email, email)
       ),
     });
 
+    // --- Check for Existing Participant by Phone (if provided) ---
+    let participantByPhone = null;
+    if (phone) {
+      participantByPhone = await db.query.spinnerParticipants.findFirst({
+        where: and(
+          eq(spinnerParticipants.campaignId, campaignId),
+          eq(spinnerParticipants.phone, phone)
+        ),
+      });
+    }
+
+    // If phone exists and is associated with a different email, block participation
+    if (participantByPhone && participantByPhone.email !== email) {
+      return NextResponse.json(
+        {
+          message:
+            'This phone number is already registered with a different email for this campaign.',
+        },
+        { status: 409 }
+      );
+    }
+
+    // If both email and phone match an existing participant, block participation
+    if (
+      participantByEmail &&
+      phone &&
+      participantByPhone &&
+      participantByEmail.email === email &&
+      participantByPhone.phone === phone
+    ) {
+      return NextResponse.json(
+        { message: 'Participant with this email and phone already exists.' },
+        { status: 409 }
+      );
+    }
+
+    // --- Participant & Attempt Logic ---
     const config = campaign.attemptConfiguration;
+    const participant = participantByEmail || participantByPhone;
 
     // New Participant
     if (!participant) {
@@ -207,7 +245,7 @@ export async function POST(
       totalAttempts: (participant?.totalAttempts || 0) + 1,
       periodAttempts: (participant?.periodAttempts || 0) + 1,
       periodStart: participant?.periodStart || now,
-      wonPrizes: participant?.wonPrizes || [], // Do not add a prize yet
+      wonPrizes: participant?.wonPrizes || [],
       lastAttemptAt: now,
     };
 
@@ -228,7 +266,6 @@ export async function POST(
       });
 
     // --- Success Response ---
-    // Return a success message indicating the user is now eligible to spin.
     return NextResponse.json(
       {
         success: true,
