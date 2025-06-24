@@ -16,7 +16,7 @@ const CarouselFeature = () => {
   }, [file]);
 
   return (
-    <Box className="relative mb-148 sm:mb-120 md:mb-90 lg:mb-auto lg:h-screen lg:scale-86 xl:scale-100">
+    <Box mt={200} className="relative mb-148 sm:mb-120 md:mb-88 lg:mb-auto lg:h-screen lg:scale-86 xl:scale-100">
       <Box
         maw={1800}
         mx={'auto'}

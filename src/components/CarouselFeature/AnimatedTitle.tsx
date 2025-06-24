@@ -14,7 +14,7 @@ const AnimatedTitle = () => {
         by="word"
         startOnView
         duration={0.5}
-        className="text-xl md:text-2xl xl:text-3xl"
+        className="text-2xl md:text-3xl 2xl:text-4xl"
         once
       >
         Billboards Don’t Move,
@@ -26,7 +26,7 @@ const AnimatedTitle = () => {
         startOnView
         duration={0.5}
         delay={1}
-        className="text-xl md:text-2xl xl:text-3xl"
+        className="text-2xl md:text-3xl 2xl:text-4xl"
         once
       >
         Your Customers Do.

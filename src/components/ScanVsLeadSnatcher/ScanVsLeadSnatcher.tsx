@@ -91,7 +91,8 @@ export default function ScanVsLeadSnatcher() {
 
   return (
     <Box
-      my={{ base: 80, xl: 60 }}
+      py={24}
+      mb={160}
       px={16}
       mx="auto"
       maw={{ lg: 900, xl: 1180 }}
