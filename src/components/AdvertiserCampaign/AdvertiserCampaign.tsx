@@ -67,10 +67,10 @@ const AdvertiserCampaign = () => {
       <div className="lg:scale-80 xl:scale-100">
         <Swiper
           loop
-          autoplay={{
-            delay: 5000,
-            disableOnInteraction: false,
-          }}
+          // autoplay={{
+          //   delay: 5000,
+          //   disableOnInteraction: false,
+          // }}
           onSwiper={(swiper) => {
             swiperRef.current = swiper;
           }}
@@ -134,23 +134,22 @@ const AdvertiserCampaign = () => {
             ))}
           </Box>
           <SimpleGrid cols={cols} spacing={0} mt={16}>
-          <Image
-            src="/advertiser-campaign/indicator.png"
-            alt="advertiser campaign"
-          />
-          <Image
-            hidden={isMobile}
-            src="/advertiser-campaign/indicator.png"
-            alt="advertiser campaign"
-          />
-          <Image
-            hidden={isMobile || tablet}
-            src="/advertiser-campaign/indicator.png"
-            alt="advertiser campaign"
-          />
-        </SimpleGrid>
+            <Image
+              src="/advertiser-campaign/indicator.png"
+              alt="advertiser campaign"
+            />
+            <Image
+              hidden={isMobile}
+              src="/advertiser-campaign/indicator.png"
+              alt="advertiser campaign"
+            />
+            <Image
+              hidden={isMobile || tablet}
+              src="/advertiser-campaign/indicator.png"
+              alt="advertiser campaign"
+            />
+          </SimpleGrid>
         </Swiper>
-        
       </div>
     </Box>
   );

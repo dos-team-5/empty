@@ -5,7 +5,7 @@ import { AnimatePresence, motion } from 'framer-motion';
 
 const features = [
   {
-    title: 'Bigger Reach, Smaller Cost',
+    title: 'Lowest CPM in OOH',
     description:
       'We offer record-breaking CPM with more hours of weekly exposure across the city. Traditional OOH can’t compete on value, scale, or flexibility.',
     animation: {
@@ -16,9 +16,9 @@ const features = [
       'top-[25%]  md:top-[25%] lg:top-[25%] xl:top-[25%] left-1/2 -translate-x-1/2 lg:left-1/4',
   },
   {
-    title: 'Trackable, Transparent, and Flexible',
+    title: 'Real time Campaign Dashboard',
     description:
-      'We provide live tracking and weekly analytics. You can adjust your fleet size or creative mid-campaign, giving you digital-level control in a physical space.',
+      'See your ads move all over the city in real-time. Get live analytics and AI Insights on what to change to for the best possible results. Change your fleet size, creative or create a new campaign in minutes.',
     animation: {
       initial: { opacity: 0 },
       whileInView: { opacity: 1 },
@@ -27,7 +27,7 @@ const features = [
       'top-[25%]  md:top-[25%] lg:top-[15%] xl:top-[15%] right-1/2 translate-x-1/2 lg:right-1/4',
   },
   {
-    title: 'Mobile Coverage & High Visibility',
+    title: 'City-wide Coverage, Unbeatable Price ',
     description:
       'Each vehicle gives you 40+ hours a week across commercial, residential, and high-traffic zones. We give you city-wide coverage at an unbeatable price. Our ads travel directly to where your customers are.',
     animation: {
@@ -38,9 +38,9 @@ const features = [
       'top-[25%]  md:top-[25%] lg:top-[35%] xl:top-[37%] 2xl:top-[45%] left-1/2 lg:left-1/8 -translate-x-1/2',
   },
   {
-    title: 'Attribution & Digital Retargetting',
+    title: 'Next Level Attribution',
     description:
-      'Scan&Spin brings real attribution to out-of-home. Know exactly who engaged with your ad, track future conversions, and retarget them online at a lower cost than digital CPCs.',
+      'Scan & Spin and Lead Snatcher provide lead information for retargeting, whether someone engaged with your brand via Scan & Spin or simply saw your ad while driving by. We’ve made it easy to identify who interacted with your brand.',
     animation: {
       initial: { opacity: 0 },
       whileInView: { opacity: 1 },

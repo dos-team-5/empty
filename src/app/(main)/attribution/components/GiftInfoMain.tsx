@@ -3,8 +3,38 @@ import { TextAnimate } from '@/components/TextAnimation';
 import { Box, Flex, Image, Stack, Text, Title } from '@mantine/core';
 
 import Link from 'next/link';
+import { useMemo } from 'react';
 
 const GiftInfoMain = () => {
+  const titleContent = useMemo(
+    () => (
+      <>
+        <TextAnimate
+          animation="blurInUp"
+          by="word"
+          startOnView
+          duration={0.5}
+          className="text-[24px] md:text-[32px]"
+          once
+        >
+          Know Exactly Who's Engaging
+        </TextAnimate>
+        <TextAnimate
+          animation="blurInUp"
+          by="word"
+          startOnView
+          duration={0.5}
+          className="text-[24px] md:text-[32px]"
+          delay={0.5}
+          once
+        >
+          with Your OOH Campaign
+        </TextAnimate>
+      </>
+    ),
+    []
+  );
+
   return (
     <Flex
       justify="space-between"
@@ -18,27 +48,22 @@ const GiftInfoMain = () => {
       {/* left section */}
       <Stack w={{ base: '100%', sm: '50%' }} gap={30}>
         <Title
+          order={1}
+          fw={700}
+          c="#333333"
           ff={'var(--font-poppins)'}
-          fw={600}
-          fz={{ base: 22, sm: 30, md: 40 }}
+          className="capitalize"
         >
-          <TextAnimate
-            animation="blurInUp"
-            by="word"
-            startOnView
-            duration={0.5}
-            once
-          >
-            Want More Than Just Impressions?
-          </TextAnimate>
+          {titleContent}
         </Title>
         <Text fz={{ base: 12, sm: 13, md: 14 }} ff={'var(--font-inter)'}>
-          Scan & Spin is our QR-powered add-on that lets people scan your ad,
-          spin a digital wheel, and have a chance to win prizes, discounts, or
-          free items related to your brand. It turns your mobile ad into an
-          exciting and interactive experience, driving real-world engagement,
-          retargetable warm leads, and online virality that makes your brand the
-          one people remember
+          Scan & Spin is a QR-powered tool that tracks real-time engagement with
+          your out-of-home ads. By offering instant, interactive rewards, it
+          provides clear insights into who’s interacting with your brand and how
+          those interactions drive real-world conversions. No other OOH solution
+          offers this level of precision and ROI tracking. Each user's
+          information is collected, enabling you to retarget them with pinpoint
+          accuracy.
         </Text>
         <Link href={'/contact'}>
           {' '}

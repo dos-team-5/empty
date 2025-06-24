@@ -51,10 +51,11 @@ const FeatureCarousel = () => {
     <div className="relative">
       <Swiper
         loop
-        autoplay={{
-          delay: 5000,
-          disableOnInteraction: false,
-        }}
+        // loop
+        // autoplay={{
+        //   delay: 5000,
+        //   disableOnInteraction: false,
+        // }}
         modules={[Autoplay, Pagination]}
         pagination={{
           clickable: true,
@@ -63,7 +64,7 @@ const FeatureCarousel = () => {
         onSwiper={(swiper) => {
           swiperRef.current = swiper;
         }}
-        className="feature-slider !mx-0 mt-4 lg:mt-16 max-w-80"
+        className="feature-slider !mx-0 mt-4 max-w-80 lg:mt-16"
       >
         <>
           {features.map((feature) => (
@@ -76,7 +77,7 @@ const FeatureCarousel = () => {
               >
                 {feature.title}
               </Title>
-              <p className="my-8 text-start text-xs font-normal font-inter">
+              <p className="font-inter my-8 text-start text-xs font-normal">
                 {feature.content}
               </p>
             </SwiperSlide>
