@@ -34,6 +34,7 @@
     "@stripe/stripe-js": "^7.2.0",
     "@tabler/icons-react": "^3.31.0",
     "@types/three": "^0.177.0",
+    "@vercel/og": "^0.6.8",
     "adblock-detector": "^2.1.0",
     "bcryptjs": "^3.0.2",
     "browser-image-compression": "^2.0.2",

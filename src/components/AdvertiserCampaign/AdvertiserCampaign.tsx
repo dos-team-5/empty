@@ -121,10 +121,12 @@ const AdvertiserCampaign = () => {
           alt="advertiser campaign"
         />
         <Image
+          hidden={isMobile}
           src="/advertiser-campaign/indicator.png"
           alt="advertiser campaign"
         />
         <Image
+          hidden={isMobile || tablet}
           src="/advertiser-campaign/indicator.png"
           alt="advertiser campaign"
         />
