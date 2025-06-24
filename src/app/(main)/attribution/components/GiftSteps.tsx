@@ -2,11 +2,66 @@ import { TextAnimate } from '@/components/TextAnimation';
 import { Stack, Title } from '@mantine/core';
 import HowSpinWorks from './HowSpinWorks';
 
+const lines = [
+  {
+    text: "Scan & Spin delivers the kind of engagement you'd get if you hired dozens of people",
+  },
+  {
+    text: 'to hand out coupons across the city. But instead of guessing who took one, ',
+  },
+  {
+    text: 'each person is tracked individually and can be retargeted again and again.',
+  },
+];
+
 const GiftSteps = () => {
   return (
-    <Stack maw={1200} mx="auto" mt={{ base: 80, sm: 180 }} mb={{ base: 80 }}>
+    <Stack maw={1200} mx="auto" mt={{ base: 80 }} mb={{ base: 80 }}>
       {/* title */}
-      <Title ta="center" fz={{ base: 25, sm: 35 }} fw={600} pb={30}>
+      <Title
+        order={2}
+        fw={400}
+        c={'var(--color-primary)'}
+        ff={'var(--font-inter)'}
+        className="capitalize"
+        pt={0}
+        ta={'center'}
+      >
+        <TextAnimate
+          animation="blurIn"
+          by="word"
+          startOnView
+          duration={0.5}
+          delay={1}
+          once
+          className="text-[16px] 2xl:text-[28px]"
+        >
+          {lines[0].text}
+        </TextAnimate>
+        <TextAnimate
+          animation="blurIn"
+          by="word"
+          startOnView
+          duration={0.5}
+          delay={2.0}
+          once
+          className="text-[16px] 2xl:text-[28px]"
+        >
+          {lines[1].text}
+        </TextAnimate>
+        <TextAnimate
+          animation="blurIn"
+          by="word"
+          startOnView
+          duration={0.5}
+          delay={3.0}
+          once
+          className="text-[16px] 2xl:text-[28px]"
+        >
+          {lines[2].text}
+        </TextAnimate>
+      </Title>
+      <Title mt={100} ta="center" fz={{ base: 25, sm: 35 }} fw={600} pb={30}>
         <TextAnimate
           animation="blurInUp"
           by="word"
@@ -29,6 +84,7 @@ const GiftSteps = () => {
       </Text> */}
       {/* svg image */}
       {/* <Image src="/giftDetails/giftSteps.svg" /> */}
+
       <div
         // initial={{ opacity: 0, scale: 0.3 }}
         // whileInView={{ opacity: 1, scale: 1 }}
