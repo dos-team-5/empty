@@ -65,11 +65,11 @@ const CarouselFeature = () => {
                 order={2}
                 fw={700}
                 ff={'var(--font-poppins)'}
-                className="!mt-48 text-start !text-base text-white capitalize lg:!mt-4 xl:!ml-8"
+                className="!mt-48 text-start !text-base text-white capitalize lg:!mt-4 xl:!ml-8 2xl:!ml-0"
               >
                 Check how your Ad looks
               </Title>
-              <p className="font-inter my-4 text-start text-xs font-normal text-white xl:!ml-8">
+              <p className="font-inter my-4 text-start text-xs font-normal text-white xl:!ml-8 2xl:!ml-0">
                 upload your Advertise banner here to see exactly how its gonna
                 look in real time on our 3D vechile models
               </p>
@@ -81,7 +81,7 @@ const CarouselFeature = () => {
                     radius={6}
                     fullWidth
                     leftSection={<IconUpload size={14} />}
-                    className="!font-semibold !text-[#FF83D5] xl:!ml-8"
+                    className="!font-semibold !text-[#FF83D5] xl:!ml-8 2xl:!ml-0"
                   >
                     Upload Ad
                   </Button>
