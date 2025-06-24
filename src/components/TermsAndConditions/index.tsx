@@ -1,7 +1,12 @@
 export default function TermsAndConditions() {
   return (
     <div className="mt-16 min-h-screen bg-white select-none">
-      <div className="mx-auto mb-20 max-w-4xl px-6 py-12 shadow-lg">
+      <div
+        style={{
+          backgroundImage: "url('/EMPTY-watermark.png')",
+        }}
+        className="mx-auto mb-20 max-w-4xl px-6 py-12 shadow-lg"
+      >
         {/* Header */}
         <div className="mb-12 text-center">
           <h1 className="mb-4 text-3xl font-bold text-gray-900">
