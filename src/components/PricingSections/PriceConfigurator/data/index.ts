@@ -45,8 +45,7 @@ export const ADDONS: AddonConfig[] = [
     availableFor: ['basic', 'premium'],
     samePrice: true,
     pricing: {
-      'spin & scan':
-        '$0.50 per device collected through Lead Snatcher - (Scan & Spin)',
+      'spin & scan': '0.50 per device collected through Scan & Spin.',
       // 'geo fencing':
       //   '$0.01 per device collected through Device ID PassBack - (Geofencing)',
     },
@@ -58,7 +57,7 @@ export const ADDONS: AddonConfig[] = [
       'Email capture',
       {
         pricing: [
-          ' $0.50 per device collected through Lead Snatcher - (Scan & Spin).',
+          '0.50 per device collected through Scan & Spin.',
           // '$0.01 per device collected through Device ID PassBack - (Geofencing).',
         ],
       },
@@ -74,7 +73,7 @@ export const ADDONS: AddonConfig[] = [
       // 'spin & scan':
       //   '$0.50 per device collected through Device ID PassBack - (Scan & Spin)',
       'geo fencing':
-        '$0.01 per device collected through Lead Snatcher - (Geofencing)',
+        '0.01 per device collected through Lead Snatcher - (Geofencing)',
     },
     features: [
       'Personal device information collected via WiFi and Bluetooth proximity',
@@ -85,7 +84,7 @@ export const ADDONS: AddonConfig[] = [
       {
         pricing: [
           // ' $0.50 per device collected through Device ID PassBack - (Scan & Spin).',
-          '$0.01 per device collected through Lead Snatcher - (Geofencing).',
+          '0.01 per device collected through Lead Snatcher - (Geofencing).',
         ],
       },
     ],
