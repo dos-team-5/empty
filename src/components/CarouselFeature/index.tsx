@@ -23,7 +23,7 @@ const CarouselFeature = () => {
         className="flex justify-center px-4 sm:px-8 md:px-16 lg:px-20 xl:px-24 2xl:px-32 2xl:py-16"
         mt={180}
       >
-        <div className="relative flex h-[88vh] w-full flex-col items-center justify-start rounded-[40px] bg-[#FFD0EF] lg:flex-row lg:items-start lg:justify-between xl:h-[78vh] xl:w-[90%]">
+        <div className="relative flex h-[88vh] w-full flex-col items-center justify-start rounded-[40px] bg-[#FFD0EF] md:w-[78%] lg:w-full lg:flex-row lg:items-start lg:justify-between xl:h-[78vh] xl:w-[80%] 2xl:w-[80%]">
           {/* Title and Carousel */}
           <div className="flex w-full items-start justify-center p-6 md:p-8 lg:w-1/2 lg:justify-start xl:p-10">
             <div className="">
@@ -56,9 +56,10 @@ const CarouselFeature = () => {
               viewBox="0 0 349 769"
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
-              className="md absolute -top-12 z-0 block w-full scale-x-116 sm:scale-x-196 md:scale-x-210 lg:hidden"
+              className="md absolute -top-12 z-0 block w-auto scale-x-116 sm:scale-x-196 md:scale-x-170 md:scale-y-110 lg:hidden"
             >
               <path
+                className=""
                 fillRule="evenodd"
                 clipRule="evenodd"
                 d="M214.867 8.77645C218.809 5.52534 220.78 3.89978 222.987 2.743C224.944 1.7168 227.035 0.965995 229.198 0.511888C231.637 0 234.191 0 239.301 0L310.6 0C324.041 0 330.762 0 335.896 2.61584C340.412 4.9168 344.083 8.58834 346.384 13.1042C349 18.2381 349 24.9587 349 38.4V730.6C349 744.041 349 750.762 346.384 755.896C344.083 760.412 340.412 764.083 335.896 766.384C330.762 769 324.041 769 310.6 769H38.4C24.9587 769 18.2381 769 13.1042 766.384C8.58834 764.083 4.9168 760.412 2.61584 755.896C0 750.762 0 744.041 0 730.6V204.104C0 197.451 0 194.124 0.833596 191.045C1.57216 188.316 2.787 185.739 4.42209 183.433C6.26757 180.83 8.83382 178.714 13.9663 174.48L214.867 8.77645Z"
@@ -66,16 +67,16 @@ const CarouselFeature = () => {
               />
             </svg>
             {/* Content on top of SVG */}
-            <div className="relative z-20 mx-auto h-screen max-w-xs lg:mx-0 lg:h-auto xl:!mr-12">
+            <div className="2xl relative z-20 mx-auto h-screen max-w-xs lg:mx-0 lg:!mr-12 lg:h-auto lg:max-w-3xs xl:!mr-8 xl:max-w-xs 2xl:!mr-16">
               <Title
                 order={2}
                 fw={700}
                 ff={'var(--font-poppins)'}
-                className="!mt-48 text-start !text-base text-white capitalize lg:!mt-4 xl:!ml-8 2xl:!ml-0"
+                className="!mt-32 text-start !text-base text-white capitalize lg:!mt-4 xl:!ml-8 2xl:!ml-0 2xl:!text-lg"
               >
                 Check how your Ad looks
               </Title>
-              <p className="font-inter my-4 text-start text-xs font-normal text-white xl:!ml-8 2xl:!ml-0">
+              <p className="font-inter my-4 text-start text-xs font-normal text-white xl:!ml-8 2xl:!ml-0 2xl:text-sm">
                 upload your Advertise banner here to see exactly how its gonna
                 look in real time on our 3D vechile models
               </p>
