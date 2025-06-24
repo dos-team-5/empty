@@ -1,13 +1,19 @@
 'use client';
-import { Box, Button, FileButton, Title } from '@mantine/core';
+import { Box, Button, FileInput, Title } from '@mantine/core';
 import AnimatedTitle from './AnimatedTitle';
 import FeatureCarousel from './FeatureCarousel';
 import { IconUpload } from '@tabler/icons-react';
 import Canvas3D from './Canvas3D';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 const CarouselFeature = () => {
   const [file, setFile] = useState<File | null>(null);
+  const [applyImage, setApplyImage] = useState(false);
+
+  // Reset applyImage when file changes
+  useEffect(() => {
+    setApplyImage(false);
+  }, [file]);
 
   return (
     <Box className="relative mb-148 sm:mb-120 md:mb-90 lg:mb-auto lg:h-screen lg:scale-86 xl:scale-100">
@@ -73,22 +79,31 @@ const CarouselFeature = () => {
                 upload your Advertise banner here to see exactly how its gonna
                 look in real time on our 3D vechile models
               </p>
-              <FileButton onChange={setFile} accept="image/png,image/jpeg">
-                {(props) => (
-                  <Button
-                    {...props}
-                    variant="white"
-                    radius={6}
-                    fullWidth
-                    leftSection={<IconUpload size={14} />}
-                    className="!font-semibold !text-[#FF83D5] xl:!ml-8 2xl:!ml-0"
-                  >
-                    Upload Ad
-                  </Button>
-                )}
-              </FileButton>
-              {/* Canvas */}
-              <Canvas3D file={file} />
+              <div className="flex flex-wrap items-center gap-2 xl:!ml-8 2xl:!ml-0">
+                <FileInput
+                  radius={6}
+                  value={file}
+                  onChange={setFile}
+                  variant="filled"
+                  placeholder={
+                    <div className="flex items-center gap-2 text-black">
+                      <IconUpload size={14} />
+                      Upload Ad
+                    </div>
+                  }
+                  accept="image/png,image/jpeg"
+                />
+                <Button
+                  disabled={!file}
+                  variant="white"
+                  radius={6}
+                  className="!font-semibold"
+                  onClick={() => setApplyImage(true)}
+                >
+                  Apply Ad
+                </Button>
+              </div>
+              <Canvas3D file={file} applyImage={applyImage} />
             </div>
           </div>
         </div>
