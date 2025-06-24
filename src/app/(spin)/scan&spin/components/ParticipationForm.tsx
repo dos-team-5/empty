@@ -105,7 +105,7 @@ export default function ParticipationForm({
           label={
             <Text fz={12}>
               I agree to receive email updates and promotional offers from
-              <span className="!text-primary ml-2">
+              <span className="!text-primary ml-1">
                 {campaign?.companyName ?? ''}
               </span>
               .
