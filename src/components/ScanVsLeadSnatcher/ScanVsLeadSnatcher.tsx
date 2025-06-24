@@ -178,7 +178,7 @@ export default function ScanVsLeadSnatcher() {
                   setCurrentSlide((prev) =>
                     prev === 0 ? slides.length - 1 : prev - 1
                   );
-                }, 500); // 500ms delay
+                }, 1500); // 500ms delay
               }}
               aria-label="Previous slide"
             >
@@ -194,7 +194,7 @@ export default function ScanVsLeadSnatcher() {
                   setCurrentSlide((prev) =>
                     prev === slides.length - 1 ? 0 : prev + 1
                   );
-                }, 500); // 500ms delay
+                }, 1500); // 500ms delay
               }}
               aria-label="Next slide"
             >

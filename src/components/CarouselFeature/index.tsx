@@ -1,10 +1,21 @@
 'use client';
-import { Box, Button, FileInput, Title } from '@mantine/core';
+import {
+  ActionIcon,
+  Box,
+  Button,
+  FileInput,
+  Flex,
+  Paper,
+  Stack,
+  Title,
+  Menu,
+} from '@mantine/core';
 import AnimatedTitle from './AnimatedTitle';
 import FeatureCarousel from './FeatureCarousel';
 import { IconUpload } from '@tabler/icons-react';
 import Canvas3D from './Canvas3D';
 import { useState, useEffect } from 'react';
+import { Icon } from '@iconify/react/dist/iconify.js';
 
 const CarouselFeature = () => {
   const [file, setFile] = useState<File | null>(null);
@@ -71,14 +82,33 @@ const CarouselFeature = () => {
             </svg>
             {/* Content on top of SVG */}
             <div className="2xl relative z-20 mx-auto h-screen max-w-xs lg:mx-0 lg:!mr-12 lg:h-auto lg:max-w-3xs xl:!mr-8 xl:max-w-xs 2xl:!mr-16">
-              <Title
-                order={2}
-                fw={700}
-                ff={'var(--font-poppins)'}
-                className="!mt-32 text-start !text-base text-white capitalize lg:!mt-4 xl:!ml-8 2xl:!ml-0 2xl:!text-lg"
-              >
-                Upload Your Ad Creative
-              </Title>
+              <Flex pos={'relative'} align={'center'}>
+                <Title
+                  order={2}
+                  fw={700}
+                  ff={'var(--font-poppins)'}
+                  className="!mt-32 text-start !text-base text-white capitalize lg:!mt-4 xl:!ml-8 2xl:!ml-0 2xl:!text-lg"
+                >
+                  Upload Your Ad Creative
+                </Title>
+                <Menu width={300} position="bottom-end">
+                  <Menu.Target>
+                    <ActionIcon mt={13} ml={3} variant="subtle" size="sm">
+                      <Icon icon="ix:question-filled" />
+                    </ActionIcon>
+                  </Menu.Target>
+                  <Menu.Dropdown>
+                    <Paper p="md" radius="md" withBorder>
+                      <Stack gap="md">
+                        <Title fz={16} order={3}>
+                          Ads are minimum 2.25 x 1.5 feet, larger when door size
+                          allows
+                        </Title>
+                      </Stack>
+                    </Paper>
+                  </Menu.Dropdown>
+                </Menu>
+              </Flex>
               <p className="font-inter my-4 text-start text-xs font-normal text-white capitalize xl:!ml-8 2xl:!ml-0 2xl:text-sm">
                 upload your Advertise banner here to see exactly how its gonna
                 look in real time on our 3D vechile models
