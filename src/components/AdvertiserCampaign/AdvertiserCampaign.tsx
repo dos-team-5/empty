@@ -134,23 +134,22 @@ const AdvertiserCampaign = () => {
             ))}
           </Box>
           <SimpleGrid cols={cols} spacing={0} mt={16}>
-          <Image
-            src="/advertiser-campaign/indicator.png"
-            alt="advertiser campaign"
-          />
-          <Image
-            hidden={isMobile}
-            src="/advertiser-campaign/indicator.png"
-            alt="advertiser campaign"
-          />
-          <Image
-            hidden={isMobile || tablet}
-            src="/advertiser-campaign/indicator.png"
-            alt="advertiser campaign"
-          />
-        </SimpleGrid>
+            <Image
+              src="/advertiser-campaign/indicator.png"
+              alt="advertiser campaign"
+            />
+            <Image
+              hidden={isMobile}
+              src="/advertiser-campaign/indicator.png"
+              alt="advertiser campaign"
+            />
+            <Image
+              hidden={isMobile || tablet}
+              src="/advertiser-campaign/indicator.png"
+              alt="advertiser campaign"
+            />
+          </SimpleGrid>
         </Swiper>
-        
       </div>
     </Box>
   );

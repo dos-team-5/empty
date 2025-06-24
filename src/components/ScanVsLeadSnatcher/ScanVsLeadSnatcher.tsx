@@ -90,13 +90,7 @@ export default function ScanVsLeadSnatcher() {
   const slide = slides[currentSlide];
 
   return (
-    <Box
-      py={24}
-      mb={160}
-      px={16}
-      mx="auto"
-      maw={{ lg: 900, xl: 1180 }}
-    >
+    <Box py={24} mb={160} px={16} mx="auto" maw={{ lg: 900, xl: 1180 }}>
       {/* Header */}
       <Group justify="center">
         <TitleSection />
@@ -179,11 +173,13 @@ export default function ScanVsLeadSnatcher() {
               w={{ base: 36, md: 40, lg: 49 }}
               h={{ base: 36, md: 40, lg: 49 }}
               radius="xl"
-              onClick={() =>
-                setCurrentSlide((prev) =>
-                  prev === 0 ? slides.length - 1 : prev - 1
-                )
-              }
+              onClick={() => {
+                setTimeout(() => {
+                  setCurrentSlide((prev) =>
+                    prev === 0 ? slides.length - 1 : prev - 1
+                  );
+                }, 500); // 500ms delay
+              }}
               aria-label="Previous slide"
             >
               <Icon icon="mingcute:arrow-left-line" width={24} />
@@ -193,11 +189,13 @@ export default function ScanVsLeadSnatcher() {
               w={{ base: 36, md: 40, lg: 49 }}
               h={{ base: 36, md: 40, lg: 49 }}
               radius="xl"
-              onClick={() =>
-                setCurrentSlide((prev) =>
-                  prev === slides.length - 1 ? 0 : prev + 1
-                )
-              }
+              onClick={() => {
+                setTimeout(() => {
+                  setCurrentSlide((prev) =>
+                    prev === slides.length - 1 ? 0 : prev + 1
+                  );
+                }, 500); // 500ms delay
+              }}
               aria-label="Next slide"
             >
               <Icon icon="mingcute:arrow-right-line" width={24} />
