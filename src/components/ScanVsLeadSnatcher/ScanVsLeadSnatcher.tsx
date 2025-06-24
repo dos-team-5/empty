@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState /*, useEffect */ } from 'react';
+import { memo, useEffect, useState /*, useEffect */ } from 'react';
 import { Smartphone, Users } from 'lucide-react';
 import {
   Box,
@@ -14,6 +14,7 @@ import {
 } from '@mantine/core';
 import type React from 'react';
 import { Icon } from '@iconify/react';
+import { TextAnimate } from '../TextAnimation';
 
 interface CarouselSlide {
   id: string;
@@ -48,6 +49,31 @@ const slides: CarouselSlide[] = [
   },
 ];
 
+const TitleSection = memo(() => (
+  <div className="rounded-3xl">
+    <Title
+      order={1}
+      fw={700}
+      c="#000000"
+      ff={'var(--font-poppins)'}
+      className="text-center capitalize"
+    >
+      <TextAnimate
+        animation="blurInUp"
+        by="word"
+        startOnView
+        duration={0.5}
+        className="md:text-[52px] lg:text-[48px] xl:text-[48px] 2xl:text-[64px]"
+        once
+      >
+        Scan & Spin vs Lead Snatcher
+      </TextAnimate>
+    </Title>
+  </div>
+));
+
+TitleSection.displayName = 'TitleSection';
+
 export default function ScanVsLeadSnatcher() {
   const [currentSlide, setCurrentSlide] = useState(0);
 
@@ -72,11 +98,9 @@ export default function ScanVsLeadSnatcher() {
     >
       {/* Header */}
       <Group justify="center">
-        <Title className="text-center" fz={{ base: 28, xl: 64 }} order={1}>
-          Scan & Spin vs Lead Snatcher
-        </Title>
+        <TitleSection />
         <Text
-          mt={{ base: 12 }}
+          mt={{ base: 4 }}
           mb={{ base: 12, md: 20, xl: 55 }}
           ta="center"
           fz={{ base: 14, md: 20, xl: 22 }}
@@ -102,9 +126,16 @@ export default function ScanVsLeadSnatcher() {
           w={300}
           h={{ base: 8, md: 12 }}
           bg="#E0E0E0"
-          className="overflow-hidden rounded-full"
+          className="cursor-pointer overflow-hidden rounded-full"
           pos="relative"
           style={{ display: 'flex' }}
+          onClick={() => {
+            if (currentSlide === 0) {
+              setCurrentSlide(1);
+            } else {
+              setCurrentSlide(0);
+            }
+          }}
         >
           <Box
             w="50%"
