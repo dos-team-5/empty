@@ -42,7 +42,7 @@ export function CarModel({
   const groupRef = useRef<THREE.Group>(null);
 
   // Fallback texture for default view
-  const fallbackTexture = useTexture('/textures/decalImg.png');
+  const fallbackTexture = useTexture('/textures/Upload-Your-Ad.png');
 
   const [customTexture, setCustomTexture] = useState<THREE.Texture | null>(
     null
