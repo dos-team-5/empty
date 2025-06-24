@@ -1,38 +1,46 @@
 'use client';
-import { Box, Button, FileButton, Title } from '@mantine/core';
+import { Box, Button, FileInput, Title } from '@mantine/core';
 import AnimatedTitle from './AnimatedTitle';
 import FeatureCarousel from './FeatureCarousel';
 import { IconUpload } from '@tabler/icons-react';
 import Canvas3D from './Canvas3D';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 const CarouselFeature = () => {
   const [file, setFile] = useState<File | null>(null);
+  const [applyImage, setApplyImage] = useState(false);
+
+  // Reset applyImage when file changes
+  useEffect(() => {
+    setApplyImage(false);
+  }, [file]);
 
   return (
-    <Box className="relative h-screen lg:scale-86 xl:scale-100">
+    <Box className="relative mb-148 sm:mb-120 md:mb-90 lg:mb-auto lg:h-screen lg:scale-86 xl:scale-100">
       <Box
         maw={1800}
         mx={'auto'}
         className="flex justify-center px-4 sm:px-8 md:px-16 lg:px-20 xl:px-24 2xl:px-32 2xl:py-16"
         mt={180}
       >
-        <div className="relative flex h-[88vh] w-full flex-col items-start justify-between rounded-[40px] bg-[#FFD0EF] lg:flex-row xl:h-[78vh] xl:w-[90%]">
+        <div className="relative flex h-[88vh] w-full flex-col items-center justify-start rounded-[40px] bg-[#FFD0EF] lg:flex-row lg:items-start lg:justify-between xl:h-[78vh] xl:w-[90%]">
           {/* Title and Carousel */}
-          <div className="w-full p-6 md:p-8 lg:w-1/2 xl:p-10">
-            <AnimatedTitle />
-            <FeatureCarousel />
+          <div className="flex w-full items-start justify-center p-6 md:p-8 lg:w-1/2 lg:justify-start xl:p-10">
+            <div className="">
+              <AnimatedTitle />
+              <FeatureCarousel />
+            </div>
           </div>
           {/* Upload and Canvas */}
-          <div className="relative flex h-full w-full items-start justify-end lg:w-1/2">
-            {/* SVG Shape */}
+          <div className="relative flex h-full w-full items-start justify-center lg:w-1/2 lg:justify-end">
+            {/* SVG Shape for lg and above */}
             <svg
               width="974"
               height="1043"
               viewBox="0 0 974 1043"
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
-              className="absolute -top-2 -right-2 z-0 h-full w-auto origin-right scale-100 lg:scale-115 xl:-right-4"
+              className="absolute -top-2 -right-2 z-0 hidden h-full w-auto origin-right scale-100 lg:block lg:scale-115 xl:-right-4"
             >
               <path
                 fillRule="evenodd"
@@ -41,36 +49,61 @@ const CarouselFeature = () => {
                 fill="#D381B5"
               />
             </svg>
+            {/* SVG Shape for below lg */}
+            <svg
+              width="349"
+              height="769"
+              viewBox="0 0 349 769"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+              className="md absolute -top-12 z-0 block w-full scale-x-116 sm:scale-x-196 md:scale-x-210 lg:hidden"
+            >
+              <path
+                fillRule="evenodd"
+                clipRule="evenodd"
+                d="M214.867 8.77645C218.809 5.52534 220.78 3.89978 222.987 2.743C224.944 1.7168 227.035 0.965995 229.198 0.511888C231.637 0 234.191 0 239.301 0L310.6 0C324.041 0 330.762 0 335.896 2.61584C340.412 4.9168 344.083 8.58834 346.384 13.1042C349 18.2381 349 24.9587 349 38.4V730.6C349 744.041 349 750.762 346.384 755.896C344.083 760.412 340.412 764.083 335.896 766.384C330.762 769 324.041 769 310.6 769H38.4C24.9587 769 18.2381 769 13.1042 766.384C8.58834 764.083 4.9168 760.412 2.61584 755.896C0 750.762 0 744.041 0 730.6V204.104C0 197.451 0 194.124 0.833596 191.045C1.57216 188.316 2.787 185.739 4.42209 183.433C6.26757 180.83 8.83382 178.714 13.9663 174.48L214.867 8.77645Z"
+                fill="#D381B5"
+              />
+            </svg>
             {/* Content on top of SVG */}
-            <div className="relative z-20 max-w-xs xl:!mr-12">
+            <div className="relative z-20 mx-auto h-screen max-w-xs lg:mx-0 lg:h-auto xl:!mr-12">
               <Title
                 order={2}
                 fw={700}
                 ff={'var(--font-poppins)'}
-                className="!mt-4 text-start !text-base text-white capitalize"
+                className="!mt-48 text-start !text-base text-white capitalize lg:!mt-4 xl:!ml-8 2xl:!ml-0"
               >
                 Check how your Ad looks
               </Title>
-              <p className="font-inter my-4 text-start text-xs font-normal text-white">
+              <p className="font-inter my-4 text-start text-xs font-normal text-white xl:!ml-8 2xl:!ml-0">
                 upload your Advertise banner here to see exactly how its gonna
                 look in real time on our 3D vechile models
               </p>
-              <FileButton onChange={setFile} accept="image/png,image/jpeg">
-                {(props) => (
-                  <Button
-                    {...props}
-                    variant="white"
-                    radius={6}
-                    fullWidth
-                    leftSection={<IconUpload size={14} />}
-                    className="!font-semibold !text-[#FF83D5]"
-                  >
-                    Upload Ad
-                  </Button>
-                )}
-              </FileButton>
-              {/* Canvas */}
-              <Canvas3D file={file} />
+              <div className="flex flex-wrap items-center gap-2 xl:!ml-8 2xl:!ml-0">
+                <FileInput
+                  radius={6}
+                  value={file}
+                  onChange={setFile}
+                  variant="filled"
+                  placeholder={
+                    <div className="flex items-center gap-2 text-black">
+                      <IconUpload size={14} />
+                      Upload Ad
+                    </div>
+                  }
+                  accept="image/png,image/jpeg"
+                />
+                <Button
+                  disabled={!file}
+                  variant="white"
+                  radius={6}
+                  className="!font-semibold"
+                  onClick={() => setApplyImage(true)}
+                >
+                  Apply Ad
+                </Button>
+              </div>
+              <Canvas3D file={file} applyImage={applyImage} />
             </div>
           </div>
         </div>

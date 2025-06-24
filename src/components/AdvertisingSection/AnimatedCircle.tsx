@@ -3,9 +3,6 @@ import { useState } from 'react';
 import { Icon } from '../FileManager/lib/Icon';
 import { AnimatePresence, motion } from 'framer-motion';
 
-const isTouchDevice = () =>
-  'ontouchstart' in window || navigator.maxTouchPoints > 0;
-
 const features = [
   {
     title: 'Bigger Reach, Smaller Cost',
@@ -54,7 +51,7 @@ const features = [
 ];
 
 const AnimatedCircle = () => {
-  const [visibleCard, setVisibleCard] = useState<null | number>(1);
+  const [visibleCard, setVisibleCard] = useState<null | number>(0);
 
   const handleShowCard = (index: number) => {
     setVisibleCard(index);
@@ -64,13 +61,8 @@ const AnimatedCircle = () => {
     setVisibleCard(null);
   };
 
-  const handleTouch = (index: number, e: any) => {
-    e.preventDefault();
-    setVisibleCard(visibleCard === index ? null : index);
-  };
-
   return (
-    <div>
+    <div className="select-none">
       <svg
         width="1635"
         height="1635"
@@ -90,21 +82,25 @@ const AnimatedCircle = () => {
             d="M1539.37 595.158C1490.37 440.812 1392.92 306.374 1261.48 211.791C1130.03 117.207 971.598 67.518 809.682 70.0954C647.766 72.6729 490.994 127.38 362.627 226.099C234.26 324.818 141.137 462.29 97.0762 618.117L830.076 759L1539.37 595.158Z"
             fill="url(#paint0_linear_664_644)"
           />
-          <path
+          {/* <path
+          className='scale-115 origin-center'
             d="M1230.08 271H404.076V683H1230.08V271Z"
             fill="url(#pattern1_664_644)"
-          />
+          /> */}
           <g
             name="icon1"
             className="group relative cursor-pointer p-2"
-            onMouseEnter={
-              !isTouchDevice() ? () => handleShowCard(2) : undefined
+            onClick={
+              visibleCard === 2
+                ? () => handleHideCard()
+                : () => {
+                    handleHideCard();
+                    handleShowCard(2);
+                  }
             }
-            onMouseLeave={!isTouchDevice() ? handleHideCard : undefined}
-            onTouchStart={(e) => handleTouch(2, e)}
           >
             <path
-              className={` ${visibleCard === 2 ? 'fill-primary' : 'fill-[#9377C7]'} transition-all duration-300`}
+              className={`group-hover:fill-primary ${visibleCard === 2 ? 'fill-primary' : 'fill-[#9377C7]'} transition-all duration-300`}
               name="icon1Bg"
               d="M162 415C162 392.909 144.091 375 122 375C99.9086 375 82 392.909 82 415C82 437.091 99.9086 455 122 455C144.091 455 162 437.091 162 415Z"
             />
@@ -136,14 +132,17 @@ const AnimatedCircle = () => {
           <g
             name="icon2"
             className="group relative cursor-pointer p-2"
-            onMouseEnter={
-              !isTouchDevice() ? () => handleShowCard(0) : undefined
+            onClick={
+              visibleCard === 0
+                ? () => handleHideCard()
+                : () => {
+                    handleHideCard();
+                    handleShowCard(0);
+                  }
             }
-            onMouseLeave={!isTouchDevice() ? handleHideCard : undefined}
-            onTouchStart={(e) => handleTouch(0, e)}
           >
             <path
-              className={` ${visibleCard === 0 ? 'fill-primary' : 'fill-[#9377C7]'} transition-all duration-300`}
+              className={`group-hover:fill-primary ${visibleCard === 0 ? 'fill-primary' : 'fill-[#9377C7]'} transition-all duration-300`}
               d="M526 92C526 69.9086 508.091 52 486 52C463.909 52 446 69.9086 446 92C446 114.091 463.909 132 486 132C508.091 132 526 114.091 526 92Z"
             />
             <mask
@@ -184,14 +183,17 @@ const AnimatedCircle = () => {
           <g
             name="icon3"
             className="group relative cursor-pointer p-2"
-            onMouseEnter={
-              !isTouchDevice() ? () => handleShowCard(1) : undefined
+            onClick={
+              visibleCard === 1
+                ? () => handleHideCard()
+                : () => {
+                    handleHideCard();
+                    handleShowCard(1);
+                  }
             }
-            onMouseLeave={!isTouchDevice() ? handleHideCard : undefined}
-            onTouchStart={(e) => handleTouch(1, e)}
           >
             <path
-              className={` ${visibleCard === 1 ? 'fill-primary' : 'fill-[#9377C7]'} transition-all duration-300`}
+              className={`group-hover:fill-primary ${visibleCard === 1 ? 'fill-primary' : 'fill-[#9377C7]'} transition-all duration-300`}
               d="M1208.08 92C1208.08 69.9086 1190.17 52 1168.08 52C1145.99 52 1128.08 69.9086 1128.08 92C1128.08 114.091 1145.99 132 1168.08 132C1190.17 132 1208.08 114.091 1208.08 92Z"
             />
             <path
@@ -205,14 +207,17 @@ const AnimatedCircle = () => {
           <g
             name="icon4"
             className="group relative cursor-pointer p-2"
-            onMouseEnter={
-              !isTouchDevice() ? () => handleShowCard(3) : undefined
+            onClick={
+              visibleCard === 3
+                ? () => handleHideCard()
+                : () => {
+                    handleHideCard();
+                    handleShowCard(3);
+                  }
             }
-            onMouseLeave={!isTouchDevice() ? handleHideCard : undefined}
-            onTouchStart={(e) => handleTouch(3, e)}
           >
             <path
-              className={` ${visibleCard === 3 ? 'fill-primary' : 'fill-[#9377C7]'} transition-all duration-300`}
+              className={`group-hover:fill-primary ${visibleCard === 3 ? 'fill-primary' : 'fill-[#9377C7]'} transition-all duration-300`}
               d="M1557 415C1557 392.909 1539.09 375 1517 375C1494.91 375 1477 392.909 1477 415C1477 437.091 1494.91 455 1517 455C1539.09 455 1557 437.091 1557 415Z"
               fill="#9377C7"
             />
@@ -294,11 +299,11 @@ const AnimatedCircle = () => {
                   icon="lets-icons:check-fill"
                   className="text-primary-400 size-7 flex-shrink-0 rounded-md text-xl"
                 />
-                <h3 className="text-sm leading-7 font-semibold  text-gray-900 md:text-base md:text-wrap">
+                <h3 className="text-sm leading-7 font-semibold text-gray-900 md:text-base md:text-wrap">
                   {feature.title}
                 </h3>
               </div>
-              <p className="mt-2 text-xs md:text-sm leading-6 text-gray-600">
+              <p className="mt-2 text-xs leading-6 text-gray-600 md:text-sm">
                 {feature.description}
               </p>
             </motion.div>

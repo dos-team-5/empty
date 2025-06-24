@@ -12,7 +12,7 @@ import ScanVsLeadSnatcher from '@/components/ScanVsLeadSnatcher/ScanVsLeadSnatch
 
 export default function Home() {
   return (
-    <main>
+    <main className=''>
       <HeroSection />
       <TextRevealByWord className="">
         The Lowest CPM in OOH History
@@ -25,7 +25,7 @@ export default function Home() {
       <FeatureCard /> */}
       <CarouselFeature />
 
-      <TimelineSectionAd />
+      {/* <TimelineSectionAd /> */}
       {/* <PricingCards /> */}
       <AdvertiserCampaign />
       <PricingConfigurator />
