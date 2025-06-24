@@ -62,7 +62,7 @@ const AnimatedCircle = () => {
   };
 
   return (
-    <div>
+    <div className="">
       <svg
         width="1635"
         height="1635"
@@ -82,10 +82,11 @@ const AnimatedCircle = () => {
             d="M1539.37 595.158C1490.37 440.812 1392.92 306.374 1261.48 211.791C1130.03 117.207 971.598 67.518 809.682 70.0954C647.766 72.6729 490.994 127.38 362.627 226.099C234.26 324.818 141.137 462.29 97.0762 618.117L830.076 759L1539.37 595.158Z"
             fill="url(#paint0_linear_664_644)"
           />
-          <path
+          {/* <path
+          className='scale-115 origin-center'
             d="M1230.08 271H404.076V683H1230.08V271Z"
             fill="url(#pattern1_664_644)"
-          />
+          /> */}
           <g
             name="icon1"
             className="group relative cursor-pointer p-2"

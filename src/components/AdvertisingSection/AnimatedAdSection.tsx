@@ -1,6 +1,7 @@
 import { Box, Stack, Title } from '@mantine/core';
 import { TextAnimate } from '../TextAnimation';
 import AnimatedCircle from './AnimatedCircle';
+import Image from 'next/image';
 
 const AnimatedAdSection = () => {
   return (
@@ -51,6 +52,14 @@ const AnimatedAdSection = () => {
         {/* Animated Circle */}
         <AnimatedCircle />
       </Box>
+      <Image
+        src={'/ad/R244.png'}
+        width={1000}
+        height={1000}
+        alt="R24Image"
+        priority
+        className='z-1000 absolute  bottom-0 w-[60%] lg:w-[36%] left-1/2 -translate-x-1/2'
+      />
     </section>
   );
 };
