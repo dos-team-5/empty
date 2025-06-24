@@ -51,7 +51,7 @@ const features = [
 ];
 
 const AnimatedCircle = () => {
-  const [visibleCard, setVisibleCard] = useState<null | number>(1);
+  const [visibleCard, setVisibleCard] = useState<null | number>(0);
 
   const handleShowCard = (index: number) => {
     setVisibleCard(index);
@@ -91,7 +91,9 @@ const AnimatedCircle = () => {
             name="icon1"
             className="group relative cursor-pointer p-2"
             onClick={
-              visibleCard ? () => handleHideCard() : () => handleShowCard(2)
+              visibleCard !== null
+                ? () => handleHideCard()
+                : () => handleShowCard(2)
             }
           >
             <path
@@ -128,7 +130,9 @@ const AnimatedCircle = () => {
             name="icon2"
             className="group relative cursor-pointer p-2"
             onClick={
-              visibleCard ? () => handleHideCard() : () => handleShowCard(0)
+              visibleCard !== null
+                ? () => handleHideCard()
+                : () => handleShowCard(0)
             }
           >
             <path
@@ -174,7 +178,9 @@ const AnimatedCircle = () => {
             name="icon3"
             className="group relative cursor-pointer p-2"
             onClick={
-              visibleCard ? () => handleHideCard() : () => handleShowCard(1)
+              visibleCard !== null
+                ? () => handleHideCard()
+                : () => handleShowCard(1)
             }
           >
             <path
@@ -193,7 +199,9 @@ const AnimatedCircle = () => {
             name="icon4"
             className="group relative cursor-pointer p-2"
             onClick={
-              visibleCard ? () => handleHideCard() : () => handleShowCard(3)
+              visibleCard !== null
+                ? () => handleHideCard()
+                : () => handleShowCard(3)
             }
           >
             <path

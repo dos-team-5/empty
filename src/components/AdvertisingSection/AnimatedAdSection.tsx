@@ -58,7 +58,7 @@ const AnimatedAdSection = () => {
         height={1000}
         alt="R24Image"
         priority
-        className='z-1000 absolute  bottom-0 w-[60%] lg:w-[36%] left-1/2 -translate-x-1/2'
+        className="absolute bottom-0 left-1/2 z-0 w-[60%] -translate-x-1/2 lg:w-[32%]"
       />
     </section>
   );
