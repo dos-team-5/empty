@@ -42,7 +42,7 @@ export const metadata: Metadata = {
     siteName: 'EmptyAd',
     images: [
       {
-        url: `${process.env.NEXT_PUBLIC_BASE_URL}/opengraph-image`,
+        url: `${process.env.NEXT_PUBLIC_BASE_URL}/og/opengraph.png`,
         width: 1200,
         height: 630,
         alt: 'EmptyAd: Car Advertising for Passive Income',
