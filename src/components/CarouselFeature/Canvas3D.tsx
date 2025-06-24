@@ -32,7 +32,7 @@ const Canvas3D = ({
   applyImage: boolean;
 }) => {
   return (
-    <div className="absolute top-88 -right-10 mx-auto h-[36%] w-[124%] origin-center touch-none select-none md:-right-32 md:w-[172%] lg:top-60 lg:-right-54 lg:h-110 lg:w-200 xl:top-70 xl:-right-48 2xl:top-90">
+    <div className="absolute top-88 left-[52%] mx-auto h-80 w-screen origin-center -translate-x-1/2 touch-none select-none sm:left-1/2 sm:h-120 md:h-118 lg:top-62 lg:left-[40%] lg:h-110 lg:w-[50vw] xl:top-64 2xl:h-120 2xl:left-[10%] xl:h-100 2xl:top-90">
       <Suspense fallback={<Loader />}>
         <Canvas frameloop="always" shadows flat className="">
           <PerspectiveCamera position={[0, 3, 16]} fov={30} makeDefault />
@@ -56,6 +56,7 @@ const EnvironmentSetup = () => {
         enableZoom={false}
         minPolarAngle={Math.PI / 2.7}
         maxPolarAngle={Math.PI / 2.1}
+        enablePan={false}
         // minAzimuthAngle={-Math.PI / 2.5}
         // maxAzimuthAngle={Math.PI / 2.5}
       />

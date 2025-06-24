@@ -11,10 +11,10 @@ import {
   InputLabel,
   NumberInput,
   RadioGroup,
-  SimpleGrid,
   Slider,
   Title,
 } from '@mantine/core';
+import { motion } from 'motion/react';
 import { Currency, PlanType } from './types';
 import { usePricingCalculation } from './hooks/usePriceCalculation';
 import { ADDONS, CAR_OPTIONS } from './data';
@@ -198,12 +198,12 @@ export default function PricingConfigurator() {
   }, []);
 
   return (
-    <Box mih="100vh" p={16}>
+    <Box mb={180} p={16}>
       <Box className="mx-auto xl:!max-w-[1000px] 2xl:!max-w-[1100px]">
         <TitleSection />
-        <SimpleGrid spacing={32} cols={{ base: 1, lg: 2 }}>
+        <div className="flex w-full origin-top flex-col gap-y-8 md:flex-row md:items-start md:justify-between md:gap-y-0 lg:scale-80 xl:scale-100">
           {/* Left Side - Pricing Card */}
-          <Box className="!order-2 flex-grow md:!order-1" h="100%">
+          <Box className="md:w-[48%]" h="100%">
             <PricingCard
               planType={planType}
               carCount={carCount}
@@ -218,144 +218,161 @@ export default function PricingConfigurator() {
           </Box>
 
           {/* Right Side - Configurator Steps */}
-          <Box
-            p={16}
-            bg="white"
-            h="100%"
-            className="!order-1 space-y-6 !rounded-[10px] border-2 border-pink-50 md:!order-2"
+          <motion.div
+            initial={{ scale: 0.3, opacity: 0 }}
+            whileInView={{
+              scale: 1,
+              opacity: 1,
+              transition: {
+                duration: 0.7,
+                delay: 0.3,
+                ease: 'easeInOut',
+              },
+            }}
+            viewport={{ once: true }}
+            className="md:w-[48%]"
           >
-            {/* Step 1 - Plan Selection */}
-            <Card>
-              <Card.Section>
-                <Flex align={'center'} justify="space-between">
-                  <Title fz={{ base: 20, sm: 32 }}>Choose Your Plan</Title>
-                  <Button
-                    mt={8}
-                    mr={16}
-                    bg={'#ffffff'}
-                    w={{ base: 40, sm: 60 }}
-                    h={{ base: 40, sm: 60 }}
-                    className="flex items-center justify-center rounded-full"
-                    unstyled
-                    onClick={() => handleReset()}
-                    style={{ boxShadow: '2px 2px 13px 2px #FF83D58A' }}
-                  >
-                    <Icon
-                      width={30}
-                      icon="ri:reset-left-line"
-                      color="#FF83D5"
-                    />
-                  </Button>
-                </Flex>
-              </Card.Section>
-              <Card.Section className="space-y-6">
-                <Box className="space-y-4">
-                  <InputLabel
-                    htmlFor="car-count"
-                    className="text-base font-medium"
-                  >
-                    Number of Cars
-                  </InputLabel>
-
-                  {/* Slider for quick selection */}
-                  <Slider
-                    key={resetKey}
-                    px={16}
-                    mb={30}
-                    value={selectedIndex}
-                    onChange={handleSliderChange}
-                    min={0}
-                    max={carOptions.length - 1}
-                    step={1}
-                    marks={carOptions.map((option, index) => ({
-                      value: index,
-                      label: option.label,
-                    }))}
-                    color="var(--mantine-primary-color-4)"
-                    label={(value) =>
-                      `${carOptions[value].cars} car${carOptions[value].cars > 1 ? 's' : ''}`
-                    }
-                  />
-                  {/* Input for precise entry */}
-                  <NumberInput
-                    hideControls
-                    radius="md"
-                    w="100%"
-                    id="car-count"
-                    value={carCount}
-                    onChange={(value) => handleCarCountChange(value.toString())}
-                    classNames={{ input: '!bg-gray-100' }}
-                    placeholder="Enter exact number of cars"
-                  />
-                </Box>
-
-                <Box className="space-y-4">
-                  <Flex gap={8}>
+            <Box
+              p={16}
+              bg="white"
+              h="100%"
+              className="!order-1 space-y-6 !rounded-[10px] border-2 border-pink-50 md:!order-2"
+            >
+              {/* Step 1 - Plan Selection */}
+              <Card>
+                <Card.Section>
+                  <Flex align={'center'} justify="space-between">
+                    <Title fz={{ base: 20, sm: 32 }}>Choose Your Plan</Title>
+                    <Button
+                      mt={8}
+                      mr={16}
+                      bg={'#ffffff'}
+                      w={{ base: 40, sm: 60 }}
+                      h={{ base: 40, sm: 60 }}
+                      className="flex items-center justify-center rounded-full"
+                      unstyled
+                      onClick={() => handleReset()}
+                      style={{ boxShadow: '2px 2px 13px 2px #FF83D58A' }}
+                    >
+                      <Icon
+                        width={30}
+                        icon="ri:reset-left-line"
+                        color="#FF83D5"
+                      />
+                    </Button>
+                  </Flex>
+                </Card.Section>
+                <Card.Section className="space-y-6">
+                  <Box className="space-y-4">
                     <InputLabel
-                      htmlFor="months"
+                      htmlFor="car-count"
                       className="text-base font-medium"
                     >
-                      Months Selected
+                      Number of Cars
                     </InputLabel>
-                    <Badge variant="outline">{`${months} Month${months > 1 ? 's' : ''}`}</Badge>
-                  </Flex>
 
-                  {/* Slider for quick selection */}
-                  <Slider
-                    id="months"
-                    value={months}
-                    onChange={setMonths}
-                    defaultValue={1}
-                    min={1}
-                    max={12}
-                    ref={ref}
-                    label={null}
-                    styles={{
-                      thumb: {
-                        transition: 'opacity 150ms ease',
-                      },
-                    }}
-                  />
-                </Box>
-
-                <RadioGroup
-                  value={planType}
-                  onChange={(value: string) => setPlanType(value as PlanType)}
-                >
-                  <Box className="grid gap-4 md:grid-cols-2">
-                    <PlanCard
-                      planType="basic"
-                      value="basic"
-                      currency={currency}
-                      exchangeRate={exchangeRate}
-                      setAddonSelections={setAddonSelections}
+                    {/* Slider for quick selection */}
+                    <Slider
+                      key={resetKey}
+                      px={16}
+                      mb={30}
+                      value={selectedIndex}
+                      onChange={handleSliderChange}
+                      min={0}
+                      max={carOptions.length - 1}
+                      step={1}
+                      marks={carOptions.map((option, index) => ({
+                        value: index,
+                        label: option.label,
+                      }))}
+                      color="var(--mantine-primary-color-4)"
+                      label={(value) =>
+                        `${carOptions[value].cars} car${carOptions[value].cars > 1 ? 's' : ''}`
+                      }
                     />
-
-                    <PlanCard
-                      planType="premium"
-                      value="premium"
-                      currency={currency}
-                      exchangeRate={exchangeRate}
-                      setAddonSelections={setAddonSelections}
+                    {/* Input for precise entry */}
+                    <NumberInput
+                      hideControls
+                      radius="md"
+                      w="100%"
+                      id="car-count"
+                      value={carCount}
+                      onChange={(value) =>
+                        handleCarCountChange(value.toString())
+                      }
+                      classNames={{ input: '!bg-gray-100' }}
+                      placeholder="Enter exact number of cars"
                     />
                   </Box>
-                </RadioGroup>
-              </Card.Section>
-            </Card>
 
-            {/* Add-ons */}
-            <Accordion variant="separated">
-              {availableAddons.map((addon) => (
-                <AddonItem
-                  key={addon.id}
-                  addon={addon}
-                  checked={addonSelections[addon.id] || false}
-                  onChange={(checked) => handleAddonChange(addon.id, checked)}
-                />
-              ))}
-            </Accordion>
-          </Box>
-        </SimpleGrid>
+                  <Box className="space-y-4">
+                    <Flex gap={8}>
+                      <InputLabel
+                        htmlFor="months"
+                        className="text-base font-medium"
+                      >
+                        Months Selected
+                      </InputLabel>
+                      <Badge variant="outline">{`${months} Month${months > 1 ? 's' : ''}`}</Badge>
+                    </Flex>
+
+                    {/* Slider for quick selection */}
+                    <Slider
+                      id="months"
+                      value={months}
+                      onChange={setMonths}
+                      defaultValue={1}
+                      min={1}
+                      max={12}
+                      ref={ref}
+                      label={null}
+                      styles={{
+                        thumb: {
+                          transition: 'opacity 150ms ease',
+                        },
+                      }}
+                    />
+                  </Box>
+
+                  <RadioGroup
+                    value={planType}
+                    onChange={(value: string) => setPlanType(value as PlanType)}
+                  >
+                    <Box className="grid gap-4 md:grid-cols-2">
+                      <PlanCard
+                        planType="basic"
+                        value="basic"
+                        currency={currency}
+                        exchangeRate={exchangeRate}
+                        setAddonSelections={setAddonSelections}
+                      />
+
+                      <PlanCard
+                        planType="premium"
+                        value="premium"
+                        currency={currency}
+                        exchangeRate={exchangeRate}
+                        setAddonSelections={setAddonSelections}
+                      />
+                    </Box>
+                  </RadioGroup>
+                </Card.Section>
+              </Card>
+
+              {/* Add-ons */}
+              <Accordion variant="separated">
+                {availableAddons.map((addon) => (
+                  <AddonItem
+                    key={addon.id}
+                    addon={addon}
+                    checked={addonSelections[addon.id] || false}
+                    onChange={(checked) => handleAddonChange(addon.id, checked)}
+                  />
+                ))}
+              </Accordion>
+            </Box>
+          </motion.div>
+        </div>
       </Box>
     </Box>
   );

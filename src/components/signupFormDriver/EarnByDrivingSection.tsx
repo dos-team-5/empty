@@ -3,6 +3,7 @@
 import { Title, Text, SimpleGrid, Paper, List, Image } from '@mantine/core';
 import { motion } from 'motion/react';
 import { FC } from 'react';
+import { TextAnimate } from '../TextAnimation';
 
 // --- Data for the sections to keep the component clean ---
 
@@ -64,7 +65,15 @@ export const EarnByDrivingSection: FC = () => {
             order={1}
             className="!mb-6 text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl"
           >
-            <span className="">Earn More Just by Driving!</span>
+            <TextAnimate
+              animation="blurInUp"
+              by="word"
+              startOnView
+              duration={0.5}
+              once
+            >
+              Earn More Just by Driving!
+            </TextAnimate>
           </Title>
           <Text
             ff={'var(--font-inter)'}
