@@ -15,11 +15,11 @@ const images = [
 
 const AdTracker = () => {
   return (
-    <div className="flex min-h-dvh flex-col">
+    <div className="flex min-h-dvh flex-col overflow-hidden">
       <div className="relative flex flex-col items-center justify-center bg-[#FDFEFD] transform-3d">
         <div className="mt-24 text-center">
           <motion.h1
-            className="text-primary-400 mb-4 text-5xl font-bold 2xl:text-7xl"
+            className="text-primary-400 mb-4 text-4xl font-bold sm:text-5xl 2xl:text-7xl"
             initial={{ opacity: 0, y: 50 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, ease: 'easeOut' }}
