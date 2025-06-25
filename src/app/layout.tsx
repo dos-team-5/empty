@@ -36,9 +36,11 @@ export const metadata: Metadata = {
   creator: 'DevsOnSteroids',
   publisher: 'DevsOnSteroids',
   keywords: [...keywords],
+  metadataBase: new URL(process.env.NEXT_PUBLIC_BASE_URL as string),
   twitter: {
     card: 'summary_large_image',
   },
+
   openGraph: {
     title: 'EmptyAd: Earn Passive Income Driving for Brands',
     description:
@@ -81,6 +83,8 @@ export default function RootLayout({
           content="width=device-width, initial-scale=1, maximum-scale=1"
         />
         <meta name="publisher" content="DevsOnSteroids" />
+        <link rel="canonical" href="https://emptyad.com/" />
+        <meta name="robots" content="index, follow" />
       </head>
       <body
         className={`${poppins.variable} ${inter.variable} relative antialiased`}

@@ -5,6 +5,23 @@ import { AdBlockerNotice } from './components/Ads';
 import { useAdBlockDetection } from '@/hooks/useAdBlockDetection';
 import { useDisclosure } from '@mantine/hooks';
 import Head from 'next/head';
+import { Metadata } from 'next';
+
+export const metaData: Metadata = {
+  robots: {
+    index: true,
+    follow: true,
+    nocache: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      noimageindex: true,
+      'max-video-preview': -1,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
+  },
+};
 
 export default function ScanSpinLayout({
   children,

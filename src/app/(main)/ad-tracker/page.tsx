@@ -4,6 +4,11 @@ import Link from 'next/link';
 import { PrimaryBtn } from '@/components';
 import Image from 'next/image';
 import Head from 'next/head';
+import { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: 'Ad Tracker',
+};
 
 const images = [
   '/Empty1.jpg',
