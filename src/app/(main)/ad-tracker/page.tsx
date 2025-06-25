@@ -4,11 +4,6 @@ import Link from 'next/link';
 import { PrimaryBtn } from '@/components';
 import Image from 'next/image';
 import Head from 'next/head';
-import { Metadata } from 'next';
-
-export const metadata: Metadata = {
-  title: 'Ad Tracker',
-};
 
 const images = [
   '/Empty1.jpg',
@@ -23,8 +18,6 @@ const AdTracker = () => {
   return (
     <>
       <Head>
-        <meta name="robots" content="index, follow" />
-        <link rel="canonical" href="https://emptyad.com/ad-tracker" />
         <title>Ad Tracker | Empty</title>
       </Head>
       <div className="flex min-h-dvh flex-col overflow-hidden">
