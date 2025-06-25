@@ -8,6 +8,7 @@ import { Providers } from '@/providers';
 import { ColorSchemeScript, mantineHtmlProps } from '@mantine/core';
 import { FpjsProvider } from '@fingerprintjs/fingerprintjs-pro-react';
 import '@mantine/carousel/styles.css';
+import { keywords } from '@/data/keyWords';
 
 const poppins = Sora({
   variable: '--font-poppins',
@@ -30,7 +31,11 @@ export const metadata: Metadata = {
     template: '%s | EmptyAd',
   },
   description:
-    'Earn passive income effortlessly! Drive your normal routes with Empty and earn up to $200 per month. Join our platform to advertise for brands you know and love.',
+    'Empty: Boost your brand with high-impact rideshare advertising. Drivers, effortlessly earn up to $200/month on your usual routes. Track performance!',
+  authors: [{ name: 'DevsOnSteroids', url: 'https://devsonsteroids.com' }],
+  creator: 'DevsOnSteroids',
+  publisher: 'DevsOnSteroids',
+  keywords: [...keywords],
   twitter: {
     card: 'summary_large_image',
   },
@@ -75,6 +80,7 @@ export default function RootLayout({
           name="viewport"
           content="width=device-width, initial-scale=1, maximum-scale=1"
         />
+        <meta name="publisher" content="Your Publisher Name" />
       </head>
       <body
         className={`${poppins.variable} ${inter.variable} relative antialiased`}

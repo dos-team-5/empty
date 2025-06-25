@@ -170,7 +170,7 @@ export default function Component() {
                     animation: 'fadeInUp 0.8s ease-out 0.4s both',
                   }}
                 >
-                  Let's see how many cars you could get instead!
+                  Let&apos;s see how many cars you could get instead!
                 </Text>
               </div>
 

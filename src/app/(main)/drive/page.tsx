@@ -5,6 +5,7 @@ import {
 } from '@/components';
 import { Box } from '@mantine/core';
 import { Metadata } from 'next';
+import Head from 'next/head';
 
 export const metadata: Metadata = {
   title: 'Drive',
@@ -12,13 +13,20 @@ export const metadata: Metadata = {
 
 const Drive = () => {
   return (
-    <Box className="">
-      <DriveHeroSection />
-      {/* <DriveAfterHeroSection /> */}
-      {/* <DriveQualificationSection /> */}
-      <TimelineSectionDrive />
-      <DriverSignupSection />
-    </Box>
+    <>
+      <Head>
+        <meta name="robots" content="index, follow" />
+        <link rel="canonical" href="https://emptyad.com/drive" />
+        <title>Drive | Empty</title>
+      </Head>
+      <Box component="main" className="">
+        <DriveHeroSection />
+        {/* <DriveAfterHeroSection /> */}
+        {/* <DriveQualificationSection /> */}
+        <TimelineSectionDrive />
+        <DriverSignupSection />
+      </Box>
+    </>
   );
 };
 
