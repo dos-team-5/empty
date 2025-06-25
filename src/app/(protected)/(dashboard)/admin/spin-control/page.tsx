@@ -4,6 +4,7 @@ import { getAllCampaigns } from './action/getAllCampaign';
 import SpinCampaignCard from '@/components/(dashboard)/Scan-Spin/spinCampaignCard';
 import { getParticipants } from './action/getParticipants';
 import { SpinnerCampaign } from '@/schema';
+import Head from 'next/head';
 
 type SearchParams = Promise<{ [key: string]: string | string[] | undefined }>;
 
@@ -20,10 +21,15 @@ const SpinControl = async (props: { searchParams: SearchParams }) => {
   const campaign = campaignResponse?.data?.records?.[0];
 
   return (
-    <Box>
-      <SpinCampaignCard data={campaign as SpinnerCampaign} />
-      <SpinDataTable data={participantResponse.data} id={1} />
-    </Box>
+    <>
+      <Head>
+        <meta name="robots" content="noindex, nofollow" />
+      </Head>
+      <Box component="main">
+        <SpinCampaignCard data={campaign as SpinnerCampaign} />
+        <SpinDataTable data={participantResponse.data} id={1} />
+      </Box>
+    </>
   );
 };
 
