@@ -76,11 +76,11 @@ const GiftInfoCard = () => {
             >
               {card.id === 3 ? (
                 <Flex h="100%" justify="center" align="center">
-                  <Image w={220} src={card.logo} />
+                  <Image alt={card.title} w={220} src={card.logo} />
                 </Flex>
               ) : (
                 <Stack maw={380} w={{ base: '95%', sm: '90%' }}>
-                  <Image w={40} src={card.logo} />
+                  <Image alt={card.title} w={40} src={card.logo} />
                   <Text ta="justify" fz={18} fw={500}>
                     {card.title}
                   </Text>
