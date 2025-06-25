@@ -3,12 +3,12 @@ import { useFrame } from '@react-three/fiber';
 import { useRef } from 'react';
 import { Mesh, DoubleSide } from 'three';
 
-const Ramp = () => {
+const Ramp = ({ rotationSpeed }: { rotationSpeed: number }) => {
   const groupRef = useRef<Mesh>(null);
 
   useFrame(() => {
     if (groupRef.current) {
-      groupRef.current.rotation.y -= 0.01;
+      groupRef.current.rotation.y -= rotationSpeed;
     }
   });
 
