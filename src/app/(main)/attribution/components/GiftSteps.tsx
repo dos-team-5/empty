@@ -1,6 +1,9 @@
+'use client';
 import { TextAnimate } from '@/components/TextAnimation';
 import { Stack, Title } from '@mantine/core';
+import { motion } from 'motion/react';
 import HowSpinWorks from './HowSpinWorks';
+import Image from 'next/image';
 
 const lines = [
   {
@@ -17,50 +20,34 @@ const lines = [
 const GiftSteps = () => {
   return (
     <Stack maw={1200} mx="auto" mt={{ base: 80 }} mb={{ base: 80 }}>
-      {/* title */}
-      <Title
-        order={2}
-        fw={400}
-        c={'var(--color-primary)'}
-        ff={'var(--font-inter)'}
-        className="capitalize"
-        pt={0}
-        ta={'center'}
-      >
-        <TextAnimate
-          animation="blurIn"
-          by="word"
-          startOnView
-          duration={0.5}
-          delay={1}
-          once
-          className="text-[16px] 2xl:text-[28px]"
+      <div className="flex flex-col items-center justify-center lg:flex-row lg:gap-32">
+        <Image
+          src={'/VS_SCANSPIN.png'}
+          alt="Image"
+          width={1000}
+          height={1000}
+          className="w-full bg-transparent lg:w-1/2"
+        />
+        <motion.p
+          initial={{ scale: 0.3, opacity: 0 }}
+          whileInView={{
+            scale: 1,
+            opacity: 1,
+            transition: {
+              duration: 0.7,
+              ease: 'easeInOut',
+            },
+          }}
+          viewport={{ once: true }}
+          className="mx-4 mt-16 rounded-2xl bg-[#D24C96] p-8 text-center text-xs text-white sm:mx-24 md:text-sm lg:mx-0 lg:w-108"
         >
-          {lines[0].text}
-        </TextAnimate>
-        <TextAnimate
-          animation="blurIn"
-          by="word"
-          startOnView
-          duration={0.5}
-          delay={2.0}
-          once
-          className="text-[16px] 2xl:text-[28px]"
-        >
-          {lines[1].text}
-        </TextAnimate>
-        <TextAnimate
-          animation="blurIn"
-          by="word"
-          startOnView
-          duration={0.5}
-          delay={3.0}
-          once
-          className="text-[16px] 2xl:text-[28px]"
-        >
-          {lines[2].text}
-        </TextAnimate>
-      </Title>
+          Scan & Spin delivers the kind of engagement you'd get if you hired
+          dozens of people to hand out coupons across the city. But instead of
+          guessing who took one, each person is tracked individually and can be
+          re-targeted again and again.
+        </motion.p>
+      </div>
+
       <Title mt={100} ta="center" fz={{ base: 25, sm: 35 }} fw={600} pb={30}>
         <TextAnimate
           animation="blurInUp"

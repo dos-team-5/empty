@@ -91,16 +91,16 @@ const CarouselFeature = () => {
                 >
                   Upload Your Ad Creative
                 </Title>
-                <Menu width={300} position="bottom-end">
+                <Menu  width={300} position="right" offset={-35}>
                   <Menu.Target>
                     <ActionIcon mt={13} ml={3} variant="subtle" size="sm">
-                      <Icon icon="ix:question-filled" />
+                      <Icon icon="ix:question-filled" className='text-white' />
                     </ActionIcon>
                   </Menu.Target>
-                  <Menu.Dropdown>
-                    <Paper p="md" radius="md" withBorder>
+                  <Menu.Dropdown className='scale-75' >
+                    <Paper p="md" radius="md" withBorder className={'!border-black'}>
                       <Stack gap="md">
-                        <Title fz={16} order={3}>
+                        <Title fz={16} order={3} fw={400}>
                           Ads are minimum 2.25 x 1.5 feet, larger when door size
                           allows
                         </Title>

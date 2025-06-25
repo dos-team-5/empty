@@ -8,7 +8,7 @@ import {
 import { LoadingOverlay } from '@mantine/core';
 import { CarModel } from './CarModel';
 import Ramp from './Ramp';
-import { Suspense } from 'react';
+import { Suspense, useState } from 'react';
 
 export const Loader = () => {
   return (
@@ -32,7 +32,7 @@ const Canvas3D = ({
   applyImage: boolean;
 }) => {
   return (
-    <div className="absolute top-88 left-[52%] mx-auto h-80 w-screen origin-center -translate-x-1/2 touch-none select-none sm:left-1/2 sm:h-120 md:h-118 lg:top-62 lg:left-[40%] lg:h-110 lg:w-[50vw] xl:top-64 2xl:h-120 2xl:left-[10%] xl:h-100 2xl:top-90">
+    <div className="absolute top-88 left-[52%] mx-auto h-80 w-screen origin-center -translate-x-1/2 touch-none select-none sm:left-1/2 sm:h-120 md:h-118 lg:top-62 lg:left-[40%] lg:h-110 lg:w-[50vw] xl:top-64 xl:h-100 2xl:top-90 2xl:left-[10%] 2xl:h-120">
       <Suspense fallback={<Loader />}>
         <Canvas frameloop="always" shadows flat className="">
           <PerspectiveCamera position={[0, 3, 16]} fov={30} makeDefault />
@@ -76,10 +76,32 @@ const Model = ({
   file: File | null;
   applyImage: boolean;
 }) => {
+  const [rotationSpeed, setRotationSpeed] = useState(0.007);
   return (
-    <group name="carWithRamp" position={[0, 0, 0]}>
-      <CarModel file={file} applyImage={applyImage} />
-      <Ramp />
+    <group
+      name="carWithRamp"
+      onPointerEnter={() => {
+        setRotationSpeed(0);
+        document.body.style.cursor = 'grab';
+      }}
+      onPointerLeave={() => {
+        setRotationSpeed(0.007);
+        document.body.style.cursor = 'default';
+      }}
+      onPointerDown={() => {
+        document.body.style.cursor = 'grabbing';
+      }}
+      onPointerUp={() => {
+        document.body.style.cursor = 'grab';
+      }}
+      position={[0, 0, 0]}
+    >
+      <CarModel
+        file={file}
+        applyImage={applyImage}
+        rotationSpeed={rotationSpeed}
+      />
+      <Ramp rotationSpeed={rotationSpeed} />
     </group>
   );
 };

@@ -35,9 +35,11 @@ type GLTFResult = GLTF & {
 export function CarModel({
   file,
   applyImage,
+  rotationSpeed
 }: {
   file: File | null;
   applyImage: boolean;
+  rotationSpeed:number;
 }) {
   const groupRef = useRef<THREE.Group>(null);
 
@@ -81,7 +83,7 @@ export function CarModel({
 
   useFrame(() => {
     if (groupRef.current) {
-      groupRef.current.rotation.y -= 0.01;
+      groupRef.current.rotation.y -= rotationSpeed;
     }
   });
 

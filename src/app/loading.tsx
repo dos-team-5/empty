@@ -77,7 +77,7 @@ export default function Loading() {
           <motion.div
             initial={{ x: 350, opacity: 1 }}
             animate={{
-              x: animationStep >= 2 ? 35 : 350,
+              x: animationStep >= 2 ? 45 : 350,
               opacity: animationStep >= 2 ? 1 : 0,
               y: animationStep >= 3 ? -100 : 0,
             }}

@@ -1,55 +1,66 @@
 'use client';
 
-import { useState, useEffect } from 'react';
-import { Calculator, Car } from 'lucide-react';
-import {
-  Card,
-  TextInput,
-  Button,
-  Text,
-  Group,
-  Stack,
-  Grid,
-} from '@mantine/core';
+import { useState } from 'react';
+import { Car, DollarSign, ArrowRight } from 'lucide-react';
+import { TextInput, Text, Group, Stack, Card, Button } from '@mantine/core';
 
 export default function Component() {
+  const [step, setStep] = useState(1);
   const [billboardSpend, setBillboardSpend] = useState('');
-  const [calculatedCars, setCalculatedCars] = useState(0);
-  const [pricePerCar, setPricePerCar] = useState(0);
+  const [basicResults, setBasicResults] = useState({
+    cars: 0,
+    pricePerCar: 0,
+    total: 0,
+  });
+  const [isAnimating, setIsAnimating] = useState(false);
 
-  // Pricing tiers
-  const getPricing = (carCount: number) => {
-    if (carCount >= 100) return 232;
-    if (carCount >= 50) return 241;
-    if (carCount >= 20) return 250;
-    return 269;
+  // Pricing structures
+  const plans = {
+    basic: {
+      name: 'Basic',
+      installation: 66,
+      tiers: [
+        { min: 1, max: 20, price: 269 },
+        { min: 21, max: 50, price: 250 },
+        { min: 51, max: 100, price: 241 },
+        { min: 101, max: Number.POSITIVE_INFINITY, price: 232 },
+      ],
+    },
   };
 
-  // Calculate maximum cars affordable with given budget
-  const calculateMaxCars = (budget: number) => {
-    if (budget <= 0) return 0;
+  const getPricing = (carCount: number, plan: 'basic') => {
+    const planData = plans[plan];
+    for (const tier of planData.tiers) {
+      if (carCount >= tier.min && carCount <= tier.max) {
+        return tier.price;
+      }
+    }
+    return planData.tiers[planData.tiers.length - 1].price;
+  };
 
-    // Try different car counts to find the maximum affordable
+  const calculateMaxCars = (budget: number, plan: 'basic') => {
+    if (budget <= 0) return { cars: 0, pricePerCar: 0, total: 0 };
+
     for (let cars = 1; cars <= 1000; cars++) {
-      const pricePerCar = getPricing(cars);
+      const pricePerCar = getPricing(cars, plan);
       const totalMonthlyCost = cars * pricePerCar;
 
       if (totalMonthlyCost > budget) {
-        // Return the previous count that was affordable
         const maxAffordableCars = cars - 1;
-        return maxAffordableCars > 0 ? maxAffordableCars : 0;
+        if (maxAffordableCars <= 0)
+          return { cars: 0, pricePerCar: 0, total: 0 };
+        const finalPrice = getPricing(maxAffordableCars, plan);
+        return {
+          cars: maxAffordableCars,
+          pricePerCar: finalPrice,
+          total: maxAffordableCars * finalPrice,
+        };
       }
     }
 
-    return 1000; // If somehow they can afford 1000+ cars
+    const finalPrice = getPricing(1000, plan);
+    return { cars: 1000, pricePerCar: finalPrice, total: 1000 * finalPrice };
   };
-
-  useEffect(() => {
-    const budget = Number.parseFloat(billboardSpend) || 0;
-    const maxCars = calculateMaxCars(budget);
-    setCalculatedCars(maxCars);
-    setPricePerCar(maxCars > 0 ? getPricing(maxCars) : 0);
-  }, [billboardSpend]);
 
   const formatCurrency = (amount: number) => {
     return new Intl.NumberFormat('en-CA', {
@@ -60,170 +71,382 @@ export default function Component() {
     }).format(amount);
   };
 
-  const scrollToSection = (id: string) => {
-    const element = document.getElementById(id);
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
+  const handleNext = () => {
+    if (billboardSpend && Number.parseFloat(billboardSpend) > 0) {
+      setIsAnimating(true);
+
+      setTimeout(() => {
+        const budget = Number.parseFloat(billboardSpend);
+        const basicCalc = calculateMaxCars(budget, 'basic');
+        setBasicResults(basicCalc);
+        setStep(2);
+        setIsAnimating(false);
+      }, 500);
+    }
+  };
+
+  const handleBillboardSpendChange = (value: string) => {
+    const numericValue = value.replace(/[^0-9.]/g, '');
+    setBillboardSpend(numericValue);
+  };
+
+  const budget = Number.parseFloat(billboardSpend) || 0;
+  const savingsPercentage =
+    basicResults.total > 0
+      ? Math.round(((budget - basicResults.total) / budget) * 100)
+      : 0;
+  const coverageEfficiency =
+    basicResults.cars > 0
+      ? Math.round((basicResults.cars / (budget / 1000)) * 100)
+      : 0;
+
+  const resetCalculator = () => {
+    setIsAnimating(true);
+    setTimeout(() => {
+      setStep(1);
+      setBillboardSpend('');
+      setIsAnimating(false);
+    }, 300);
+  };
+
+  const handleGetStartedClick = () => {
+    const target = document.querySelector('#pricing-configurator');
+    if (target) {
+      target.scrollIntoView({ behavior: 'smooth' });
     }
   };
 
   return (
-    <div className="mx-auto mt-40 w-full max-w-4xl p-4">
-      <Card
-        shadow="xl"
-        padding="xl"
-        radius="lg"
+    <div
+      className="mx-auto mt-50 w-full max-w-4xl p-2 md:p-6"
+      style={{
+        backgroundColor: 'transparent',
+        minHeight: '500px',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+      }}
+    >
+      <div
         style={{
-          backgroundColor: 'white',
-          border: 'none',
+          width: '100%',
+          opacity: isAnimating ? 0 : 1,
+          transform: isAnimating ? 'translateY(20px)' : 'translateY(0)',
+          transition: 'all 0.5s ease-in-out',
         }}
       >
-        {/* Header */}
-        <div
-          className="mb-6 rounded-t-lg p-6 text-center"
-          style={{ backgroundColor: '#D482B6' }}
-        >
-          <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-white">
-            <Calculator className="h-8 w-8" style={{ color: '#D482B6' }} />
-          </div>
-          <Text size="xl" fw={700} c="white" mb="xs">
-            See how your billboard budget could work harder for you
-          </Text>
-        </div>
+        {step === 1 && (
+          <Card
+            padding="3rem"
+            radius="24px"
+            style={{
+              backgroundColor: 'rgba(255, 255, 255, 0.9)',
+              backdropFilter: 'blur(20px)',
+              border: '1px solid rgba(212, 130, 182, 0.2)',
+              boxShadow: '0 20px 60px rgba(0, 0, 0, 0.1)',
+              textAlign: 'center',
+              animation: 'slideInUp 0.6s ease-out',
+            }}
+          >
+            <Stack gap="2rem">
+              <div>
+                <Text
+                  size="2.5rem"
+                  fw={600}
+                  style={{
+                    color: '#000000',
+                    marginBottom: '1rem',
+                    lineHeight: 1.2,
+                    animation: 'fadeInUp 0.8s ease-out 0.2s both',
+                  }}
+                >
+                  How much did you spend on billboards last month?
+                </Text>
+                <Text
+                  size="xl"
+                  c="#666"
+                  style={{
+                    marginBottom: '2rem',
+                    animation: 'fadeInUp 0.8s ease-out 0.4s both',
+                  }}
+                >
+                  Let's see how many cars you could get instead!
+                </Text>
+              </div>
 
-        <Stack gap="xl">
-          {/* Input Section */}
-          <div>
-            <Text size="lg" fw={600} c="black" mb="md">
-              How much did you spend on billboards last month?
-            </Text>
-            <TextInput
-              placeholder="0"
-              value={billboardSpend}
-              onChange={(e) => setBillboardSpend(e.currentTarget.value)}
-              type="number"
-              size="lg"
-              leftSection="C$"
-              styles={{
-                input: {
-                  fontSize: '18px',
-                  height: '56px',
-                  borderWidth: '2px',
-                  '&:focus': {
-                    borderColor: '#D482B6',
-                  },
-                },
-              }}
-            />
-          </div>
-
-          {/* Results Section */}
-          {calculatedCars > 0 && (
-            <Card
-              padding="xl"
-              radius="md"
-              style={{ backgroundColor: '#f8f9fa' }}
-            >
-              <Stack gap="lg">
-                {/* Main Result */}
-                <div className="text-center">
-                  <Group justify="center" gap="md" mb="md">
-                    <Car className="h-8 w-8" style={{ color: '#D482B6' }} />
-                    <Text size="xl" fw={700} c="black">
-                      That could get you{' '}
-                      <Text
-                        component="span"
-                        size="2.5rem"
-                        fw={700}
-                        style={{ color: '#D482B6' }}
-                      >
-                        {calculatedCars}
-                      </Text>{' '}
-                      car{calculatedCars !== 1 ? 's' : ''}
-                    </Text>
-                  </Group>
-                  <Text size="lg" fw={500} c="dimmed">
-                    driving around the city full time!
-                  </Text>
-                </div>
-
-                {/* Cost Breakdown */}
-                <Grid>
-                  <Grid.Col span={{ base: 12, sm: 6 }}>
-                    <Card
-                      padding="md"
-                      radius="md"
-                      style={{
+              <div style={{ animation: 'fadeInUp 0.8s ease-out 0.6s both' }}>
+                <TextInput
+                  placeholder="Enter your billboard spend"
+                  value={billboardSpend}
+                  onChange={(e) =>
+                    handleBillboardSpendChange(e.currentTarget.value)
+                  }
+                  size="xl"
+                  leftSection={
+                    <DollarSign size={24} style={{ color: '#D482B6' }} />
+                  }
+                  styles={{
+                    input: {
+                      fontSize: '18px',
+                      height: '90px',
+                      backgroundColor: 'rgba(255, 255, 255, 0.8)',
+                      border: '2px solid #e9ecef',
+                      borderRadius: '20px',
+                      paddingLeft: '32px',
+                      color: '#000000',
+                      fontWeight: 500,
+                      textAlign: 'center',
+                      '&:focus': {
+                        borderColor: '#D482B6',
                         backgroundColor: 'white',
-                        borderLeft: `4px solid #D482B6`,
-                      }}
-                    >
-                      <Text size="sm" c="dimmed">
-                        Monthly Rate
-                      </Text>
-                      <Text size="xl" fw={700} c="black">
-                        {formatCurrency(pricePerCar)}/car
-                      </Text>
-                    </Card>
-                  </Grid.Col>
-                  <Grid.Col span={{ base: 12, sm: 6 }}>
-                    <Card
-                      padding="md"
-                      radius="md"
-                      style={{
-                        backgroundColor: 'white',
-                        borderLeft: `4px solid #D482B6`,
-                      }}
-                    >
-                      <Text size="sm" c="dimmed">
-                        Total Monthly Cost
-                      </Text>
-                      <Text size="xl" fw={700} c="black">
-                        {formatCurrency(calculatedCars * pricePerCar)}
-                      </Text>
-                    </Card>
-                  </Grid.Col>
-                </Grid>
-
-                {/* CTA Section */}
-                <div className="pt-4 text-center">
-                  <Text size="sm" c="dimmed" mb="md">
-                    Plus one-time installation fee: {formatCurrency(66)} per car
-                  </Text>
-                  <Button
-                    onClick={() => scrollToSection('pricing-configurator')}
-                    size="lg"
-                    style={{ backgroundColor: '#D482B6' }}
-                    styles={{
-                      root: {
-                        '&:hover': {
-                          backgroundColor: '#c470a4',
-                        },
+                        boxShadow: '0 0 0 4px rgba(212, 130, 182, 0.1)',
+                        transform: 'scale(1.02)',
+                        transition: 'all 0.3s ease',
                       },
-                    }}
-                  >
-                    Get Started Today
-                  </Button>
-                </div>
-              </Stack>
-            </Card>
-          )}
+                    },
+                  }}
+                />
+              </div>
 
-          {/* No Results Message */}
-          {billboardSpend && calculatedCars === 0 && (
-            <Card
-              padding="xl"
-              radius="md"
-              style={{ backgroundColor: '#f8f9fa' }}
-            >
-              <Text ta="center" c="dimmed">
-                Enter a higher amount to see how many cars you could afford with
-                our service.
+              <div style={{ animation: 'fadeInUp 0.8s ease-out 0.8s both' }}>
+                <Button
+                  onClick={handleNext}
+                  disabled={
+                    !billboardSpend || Number.parseFloat(billboardSpend) <= 0
+                  }
+                  size="xl"
+                  rightSection={<ArrowRight size={24} />}
+                  style={{
+                    backgroundColor: '#D482B6',
+                    border: 'none',
+                    borderRadius: '20px',
+                    height: '70px',
+                    fontSize: '1.3rem',
+                    fontWeight: 600,
+                    padding: '0 3rem',
+                    '&:hover': {
+                      backgroundColor: '#c06ba0',
+                      transform: 'translateY(-2px)',
+                      boxShadow: '0 8px 25px rgba(212, 130, 182, 0.4)',
+                    },
+                    '&:disabled': {
+                      backgroundColor: '#e9ecef',
+                      color: '#999',
+                    },
+                    transition: 'all 0.3s ease',
+                  }}
+                >
+                  Calculate My ROI
+                </Button>
+              </div>
+            </Stack>
+          </Card>
+        )}
+
+        {step === 2 && (
+          <Card
+            padding="3rem"
+            radius="24px"
+            style={{
+              backgroundColor: 'rgba(255, 255, 255, 0.9)',
+              backdropFilter: 'blur(20px)',
+              border: '1px solid rgba(212, 130, 182, 0.2)',
+              boxShadow: '0 20px 60px rgba(0, 0, 0, 0.1)',
+              textAlign: 'center',
+              animation: 'slideInUp 0.6s ease-out',
+            }}
+          >
+            <Stack gap="2rem">
+              <div style={{ animation: 'zoomIn 0.8s ease-out 0.2s both' }}>
+                <Text
+                  size="5rem"
+                  fw={300}
+                  style={{
+                    color: '#D482B6',
+                    lineHeight: 1,
+                    fontFamily: 'system-ui',
+                    marginBottom: '1rem',
+                  }}
+                >
+                  {basicResults.cars.toLocaleString()}
+                </Text>
+                <Group justify="center" gap="md">
+                  <Car size={40} style={{ color: '#D482B6' }} />
+                  <Text fz={24} c="#666" fw={500}>
+                    cars
+                  </Text>
+                </Group>
+              </div>
+
+              <Card
+                padding="16px"
+                radius="20px"
+                style={{
+                  backgroundColor: 'rgba(212, 130, 182, 0.1)',
+                  border: '1px solid rgba(212, 130, 182, 0.3)',
+                  animation: 'fadeInUp 0.8s ease-out 0.4s both',
+                }}
+              >
+                <Text
+                  size="24px"
+                  fw={600}
+                  c="#000000"
+                  style={{ lineHeight: 1.5 }}
+                >
+                  Your {formatCurrency(budget)} billboard budget could get you{' '}
+                  <span style={{ color: '#D482B6', fontWeight: 700 }}>
+                    {basicResults.cars} cars
+                  </span>{' '}
+                  driving around the city full time!
+                </Text>
+              </Card>
+
+              <Group
+                justify="center"
+                gap="4rem"
+                style={{ animation: 'fadeInUp 0.8s ease-out 0.6s both' }}
+              >
+                <div style={{ textAlign: 'center' }}>
+                  <Text size="3rem" fw={700} c="#D482B6">
+                    {savingsPercentage > 0
+                      ? `${savingsPercentage}%`
+                      : `${Math.abs(savingsPercentage)}%`}
+                  </Text>
+                  <Text size="md" c="#666" fw={500} tt="uppercase">
+                    {savingsPercentage > 0
+                      ? 'Money Saved'
+                      : 'Additional Investment'}
+                  </Text>
+                </div>
+                <div style={{ textAlign: 'center' }}>
+                  <Text size="3rem" fw={700} c="#D482B6">
+                    {coverageEfficiency}%
+                  </Text>
+                  <Text size="md" c="#666" fw={500} tt="uppercase">
+                    Coverage Efficiency
+                  </Text>
+                </div>
+              </Group>
+
+              <Stack
+                gap="lg"
+                style={{ animation: 'fadeInUp 0.8s ease-out 0.8s both' }}
+              >
+                <Group justify="space-between">
+                  <Text size="lg" c="#666" fw={500}>
+                    Monthly Rate per Car:
+                  </Text>
+                  <Text size="lg" c="#D482B6" fw={600}>
+                    {formatCurrency(basicResults.pricePerCar)}
+                  </Text>
+                </Group>
+                <Group justify="space-between">
+                  <Text size="lg" c="#666" fw={500}>
+                    Total Monthly Cost:
+                  </Text>
+                  <Text size="lg" c="#D482B6" fw={600}>
+                    {formatCurrency(basicResults.total)}
+                  </Text>
+                </Group>
+              </Stack>
+
+              <Text
+                size="sm"
+                c="#666"
+                style={{
+                  fontStyle: 'italic',
+                  textAlign: 'center',
+                  marginTop: '1rem',
+                  animation: 'fadeInUp 0.8s ease-out 1s both',
+                }}
+              >
+                *One time installation fee of $66 per car
               </Text>
-            </Card>
-          )}
-        </Stack>
-      </Card>
+
+              <div
+                style={{ animation: 'fadeInUp 0.8s ease-out 1s both' }}
+                className="space-y-4 md:space-y-0 md:space-x-4"
+              >
+                <Button
+                  onClick={resetCalculator}
+                  variant="outline"
+                  size="lg"
+                  style={{
+                    borderColor: '#D482B6',
+                    color: '#D482B6',
+                    borderRadius: '16px',
+                    height: '60px',
+                    fontSize: '1.1rem',
+                    fontWeight: 600,
+                    '&:hover': {
+                      backgroundColor: 'rgba(212, 130, 182, 0.1)',
+                      transform: 'translateY(-2px)',
+                    },
+                    transition: 'all 0.3s ease',
+                  }}
+                >
+                  Calculate Again
+                </Button>
+                <Button
+                  onClick={handleGetStartedClick}
+                  variant="filled"
+                  size="lg"
+                  style={{
+                    borderColor: '#D482B6',
+                    color: '#ffffff',
+                    borderRadius: '16px',
+                    height: '60px',
+                    fontSize: '1.1rem',
+                    fontWeight: 600,
+                    '&:hover': {
+                      backgroundColor: 'rgba(212, 130, 182, 0.1)',
+                      transform: 'translateY(-2px)',
+                    },
+                    transition: 'all 0.3s ease',
+                  }}
+                >
+                  Get Started
+                </Button>
+              </div>
+            </Stack>
+          </Card>
+        )}
+      </div>
+
+      <style jsx>{`
+        @keyframes slideInUp {
+          from {
+            opacity: 0;
+            transform: translateY(30px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+
+        @keyframes fadeInUp {
+          from {
+            opacity: 0;
+            transform: translateY(20px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+
+        @keyframes zoomIn {
+          from {
+            opacity: 0;
+            transform: scale(0.8);
+          }
+          to {
+            opacity: 1;
+            transform: scale(1);
+          }
+        }
+      `}</style>
     </div>
   );
 }
