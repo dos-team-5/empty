@@ -16,8 +16,8 @@ export default function Home() {
     <>
       <Head>
         <meta name="robots" content="index, follow" />
-        <link rel="canonical" href="https://emptyad.com" />
-        <title>Home | Empty</title>
+        <link rel="canonical" href={`${process.env.NEXT_PUBLIC_URL}`} />
+        <title>Home-Empty</title>
       </Head>
       <main className="">
         <HeroSection />
