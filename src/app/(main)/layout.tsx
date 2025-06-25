@@ -4,6 +4,23 @@ import FixedSpinnerLogo from '@/components/FixedSpinnerLogo';
 import React from 'react';
 import ReactLenis from 'lenis/react';
 import AnimatedGradient from '@/providers/AnimatedGradient';
+import { Metadata } from 'next';
+
+export const metaData: Metadata = {
+  robots: {
+    index: true,
+    follow: true,
+    nocache: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      noimageindex: true,
+      'max-video-preview': -1,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
+  },
+};
 
 export default function MainLayout({
   children,

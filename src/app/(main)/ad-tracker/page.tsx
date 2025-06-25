@@ -18,8 +18,6 @@ const AdTracker = () => {
   return (
     <>
       <Head>
-        <meta name="robots" content="index, follow" />
-        <link rel="canonical" href="https://emptyad.com/ad-tracker" />
         <title>Ad Tracker | Empty</title>
       </Head>
       <div className="flex min-h-dvh flex-col overflow-hidden">
