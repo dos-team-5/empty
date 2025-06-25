@@ -9,30 +9,38 @@ import AdvertiserCampaign from '@/components/AdvertiserCampaign/AdvertiserCampai
 import PricingConfigurator from '@/components/PricingSections/PriceConfigurator/PricingConfigurator';
 import RoiCalculator from '@/components/RoiCalculator';
 import ScanVsLeadSnatcher from '@/components/ScanVsLeadSnatcher/ScanVsLeadSnatcher';
+import Head from 'next/head';
 
 export default function Home() {
   return (
-    <main className="">
-      <HeroSection />
-      <TextRevealByWord className="">
-        The Lowest CPM in OOH History
-      </TextRevealByWord>
-      {/* <Advertisement /> */}
-      {/* <WhyChooseUsSection /> */}
-      <AnimatedAdSection />
+    <>
+      <Head>
+        <meta name="robots" content="index, follow" />
+        <link rel="canonical" href="https://emptyad.com" />
+        <title>Home | Empty</title>
+      </Head>
+      <main className="">
+        <HeroSection />
+        <TextRevealByWord className="">
+          The Lowest CPM in OOH History
+        </TextRevealByWord>
+        {/* <Advertisement /> */}
+        {/* <WhyChooseUsSection /> */}
+        <AnimatedAdSection />
 
-      <RoiCalculator />
+        <RoiCalculator />
 
-      {/* <FeatureSection />
+        {/* <FeatureSection />
       <FeatureCard /> */}
-      <CarouselFeature />
+        <CarouselFeature />
 
-      {/* <TimelineSectionAd /> */}
-      {/* <PricingCards /> */}
-      <AdvertiserCampaign />
-      <PricingConfigurator />
-      <ScanVsLeadSnatcher />
-      <Faq />
-    </main>
+        {/* <TimelineSectionAd /> */}
+        {/* <PricingCards /> */}
+        <AdvertiserCampaign />
+        <PricingConfigurator />
+        <ScanVsLeadSnatcher />
+        <Faq />
+      </main>
+    </>
   );
 }
