@@ -16,7 +16,7 @@ export default function Home() {
     <>
       <Head>
         <meta name="robots" content="index, follow" />
-        <link rel="canonical" href={`${process.env.NEXT_PUBLIC_URL}`} />
+        <link rel="canonical" href="https://empty-pi.vercel.app/" />
         <title>Home-Empty</title>
       </Head>
       <main className="">
