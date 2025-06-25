@@ -64,6 +64,7 @@ export default function Loading() {
           >
             <div style={{ filter: 'hue-rotate(0deg) saturate(1)' }}>
               <Image
+                title="Logo"
                 src="/logo-icon.png"
                 alt="Logo"
                 width={100}
@@ -93,7 +94,7 @@ export default function Loading() {
               style={{
                 color: '#D381B5',
                 fontWeight: 550,
-                fontFamily:'Poppins',
+                fontFamily: 'Poppins',
                 letterSpacing: '0.02em',
               }}
             >

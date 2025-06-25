@@ -72,6 +72,7 @@ const AdTracker = () => {
                 className="relative"
               >
                 <Image
+                  title={`Image ${i + 1}`}
                   src={image}
                   alt={`Image ${i + 1}`}
                   width={1000}

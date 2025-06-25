@@ -95,6 +95,7 @@ export default function PrizePopup({
               transition={{ duration: 0.5, delay: 0.2 }}
             >
               <Image
+                title="Emoji"
                 src={imageSrc}
                 alt={isWinner ? 'Happy Emoji' : 'Sad Emoji'}
                 width={120}

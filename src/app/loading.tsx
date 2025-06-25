@@ -64,6 +64,7 @@ export default function Loading() {
           >
             <div style={{ filter: 'hue-rotate(0deg) saturate(1)' }}>
               <Image
+                title="Empty Logo"
                 src="/logo-icon.png"
                 alt="Logo"
                 width={100}

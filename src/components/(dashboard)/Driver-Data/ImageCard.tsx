@@ -56,6 +56,7 @@ export const ImageCard = ({ src, alt, name, size }: ImageCardProps) => {
         }}
       >
         <Image
+          title={alt}
           src={src || '/placeholder.svg?height=200&width=300'}
           alt={alt}
           fit="cover"
