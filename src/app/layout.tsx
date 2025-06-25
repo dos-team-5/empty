@@ -80,7 +80,7 @@ export default function RootLayout({
           name="viewport"
           content="width=device-width, initial-scale=1, maximum-scale=1"
         />
-        <meta name="publisher" content="Your Publisher Name" />
+        <meta name="publisher" content="DevsOnSteroids" />
       </head>
       <body
         className={`${poppins.variable} ${inter.variable} relative antialiased`}
