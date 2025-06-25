@@ -38,6 +38,7 @@ const SidebarTopNav = ({ menus }: SidebarTopNavProps) => {
           <Group>
             <Link href="/" className="py-6">
               <Image
+                title="logo"
                 src={'/EMPTY-Logo.png'}
                 width={1000}
                 height={1000}

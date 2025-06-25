@@ -36,6 +36,7 @@ const FixedSpinnerLogo = () => {
           </text>
         </svg>
         <Image
+          title="Spinner logo"
           alt="Spinner logo"
           radius="100%"
           src="/spinLogo.png"

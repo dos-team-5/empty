@@ -135,6 +135,7 @@ const AdvertiserCampaign = () => {
           </Box>
           <SimpleGrid cols={cols} spacing={0} mt={16}>
             <Image
+              title="advertiser campaign"
               src="/advertiser-campaign/indicator.png"
               alt="advertiser campaign"
             />
@@ -142,11 +143,13 @@ const AdvertiserCampaign = () => {
               hidden={isMobile}
               src="/advertiser-campaign/indicator.png"
               alt="advertiser campaign"
+              title="advertiser campaign"
             />
             <Image
               hidden={isMobile || tablet}
               src="/advertiser-campaign/indicator.png"
               alt="advertiser campaign"
+              title="advertiser campaign"
             />
           </SimpleGrid>
         </Swiper>

@@ -16,8 +16,8 @@ const Drive = () => {
     <>
       <Head>
         <meta name="robots" content="index, follow" />
-        <link rel="canonical" href="https://emptyad.com/drive" />
-        <title>Drive | Empty</title>
+        <link rel="canonical" href={`${process.env.NEXT_PUBLIC_URL}`} />
+        <title>Drive-Empty</title>
       </Head>
       <Box component="main" className="">
         <DriveHeroSection />

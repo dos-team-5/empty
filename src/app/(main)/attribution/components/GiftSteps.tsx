@@ -22,6 +22,7 @@ const GiftSteps = () => {
     <Stack maw={1200} mx="auto" mt={{ base: 80 }} mb={{ base: 80 }}>
       <div className="flex flex-col items-center justify-center lg:flex-row lg:gap-32">
         <Image
+          title="Vs Scan & Spin"
           src={'/VS_SCANSPIN.png'}
           alt="Image"
           width={1000}

@@ -7,8 +7,8 @@ const page = () => {
     <>
       <Head>
         <meta name="robots" content="index, follow" />
-        <link rel="canonical" href="https://emptyad.com/attribution" />
-        <title>Attribution | Empty</title>
+        <link rel="canonical" href={`${process.env.NEXT_PUBLIC_URL}`} />
+        <title>Attribution</title>
       </Head>
       <Container
         component={'main'}

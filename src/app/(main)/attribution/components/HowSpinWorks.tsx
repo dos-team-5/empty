@@ -36,6 +36,8 @@ const HowSpinWorks = () => {
           key={item.id}
         >
           <Image
+            title={item.id.toString()}
+            alt={item.id.toString()}
             src={item.img}
             w={{ base: '100%', md: '70%' }}
             mx="auto"

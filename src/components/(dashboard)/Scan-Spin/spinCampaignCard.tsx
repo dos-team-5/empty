@@ -207,6 +207,7 @@ export default function SpinCampaignCard({
                     radius="lg"
                   >
                     <Image
+                      title="Company Logo"
                       w={{ base: 40, md: 80 }}
                       h={{ base: 40, md: 80 }}
                       src={campaign.companyLogo?.url}

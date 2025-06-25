@@ -187,6 +187,7 @@ export default function Home() {
       >
         <div className="mx-auto flex w-full flex-col items-center justify-center text-center lg:w-[40%]">
           <Image
+            title="empty-logo"
             src={'/EMPTY.png'}
             alt="empty-logo"
             width={1000}
@@ -194,6 +195,7 @@ export default function Home() {
             className="w-56 md:w-96 2xl:w-120"
           />
           <Image
+            title="title"
             src={'/Scan-and-Spin.png'}
             alt="title"
             width={1000}

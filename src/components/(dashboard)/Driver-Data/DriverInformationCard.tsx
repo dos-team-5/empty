@@ -152,6 +152,7 @@ export default function DriverInformationCard({
                     className="rounded-lg border border-[#CB6AA7]/30 p-2"
                   >
                     <Image
+                      title={`Vehicle photo ${index + 1}`}
                       src={photo.url || '/placeholder.svg'}
                       alt={`Vehicle photo ${index + 1}`}
                       width={300}
@@ -230,6 +231,7 @@ export default function DriverInformationCard({
                 <SimpleGrid spacing={16} cols={{ base: 1, md: 2 }}>
                   <Box className="rounded-lg border border-[#CB6AA7]/30 p-2">
                     <Image
+                      title="Driver's License"
                       src={data.driversLicense?.url ?? '/placeholder.svg'}
                       alt="Driver's License"
                       width={200}
@@ -255,6 +257,7 @@ export default function DriverInformationCard({
                     className="rounded-lg border border-[#CB6AA7]/30 p-2"
                   >
                     <Image
+                      title="Driver Profile"
                       src={data.driverProfile?.url ?? '/placeholder.svg'}
                       alt="Driver Profile"
                       width={200}
@@ -280,6 +283,7 @@ export default function DriverInformationCard({
                     className="rounded-lg border border-[#CB6AA7]/30 p-2"
                   >
                     <Image
+                      title="Trip History"
                       src={data.tripHistory?.url ?? '/placeholder.svg'}
                       alt="Trip History"
                       width={200}
