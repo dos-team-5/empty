@@ -6,23 +6,23 @@ const HowSpinWorks = () => {
   const newImages = [
     {
       id: 1,
-      img: '/attribution/HowSpinWorks/img1.png',
+      img: '/attribution/HowSpinWorks/image1.png',
     },
     {
       id: 2,
-      img: '/attribution/HowSpinWorks/img2.png',
+      img: '/attribution/HowSpinWorks/image2.png',
     },
     {
       id: 3,
-      img: '/attribution/HowSpinWorks/img3.png',
+      img: '/attribution/HowSpinWorks/image3.png',
     },
     {
       id: 4,
-      img: '/attribution/HowSpinWorks/img4.png',
+      img: '/attribution/HowSpinWorks/image4.png',
     },
     {
       id: 5,
-      img: '/attribution/HowSpinWorks/img5.png',
+      img: '/attribution/HowSpinWorks/image5.png',
     },
   ];
   return (

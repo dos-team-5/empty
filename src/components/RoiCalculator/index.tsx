@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { Car, DollarSign, ArrowRight } from 'lucide-react';
 import { TextInput, Text, Group, Stack, Card, Button } from '@mantine/core';
 
-export default function RoiCalculator() {
+export default function Component() {
   const [step, setStep] = useState(1);
   const [billboardSpend, setBillboardSpend] = useState('');
   const [basicResults, setBasicResults] = useState({
@@ -28,7 +28,7 @@ export default function RoiCalculator() {
     },
   };
 
-  const getPricing = (carCount: number, plan: 'basic' | 'premium') => {
+  const getPricing = (carCount: number, plan: 'basic') => {
     const planData = plans[plan];
     for (const tier of planData.tiers) {
       if (carCount >= tier.min && carCount <= tier.max) {
@@ -38,7 +38,7 @@ export default function RoiCalculator() {
     return planData.tiers[planData.tiers.length - 1].price;
   };
 
-  const calculateMaxCars = (budget: number, plan: 'basic' | 'premium') => {
+  const calculateMaxCars = (budget: number, plan: 'basic') => {
     if (budget <= 0) return { cars: 0, pricePerCar: 0, total: 0 };
 
     for (let cars = 1; cars <= 1000; cars++) {
@@ -109,9 +109,16 @@ export default function RoiCalculator() {
     }, 300);
   };
 
+  const handleGetStartedClick = () => {
+    const target = document.querySelector('#pricing-configurator');
+    if (target) {
+      target.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   return (
     <div
-      className="mx-auto mt-40 w-full max-w-4xl p-6"
+      className="mx-auto mt-50 w-full max-w-4xl p-2 md:p-6"
       style={{
         backgroundColor: 'transparent',
         minHeight: '500px',
@@ -180,12 +187,12 @@ export default function RoiCalculator() {
                   }
                   styles={{
                     input: {
-                      fontSize: '1.8rem',
+                      fontSize: '18px',
                       height: '90px',
                       backgroundColor: 'rgba(255, 255, 255, 0.8)',
                       border: '2px solid #e9ecef',
                       borderRadius: '20px',
-                      paddingLeft: '4rem',
+                      paddingLeft: '32px',
                       color: '#000000',
                       fontWeight: 500,
                       textAlign: 'center',
@@ -224,7 +231,7 @@ export default function RoiCalculator() {
                     },
                     '&:disabled': {
                       backgroundColor: '#e9ecef',
-                      color: '#666',
+                      color: '#999',
                     },
                     transition: 'all 0.3s ease',
                   }}
@@ -265,14 +272,14 @@ export default function RoiCalculator() {
                 </Text>
                 <Group justify="center" gap="md">
                   <Car size={40} style={{ color: '#D482B6' }} />
-                  <Text size="2xl" c="#666" fw={500}>
+                  <Text fz={24} c="#666" fw={500}>
                     cars
                   </Text>
                 </Group>
               </div>
 
               <Card
-                padding="2rem"
+                padding="16px"
                 radius="20px"
                 style={{
                   backgroundColor: 'rgba(212, 130, 182, 0.1)',
@@ -281,7 +288,7 @@ export default function RoiCalculator() {
                 }}
               >
                 <Text
-                  size="1.5rem"
+                  size="24px"
                   fw={600}
                   c="#000000"
                   style={{ lineHeight: 1.5 }}
@@ -356,7 +363,10 @@ export default function RoiCalculator() {
                 *One time installation fee of $66 per car
               </Text>
 
-              <div style={{ animation: 'fadeInUp 0.8s ease-out 1s both' }}>
+              <div
+                style={{ animation: 'fadeInUp 0.8s ease-out 1s both' }}
+                className="space-y-4 md:space-y-0 md:space-x-4"
+              >
                 <Button
                   onClick={resetCalculator}
                   variant="outline"
@@ -376,6 +386,26 @@ export default function RoiCalculator() {
                   }}
                 >
                   Calculate Again
+                </Button>
+                <Button
+                  onClick={handleGetStartedClick}
+                  variant="filled"
+                  size="lg"
+                  style={{
+                    borderColor: '#D482B6',
+                    color: '#ffffff',
+                    borderRadius: '16px',
+                    height: '60px',
+                    fontSize: '1.1rem',
+                    fontWeight: 600,
+                    '&:hover': {
+                      backgroundColor: 'rgba(212, 130, 182, 0.1)',
+                      transform: 'translateY(-2px)',
+                    },
+                    transition: 'all 0.3s ease',
+                  }}
+                >
+                  Get Started
                 </Button>
               </div>
             </Stack>
