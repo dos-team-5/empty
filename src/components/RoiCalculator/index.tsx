@@ -224,7 +224,7 @@ export default function RoiCalculator() {
                     },
                     '&:disabled': {
                       backgroundColor: '#e9ecef',
-                      color: '#999',
+                      color: '#666',
                     },
                     transition: 'all 0.3s ease',
                   }}
