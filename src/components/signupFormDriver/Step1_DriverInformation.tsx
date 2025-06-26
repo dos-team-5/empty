@@ -25,6 +25,61 @@ import { useLanguage } from '@/providers/languageToggleContext';
 
 // Zod validation schema
 
+type Language = 'en' | 'fr';
+
+const validationMessages = {
+  fullName: {
+    en: 'Full name is required',
+    fr: 'Le nom complet est requis',
+  },
+  email: {
+    en: 'Invalid email address',
+    fr: 'Adresse e-mail invalide',
+  },
+  phone: {
+    en: 'Phone number is required',
+    fr: 'Le numéro de téléphone est requis',
+  },
+  cityProvince: {
+    en: 'City is required',
+    fr: 'La ville est requise',
+  },
+  shippingAddress: {
+    en: 'Shipping address is required',
+    fr: "L'adresse de livraison est requise",
+  },
+  vehicleMake: {
+    en: 'Vehicle make is required',
+    fr: 'La marque du véhicule est requise',
+  },
+  vehicleModel: {
+    en: 'Vehicle model is required',
+    fr: 'Le modèle du véhicule est requis',
+  },
+  vehicleYear: {
+    en: 'Vehicle year must be a 4-digit number',
+    fr: "L'année du véhicule doit comporter 4 chiffres",
+  },
+  vehiclePhotos: {
+    min: {
+      en: 'Please upload both front, side and back vehicle photos',
+      fr: 'Veuillez télécharger les photos avant, latérale et arrière du véhicule',
+    },
+    max: {
+      en: 'Only front, side and back vehicle photos are allowed',
+      fr: 'Seules les photos avant, latérale et arrière du véhicule sont autorisées',
+    },
+  },
+  rideSharePlatforms: {
+    en: 'At least one ride-share platform is required',
+    fr: 'Au moins une plateforme de covoiturage est requise',
+  },
+  weeklyDrivingSchedule: {
+    en: 'Weekly driving schedule is required',
+    fr: 'L’horaire de conduite hebdomadaire est requis',
+  },
+};
+
 export const fileHandlerResSchema = z
   .object({
     key: z.string(),
@@ -35,28 +90,32 @@ export const fileHandlerResSchema = z
   })
   .catchall(z.unknown()); // allows additional properties of unknown type
 
-const schema = z.object({
-  fullName: z.string().min(1, 'Full name is required'),
-  email: z.string().email('Invalid email address'),
-  phone: z.string().min(1, 'Phone number is required'),
-  cityProvince: z.string().min(1, 'City  is required'),
-  shippingAddress: z.string().min(1, 'Shipping address is required'),
-  vehicleMake: z.string().min(1, 'Vehicle make is required'),
-  vehicleModel: z.string().min(1, 'Vehicle model is required'),
-  vehicleYear: z
-    .string()
-    .regex(/^\d{4}$/, 'Vehicle year must be a 4-digit number'),
-  vehiclePhotos: z
-    .array(fileHandlerResSchema)
-    .min(2, 'Please upload both front, side and back vehicle photos')
-    .max(4, 'Only front, side and back vehicle photos are allowed'),
-  rideSharePlatforms: z
-    .array(z.string())
-    .min(1, 'At least one ride-share platform is required'),
-  weeklyDrivingSchedule: z
-    .string()
-    .min(1, 'Weekly driving schedule is required'),
-});
+const schema = (lang: Language) => {
+  return z.object({
+    fullName: z.string().min(1, validationMessages.fullName[lang]),
+    email: z.string().email(validationMessages.email[lang]),
+    phone: z.string().min(1, validationMessages.phone[lang]),
+    cityProvince: z.string().min(1, validationMessages.cityProvince[lang]),
+    shippingAddress: z
+      .string()
+      .min(1, validationMessages.shippingAddress[lang]),
+    vehicleMake: z.string().min(1, validationMessages.vehicleMake[lang]),
+    vehicleModel: z.string().min(1, validationMessages.vehicleModel[lang]),
+    vehicleYear: z
+      .string()
+      .regex(/^\d{4}$/, validationMessages.vehicleYear[lang]),
+    vehiclePhotos: z
+      .array(fileHandlerResSchema)
+      .min(2, validationMessages.vehiclePhotos.min[lang])
+      .max(4, validationMessages.vehiclePhotos.max[lang]),
+    rideSharePlatforms: z
+      .array(z.string())
+      .min(1, validationMessages.rideSharePlatforms[lang]),
+    weeklyDrivingSchedule: z
+      .string()
+      .min(1, validationMessages.weeklyDrivingSchedule[lang]),
+  });
+};
 
 interface Step1DriverInformationFormValues {
   fullName: string;
@@ -124,7 +183,7 @@ const Step1_DriverInformation = ({
   const form = useForm<Step1DriverInformationFormValues>({
     mode: 'uncontrolled',
     initialValues: getInitialValues(),
-    validate: zodResolver(schema),
+    validate: zodResolver(schema(language)),
   });
 
   // Update form values when localStorage changes (e.g., on mount)
