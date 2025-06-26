@@ -14,5 +14,6 @@
   },
   "editor.codeActionsOnSave": {
     "source.removeUnusedImports": "explicit"
-  }
+  },
+  "cSpell.words": ["apos"]
 }
