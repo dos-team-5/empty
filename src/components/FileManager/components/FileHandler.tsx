@@ -15,6 +15,7 @@ import { notifications } from '@mantine/notifications';
 import { useEffect, useState } from 'react';
 import { deleteFile, uploadFile } from '../actions/fileActions'; // Make sure this path is correct
 import { Icon } from '@/components/FileManager/lib/Icon'; // Make sure this path is correct
+import { useLanguage } from '@/providers/languageToggleContext';
 
 export interface FileHandlerRes {
   key: string;
@@ -26,27 +27,23 @@ export interface FileHandlerRes {
 }
 
 interface FileHandlerProps {
-  onUploadSuccess?: (files: FileHandlerRes[]) => void;
+  readonly onUploadSuccess?: (files: FileHandlerRes[]) => void;
   /** Set to true to allow multiple file uploads. Defaults to false. */
-  multiple?: boolean;
+  readonly multiple?: boolean;
   /** An array of existing files to display on initial render. */
-  defaultValue?: FileHandlerRes[];
-  label?: string;
-  description?: string;
-  withAsterisk?: boolean;
-  error?: string;
+  readonly defaultValue?: FileHandlerRes[];
+  // readonly label?: string;
+  // readonly description?: string;
+  // readonly withAsterisk?: boolean;
+  // readonly error?: string;
   /** Maximum file size in megabytes (MB). Defaults to 10 MB. */
-  maxSizeMB?: number;
+  readonly maxSizeMB?: number;
 }
 
 export default function FileHandler({
   onUploadSuccess,
   multiple = false,
   defaultValue,
-  label,
-  description,
-  withAsterisk,
-  error,
   maxSizeMB = 10, // Default to 10MB
 }: FileHandlerProps) {
   // Initialize state with the defaultValue prop
@@ -55,6 +52,8 @@ export default function FileHandler({
   );
   const [uploading, setUploading] = useState(false);
   const [isDeleting, setIsDeleting] = useState<string | null>(null);
+
+  const { language } = useLanguage();
 
   // Effect to sync state when defaultValue prop changes from the parent
   useEffect(() => {
@@ -151,6 +150,7 @@ export default function FileHandler({
       <Dropzone
         onDrop={handleFileDrop}
         onReject={(rejectedFiles) => {
+          console.log('Rejected files:', rejectedFiles);
           notifications.show({
             title: 'File Rejected',
             message: `One or more files exceed the ${maxSizeMB} MB size limit.`,
@@ -190,16 +190,23 @@ export default function FileHandler({
           </Dropzone.Idle>
           <div className="flex w-full flex-col items-center justify-center">
             <Text size="sm" fw={400} ta={'center'}>
-              Drag your file(s) to start uploading
+              {language === 'fr'
+                ? 'Déposez vos fichiers ici'
+                : 'Drag your file(s) to start uploading'}
             </Text>
-            <Divider my={2} label="OR" labelPosition="center" size="sm" />
+            <Divider
+              my={2}
+              label={language === 'fr' ? 'ou' : 'OR'}
+              labelPosition="center"
+              size="sm"
+            />
 
             <Button
               unstyled
               className="text-primary cursor-pointer !py-[6px] font-bold"
               w={{ base: 100, sm: 160 }}
             >
-              Browse files
+              {language === 'fr' ? 'Parcourir' : 'Browse'}
             </Button>
           </div>
         </Group>

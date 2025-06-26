@@ -1,5 +1,5 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 'use client';
-import { useFormSubmission } from '@/contexts/FormSubmissionContext';
 import {
   Button,
   Group,
@@ -30,32 +30,52 @@ import { Icon } from '@iconify/react/dist/iconify.js';
 import {
   DriverApplication,
   getDriverApplicationFromLocalStorage,
-  greetDrivers,
   sendDriverApplicationEmail,
 } from '@/app/(main)/drive/action/driverApplication';
 import { deleteFile } from '../FileManager/actions/fileActions';
 import Link from 'next/link';
+import { useLanguage } from '@/providers/languageToggleContext';
+import { step3helpContent } from '@/contents/drive/steppingForm';
+import { useFormSubmission } from '@/contexts/FormSubmissionContext';
 
 // Zod validation schema
-const schema = z.object({
-  voidCheque: z
-    .array(fileHandlerResSchema)
-    .max(1, 'Only one void cheque doc is allowed'),
-});
+const schema = (lang: 'en' | 'fr') =>
+  z.object({
+    voidCheque: z
+      .array(fileHandlerResSchema)
+      .max(
+        1,
+        lang === 'fr'
+          ? 'Un seul document de chèque annulé est autorisé.'
+          : 'Only one void cheque document is allowed.'
+      ),
+    termsAndConditions: z.literal(true, {
+      errorMap: () => ({
+        message:
+          lang === 'fr'
+            ? 'Vous devez accepter les conditions générales.'
+            : 'You must accept the terms and conditions.',
+      }),
+    }),
+  });
 
 interface Step3BankingInformationFormValues {
   voidCheque: FileHandlerRes[] | null;
+  termsAndConditions: boolean;
 }
 
 interface Step3BankingInformationProps {
   onNext: () => void;
   onPrev: () => void;
+  step3FormLabel: any;
 }
 
 const Step3_BankingInformation = ({
   onNext,
   onPrev,
+  step3FormLabel,
 }: Step3BankingInformationProps) => {
+  const { language } = useLanguage();
   const [loading, setLoading] = useState<boolean>(false);
   const [selectedFileType, setSelectedFileType] = useState<'image' | 'pdf'>(
     'pdf'
@@ -79,13 +99,14 @@ const Step3_BankingInformation = ({
     }
     return {
       voidCheque: null,
+      termsAndConditions: false,
     };
   };
 
   const form = useForm<Step3BankingInformationFormValues>({
     mode: 'uncontrolled',
     initialValues: getInitialValues(),
-    validate: zodResolver(schema),
+    validate: zodResolver(schema(language)),
   });
 
   // Update form values when localStorage changes (e.g., on mount)
@@ -94,6 +115,8 @@ const Step3_BankingInformation = ({
     form.setValues(savedValues);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  const content = step3helpContent[language];
 
   const handleSubmit = async (values: Step3BankingInformationFormValues) => {
     setSubmitting(true);
@@ -105,13 +128,12 @@ const Step3_BankingInformation = ({
       localStorage.setItem('step3FormValues', JSON.stringify(valuesToSave));
     }
 
+    setIsBankingInfoSubmitted(true);
+
     // Simulate form submission (e.g., API call)
     try {
       const driverApplication: DriverApplication | null =
         getDriverApplicationFromLocalStorage();
-
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      const greetingMsg: any = greetDrivers();
 
       if (!driverApplication) {
         notifications.show({
@@ -125,7 +147,7 @@ const Step3_BankingInformation = ({
       const { success, message } =
         await sendDriverApplicationEmail(driverApplication);
 
-      if (success) {
+      if (success === true) {
         notifications.show({
           title: 'Form Submitted. Please check you Email for confirmation',
           message,
@@ -141,7 +163,6 @@ const Step3_BankingInformation = ({
           autoClose: 5000,
         });
       }
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (err: any) {
       console.error('Submission error:', err);
       notifications.show({
@@ -199,9 +220,9 @@ const Step3_BankingInformation = ({
         <Stack>
           <Input.Wrapper
             pos={'relative'}
-            label="Void Cheque (Image or PDF)"
+            label={step3FormLabel.voidCheque.label[language]}
             withAsterisk
-            description="Upload a void cheque or direct deposit form from your bank."
+            description={step3FormLabel.voidCheque.description[language]}
             error={form.errors.voidCheque}
             className="font-inter text-xs font-normal text-[#5E6366]"
           >
@@ -210,7 +231,7 @@ const Step3_BankingInformation = ({
                 <ActionIcon
                   top={-2}
                   left={204}
-                  pos={'absolute'}
+                  pos="absolute"
                   variant="subtle"
                   size="sm"
                 >
@@ -221,46 +242,36 @@ const Step3_BankingInformation = ({
                 <Paper p="md" radius="md" withBorder>
                   <Stack gap="md">
                     <Title fz={16} order={3}>
-                      How to Find and Upload a Void Cheque from Your Banking App
+                      {content.title}
                     </Title>
 
                     <Text size="sm" c="dimmed">
-                      Most major Canadian banks allow you to download or take a
-                      screenshot of a void cheque directly from their mobile
-                      app. Here&apos;s how:
+                      {content.description}
                     </Text>
 
                     <List listStyleType="disc" size="xs" type="ordered">
-                      <List.Item>Log in to your banking app.</List.Item>
-
-                      <List.Item>
-                        Go to your account details or direct deposit information
-                        section.
-                      </List.Item>
-
-                      <List.Item>
-                        Look for an option called &quot;Void Cheque,&quot;
-                        &quot;Pre-Authorized Debit Form,&quot; or &quot;Direct
-                        Deposit Form.&quot;
-                      </List.Item>
-
-                      <List.Item>
-                        Download or take a screenshot of the document showing:
-                        <List
-                          withPadding
-                          ml="md"
-                          mt="xs"
-                          type="unordered"
-                          spacing="xs"
-                          size="sm"
-                          listStyleType="revert"
-                        >
-                          <List.Item>Your full name</List.Item>
-                          <List.Item>Transit number</List.Item>
-                          <List.Item>Institution number</List.Item>
-                          <List.Item>Account number</List.Item>
-                        </List>
-                      </List.Item>
+                      {content.steps.map((step, index) =>
+                        typeof step === 'string' ? (
+                          <List.Item key={index}>{step}</List.Item>
+                        ) : (
+                          <List.Item key={index}>
+                            {step.text}
+                            <List
+                              withPadding
+                              ml="md"
+                              mt="xs"
+                              type="unordered"
+                              spacing="xs"
+                              size="sm"
+                              listStyleType="revert"
+                            >
+                              {step.subItems.map((item, subIndex) => (
+                                <List.Item key={subIndex}>{item}</List.Item>
+                              ))}
+                            </List>
+                          </List.Item>
+                        )
+                      )}
                     </List>
                   </Stack>
                 </Paper>
@@ -346,7 +357,7 @@ const Step3_BankingInformation = ({
                             mt="sm"
                             fullWidth
                           >
-                            View File
+                            {language === 'fr' ? 'Consulter' : 'View'}
                           </Button>
                         </Card>
                       ))}
@@ -390,19 +401,31 @@ const Step3_BankingInformation = ({
           </Input.Wrapper>
 
           <Checkbox
+            {...form.getInputProps('termsAndConditions', { type: 'checkbox' })}
             label={
-              <Text fz={14}>
-                I have read and agree to be bound by the
-                <Link
-                  href="/terms-and-conditions"
-                  className="!text-primary ml-2"
-                >
-                  Terms and Conditions
-                </Link>
-                {/* and <span className="!text-primary ml-2">Privacy Policy.</span> */}
-              </Text>
+              language === 'fr' ? (
+                <Text fz={14}>
+                  J’ai lu et j’accepte d’être lié par les
+                  <Link
+                    href="/terms-and-conditions"
+                    className="!text-primary ml-2"
+                  >
+                    conditions générales
+                  </Link>
+                </Text>
+              ) : (
+                <Text fz={14}>
+                  I have read and agree to be bound by the
+                  <Link
+                    href="/terms-and-conditions"
+                    className="!text-primary ml-2"
+                  >
+                    Terms and Conditions
+                  </Link>
+                  {/* and <span className="!text-primary ml-2">Privacy Policy.</span> */}
+                </Text>
+              )
             }
-            required
           />
 
           <Group
