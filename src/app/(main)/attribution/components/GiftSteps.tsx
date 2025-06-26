@@ -40,7 +40,7 @@ const GiftSteps = () => {
             },
           }}
           viewport={{ once: true }}
-          className="mx-4 mt-16 rounded-2xl bg-[#D24C96] p-8 text-center text-xs text-white sm:mx-24 md:text-sm lg:mx-0 lg:w-108"
+          className="mx-4 mt-16 rounded-2xl bg-[#FF83D5] p-8 text-center text-xs text-white sm:mx-24 md:text-sm lg:mx-0 lg:w-108"
         >
           Scan & Spin delivers the kind of engagement you'd get if you hired
           dozens of people to hand out coupons across the city. But instead of

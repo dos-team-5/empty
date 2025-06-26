@@ -92,7 +92,7 @@ const Steppers = () => {
     <Stepper
       active={active}
       onStepClick={setActive}
-      className="flex w-full flex-col"
+      className="flex w-full flex-col min-w"
     >
       {steppers.map((stepper, index) => (
         <Stepper.Step

@@ -26,7 +26,7 @@ const HeroSection: React.FC = () => {
   const { x } = getAnimationProps();
 
   const handleAdvertiseClick = () => {
-    const target = document.querySelector('#pricingSection');
+    const target = document.querySelector('#pricing-configurator');
     if (target) {
       target.scrollIntoView({ behavior: 'smooth' });
     }
@@ -40,7 +40,7 @@ const HeroSection: React.FC = () => {
       >
         <HeroCar
           className={
-            'h-dvh w-[156dvw] origin-bottom-right md:w-[152dvw] lg:w-[72dvw]'
+            'h-dvh w-[156dvw] origin-bottom-right md:w-[152dvw] lg:w-[72dvw] !bg-transparent'
           }
         />
       </div>
