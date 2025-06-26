@@ -15,6 +15,7 @@ import { notifications } from '@mantine/notifications';
 import { useEffect, useState } from 'react';
 import { deleteFile, uploadFile } from '../actions/fileActions'; // Make sure this path is correct
 import { Icon } from '@/components/FileManager/lib/Icon'; // Make sure this path is correct
+import { useLanguage } from '@/providers/languageToggleContext';
 
 export interface FileHandlerRes {
   key: string;
@@ -55,6 +56,8 @@ export default function FileHandler({
   );
   const [uploading, setUploading] = useState(false);
   const [isDeleting, setIsDeleting] = useState<string | null>(null);
+
+  const { language } = useLanguage();
 
   // Effect to sync state when defaultValue prop changes from the parent
   useEffect(() => {
@@ -190,16 +193,23 @@ export default function FileHandler({
           </Dropzone.Idle>
           <div className="flex w-full flex-col items-center justify-center">
             <Text size="sm" fw={400} ta={'center'}>
-              Drag your file(s) to start uploading
+              {language === 'fr'
+                ? 'Déposez vos fichiers ici'
+                : 'Drag your file(s) to start uploading'}
             </Text>
-            <Divider my={2} label="OR" labelPosition="center" size="sm" />
+            <Divider
+              my={2}
+              label={language === 'fr' ? 'ou' : 'OR'}
+              labelPosition="center"
+              size="sm"
+            />
 
             <Button
               unstyled
               className="text-primary cursor-pointer !py-[6px] font-bold"
               w={{ base: 100, sm: 160 }}
             >
-              Browse files
+              {language === 'fr' ? 'Parcourir' : 'Browse'}
             </Button>
           </div>
         </Group>
