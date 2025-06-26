@@ -36,6 +36,7 @@ import { deleteFile } from '../FileManager/actions/fileActions';
 import Link from 'next/link';
 import { useLanguage } from '@/app/(main)/drive/context/languageToggleContext';
 import { step3helpContent } from '@/contents/drive/steppingForm';
+import { useFormSubmission } from '@/contexts/FormSubmissionContext';
 
 // Zod validation schema
 const schema = z.object({
@@ -67,6 +68,7 @@ const Step3_BankingInformation = ({
   const [changeVoidChequePhotos, setChangeVoidChequePhotos] =
     useState<boolean>(false);
   const [submitting, setSubmitting] = useState<boolean>(false);
+  const { setIsBankingInfoSubmitted } = useFormSubmission();
 
   // Load initial values from localStorage
   const getInitialValues = (): Step3BankingInformationFormValues => {
@@ -109,6 +111,8 @@ const Step3_BankingInformation = ({
       };
       localStorage.setItem('step3FormValues', JSON.stringify(valuesToSave));
     }
+
+    setIsBankingInfoSubmitted(true);
 
     // Simulate form submission (e.g., API call)
     try {
