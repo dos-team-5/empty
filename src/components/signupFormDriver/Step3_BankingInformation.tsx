@@ -407,7 +407,7 @@ const Step3_BankingInformation = ({
                 <Text fz={14}>
                   J’ai lu et j’accepte d’être lié par les
                   <Link
-                    href="/terms-and-conditions"
+                    href="/terms-and-conditions/fr"
                     className="!text-primary ml-2"
                   >
                     conditions générales
@@ -417,7 +417,7 @@ const Step3_BankingInformation = ({
                 <Text fz={14}>
                   I have read and agree to be bound by the
                   <Link
-                    href="/terms-and-conditions"
+                    href="/terms-and-conditions/en"
                     className="!text-primary ml-2"
                   >
                     Terms and Conditions

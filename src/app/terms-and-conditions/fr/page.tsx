@@ -1,4 +1,4 @@
-import TermsAndConditions from '@/components/TermsAndConditions';
+import FrenchTerms from '@/components/TermsAndConditions/frenchTerms';
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {
@@ -6,7 +6,7 @@ export const metadata: Metadata = {
 };
 
 const TermsAndConditionsPage = () => {
-  return <TermsAndConditions />;
+  return <FrenchTerms />;
 };
 
 export default TermsAndConditionsPage;
