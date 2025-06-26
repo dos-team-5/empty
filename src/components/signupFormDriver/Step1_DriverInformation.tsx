@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 'use client';
 import { useFormSubmission } from '@/contexts/FormSubmissionContext';
 import {
@@ -20,8 +21,64 @@ import { z } from 'zod';
 import { FileHandlerRes, ImageHandler } from '../FileManager';
 import { Icon } from '@iconify/react/dist/iconify.js';
 import { deleteFile } from '../FileManager/actions/fileActions';
+import { useLanguage } from '@/providers/languageToggleContext';
 
 // Zod validation schema
+
+type Language = 'en' | 'fr';
+
+const validationMessages = {
+  fullName: {
+    en: 'Full name is required',
+    fr: 'Le nom complet est requis',
+  },
+  email: {
+    en: 'Invalid email address',
+    fr: 'Adresse e-mail invalide',
+  },
+  phone: {
+    en: 'Phone number is required',
+    fr: 'Le numéro de téléphone est requis',
+  },
+  cityProvince: {
+    en: 'City is required',
+    fr: 'La ville est requise',
+  },
+  shippingAddress: {
+    en: 'Shipping address is required',
+    fr: "L'adresse de livraison est requise",
+  },
+  vehicleMake: {
+    en: 'Vehicle make is required',
+    fr: 'La marque du véhicule est requise',
+  },
+  vehicleModel: {
+    en: 'Vehicle model is required',
+    fr: 'Le modèle du véhicule est requis',
+  },
+  vehicleYear: {
+    en: 'Vehicle year must be a 4-digit number',
+    fr: "L'année du véhicule doit comporter 4 chiffres",
+  },
+  vehiclePhotos: {
+    min: {
+      en: 'Please upload both front, side and back vehicle photos',
+      fr: 'Veuillez télécharger les photos avant, latérale et arrière du véhicule',
+    },
+    max: {
+      en: 'Only front, side and back vehicle photos are allowed',
+      fr: 'Seules les photos avant, latérale et arrière du véhicule sont autorisées',
+    },
+  },
+  rideSharePlatforms: {
+    en: 'At least one ride-share platform is required',
+    fr: 'Au moins une plateforme de covoiturage est requise',
+  },
+  weeklyDrivingSchedule: {
+    en: 'Weekly driving schedule is required',
+    fr: 'L’horaire de conduite hebdomadaire est requis',
+  },
+};
 
 export const fileHandlerResSchema = z
   .object({
@@ -33,28 +90,32 @@ export const fileHandlerResSchema = z
   })
   .catchall(z.unknown()); // allows additional properties of unknown type
 
-const schema = z.object({
-  fullName: z.string().min(1, 'Full name is required'),
-  email: z.string().email('Invalid email address'),
-  phone: z.string().min(1, 'Phone number is required'),
-  cityProvince: z.string().min(1, 'City  is required'),
-  shippingAddress: z.string().min(1, 'Shipping address is required'),
-  vehicleMake: z.string().min(1, 'Vehicle make is required'),
-  vehicleModel: z.string().min(1, 'Vehicle model is required'),
-  vehicleYear: z
-    .string()
-    .regex(/^\d{4}$/, 'Vehicle year must be a 4-digit number'),
-  vehiclePhotos: z
-    .array(fileHandlerResSchema)
-    .min(2, 'Please upload both front, side and back vehicle photos')
-    .max(4, 'Only front, side and back vehicle photos are allowed'),
-  rideSharePlatforms: z
-    .array(z.string())
-    .min(1, 'At least one ride-share platform is required'),
-  weeklyDrivingSchedule: z
-    .string()
-    .min(1, 'Weekly driving schedule is required'),
-});
+const schema = (lang: Language) => {
+  return z.object({
+    fullName: z.string().min(1, validationMessages.fullName[lang]),
+    email: z.string().email(validationMessages.email[lang]),
+    phone: z.string().min(1, validationMessages.phone[lang]),
+    cityProvince: z.string().min(1, validationMessages.cityProvince[lang]),
+    shippingAddress: z
+      .string()
+      .min(1, validationMessages.shippingAddress[lang]),
+    vehicleMake: z.string().min(1, validationMessages.vehicleMake[lang]),
+    vehicleModel: z.string().min(1, validationMessages.vehicleModel[lang]),
+    vehicleYear: z
+      .string()
+      .regex(/^\d{4}$/, validationMessages.vehicleYear[lang]),
+    vehiclePhotos: z
+      .array(fileHandlerResSchema)
+      .min(2, validationMessages.vehiclePhotos.min[lang])
+      .max(4, validationMessages.vehiclePhotos.max[lang]),
+    rideSharePlatforms: z
+      .array(z.string())
+      .min(1, validationMessages.rideSharePlatforms[lang]),
+    weeklyDrivingSchedule: z
+      .string()
+      .min(1, validationMessages.weeklyDrivingSchedule[lang]),
+  });
+};
 
 interface Step1DriverInformationFormValues {
   fullName: string;
@@ -73,13 +134,18 @@ interface Step1DriverInformationFormValues {
 interface Step1DriverInformationProps {
   onNext: () => void;
   onPrev: () => void;
+  step1FormLabel: any;
 }
 
 const Step1_DriverInformation = ({
   onNext,
   onPrev,
+  step1FormLabel,
 }: Step1DriverInformationProps) => {
+  const { language } = useLanguage();
   const [loading, setLoading] = useState(false);
+
+  console.log(step1FormLabel);
 
   const [changeVehiclePhotos, setChangeVehiclePhotos] = useState(false);
   const { setIsDriverInfoSubmitted } = useFormSubmission();
@@ -117,7 +183,7 @@ const Step1_DriverInformation = ({
   const form = useForm<Step1DriverInformationFormValues>({
     mode: 'uncontrolled',
     initialValues: getInitialValues(),
-    validate: zodResolver(schema),
+    validate: zodResolver(schema(language)),
   });
 
   // Update form values when localStorage changes (e.g., on mount)
@@ -241,9 +307,8 @@ const Step1_DriverInformation = ({
       <Stack gap="md" w={'100%'}>
         <SimpleGrid cols={{ base: 1, sm: 2 }} spacing="md">
           <Input.Wrapper
-            label="Full Name"
+            label={step1FormLabel.fullName[language]}
             withAsterisk
-            error={form.errors.fullName}
             className="font-inter text-xs font-normal text-[#5E6366]"
           >
             <Space h={4} />
@@ -251,23 +316,25 @@ const Step1_DriverInformation = ({
               variant="filled"
               radius="sm"
               size="md"
-              placeholder="John Doe"
+              placeholder={language === 'en' ? 'John Doe' : 'Gabriel, Louise'}
               {...form.getInputProps('fullName')}
             />
           </Input.Wrapper>
 
           <Input.Wrapper
-            label="Email Address"
+            label={step1FormLabel.email[language]}
             withAsterisk
-            error={form.errors.email}
             className="font-inter text-xs font-normal text-[#5E6366]"
           >
             <Space h={4} />
             <TextInput
+              type="email"
               variant="filled"
               radius="sm"
               size="md"
-              placeholder="john.doe@example.com"
+              placeholder={
+                language === 'en' ? 'Wd3Y0@example.com' : 'gabriel@ex.com'
+              }
               {...form.getInputProps('email')}
             />
           </Input.Wrapper>
@@ -275,9 +342,8 @@ const Step1_DriverInformation = ({
 
         <SimpleGrid cols={{ base: 1, sm: 2 }} spacing="md">
           <Input.Wrapper
-            label="Phone Number"
+            label={step1FormLabel.phone[language]}
             withAsterisk
-            error={form.errors.phone}
             className="font-inter text-xs font-normal text-[#5E6366]"
           >
             <Space h={4} />
@@ -291,9 +357,8 @@ const Step1_DriverInformation = ({
           </Input.Wrapper>
 
           <Input.Wrapper
-            label="City"
+            label={step1FormLabel.cityProvince[language]}
             withAsterisk
-            error={form.errors.cityProvince}
             className="font-inter text-xs font-normal text-[#5E6366]"
           >
             <Space h={4} />
@@ -308,9 +373,8 @@ const Step1_DriverInformation = ({
         </SimpleGrid>
         <SimpleGrid cols={{ base: 1, sm: 2 }} spacing="md">
           <Input.Wrapper
-            label="Shipping Address"
+            label={step1FormLabel.shippingAddress[language]}
             withAsterisk
-            error={form.errors.shippingAddress}
             className="font-inter text-xs font-normal text-[#5E6366]"
           >
             <Space h={4} />
@@ -324,9 +388,8 @@ const Step1_DriverInformation = ({
           </Input.Wrapper>
 
           <Input.Wrapper
-            label="Vehicle Make"
+            label={step1FormLabel.vehicleMake[language]}
             withAsterisk
-            error={form.errors.vehicleMake}
             className="font-inter text-xs font-normal text-[#5E6366]"
           >
             <Space h={4} />
@@ -341,9 +404,8 @@ const Step1_DriverInformation = ({
         </SimpleGrid>
         <SimpleGrid cols={{ base: 1, sm: 2 }} spacing="md">
           <Input.Wrapper
-            label="Vehicle Model"
+            label={step1FormLabel.vehicleModel[language]}
             withAsterisk
-            error={form.errors.vehicleModel}
             className="font-inter text-xs font-normal text-[#5E6366]"
           >
             <Space h={4} />
@@ -357,9 +419,8 @@ const Step1_DriverInformation = ({
           </Input.Wrapper>
 
           <Input.Wrapper
-            label="Vehicle Year"
+            label={step1FormLabel.vehicleYear[language]}
             withAsterisk
-            error={form.errors.vehicleYear}
             className="font-inter text-xs font-normal text-[#5E6366]"
           >
             <Space h={4} />
@@ -427,9 +488,9 @@ const Step1_DriverInformation = ({
             </SimpleGrid>
           ) : (
             <ImageHandler
-              label="Vehicle Photos (Front, Side and Back)"
+              label={step1FormLabel.vehiclePhotos[language]}
               withAsterisk
-              description="Select one by one image"
+              description={step1FormLabel.vehiclePhotos.description[language]}
               onUploadSuccess={handleFileUpload}
               multiple
             />
@@ -437,22 +498,20 @@ const Step1_DriverInformation = ({
         </Input.Wrapper>
 
         <Input.Wrapper
-          label="Ride Share Platform(s)"
+          label={step1FormLabel.rideSharePlatforms[language]}
           withAsterisk
-          error={form.errors.rideSharePlatforms}
           className="font-inter text-xs font-normal text-[#5E6366]"
         >
           <Space h={4} />
           <MultiSelect
             data={['Uber', 'Lyft', 'UberEats', 'Other']}
-            placeholder="Select platforms"
+            placeholder={language === 'en' ? 'Select' : 'Choisissez'}
             {...form.getInputProps('rideSharePlatforms')}
           />
         </Input.Wrapper>
         <Input.Wrapper
-          label="Weekly Driving Hours/Schedule"
+          label={step1FormLabel.weeklyDrivingSchedule[language]}
           withAsterisk
-          error={form.errors.weeklyDrivingSchedule}
           className="font-inter text-xs font-normal text-[#5E6366]"
         >
           <Space h={4} />

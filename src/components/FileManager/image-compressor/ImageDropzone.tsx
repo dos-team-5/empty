@@ -1,5 +1,6 @@
 'use client';
 import { Icon } from '@/components/FileManager/lib/Icon';
+import { useLanguage } from '@/providers/languageToggleContext';
 import { Box, Button, Divider, Group, Input, Space, Text } from '@mantine/core';
 import { Dropzone, DropzoneProps, IMAGE_MIME_TYPE } from '@mantine/dropzone';
 import { notifications } from '@mantine/notifications';
@@ -24,6 +25,7 @@ export function ImageDropzone({
   ...props
 }: ImageDropzoneProps) {
   const openRef = useRef<() => void>(null);
+  const { language } = useLanguage();
 
   return (
     <Box>
@@ -71,23 +73,32 @@ export function ImageDropzone({
             </Dropzone.Idle>
             <div className="flex w-full flex-col items-center justify-center">
               <Text size="sm" fw={400} ta={'center'}>
-                Drag your file(s) to start uploading
+                {language === 'fr'
+                  ? 'Glissez-deposez ou cliquez pour charger une image'
+                  : 'Drag and drop or click to upload an image'}
               </Text>
-              <Divider my={2} label="OR" labelPosition="center" size="sm" />
+              <Divider
+                my={2}
+                label={language === 'fr' ? 'ou' : 'OR'}
+                labelPosition="center"
+                size="sm"
+              />
 
               <Button
                 unstyled
                 className="text-primary cursor-pointer !py-[6px] font-bold"
                 w={{ base: 100, sm: 160 }}
               >
-                Browse files
+                {language === 'fr' ? 'Parcourir' : 'Browse'}
               </Button>
             </div>
           </Group>
         </Dropzone>
       </Input.Wrapper>
       <Text size="xs" c="dimmed" mt={2}>
-        Only support .jpg, .png, max 50 MB for compression
+        {language === 'fr'
+          ? 'Taille maximale: 50 Mo. Format: .jpg, .png'
+          : 'Max size: 50 MB. Format: .jpg, .png'}
       </Text>
     </Box>
   );

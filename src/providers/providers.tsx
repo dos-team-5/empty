@@ -5,6 +5,7 @@ import { FormSubmissionProvider } from '@/contexts/FormSubmissionContext';
 import { Notifications } from '@mantine/notifications';
 import '@mantine/notifications/styles.css';
 import { ModalsProvider } from '@mantine/modals';
+import { LanguageProvider } from './languageToggleContext';
 
 const Providers = ({ children }: { children: React.ReactNode }) => {
   return (
@@ -21,7 +22,9 @@ const Providers = ({ children }: { children: React.ReactNode }) => {
             }}
           > */}
           <Notifications position="bottom-right" />
-          <LoadingProvider>{children}</LoadingProvider>
+          <LoadingProvider>
+            <LanguageProvider>{children}</LanguageProvider>
+          </LoadingProvider>
           {/* </ReactLenis> */}
         </FormSubmissionProvider>
       </ModalsProvider>

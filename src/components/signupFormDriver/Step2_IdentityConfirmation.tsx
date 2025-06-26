@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 'use client';
 import { useFormSubmission } from '@/contexts/FormSubmissionContext';
 import {
@@ -19,22 +20,28 @@ import { fileHandlerResSchema } from './Step1_DriverInformation';
 import { FileHandlerRes, ImageHandler } from '../FileManager';
 import { Icon } from '@iconify/react/dist/iconify.js';
 import { deleteFile } from '../FileManager/actions/fileActions';
+import { useLanguage } from '@/providers/languageToggleContext';
+import { steppingForm } from '@/contents/drive/steppingForm';
 
 // Zod validation schema
-const schema = z.object({
-  driversLicense: z
-    .array(fileHandlerResSchema)
-    .min(1, 'Driver’s license is required')
-    .max(1, 'Only one driver’s license image is allowed'),
-  driverProfile: z
-    .array(fileHandlerResSchema)
-    .min(1, 'Driver profile is required')
-    .max(1, 'Only one driver profile image is allowed'),
-  tripHistory: z
-    .array(fileHandlerResSchema)
-    .min(1, 'Trip history is required')
-    .max(1, 'Only one trip history image is allowed'),
-});
+export const schema = (lang: 'en' | 'fr') => {
+  const errors = steppingForm.step2FormLabel.driverFormErrors[lang];
+
+  return z.object({
+    driversLicense: z
+      .array(fileHandlerResSchema)
+      .min(1, errors.driversLicense.min)
+      .max(1, errors.driversLicense.max),
+    driverProfile: z
+      .array(fileHandlerResSchema)
+      .min(1, errors.driverProfile.min)
+      .max(1, errors.driverProfile.max),
+    tripHistory: z
+      .array(fileHandlerResSchema)
+      .min(1, errors.tripHistory.min)
+      .max(1, errors.tripHistory.max),
+  });
+};
 
 interface Step2IdentityConfirmationFormValues {
   driversLicense: FileHandlerRes[] | null;
@@ -45,12 +52,15 @@ interface Step2IdentityConfirmationFormValues {
 interface Step2IdentityConfirmationProps {
   onNext: () => void;
   onPrev: () => void;
+  step2FormLabel: any;
 }
 
 const Step2_IdentityConfirmation = ({
   onNext,
   onPrev,
+  step2FormLabel,
 }: Step2IdentityConfirmationProps) => {
+  const { language } = useLanguage();
   // Separate loading states for each section
   const [loadingDriversLicense, setLoadingDriversLicense] =
     useState<boolean>(false);
@@ -88,7 +98,7 @@ const Step2_IdentityConfirmation = ({
   const form = useForm<Step2IdentityConfirmationFormValues>({
     mode: 'uncontrolled',
     initialValues: getInitialValues(),
-    validate: zodResolver(schema),
+    validate: zodResolver(schema(language)),
   });
 
   // Update form values when localStorage changes (e.g., on mount)
@@ -323,21 +333,21 @@ const Step2_IdentityConfirmation = ({
       <Stack>
         {renderImageSection(
           'driversLicense',
-          "Picture of Driver's License",
+          step2FormLabel.driversLicense[language],
           changeDriverLicensePhotos,
           loadingDriversLicense
         )}
 
         {renderImageSection(
           'driverProfile',
-          'Screenshot of Driver Profile (Uber, Lyft, etc.)',
+          step2FormLabel.driverProfile[language],
           changeDriverProfilePhotos,
           loadingDriverProfile
         )}
 
         {renderImageSection(
           'tripHistory',
-          'Screenshot of Recent Trip History/Driven Hours',
+          step2FormLabel.tripHistory[language],
           changeTripHistoryPhotos,
           loadingTripHistory
         )}
