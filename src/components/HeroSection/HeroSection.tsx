@@ -6,8 +6,8 @@ import Link from 'next/link';
 import { TextAnimate } from '../TextAnimation';
 import { motion } from 'motion/react';
 import { useMediaQuery } from '@mantine/hooks';
-import HeroCar from '../Icons/HeroCar';
 import SecondaryButton from '../toggleModeSwitch/SecondaryButton';
+import Image from 'next/image';
 
 const HeroSection: React.FC = () => {
   const md = useMediaQuery('(min-width: 768px)');
@@ -19,8 +19,8 @@ const HeroSection: React.FC = () => {
     if (xxl) return { x: '0%' };
     if (xl) return { x: '0%' };
     if (lg) return { x: '0%' };
-    if (md) return { x: '36%' };
-    return { x: '36%' };
+    if (md) return { x: '23%' };
+    return { x: '23%' };
   };
 
   const { x } = getAnimationProps();
@@ -36,13 +36,20 @@ const HeroSection: React.FC = () => {
     <Box className="relative h-dvh overflow-hidden">
       <div
         style={{ transform: `translateX(${x})` }}
-        className="absolute right-0 bottom-[-34%] md:bottom-[-30%] lg:bottom-[-28%] xl:bottom-[-20%]"
+        className="absolute scale-180 lg:scale-100 right-0 bottom-[-34%] md:bottom-[-30%] lg:bottom-[-28%] xl:bottom-[-20%]"
       >
-        <HeroCar
+        <Image
+          src="/T1C_ NEW NEW.svg"
+          alt="HeroImage"
+          width={1000}
+          height={1000}
+          className="h-dvh w-[156dvw] origin-bottom-right !bg-transparent md:w-[152dvw] lg:w-[72dvw]"
+        />
+        {/* <HeroCar
           className={
             'h-dvh w-[156dvw] origin-bottom-right md:w-[152dvw] lg:w-[72dvw] !bg-transparent'
           }
-        />
+        /> */}
       </div>
 
       <Box
