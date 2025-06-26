@@ -133,7 +133,7 @@ const DriveHeroSection: React.FC = () => {
               by="word"
               startOnView
               duration={0.5}
-              className="md:text-[32px] xl:text-[42px] 2xl:text-[64px]"
+              className={`${language === 'fr' ? '2xl:text-[36px]' : '2xl:text-[64px]'} md:text-[32px] xl:text-[42px]`}
               once
             >
               {content.heroSection.title.line1}
@@ -144,7 +144,7 @@ const DriveHeroSection: React.FC = () => {
               startOnView
               duration={0.5}
               delay={0.5}
-              className="md:text-[32px] xl:text-[42px] 2xl:text-[64px]"
+              className={`${language === 'fr' ? '2xl:text-[36px]' : '2xl:text-[64px]'} md:text-[32px] xl:text-[42px]`}
               once
             >
               {content.heroSection.title.line2}

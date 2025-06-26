@@ -109,7 +109,7 @@ const TopNav = () => {
               </div> */}
               <PrimaryBtn btnText="Book A Call" glow arrow={false} />
             </Link>
-            {pathname === '/drive' && <LanguageToggle />}
+            <Box pl={20}>{pathname === '/drive' && <LanguageToggle />}</Box>
           </Flex>
 
           <Burger
