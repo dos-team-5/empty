@@ -316,7 +316,7 @@ const Step1_DriverInformation = ({
               variant="filled"
               radius="sm"
               size="md"
-              placeholder="John Doe"
+              placeholder={language === 'en' ? 'John Doe' : 'Gabriel, Louise'}
               {...form.getInputProps('fullName')}
             />
           </Input.Wrapper>
@@ -331,7 +331,9 @@ const Step1_DriverInformation = ({
               variant="filled"
               radius="sm"
               size="md"
-              placeholder="john.doe@example.com"
+              placeholder={
+                language === 'en' ? 'Wd3Y0@example.com' : 'gabriel@ex.com'
+              }
               {...form.getInputProps('email')}
             />
           </Input.Wrapper>
@@ -487,7 +489,7 @@ const Step1_DriverInformation = ({
             <ImageHandler
               label={step1FormLabel.vehiclePhotos[language]}
               withAsterisk
-              description="Select one by one image"
+              description={step1FormLabel.vehiclePhotos.description[language]}
               onUploadSuccess={handleFileUpload}
               multiple
             />

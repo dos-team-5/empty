@@ -3,6 +3,7 @@
 import { useLanguage } from '@/providers/languageToggleContext';
 import { rem, Select } from '@mantine/core';
 import { IconWorld } from '@tabler/icons-react';
+import { useRouter } from 'next/navigation';
 
 const languageOptions = [
   { value: 'en', label: 'English' },
@@ -11,11 +12,13 @@ const languageOptions = [
 
 export function LanguageToggle() {
   const { language, setLanguage } = useLanguage();
+  const router = useRouter();
 
   const handleLanguageChange = (value: string | null) => {
     if (value && (value === 'en' || value === 'fr')) {
       console.log('Select changing language to:', value); // Debug log
       setLanguage(value);
+      router.refresh();
     }
   };
 

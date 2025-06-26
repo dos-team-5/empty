@@ -5,7 +5,7 @@ import { FormSubmissionProvider } from '@/contexts/FormSubmissionContext';
 import { Notifications } from '@mantine/notifications';
 import '@mantine/notifications/styles.css';
 import { ModalsProvider } from '@mantine/modals';
-import { LanguageProvider } from '@/providers/languageToggleContext';
+import { LanguageProvider } from './languageToggleContext';
 
 const Providers = ({ children }: { children: React.ReactNode }) => {
   return (
