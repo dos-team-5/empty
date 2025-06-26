@@ -120,8 +120,10 @@ const CarouselFeature = () => {
               </Flex>
               <p className="font-inter my-4 text-start text-xs font-normal text-white capitalize xl:!ml-8 2xl:!ml-0 2xl:text-sm">
                 Upload your advertise banner here to see exactly how it will
-                look in real-time on our 3D vehicle models. {' '}
-                <b className=''>Please ensure your banner is in a 3:2 aspect ratio.</b>
+                look in real-time on our 3D vehicle models.{' '}
+                <b className="">
+                  Please ensure your Asset is in a 3:2 aspect ratio.
+                </b>
               </p>
               <div className="flex flex-wrap items-center gap-2 xl:!ml-8 2xl:!ml-0">
                 <FileInput

@@ -230,7 +230,7 @@ const Step3_BankingInformation = ({
               <Menu.Target>
                 <ActionIcon
                   top={-2}
-                  left={204}
+                  left={language === 'en' ? 204 : 240}
                   pos="absolute"
                   variant="subtle"
                   size="sm"

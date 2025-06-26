@@ -6,8 +6,12 @@ import { TextAnimate } from '../TextAnimation';
 import PrimaryBtn from '../PrimaryBtn';
 
 import { Icon } from '../FileManager/lib/Icon';
+import { useLanguage } from '@/providers/languageToggleContext';
+import { getDrivePageContent } from '@/contents/drive/driveLandingPage';
 
 const DriveHeroSection: React.FC = () => {
+  const { language } = useLanguage();
+  const content = getDrivePageContent[language];
   const handleSignUpClick = () => {
     const target = document.querySelector('#signUpDriver');
     if (target) {
@@ -132,7 +136,7 @@ const DriveHeroSection: React.FC = () => {
               className="md:text-[32px] xl:text-[42px] 2xl:text-[64px]"
               once
             >
-              Earn extra monthly income.
+              {content.heroSection.title.line1}
             </TextAnimate>
             <TextAnimate
               animation="blurInUp"
@@ -143,16 +147,12 @@ const DriveHeroSection: React.FC = () => {
               className="md:text-[32px] xl:text-[42px] 2xl:text-[64px]"
               once
             >
-              Drive as you normally do.
+              {content.heroSection.title.line2}
             </TextAnimate>
           </Title>
 
           <Stack className="w-full md:hidden" gap={0}>
-            {[
-              'Join our platform and earn up to 200$ per month with no extra effort.',
-              'Simply drive your typical routes and hours.',
-              'Advertise for Brands People Know and Love.',
-            ].map((feature, index) => (
+            {content.heroSection.features.map((feature, index) => (
               <motion.div
                 key={index}
                 initial={{ opacity: 0, y: -20 }}
@@ -192,7 +192,7 @@ const DriveHeroSection: React.FC = () => {
             transition={{ duration: 0.4, delay: 2.5 }}
           >
             <Box onClick={handleSignUpClick} className="cursor-pointer" mt="xs">
-              <PrimaryBtn btnText="Sign Up" glowOnHover />
+              <PrimaryBtn btnText={content.heroSection.cta} glowOnHover />
             </Box>
           </motion.div>
         </Stack>

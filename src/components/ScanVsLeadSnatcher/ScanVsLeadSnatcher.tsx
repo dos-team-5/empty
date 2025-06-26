@@ -66,7 +66,7 @@ const TitleSection = memo(() => (
         className="md:text-[52px] lg:text-[48px] xl:text-[48px] 2xl:text-[64px]"
         once
       >
-        Scan & Spin vs Lead Snatcher
+        Why Scan & Spin vs Lead Snatcher
       </TextAnimate>
     </Title>
   </div>
@@ -101,8 +101,8 @@ export default function ScanVsLeadSnatcher() {
           fz={{ base: 14, md: 20, xl: 22 }}
           maw={700}
         >
-          Choose the right tool for your campaign goals — instant engagement or
-          passive reach.
+          Choose the retargeting strategy that fits your goals, or combine both
+          for maximum impact.
         </Text>
       </Group>
 
@@ -162,7 +162,7 @@ export default function ScanVsLeadSnatcher() {
               {slide.subtitle}
             </Text>
           </Group>
-          <Text className='min-h-55 md:min-h-30' c="#4A4A4A" fz="sm">
+          <Text className="min-h-55 md:min-h-30" c="#4A4A4A" fz="sm">
             {slide.description}
           </Text>
 

@@ -7,6 +7,8 @@ import MobileNav from './MobileNav';
 import { X } from 'lucide-react';
 import PrimaryBtn from '../PrimaryBtn';
 import { motion } from 'motion/react';
+import { LanguageToggle } from '../languageToggle';
+import { usePathname } from 'next/navigation';
 
 const rightNavLinks = [
   { href: '/', label: 'Advertise' },
@@ -18,6 +20,7 @@ const rightNavLinks = [
 
 const TopNav = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const pathname = usePathname();
 
   const toggleMobileMenu = () => {
     setMobileMenuOpen(!mobileMenuOpen);
@@ -71,15 +74,21 @@ const TopNav = () => {
             ))}
           </Group>
 
-          <Link href={'/contact'} className="ml-8 hidden lg:block">
-            {/* <Button
+          <Group
+            className="!lg:block !ml-8 !hidden"
+            justify=""
+            align="center"
+            gap={12}
+          >
+            <Link href={'/contact'}>
+              {/* <Button
                 className="!text-primary-400 hover:!bg-primary !hidden !bg-white lg:!block"
                 size={IsAboveMobile ? 'lg' : 'md'}
                 radius={15}
               >
                 Book A Call
               </Button> */}
-            {/* <ShimmerButton
+              {/* <ShimmerButton
                 background="#ffffff"
                 className="border-primary-400 shadow-lg"
                 borderRadius="15px"
@@ -88,7 +97,7 @@ const TopNav = () => {
                   Book A Call
                 </span>
               </ShimmerButton> */}
-            {/* <div className="group relative z-50 inline-flex">
+              {/* <div className="group relative z-50 inline-flex">
                 <div className="from-primary-800 to-primary-800 via-primary animate-infinite-tilt absolute -inset-px rounded-xl bg-gradient-to-r opacity-70 blur-lg"></div>
                 <div
                   className="font-pj text-text border-default-color bg-default hover:bg-primary-400 hover:text-default hover:border-default relative inline-flex items-center justify-center rounded-xl border-2 px-3 py-2 text-base font-medium transition-all duration-200"
@@ -97,8 +106,10 @@ const TopNav = () => {
                   Book A Call
                 </div>
               </div> */}
-            <PrimaryBtn btnText="Book A Call" glow arrow={false} />
-          </Link>
+              <PrimaryBtn btnText="Book A Call" glow arrow={false} />
+            </Link>
+            {pathname === '/drive' && <LanguageToggle />}
+          </Group>
 
           <Burger
             opened={mobileMenuOpen}

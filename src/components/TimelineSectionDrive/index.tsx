@@ -1,82 +1,14 @@
 'use client';
-import { Anchor, Box, Flex, Title } from '@mantine/core';
+import { Box, Flex, Title } from '@mantine/core';
 import { TextAnimate } from '../TextAnimation';
 import TimeLineComponent from '../TimeLineComponent';
-import {
-  Calendar1,
-  CalendarCheck,
-  CircleCheck,
-  CirclePlus,
-  Cog,
-  FilePenLine,
-  ShieldCheck,
-  Tag,
-} from 'lucide-react';
-
-const handleSignUpClick = () => {
-  const target = document.querySelector('#signUpDriver');
-  if (target) {
-    target.scrollIntoView({ behavior: 'smooth' });
-  }
-};
-
-const data = [
-  {
-    title: 'Sign up online',
-    desc: (
-      <>
-        Register on our platform.
-        <br />
-        <Anchor
-          variant="text"
-          size="md"
-          className="underline"
-          onClick={handleSignUpClick}
-        >
-          Sign up now
-        </Anchor>
-      </>
-    ),
-    icon: <FilePenLine size={24} />,
-  },
-  {
-    title: 'Verification',
-    desc: 'Provide proof of your rideshare status: screenshot of your driver profile, upload your driver’s license along with your banking details.',
-    icon: <ShieldCheck size={24} />,
-  },
-  {
-    title: 'Get Listed',
-    desc: 'Once your payment information and identity are verified, you’ll be added to our network of drivers.',
-    icon: <CircleCheck size={24} />,
-  },
-  {
-    title: 'Accept Campaigns',
-    desc: 'When a campaign matches your profile, you will be notified through email with the ability to accept or decline the role.',
-    icon: <CirclePlus size={24} />,
-  },
-  {
-    title: 'Receive Decal',
-    desc: 'Visit the local installation center listed in your email to have your decal professionally installed.',
-    icon: <Tag size={24} />,
-  },
-  {
-    title: 'Install & Drive',
-    desc: 'Once your decal is installed, go to the Driver Sign-In page on our website and log in using your driver’s license number. Upload a clear photo of the decal, then download the Evertrack app to enable GPS tracking. After that, you’re all set to drive as usual.',
-    icon: <Cog size={24} />,
-  },
-  {
-    title: 'Weekly Updates',
-    desc: 'Throughout the campaign, you must keep the Evertrack app running to allow us to track your driving hours. Once a week, log in to the Driver Sign-In page and upload clear photos of both decals to help us monitor campaign performance.',
-    icon: <CalendarCheck size={24} />,
-  },
-  {
-    title: 'Monthly Payment',
-    desc: 'Get paid up to $200 at the end of each month during your campaign.',
-    icon: <Calendar1 size={24} />,
-  },
-];
+import { useLanguage } from '@/providers/languageToggleContext';
+import { getDrivePageContent } from '@/contents/drive/driveLandingPage';
 
 const TimelineSectionDrive = () => {
+  const { language } = useLanguage();
+  const content = getDrivePageContent[language];
+  const data = content.timeLine.data;
   return (
     <Box className="relative my-2 mt-16 overflow-hidden">
       <Flex
@@ -103,7 +35,7 @@ const TimelineSectionDrive = () => {
             className="text-2xl md:text-3xl lg:text-4xl xl:text-5xl 2xl:text-6xl"
             once
           >
-            Get Started
+            {content.timeLine.title}
           </TextAnimate>
         </Title>
 
