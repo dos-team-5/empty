@@ -5,7 +5,6 @@ import {
 } from '@/components';
 import { Box } from '@mantine/core';
 import { Metadata } from 'next';
-import { LanguageProvider } from './context/languageToggleContext';
 
 export const metadata: Metadata = {
   title: 'Drive',
@@ -18,9 +17,7 @@ const Drive = () => {
       {/* <DriveAfterHeroSection /> */}
       {/* <DriveQualificationSection /> */}
       <TimelineSectionDrive />
-      <LanguageProvider>
-        <DriverSignupSection />
-      </LanguageProvider>
+      <DriverSignupSection />
     </Box>
   );
 };

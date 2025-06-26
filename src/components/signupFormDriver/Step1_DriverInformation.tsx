@@ -21,7 +21,7 @@ import { z } from 'zod';
 import { FileHandlerRes, ImageHandler } from '../FileManager';
 import { Icon } from '@iconify/react/dist/iconify.js';
 import { deleteFile } from '../FileManager/actions/fileActions';
-import { useLanguage } from '@/app/(main)/drive/context/languageToggleContext';
+import { useLanguage } from '@/providers/languageToggleContext';
 
 // Zod validation schema
 
@@ -434,7 +434,7 @@ const Step1_DriverInformation = ({
             </SimpleGrid>
           ) : (
             <ImageHandler
-              label="Vehicle Photos (Front, Side and Back"
+              label={step1FormLabel.vehiclePhotos[language]}
               withAsterisk
               description="Select one by one image"
               onUploadSuccess={handleFileUpload}
