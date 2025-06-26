@@ -27,27 +27,23 @@ export interface FileHandlerRes {
 }
 
 interface FileHandlerProps {
-  onUploadSuccess?: (files: FileHandlerRes[]) => void;
+  readonly onUploadSuccess?: (files: FileHandlerRes[]) => void;
   /** Set to true to allow multiple file uploads. Defaults to false. */
-  multiple?: boolean;
+  readonly multiple?: boolean;
   /** An array of existing files to display on initial render. */
-  defaultValue?: FileHandlerRes[];
-  label?: string;
-  description?: string;
-  withAsterisk?: boolean;
-  error?: string;
+  readonly defaultValue?: FileHandlerRes[];
+  // readonly label?: string;
+  // readonly description?: string;
+  // readonly withAsterisk?: boolean;
+  // readonly error?: string;
   /** Maximum file size in megabytes (MB). Defaults to 10 MB. */
-  maxSizeMB?: number;
+  readonly maxSizeMB?: number;
 }
 
 export default function FileHandler({
   onUploadSuccess,
   multiple = false,
   defaultValue,
-  label,
-  description,
-  withAsterisk,
-  error,
   maxSizeMB = 10, // Default to 10MB
 }: FileHandlerProps) {
   // Initialize state with the defaultValue prop
@@ -154,6 +150,7 @@ export default function FileHandler({
       <Dropzone
         onDrop={handleFileDrop}
         onReject={(rejectedFiles) => {
+          console.log('Rejected files:', rejectedFiles);
           notifications.show({
             title: 'File Rejected',
             message: `One or more files exceed the ${maxSizeMB} MB size limit.`,
