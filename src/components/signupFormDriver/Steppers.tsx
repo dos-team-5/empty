@@ -110,6 +110,7 @@ const Steppers = () => {
         <Step3_BankingInformation
           onNext={() => nextStep()}
           onPrev={() => prevStep()}
+          step3FormLabel={steppingForm.step3FormLabel}
         />
       ),
     },

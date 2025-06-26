@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 'use client';
 import {
   Button,
@@ -33,6 +34,7 @@ import {
 } from '@/app/(main)/drive/action/driverApplication';
 import { deleteFile } from '../FileManager/actions/fileActions';
 import Link from 'next/link';
+import { useLanguage } from '@/app/(main)/drive/context/languageToggleContext';
 
 // Zod validation schema
 const schema = z.object({
@@ -48,12 +50,15 @@ interface Step3BankingInformationFormValues {
 interface Step3BankingInformationProps {
   onNext: () => void;
   onPrev: () => void;
+  step3FormLabel: any;
 }
 
 const Step3_BankingInformation = ({
   onNext,
   onPrev,
+  step3FormLabel,
 }: Step3BankingInformationProps) => {
+  const { language } = useLanguage();
   const [loading, setLoading] = useState<boolean>(false);
   const [selectedFileType, setSelectedFileType] = useState<'image' | 'pdf'>(
     'pdf'
@@ -135,7 +140,6 @@ const Step3_BankingInformation = ({
           autoClose: 5000,
         });
       }
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (err: any) {
       console.error('Submission error:', err);
       notifications.show({
@@ -193,9 +197,9 @@ const Step3_BankingInformation = ({
         <Stack>
           <Input.Wrapper
             pos={'relative'}
-            label="Void Cheque (Image or PDF)"
+            label={step3FormLabel.voidCheque.label[language]}
             withAsterisk
-            description="Upload a void cheque or direct deposit form from your bank."
+            description={step3FormLabel.voidCheque.description[language]}
             error={form.errors.voidCheque}
             className="font-inter text-xs font-normal text-[#5E6366]"
           >
@@ -385,16 +389,28 @@ const Step3_BankingInformation = ({
 
           <Checkbox
             label={
-              <Text fz={14}>
-                I have read and agree to be bound by the
-                <Link
-                  href="/terms-and-conditions"
-                  className="!text-primary ml-2"
-                >
-                  Terms and Conditions
-                </Link>
-                {/* and <span className="!text-primary ml-2">Privacy Policy.</span> */}
-              </Text>
+              language === 'fr' ? (
+                <Text fz={14}>
+                  J’ai lu et j’accepte d’être lié par les
+                  <Link
+                    href="/terms-and-conditions"
+                    className="!text-primary ml-2"
+                  >
+                    conditions générales
+                  </Link>
+                </Text>
+              ) : (
+                <Text fz={14}>
+                  I have read and agree to be bound by the
+                  <Link
+                    href="/terms-and-conditions"
+                    className="!text-primary ml-2"
+                  >
+                    Terms and Conditions
+                  </Link>
+                  {/* and <span className="!text-primary ml-2">Privacy Policy.</span> */}
+                </Text>
+              )
             }
             required
           />
