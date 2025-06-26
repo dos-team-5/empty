@@ -1,21 +1,12 @@
 'use client';
 import { useFormSubmission } from '@/contexts/FormSubmissionContext';
-import {
-  Button,
-  Divider,
-  Group,
-  Space,
-  Stack,
-  Stepper,
-  Text,
-} from '@mantine/core';
+import { Button, Divider, Space, Stack, Stepper, Text } from '@mantine/core';
 import { useState, useEffect, JSX } from 'react';
 import Step1_DriverInformation from './Step1_DriverInformation';
 import Step2_IdentityConfirmation from './Step2_IdentityConfirmation';
 import Step3_BankingInformation from './Step3_BankingInformation';
 import { CheckCircle } from 'lucide-react';
 import { steppingForm } from '@/contents/drive/steppingForm';
-import { LanguageToggle } from '../languageToggle';
 import { useLanguage } from '@/providers/languageToggleContext';
 
 const Steppers = () => {
@@ -122,80 +113,96 @@ const Steppers = () => {
     setActive((current) => (current > 0 ? current - 1 : current));
 
   return (
-    <>
-      <Group justify="right">
-        <LanguageToggle />
-      </Group>
-      <Stepper
-        active={active}
-        onStepClick={setActive}
-        className="flex w-full flex-col"
+    <Stepper
+      active={active}
+      onStepClick={setActive}
+      className="flex w-full flex-col"
+    >
+      {steppers.map((stepper, index) => {
+        let stepColor = '#E2E6F9';
+        if (submissionStates[index]) {
+          stepColor = 'green';
+        } else if (active === index) {
+          stepColor = 'var(--mantine-primary-color-5)';
+        }
+        return (
+          <Stepper.Step
+            w="25%"
+            allowStepSelect={
+              submissionStates[index] || stepper.id <= active + 1
+            }
+            key={stepper.id}
+            withIcon={false}
+            label={
+              <Text
+                fw={500}
+                c={'#2B2F32'}
+                className={`font-inter flex h-14 items-center justify-center !text-[10px] !duration-300 !ease-in lg:!text-xs ${
+                  submissionStates[index] || active === index ? '' : 'opacity-0'
+                }`}
+              >
+                {stepper.title}
+              </Text>
+            }
+            description={
+              <Divider
+                size={7}
+                color={stepColor}
+                className="w-16 !rounded-sm !duration-300 !ease-in lg:w-20"
+              />
+            }
+          >
+            {stepper.content}
+          </Stepper.Step>
+        );
+      })}
+      <Stepper.Step
+        withIcon={false}
+        label={
+          <Text
+            fw={500}
+            c={'#2B2F32'}
+            className="font-inter flex h-14 items-center justify-start !text-[10px] lg:!text-xs"
+          >
+            <span className="text-primary mr-1">
+              Step {active === 3 ? 3 : active + 1}
+            </span>
+            of 3
+          </Text>
+        }
+        description={
+          <Divider
+            size={'xl'}
+            color={'transparent'}
+            className="w-16 !rounded-sm !duration-300 !ease-in lg:w-20"
+          />
+        }
+        disabled
+        className="ml-4 !cursor-default"
       >
-        {steppers.map((stepper, index) => {
-          let stepColor = '#E2E6F9';
-          if (submissionStates[index]) {
-            stepColor = 'green';
-          } else if (active === index) {
-            stepColor = 'var(--mantine-primary-color-5)';
-          }
-          return (
-            <Stepper.Step
-              w="25%"
-              allowStepSelect={
-                submissionStates[index] || stepper.id <= active + 1
-              }
-              key={stepper.id}
-              withIcon={false}
-              label={
-                <Text
-                  fw={500}
-                  c={'#2B2F32'}
-                  className={`font-inter flex h-14 items-center justify-center !text-[10px] !duration-300 !ease-in lg:!text-xs ${
-                    submissionStates[index] || active === index
-                      ? ''
-                      : 'opacity-0'
-                  }`}
-                >
-                  {stepper.title}
-                </Text>
-              }
-              description={
-                <Divider
-                  size={7}
-                  color={stepColor}
-                  className="w-16 !rounded-sm !duration-300 !ease-in lg:w-20"
-                />
-              }
-            >
-              {stepper.content}
-            </Stepper.Step>
-          );
-        })}
-        <Stepper.Step
-          withIcon={false}
-          label={
-            <Text
-              fw={500}
-              c={'#2B2F32'}
-              className="font-inter flex h-14 items-center justify-start !text-[10px] lg:!text-xs"
-            >
-              <span className="text-primary mr-1">
-                Step {active === 3 ? 3 : active + 1}
-              </span>
-              of 3
+        <Space className="h-4 md:h-8 lg:h-12" />
+        {language === 'fr' ? (
+          <Stack align="center" gap="md">
+            <CheckCircle className="text-primary-400 flex-shrink-0 rounded-md text-xl" />
+            <Text fw={600} size="lg" className="font-inter text-center">
+              Félicitations ! Vous avez complété toutes les étapes !
             </Text>
-          }
-          description={
-            <Divider
-              size={'xl'}
-              color={'transparent'}
-              className="w-16 !rounded-sm !duration-300 !ease-in lg:w-20"
-            />
-          }
-          disabled
-          className="ml-4 !cursor-default"
-        >
-          <Space className="h-4 md:h-8 lg:h-12" />
+            <Text size="sm" c="dimmed" className="font-inter text-center">
+              Votre profil est maintenant complet. Vous pouvez revoir les étapes
+              précédentes à l’aide du bouton Retour ou finaliser votre
+              soumission.
+            </Text>
+            <Button
+              variant="filled"
+              size="md"
+              radius={12}
+              className="!font-inter !bg-[var(--mantine-primary-color-5)] !px-16 !text-sm !font-normal !text-white"
+              onClick={() => setActive(0)}
+            >
+              Revoir le profil
+            </Button>
+          </Stack>
+        ) : (
           <Stack align="center" gap="md">
             <CheckCircle className="text-primary-400 flex-shrink-0 rounded-md text-xl" />
             <Text fw={600} size="lg" className="font-inter text-center">
@@ -215,9 +222,9 @@ const Steppers = () => {
               Review Profile
             </Button>
           </Stack>
-        </Stepper.Step>
-      </Stepper>
-    </>
+        )}
+      </Stepper.Step>
+    </Stepper>
   );
 };
 

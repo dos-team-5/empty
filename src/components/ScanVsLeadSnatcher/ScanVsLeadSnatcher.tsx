@@ -30,9 +30,9 @@ const slides: CarouselSlide[] = [
   {
     id: 'scan-spin',
     title: 'Scan & Spin',
-    subtitle: 'Engagement That Converts Instantly',
+    subtitle: 'Attribution ',
     description:
-      "Scan & Spin is great for activation, referrals, lead capture, brand recognition, and more. It's a simple, fun, and engaging way to collect leads. It's instant, fun, and memorable. Perfect for campaigns that need immediate engagement and collect real-time leads, and create buzz on the spot. Ideal for in-person marketing campaigns that need immediate action.",
+      'Scan&Spin turns every vehicle into a mobile engagement hub. Passersby scan the QR code for a chance to win branded rewards, giveaways, or discounts, while we collect digital IDs from the devices that engage. These IDs can then be resold or used for high-intent retargeting across web and social platforms, giving you both direct attribution and a powerful sales funnel. We sell each of these IDs for $0.5.',
     image: '/VS_SCANSPIN.png',
     backgroundColor: 'from-pink-100 to-purple-100',
     icon: <Smartphone className="h-6 w-6" />,
@@ -40,9 +40,9 @@ const slides: CarouselSlide[] = [
   {
     id: 'lead-snatcher',
     title: 'Lead Snatcher',
-    subtitle: 'Passive Reach, Powerful Data',
+    subtitle: 'Impressions',
     description:
-      'Lead Snatcher captures nearby mobile devices via WiFi and Bluetooth — no app downloads or user interaction required. It runs in the background on your premises, collecting valuable traffic data, dwell times, and return visitor patterns. This method is perfect for advertisers focused on silent frequency, analyzing customer behavior, and building comprehensive databases without requiring direct user interaction.',
+      'LeadSnatcher passively collects anonymized digital IDs from mobile devices near the car, allowing you to re-target people who were physically near your ad, even if they never scanned. We sell each of these IDs for $0.1.',
     image: '/VS_LEAD_SNATCHER.png',
     backgroundColor: 'from-blue-50 to-indigo-100',
     icon: <Users className="h-6 w-6" />,
@@ -66,7 +66,7 @@ const TitleSection = memo(() => (
         className="md:text-[52px] lg:text-[48px] xl:text-[48px] 2xl:text-[64px]"
         once
       >
-        Scan & Spin vs Lead Snatcher
+        Why Scan & Spin vs Lead Snatcher
       </TextAnimate>
     </Title>
   </div>
@@ -101,8 +101,8 @@ export default function ScanVsLeadSnatcher() {
           fz={{ base: 14, md: 20, xl: 22 }}
           maw={700}
         >
-          Choose the right tool for your campaign goals — instant engagement or
-          passive reach.
+          Choose the retargeting strategy that fits your goals, or combine both
+          for maximum impact.
         </Text>
       </Group>
 
@@ -150,6 +150,7 @@ export default function ScanVsLeadSnatcher() {
       >
         {/* Description */}
         <Flex
+          align={'start'}
           direction="column"
           justify="space-between"
           px={{ base: 16, xl: 36 }}
@@ -157,14 +158,16 @@ export default function ScanVsLeadSnatcher() {
           pb={{ base: 16, md: 26 }}
           w={{ base: '100%', md: 370 }}
         >
-          <Group mb="xs">
-            <Text c="#555555" fz={20} fw={500}>
-              {slide.subtitle}
+          <Group>
+            <Group mb={'xs'}>
+              <Text c="#555555" fz={20} fw={500}>
+                {slide.subtitle}
+              </Text>
+            </Group>
+            <Text className="min-h-55 md:min-h-30" c="#4A4A4A" fz="sm">
+              {slide.description}
             </Text>
           </Group>
-          <Text className='min-h-55 md:min-h-30' c="#4A4A4A" fz="sm">
-            {slide.description}
-          </Text>
 
           {/* Navigation */}
           <Flex mt={20} gap="xs">
