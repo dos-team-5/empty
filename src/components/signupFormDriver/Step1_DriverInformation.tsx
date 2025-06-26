@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 'use client';
 import { useFormSubmission } from '@/contexts/FormSubmissionContext';
 import {
@@ -20,6 +21,7 @@ import { z } from 'zod';
 import { FileHandlerRes, ImageHandler } from '../FileManager';
 import { Icon } from '@iconify/react/dist/iconify.js';
 import { deleteFile } from '../FileManager/actions/fileActions';
+import { useLanguage } from '@/app/(main)/drive/context/languageToggleContext';
 
 // Zod validation schema
 
@@ -73,13 +75,18 @@ interface Step1DriverInformationFormValues {
 interface Step1DriverInformationProps {
   onNext: () => void;
   onPrev: () => void;
+  step1FormLabel: any;
 }
 
 const Step1_DriverInformation = ({
   onNext,
   onPrev,
+  step1FormLabel,
 }: Step1DriverInformationProps) => {
+  const { language } = useLanguage();
   const [loading, setLoading] = useState(false);
+
+  console.log(step1FormLabel);
 
   const [changeVehiclePhotos, setChangeVehiclePhotos] = useState(false);
   const { setIsDriverInfoSubmitted } = useFormSubmission();
@@ -241,7 +248,7 @@ const Step1_DriverInformation = ({
       <Stack gap="md" w={'100%'}>
         <SimpleGrid cols={{ base: 1, sm: 2 }} spacing="md">
           <Input.Wrapper
-            label="Full Name"
+            label={step1FormLabel.fullName[language]}
             withAsterisk
             error={form.errors.fullName}
             className="font-inter text-xs font-normal text-[#5E6366]"
@@ -257,7 +264,7 @@ const Step1_DriverInformation = ({
           </Input.Wrapper>
 
           <Input.Wrapper
-            label="Email Address"
+            label={step1FormLabel.email[language]}
             withAsterisk
             error={form.errors.email}
             className="font-inter text-xs font-normal text-[#5E6366]"
@@ -275,7 +282,7 @@ const Step1_DriverInformation = ({
 
         <SimpleGrid cols={{ base: 1, sm: 2 }} spacing="md">
           <Input.Wrapper
-            label="Phone Number"
+            label={step1FormLabel.phone[language]}
             withAsterisk
             error={form.errors.phone}
             className="font-inter text-xs font-normal text-[#5E6366]"
@@ -291,7 +298,7 @@ const Step1_DriverInformation = ({
           </Input.Wrapper>
 
           <Input.Wrapper
-            label="City"
+            label={step1FormLabel.cityProvince[language]}
             withAsterisk
             error={form.errors.cityProvince}
             className="font-inter text-xs font-normal text-[#5E6366]"
@@ -308,7 +315,7 @@ const Step1_DriverInformation = ({
         </SimpleGrid>
         <SimpleGrid cols={{ base: 1, sm: 2 }} spacing="md">
           <Input.Wrapper
-            label="Shipping Address"
+            label={step1FormLabel.shippingAddress[language]}
             withAsterisk
             error={form.errors.shippingAddress}
             className="font-inter text-xs font-normal text-[#5E6366]"
@@ -324,7 +331,7 @@ const Step1_DriverInformation = ({
           </Input.Wrapper>
 
           <Input.Wrapper
-            label="Vehicle Make"
+            label={step1FormLabel.vehicleMake[language]}
             withAsterisk
             error={form.errors.vehicleMake}
             className="font-inter text-xs font-normal text-[#5E6366]"
@@ -341,7 +348,7 @@ const Step1_DriverInformation = ({
         </SimpleGrid>
         <SimpleGrid cols={{ base: 1, sm: 2 }} spacing="md">
           <Input.Wrapper
-            label="Vehicle Model"
+            label={step1FormLabel.vehicleModel[language]}
             withAsterisk
             error={form.errors.vehicleModel}
             className="font-inter text-xs font-normal text-[#5E6366]"
@@ -357,7 +364,7 @@ const Step1_DriverInformation = ({
           </Input.Wrapper>
 
           <Input.Wrapper
-            label="Vehicle Year"
+            label={step1FormLabel.vehicleYear[language]}
             withAsterisk
             error={form.errors.vehicleYear}
             className="font-inter text-xs font-normal text-[#5E6366]"
@@ -427,7 +434,7 @@ const Step1_DriverInformation = ({
             </SimpleGrid>
           ) : (
             <ImageHandler
-              label="Vehicle Photos (Front, Side and Back)"
+              label="Vehicle Photos (Front, Side and Back"
               withAsterisk
               description="Select one by one image"
               onUploadSuccess={handleFileUpload}
@@ -437,7 +444,7 @@ const Step1_DriverInformation = ({
         </Input.Wrapper>
 
         <Input.Wrapper
-          label="Ride Share Platform(s)"
+          label={step1FormLabel.rideSharePlatforms[language]}
           withAsterisk
           error={form.errors.rideSharePlatforms}
           className="font-inter text-xs font-normal text-[#5E6366]"
@@ -450,7 +457,7 @@ const Step1_DriverInformation = ({
           />
         </Input.Wrapper>
         <Input.Wrapper
-          label="Weekly Driving Hours/Schedule"
+          label={step1FormLabel.weeklyDrivingSchedule[language]}
           withAsterisk
           error={form.errors.weeklyDrivingSchedule}
           className="font-inter text-xs font-normal text-[#5E6366]"

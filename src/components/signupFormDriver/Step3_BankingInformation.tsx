@@ -1,5 +1,4 @@
 'use client';
-import { useFormSubmission } from '@/contexts/FormSubmissionContext';
 import {
   Button,
   Group,
@@ -30,7 +29,6 @@ import { Icon } from '@iconify/react/dist/iconify.js';
 import {
   DriverApplication,
   getDriverApplicationFromLocalStorage,
-  greetDrivers,
   sendDriverApplicationEmail,
 } from '@/app/(main)/drive/action/driverApplication';
 import { deleteFile } from '../FileManager/actions/fileActions';
@@ -63,7 +61,6 @@ const Step3_BankingInformation = ({
   const [changeVoidChequePhotos, setChangeVoidChequePhotos] =
     useState<boolean>(false);
   const [submitting, setSubmitting] = useState<boolean>(false);
-  const { setIsBankingInfoSubmitted } = useFormSubmission();
 
   // Load initial values from localStorage
   const getInitialValues = (): Step3BankingInformationFormValues => {
@@ -109,9 +106,6 @@ const Step3_BankingInformation = ({
     try {
       const driverApplication: DriverApplication | null =
         getDriverApplicationFromLocalStorage();
-
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      const greetingMsg: any = greetDrivers();
 
       if (!driverApplication) {
         notifications.show({
