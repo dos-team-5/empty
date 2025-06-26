@@ -127,7 +127,7 @@ const Step3_BankingInformation = ({
       const { success, message } =
         await sendDriverApplicationEmail(driverApplication);
 
-      if (success) {
+      if (success === true) {
         notifications.show({
           title: 'Form Submitted. Please check you Email for confirmation',
           message,

@@ -5,8 +5,8 @@ import { rem, Select } from '@mantine/core';
 import { IconWorld } from '@tabler/icons-react';
 
 const languageOptions = [
-  { value: 'en', label: '🇺🇸 English' },
-  { value: 'fr', label: '🇫🇷 Français' },
+  { value: 'en', label: 'English' },
+  { value: 'fr', label: 'Français' },
 ];
 
 export function LanguageToggle() {
