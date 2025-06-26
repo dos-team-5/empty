@@ -250,7 +250,6 @@ const Step1_DriverInformation = ({
           <Input.Wrapper
             label={step1FormLabel.fullName[language]}
             withAsterisk
-            error={form.errors.fullName}
             className="font-inter text-xs font-normal text-[#5E6366]"
           >
             <Space h={4} />
@@ -266,7 +265,6 @@ const Step1_DriverInformation = ({
           <Input.Wrapper
             label={step1FormLabel.email[language]}
             withAsterisk
-            error={form.errors.email}
             className="font-inter text-xs font-normal text-[#5E6366]"
           >
             <Space h={4} />
@@ -284,7 +282,6 @@ const Step1_DriverInformation = ({
           <Input.Wrapper
             label={step1FormLabel.phone[language]}
             withAsterisk
-            error={form.errors.phone}
             className="font-inter text-xs font-normal text-[#5E6366]"
           >
             <Space h={4} />
@@ -300,7 +297,6 @@ const Step1_DriverInformation = ({
           <Input.Wrapper
             label={step1FormLabel.cityProvince[language]}
             withAsterisk
-            error={form.errors.cityProvince}
             className="font-inter text-xs font-normal text-[#5E6366]"
           >
             <Space h={4} />
@@ -317,7 +313,6 @@ const Step1_DriverInformation = ({
           <Input.Wrapper
             label={step1FormLabel.shippingAddress[language]}
             withAsterisk
-            error={form.errors.shippingAddress}
             className="font-inter text-xs font-normal text-[#5E6366]"
           >
             <Space h={4} />
@@ -333,7 +328,6 @@ const Step1_DriverInformation = ({
           <Input.Wrapper
             label={step1FormLabel.vehicleMake[language]}
             withAsterisk
-            error={form.errors.vehicleMake}
             className="font-inter text-xs font-normal text-[#5E6366]"
           >
             <Space h={4} />
@@ -350,7 +344,6 @@ const Step1_DriverInformation = ({
           <Input.Wrapper
             label={step1FormLabel.vehicleModel[language]}
             withAsterisk
-            error={form.errors.vehicleModel}
             className="font-inter text-xs font-normal text-[#5E6366]"
           >
             <Space h={4} />
@@ -366,7 +359,6 @@ const Step1_DriverInformation = ({
           <Input.Wrapper
             label={step1FormLabel.vehicleYear[language]}
             withAsterisk
-            error={form.errors.vehicleYear}
             className="font-inter text-xs font-normal text-[#5E6366]"
           >
             <Space h={4} />
@@ -446,7 +438,6 @@ const Step1_DriverInformation = ({
         <Input.Wrapper
           label={step1FormLabel.rideSharePlatforms[language]}
           withAsterisk
-          error={form.errors.rideSharePlatforms}
           className="font-inter text-xs font-normal text-[#5E6366]"
         >
           <Space h={4} />
@@ -459,7 +450,6 @@ const Step1_DriverInformation = ({
         <Input.Wrapper
           label={step1FormLabel.weeklyDrivingSchedule[language]}
           withAsterisk
-          error={form.errors.weeklyDrivingSchedule}
           className="font-inter text-xs font-normal text-[#5E6366]"
         >
           <Space h={4} />
