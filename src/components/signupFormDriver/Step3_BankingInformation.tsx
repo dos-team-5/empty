@@ -39,14 +39,29 @@ import { step3helpContent } from '@/contents/drive/steppingForm';
 import { useFormSubmission } from '@/contexts/FormSubmissionContext';
 
 // Zod validation schema
-const schema = z.object({
-  voidCheque: z
-    .array(fileHandlerResSchema)
-    .max(1, 'Only one void cheque doc is allowed'),
-});
+const schema = (lang: 'en' | 'fr') =>
+  z.object({
+    voidCheque: z
+      .array(fileHandlerResSchema)
+      .max(
+        1,
+        lang === 'fr'
+          ? 'Un seul document de chèque annulé est autorisé.'
+          : 'Only one void cheque document is allowed.'
+      ),
+    termsAndConditions: z.literal(true, {
+      errorMap: () => ({
+        message:
+          lang === 'fr'
+            ? 'Vous devez accepter les conditions générales.'
+            : 'You must accept the terms and conditions.',
+      }),
+    }),
+  });
 
 interface Step3BankingInformationFormValues {
   voidCheque: FileHandlerRes[] | null;
+  termsAndConditions: boolean;
 }
 
 interface Step3BankingInformationProps {
@@ -84,13 +99,14 @@ const Step3_BankingInformation = ({
     }
     return {
       voidCheque: null,
+      termsAndConditions: false,
     };
   };
 
   const form = useForm<Step3BankingInformationFormValues>({
     mode: 'uncontrolled',
     initialValues: getInitialValues(),
-    validate: zodResolver(schema),
+    validate: zodResolver(schema(language)),
   });
 
   // Update form values when localStorage changes (e.g., on mount)
@@ -385,6 +401,7 @@ const Step3_BankingInformation = ({
           </Input.Wrapper>
 
           <Checkbox
+            {...form.getInputProps('termsAndConditions', { type: 'checkbox' })}
             label={
               language === 'fr' ? (
                 <Text fz={14}>
@@ -409,7 +426,6 @@ const Step3_BankingInformation = ({
                 </Text>
               )
             }
-            required
           />
 
           <Group
