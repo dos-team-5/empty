@@ -100,7 +100,7 @@ export const steppingForm = {
     },
     tripHistory: {
       en: 'Screenshot of Recent Trip History/Driven Hours',
-      fr: 'Capture d’écran de l’historique des trajets / heures de conduite',
+      fr: "Capture d'écran des statistiques de revenus (historique des courses)",
     },
     driverFormErrors: {
       en: {
@@ -173,7 +173,7 @@ export const steppingForm = {
     voidCheque: {
       label: {
         en: 'Void Cheque (Image or PDF)',
-        fr: 'Chèque annulé (Image ou PDF)',
+        fr: 'Chèque spécimen (Image ou PDF)',
       },
       description: {
         en: 'Upload a void cheque or direct deposit form from your bank.',
