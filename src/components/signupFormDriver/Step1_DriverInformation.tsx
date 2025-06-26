@@ -328,6 +328,7 @@ const Step1_DriverInformation = ({
           >
             <Space h={4} />
             <TextInput
+              type="email"
               variant="filled"
               radius="sm"
               size="md"
@@ -504,7 +505,7 @@ const Step1_DriverInformation = ({
           <Space h={4} />
           <MultiSelect
             data={['Uber', 'Lyft', 'UberEats', 'Other']}
-            placeholder="Select platforms"
+            placeholder={language === 'en' ? 'Select' : 'Choisissez'}
             {...form.getInputProps('rideSharePlatforms')}
           />
         </Input.Wrapper>
