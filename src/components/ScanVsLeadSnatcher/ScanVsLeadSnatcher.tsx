@@ -1,6 +1,6 @@
 'use client';
 
-import { memo, useEffect, useState /*, useEffect */ } from 'react';
+import { memo, useState /*, useEffect */ } from 'react';
 import { Smartphone, Users } from 'lucide-react';
 import {
   Box,
@@ -79,13 +79,13 @@ export default function ScanVsLeadSnatcher() {
 
   // Autoplay (Commented)
 
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentSlide((prev) => (prev + 1) % slides.length);
-    }, 5000);
+  // useEffect(() => {
+  //   const interval = setInterval(() => {
+  //     setCurrentSlide((prev) => (prev + 1) % slides.length);
+  //   }, 5000);
 
-    return () => clearInterval(interval);
-  }, []);
+  //   return () => clearInterval(interval);
+  // }, []);
 
   const slide = slides[currentSlide];
 
@@ -162,7 +162,7 @@ export default function ScanVsLeadSnatcher() {
               {slide.subtitle}
             </Text>
           </Group>
-          <Text mih={270} c="#4A4A4A" fz="sm">
+          <Text className='min-h-55 md:min-h-30' c="#4A4A4A" fz="sm">
             {slide.description}
           </Text>
 
@@ -174,11 +174,11 @@ export default function ScanVsLeadSnatcher() {
               h={{ base: 36, md: 40, lg: 49 }}
               radius="xl"
               onClick={() => {
-                setTimeout(() => {
-                  setCurrentSlide((prev) =>
-                    prev === 0 ? slides.length - 1 : prev - 1
-                  );
-                }, 1500); // 500ms delay
+                // setTimeout(() => {
+                setCurrentSlide((prev) =>
+                  prev === 0 ? slides.length - 1 : prev - 1
+                );
+                // }, 1500); // 500ms delay
               }}
               aria-label="Previous slide"
             >
@@ -190,11 +190,11 @@ export default function ScanVsLeadSnatcher() {
               h={{ base: 36, md: 40, lg: 49 }}
               radius="xl"
               onClick={() => {
-                setTimeout(() => {
-                  setCurrentSlide((prev) =>
-                    prev === slides.length - 1 ? 0 : prev + 1
-                  );
-                }, 1500); // 500ms delay
+                // setTimeout(() => {
+                setCurrentSlide((prev) =>
+                  prev === slides.length - 1 ? 0 : prev + 1
+                );
+                // }, 1500); // 500ms delay
               }}
               aria-label="Next slide"
             >
