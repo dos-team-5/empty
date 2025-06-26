@@ -181,25 +181,48 @@ const Steppers = () => {
         className="ml-4 !cursor-default"
       >
         <Space className="h-4 md:h-8 lg:h-12" />
-        <Stack align="center" gap="md">
-          <CheckCircle className="text-primary-400 flex-shrink-0 rounded-md text-xl" />
-          <Text fw={600} size="lg" className="font-inter text-center">
-            Congratulations! You have Completed All Steps!
-          </Text>
-          <Text size="sm" c="dimmed" className="font-inter text-center">
-            Your profile is now complete. You can review previous steps using
-            the Back button or finalize your submission.
-          </Text>
-          <Button
-            variant="filled"
-            size="md"
-            radius={12}
-            className="!font-inter !bg-[var(--mantine-primary-color-5)] !px-16 !text-sm !font-normal !text-white"
-            onClick={() => setActive(0)}
-          >
-            Review Profile
-          </Button>
-        </Stack>
+        {language === 'fr' ? (
+          <Stack align="center" gap="md">
+            <CheckCircle className="text-primary-400 flex-shrink-0 rounded-md text-xl" />
+            <Text fw={600} size="lg" className="font-inter text-center">
+              Félicitations ! Vous avez complété toutes les étapes !
+            </Text>
+            <Text size="sm" c="dimmed" className="font-inter text-center">
+              Votre profil est maintenant complet. Vous pouvez revoir les étapes
+              précédentes à l’aide du bouton Retour ou finaliser votre
+              soumission.
+            </Text>
+            <Button
+              variant="filled"
+              size="md"
+              radius={12}
+              className="!font-inter !bg-[var(--mantine-primary-color-5)] !px-16 !text-sm !font-normal !text-white"
+              onClick={() => setActive(0)}
+            >
+              Revoir le profil
+            </Button>
+          </Stack>
+        ) : (
+          <Stack align="center" gap="md">
+            <CheckCircle className="text-primary-400 flex-shrink-0 rounded-md text-xl" />
+            <Text fw={600} size="lg" className="font-inter text-center">
+              Congratulations! You have Completed All Steps!
+            </Text>
+            <Text size="sm" c="dimmed" className="font-inter text-center">
+              Your profile is now complete. You can review previous steps using
+              the Back button or finalize your submission.
+            </Text>
+            <Button
+              variant="filled"
+              size="md"
+              radius={12}
+              className="!font-inter !bg-[var(--mantine-primary-color-5)] !px-16 !text-sm !font-normal !text-white"
+              onClick={() => setActive(0)}
+            >
+              Review Profile
+            </Button>
+          </Stack>
+        )}
       </Stepper.Step>
     </Stepper>
   );
