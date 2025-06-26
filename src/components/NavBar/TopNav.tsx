@@ -1,5 +1,5 @@
 'use client';
-import { Box, Burger, Drawer, Group } from '@mantine/core';
+import { Box, Burger, Drawer, Flex, Group } from '@mantine/core';
 import Link from 'next/link';
 import { useState } from 'react';
 import Image from 'next/image';
@@ -74,8 +74,9 @@ const TopNav = () => {
             ))}
           </Group>
 
-          <Group
-            className="!lg:block !ml-8 !hidden"
+          <Flex
+            direction={'row'}
+            className="!ml-8 !hidden lg:!flex"
             justify=""
             align="center"
             gap={12}
@@ -109,7 +110,7 @@ const TopNav = () => {
               <PrimaryBtn btnText="Book A Call" glow arrow={false} />
             </Link>
             {pathname === '/drive' && <LanguageToggle />}
-          </Group>
+          </Flex>
 
           <Burger
             opened={mobileMenuOpen}
