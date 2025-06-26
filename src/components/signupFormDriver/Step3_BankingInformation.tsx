@@ -35,6 +35,7 @@ import {
 import { deleteFile } from '../FileManager/actions/fileActions';
 import Link from 'next/link';
 import { useLanguage } from '@/app/(main)/drive/context/languageToggleContext';
+import { step3helpContent } from '@/contents/drive/steppingForm';
 
 // Zod validation schema
 const schema = z.object({
@@ -96,6 +97,8 @@ const Step3_BankingInformation = ({
     form.setValues(savedValues);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  const content = step3helpContent[language];
 
   const handleSubmit = async (values: Step3BankingInformationFormValues) => {
     setSubmitting(true);
@@ -208,7 +211,7 @@ const Step3_BankingInformation = ({
                 <ActionIcon
                   top={-2}
                   left={204}
-                  pos={'absolute'}
+                  pos="absolute"
                   variant="subtle"
                   size="sm"
                 >
@@ -219,46 +222,36 @@ const Step3_BankingInformation = ({
                 <Paper p="md" radius="md" withBorder>
                   <Stack gap="md">
                     <Title fz={16} order={3}>
-                      How to Find and Upload a Void Cheque from Your Banking App
+                      {content.title}
                     </Title>
 
                     <Text size="sm" c="dimmed">
-                      Most major Canadian banks allow you to download or take a
-                      screenshot of a void cheque directly from their mobile
-                      app. Here&apos;s how:
+                      {content.description}
                     </Text>
 
                     <List listStyleType="disc" size="xs" type="ordered">
-                      <List.Item>Log in to your banking app.</List.Item>
-
-                      <List.Item>
-                        Go to your account details or direct deposit information
-                        section.
-                      </List.Item>
-
-                      <List.Item>
-                        Look for an option called &quot;Void Cheque,&quot;
-                        &quot;Pre-Authorized Debit Form,&quot; or &quot;Direct
-                        Deposit Form.&quot;
-                      </List.Item>
-
-                      <List.Item>
-                        Download or take a screenshot of the document showing:
-                        <List
-                          withPadding
-                          ml="md"
-                          mt="xs"
-                          type="unordered"
-                          spacing="xs"
-                          size="sm"
-                          listStyleType="revert"
-                        >
-                          <List.Item>Your full name</List.Item>
-                          <List.Item>Transit number</List.Item>
-                          <List.Item>Institution number</List.Item>
-                          <List.Item>Account number</List.Item>
-                        </List>
-                      </List.Item>
+                      {content.steps.map((step, index) =>
+                        typeof step === 'string' ? (
+                          <List.Item key={index}>{step}</List.Item>
+                        ) : (
+                          <List.Item key={index}>
+                            {step.text}
+                            <List
+                              withPadding
+                              ml="md"
+                              mt="xs"
+                              type="unordered"
+                              spacing="xs"
+                              size="sm"
+                              listStyleType="revert"
+                            >
+                              {step.subItems.map((item, subIndex) => (
+                                <List.Item key={subIndex}>{item}</List.Item>
+                              ))}
+                            </List>
+                          </List.Item>
+                        )
+                      )}
                     </List>
                   </Stack>
                 </Paper>
@@ -344,7 +337,7 @@ const Step3_BankingInformation = ({
                             mt="sm"
                             fullWidth
                           >
-                            View File
+                            {language === 'fr' ? 'Consulter' : 'View'}
                           </Button>
                         </Card>
                       ))}

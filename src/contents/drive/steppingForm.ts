@@ -182,3 +182,45 @@ export const steppingForm = {
     },
   },
 };
+
+export const step3helpContent = {
+  en: {
+    title: 'How to Find and Upload a Void Cheque from Your Banking App',
+    description:
+      "Most major Canadian banks allow you to download or take a screenshot of a void cheque directly from their mobile app. Here's how:",
+    steps: [
+      'Log in to your banking app.',
+      'Go to your account details or direct deposit information section.',
+      'Look for an option called "Void Cheque," "Pre-Authorized Debit Form," or "Direct Deposit Form."',
+      {
+        text: 'Download or take a screenshot of the document showing:',
+        subItems: [
+          'Your full name',
+          'Transit number',
+          'Institution number',
+          'Account number',
+        ],
+      },
+    ],
+  },
+  fr: {
+    title:
+      'Comment trouver et téléverser un chèque annulé depuis votre application bancaire',
+    description:
+      'La plupart des grandes banques canadiennes vous permettent de télécharger ou de prendre une capture d’écran d’un chèque annulé directement depuis leur application mobile. Voici comment :',
+    steps: [
+      'Connectez-vous à votre application bancaire.',
+      'Accédez aux détails de votre compte ou à la section des informations de dépôt direct.',
+      'Recherchez une option appelée "Chèque annulé", "Formulaire de débit préautorisé" ou "Formulaire de dépôt direct".',
+      {
+        text: 'Téléchargez ou prenez une capture d’écran du document contenant :',
+        subItems: [
+          'Votre nom complet',
+          'Numéro de transit',
+          'Numéro d’institution',
+          'Numéro de compte',
+        ],
+      },
+    ],
+  },
+};
