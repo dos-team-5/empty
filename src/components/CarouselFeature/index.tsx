@@ -82,23 +82,32 @@ const CarouselFeature = () => {
             </svg>
             {/* Content on top of SVG */}
             <div className="2xl relative z-20 mx-auto h-screen max-w-xs lg:mx-0 lg:!mr-12 lg:h-auto lg:max-w-3xs xl:!mr-8 xl:max-w-xs 2xl:!mr-16">
-              <Flex pos={'relative'} align={'center'}>
+              <Flex
+                pos={'relative'}
+                align={'center'}
+                className="!mt-32 lg:!mt-4"
+              >
                 <Title
                   order={2}
                   fw={700}
                   ff={'var(--font-poppins)'}
-                  className="!mt-32 text-start !text-base text-white capitalize lg:!mt-4 xl:!ml-8 2xl:!ml-0 2xl:!text-lg"
+                  className="text-start !text-base text-white capitalize xl:!ml-8 2xl:!ml-0 2xl:!text-lg"
                 >
                   Upload Your Ad Creative
                 </Title>
-                <Menu  width={300} position="right" offset={-35}>
+                <Menu width={300} position="right" offset={-35}>
                   <Menu.Target>
-                    <ActionIcon mt={13} ml={3} variant="subtle" size="sm">
-                      <Icon icon="ix:question-filled" className='text-white' />
+                    <ActionIcon ml={3} variant="subtle" size="sm">
+                      <Icon icon="ix:question-filled" className="text-white" />
                     </ActionIcon>
                   </Menu.Target>
-                  <Menu.Dropdown className='scale-75' >
-                    <Paper p="md" radius="md" withBorder className={'!border-black'}>
+                  <Menu.Dropdown className="scale-75">
+                    <Paper
+                      p="md"
+                      radius="md"
+                      withBorder
+                      className={'!border-black'}
+                    >
                       <Stack gap="md">
                         <Title fz={16} order={3} fw={400}>
                           Ads are minimum 2.25 x 1.5 feet, larger when door size
@@ -110,8 +119,9 @@ const CarouselFeature = () => {
                 </Menu>
               </Flex>
               <p className="font-inter my-4 text-start text-xs font-normal text-white capitalize xl:!ml-8 2xl:!ml-0 2xl:text-sm">
-                upload your Advertise banner here to see exactly how its gonna
-                look in real time on our 3D vechile models
+                Upload your advertise banner here to see exactly how it will
+                look in real-time on our 3D vehicle models. {' '}
+                <b className=''>Please ensure your banner is in a 3:2 aspect ratio.</b>
               </p>
               <div className="flex flex-wrap items-center gap-2 xl:!ml-8 2xl:!ml-0">
                 <FileInput

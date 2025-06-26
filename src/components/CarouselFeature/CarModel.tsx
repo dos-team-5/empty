@@ -35,17 +35,16 @@ type GLTFResult = GLTF & {
 export function CarModel({
   file,
   applyImage,
-  rotationSpeed
+  rotationSpeed,
 }: {
   file: File | null;
   applyImage: boolean;
-  rotationSpeed:number;
+  rotationSpeed: number;
 }) {
   const groupRef = useRef<THREE.Group>(null);
 
   // Fallback texture for default view
-  const fallbackTexture = useTexture('/textures/Upload-Your-Ad.png');
-
+  const fallbackTexture = useTexture('/textures/uploadAdImage100.png');
   const [customTexture, setCustomTexture] = useState<THREE.Texture | null>(
     null
   );
@@ -55,14 +54,89 @@ export function CarModel({
     return file && applyImage ? URL.createObjectURL(file) : null;
   }, [file, applyImage]);
 
-  // Load custom texture manually when file and applyImage are valid
+  // Function to create a texture with rounded corners and preserved aspect ratio
+  const createRoundedTexture = (
+    image: HTMLImageElement,
+    radius: number
+  ): THREE.Texture => {
+    const canvas = document.createElement('canvas');
+    const ctx = canvas.getContext('2d')!;
+    const imageAspect = image.width / image.height;
+    const targetAspect = 3 / 2; // Decal's target aspect ratio
+    const canvasWidth = 512; // Fixed canvas size for consistency
+    const canvasHeight = canvasWidth / targetAspect;
+
+    // Set canvas size
+    canvas.width = canvasWidth;
+    canvas.height = canvasHeight;
+
+    // Calculate image scaling to fit within canvas while preserving aspect ratio
+    let drawWidth = canvasWidth;
+    let drawHeight = canvasWidth / imageAspect;
+    let offsetX = 0;
+    let offsetY = 0;
+
+    if (drawHeight > canvasHeight) {
+      // Image is too tall, scale down to fit height
+      drawHeight = canvasHeight;
+      drawWidth = canvasHeight * imageAspect;
+      offsetX = (canvasWidth - drawWidth) / 2;
+    } else {
+      // Image fits or is too wide, center vertically
+      offsetY = (canvasHeight - drawHeight) / 2;
+    }
+
+    // Create rounded rectangle path
+    ctx.beginPath();
+    ctx.moveTo(radius + offsetX, offsetY);
+    ctx.lineTo(drawWidth - radius + offsetX, offsetY);
+    ctx.quadraticCurveTo(
+      drawWidth + offsetX,
+      offsetY,
+      drawWidth + offsetX,
+      radius + offsetY
+    );
+    ctx.lineTo(drawWidth + offsetX, drawHeight - radius + offsetY);
+    ctx.quadraticCurveTo(
+      drawWidth + offsetX,
+      drawHeight + offsetY,
+      drawWidth - radius + offsetX,
+      drawHeight + offsetY
+    );
+    ctx.lineTo(radius + offsetX, drawHeight + offsetY);
+    ctx.quadraticCurveTo(
+      offsetX,
+      drawHeight + offsetY,
+      offsetX,
+      drawHeight - radius + offsetY
+    );
+    ctx.lineTo(offsetX, radius + offsetY);
+    ctx.quadraticCurveTo(offsetX, offsetY, radius + offsetX, offsetY);
+    ctx.closePath();
+
+    // Clip to the rounded rectangle
+    ctx.clip();
+
+    // Draw the image, scaled and centered
+    ctx.drawImage(image, offsetX, offsetY, drawWidth, drawHeight);
+
+    // Create texture from canvas
+    const texture = new THREE.Texture(canvas);
+    texture.needsUpdate = true;
+    return texture;
+  };
+
+  // Load and process custom texture with rounded corners
   useEffect(() => {
     if (texturePath) {
       const loader = new THREE.TextureLoader();
       loader.load(
         texturePath,
         (loadedTexture) => {
-          setCustomTexture(loadedTexture);
+          const img = loadedTexture.image;
+          // Apply rounded corners (radius in pixels, adjust as needed)
+          const roundedTexture = createRoundedTexture(img, 50); // 50px radius for corners
+          setCustomTexture(roundedTexture);
         },
         undefined,
         (error) => {
