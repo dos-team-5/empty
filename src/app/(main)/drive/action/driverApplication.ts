@@ -43,9 +43,20 @@ export function getDriverApplicationFromLocalStorage(): DriverApplication | null
       localStorage.getItem('step1FormValues') ?? '{}'
     );
     const kyc = JSON.parse(localStorage.getItem('step2FormValues') ?? '{}');
-    const bankInfo = JSON.parse(
-      localStorage.getItem('step3FormValues') ?? '{}'
-    );
+    // const bankInfo = JSON.parse(
+    //   localStorage.getItem('step3FormValues') ?? '{}'
+    // );
+
+    // Dummy bank info object
+    const dummyBankInfo = {
+      voidCheque: {
+        key: 'dummy-void-cheque',
+        name: 'void-cheque.pdf',
+        url: 'https://example.com/dummy-void-cheque.pdf',
+        type: 'application/pdf',
+        size: 102400, // in bytes (e.g., 100 KB)
+      },
+    };
 
     // Ensure single file for each KYC and bank field (assuming only one file per field)
     const formatSingleFile = (arr: FileAttachment[] = []) => arr[0] ?? null;
@@ -75,7 +86,7 @@ export function getDriverApplicationFromLocalStorage(): DriverApplication | null
           tripHistory: formatSingleFile(kyc.tripHistory),
         },
         bankInfo: {
-          voidCheque: formatSingleFile(bankInfo.voidCheque),
+          voidCheque: dummyBankInfo.voidCheque,
         },
       },
     };
