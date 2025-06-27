@@ -162,7 +162,7 @@ const RoiCalculator = () => {
 
           <div className="flex h-dvh w-full flex-col items-center justify-start md:flex-row md:items-start md:justify-between">
             {/* Left Side - Input Section */}
-            <div className="relative mt-8 w-full md:mt-8 md:w-[30%] lg:mt-12 xl:mt-16 xl:ml-8 2xl:mt-40">
+            <div className="relative mt-8 w-full md:mt-8 md:w-[30%] lg:mt-12 xl:mt-20 xl:ml-8 2xl:mt-40">
               {/* Content */}
               <div className="relative rounded-[2.5rem] bg-transparent p-8 text-white">
                 <div className="lg:space-y-1 xl:space-y-6">
