@@ -1,5 +1,5 @@
 'use client';
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { Title, Box, Space } from '@mantine/core';
 import PrimaryBtn from '../PrimaryBtn';
 import Link from 'next/link';
@@ -7,33 +7,23 @@ import { TextAnimate } from '../TextAnimation';
 import { motion } from 'framer-motion';
 import { useMediaQuery } from '@mantine/hooks';
 import SecondaryButton from '../toggleModeSwitch/SecondaryButton';
-import Image from 'next/image';
+import Lottie from 'lottie-react';
+import animationData from '../../../public/T1C.json';
 
 const HeroSection: React.FC = () => {
-  const [isMounted, setIsMounted] = useState(false);
-  const md = useMediaQuery('(min-width: 768px)');
-  const lg = useMediaQuery('(min-width: 1024px)');
-  const xl = useMediaQuery('(min-width: 1280px)');
-  const xxl = useMediaQuery('(min-width: 1536px)');
-
-  useEffect(() => {
-    setIsMounted(true);
-  }, []);
+  const xs = useMediaQuery('(max-width: 380px)');
 
   return (
     <Box className="relative h-dvh overflow-hidden">
-      {isMounted && (
-        <div className="absolute right-[-80%] scale-130 lg:right-0 bottom-[-30%]  md:bottom-[-22%] lg:bottom-[-28%] lg:scale-100 xl:bottom-[-20%]">
-          <Image
-            src="/T1C.svg"
-            alt="HeroImage"
-            width={1000}
-            height={1000}
-            className="h-dvh w-[156dvw] origin-bottom-right !bg-transparent md:w-[152dvw] lg:w-[72dvw]"
-            priority
-          />
-        </div>
-      )}
+      <div
+        className={`absolute ${xs ? 'right-[-50%]' : 'right-[-60%]'} bottom-[-80%] scale-130 md:right-[-40%] md:bottom-[-100%] md:scale-200 lg:right-[20%]`}
+      >
+        <Lottie
+          loop={false}
+          animationData={animationData}
+          className="h-dvh w-full !origin-bottom-right"
+        />
+      </div>
 
       <Box
         maw={1800}
