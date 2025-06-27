@@ -206,7 +206,15 @@ export const getDrivePageContent: Record<'en' | 'fr', DrivePageContent> = {
             <>
               Inscrivez-vous sur notre plateforme.
               <br />
-              {sharedAnchor}
+              <Anchor
+                variant="text"
+                size="md"
+                className="underline"
+                onClick={handleSignUpClick}
+                component="button"
+              >
+                S’inscrire
+              </Anchor>
             </>
           ),
           icon: <FilePenLine size={24} />,
