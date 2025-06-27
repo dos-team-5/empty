@@ -2,17 +2,21 @@
 'use client';
 import { useFormSubmission } from '@/contexts/FormSubmissionContext';
 import {
+  ActionIcon,
   Box,
   Button,
   Group,
   Image,
   Input,
   Loader,
+  Menu,
   MultiSelect,
+  Paper,
   SimpleGrid,
   Space,
   Stack,
   TextInput,
+  Title,
 } from '@mantine/core';
 import { notifications } from '@mantine/notifications';
 import { useForm, zodResolver } from '@mantine/form';
@@ -487,13 +491,43 @@ const Step1_DriverInformation = ({
               </Box>
             </SimpleGrid>
           ) : (
-            <ImageHandler
-              label={step1FormLabel.vehiclePhotos[language]}
-              withAsterisk
-              description={step1FormLabel.vehiclePhotos.description[language]}
-              onUploadSuccess={handleFileUpload}
-              multiple
-            />
+            <Box pos={'relative'}>
+              <ImageHandler
+                label={step1FormLabel.vehiclePhotos[language]}
+                withAsterisk
+                description={step1FormLabel.vehiclePhotos.description[language]}
+                onUploadSuccess={handleFileUpload}
+                multiple
+              />
+              <Box pos={'absolute'} top={20} right={16}>
+                <Menu width={300} position="bottom-start">
+                  <Menu.Target>
+                    <ActionIcon ml={3} variant="subtle" size="sm">
+                      <Icon
+                        icon="ix:question-filled"
+                        className="text-primary"
+                      />
+                    </ActionIcon>
+                  </Menu.Target>
+                  <Menu.Dropdown className="scale-75">
+                    <Paper
+                      p="md"
+                      radius="md"
+                      withBorder
+                      className={'!border-black'}
+                    >
+                      <Stack gap="md">
+                        <Title fz={16} order={3} fw={400}>
+                          {language === 'en'
+                            ? 'Your vehicle needs to be in good condition'
+                            : ' Votre véhicule doit être en bon état.'}
+                        </Title>
+                      </Stack>
+                    </Paper>
+                  </Menu.Dropdown>
+                </Menu>
+              </Box>
+            </Box>
           )}
         </Input.Wrapper>
 

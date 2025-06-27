@@ -2,15 +2,19 @@
 'use client';
 import { useFormSubmission } from '@/contexts/FormSubmissionContext';
 import {
+  ActionIcon,
   Box,
   Button,
   Group,
   Image,
   Input,
   Loader,
+  Menu,
+  Paper,
   SimpleGrid,
   Space,
   Stack,
+  Title,
 } from '@mantine/core';
 import { notifications } from '@mantine/notifications';
 import { useForm, zodResolver } from '@mantine/form';
@@ -58,12 +62,14 @@ interface Step2IdentityConfirmationProps {
   onNext: () => void;
   onPrev: () => void;
   step2FormLabel: any;
+  questionLabel?: string;
 }
 
 const Step2_IdentityConfirmation = ({
   onNext,
   onPrev,
   step2FormLabel,
+  questionLabel,
 }: Step2IdentityConfirmationProps) => {
   const { language } = useLanguage();
   // Separate loading states for each section
@@ -266,7 +272,8 @@ const Step2_IdentityConfirmation = ({
     fieldName: keyof Step2IdentityConfirmationFormValues,
     label: string,
     changeState: boolean,
-    loadingState: boolean
+    loadingState: boolean,
+    questionLabel?: string
   ) => {
     // CRITICAL: Get current form values, not initial values
     const currentFiles = form.getValues()[fieldName] ?? [];
@@ -276,8 +283,31 @@ const Step2_IdentityConfirmation = ({
         label={label}
         withAsterisk
         error={form.errors[fieldName]}
-        className="font-inter text-xs font-normal text-[#5E6366]"
+        className="font-inter relative text-xs font-normal text-[#5E6366]"
       >
+        <Box
+          hidden={fieldName == 'driverProfile' || fieldName == 'driversLicense'}
+          pos={'absolute'}
+          top={0}
+          right={16}
+        >
+          <Menu width={200} position="bottom-start">
+            <Menu.Target>
+              <ActionIcon ml={3} variant="subtle" size="sm">
+                <Icon icon="ix:question-filled" className="text-primary" />
+              </ActionIcon>
+            </Menu.Target>
+            <Menu.Dropdown className="scale-75">
+              <Paper p="md" radius="md" withBorder className={'!border-black'}>
+                <Stack gap="md">
+                  <Title fz={16} order={3} fw={400}>
+                    {questionLabel}
+                  </Title>
+                </Stack>
+              </Paper>
+            </Menu.Dropdown>
+          </Menu>
+        </Box>
         <Space h={4} />
         {currentFiles.length > 0 && !changeState ? (
           <SimpleGrid pos={'relative'} cols={1} spacing="md" mb="md">
@@ -375,6 +405,11 @@ const Step2_IdentityConfirmation = ({
     );
   };
 
+  const tripHistoryLabel =
+    language === 'fr'
+      ? 'Votre activité de conduite au cours des dernières semaines'
+      : 'Your driving activity in the past weeks';
+
   return (
     <form onSubmit={form.onSubmit(handleSubmit)}>
       <Stack w={{ lg: 400 }}>
@@ -396,7 +431,8 @@ const Step2_IdentityConfirmation = ({
           'tripHistory',
           step2FormLabel.tripHistory[language],
           changeTripHistoryPhotos,
-          loadingTripHistory
+          loadingTripHistory,
+          tripHistoryLabel
         )}
 
         <Group
