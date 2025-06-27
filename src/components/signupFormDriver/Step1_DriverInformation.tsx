@@ -499,7 +499,7 @@ const Step1_DriverInformation = ({
                 onUploadSuccess={handleFileUpload}
                 multiple
               />
-              <Box pos={'absolute'} top={20} right={16}>
+              <Box pos={'absolute'} top={20} right={{ base: 8, md: 16 }}>
                 <Menu width={300} position="bottom-start">
                   <Menu.Target>
                     <ActionIcon ml={3} variant="subtle" size="sm">

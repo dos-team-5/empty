@@ -69,7 +69,6 @@ const Step2_IdentityConfirmation = ({
   onNext,
   onPrev,
   step2FormLabel,
-  questionLabel,
 }: Step2IdentityConfirmationProps) => {
   const { language } = useLanguage();
   // Separate loading states for each section
@@ -280,6 +279,9 @@ const Step2_IdentityConfirmation = ({
 
     return (
       <Input.Wrapper
+        classNames={{
+          label: 'w-[85%]',
+        }}
         label={label}
         withAsterisk
         error={form.errors[fieldName]}
@@ -288,8 +290,8 @@ const Step2_IdentityConfirmation = ({
         <Box
           hidden={fieldName == 'driverProfile' || fieldName == 'driversLicense'}
           pos={'absolute'}
-          top={0}
-          right={16}
+          top={4}
+          right={{ base: 8, md: 16 }}
         >
           <Menu width={200} position="bottom-start">
             <Menu.Target>
