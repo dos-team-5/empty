@@ -1,56 +1,39 @@
 'use client';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Title, Box, Space } from '@mantine/core';
 import PrimaryBtn from '../PrimaryBtn';
 import Link from 'next/link';
 import { TextAnimate } from '../TextAnimation';
-import { motion } from 'motion/react';
+import { motion } from 'framer-motion';
 import { useMediaQuery } from '@mantine/hooks';
 import SecondaryButton from '../toggleModeSwitch/SecondaryButton';
 import Image from 'next/image';
 
 const HeroSection: React.FC = () => {
+  const [isMounted, setIsMounted] = useState(false);
   const md = useMediaQuery('(min-width: 768px)');
   const lg = useMediaQuery('(min-width: 1024px)');
   const xl = useMediaQuery('(min-width: 1280px)');
   const xxl = useMediaQuery('(min-width: 1536px)');
 
-  const getAnimationProps = () => {
-    if (xxl) return { x: '0%' };
-    if (xl) return { x: '0%' };
-    if (lg) return { x: '0%' };
-    if (md) return { x: '23%' };
-    return { x: '23%' };
-  };
-
-  const { x } = getAnimationProps();
-
-  const handleAdvertiseClick = () => {
-    const target = document.querySelector('#pricing-configurator');
-    if (target) {
-      target.scrollIntoView({ behavior: 'smooth' });
-    }
-  };
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
 
   return (
     <Box className="relative h-dvh overflow-hidden">
-      <div
-        style={{ transform: `translateX(${x})` }}
-        className="absolute scale-180 lg:scale-100 right-0 bottom-[-34%] md:bottom-[-30%] lg:bottom-[-28%] xl:bottom-[-20%]"
-      >
-        <Image
-          src="/T1C_ NEW NEW.svg"
-          alt="HeroImage"
-          width={1000}
-          height={1000}
-          className="h-dvh w-[156dvw] origin-bottom-right !bg-transparent md:w-[152dvw] lg:w-[72dvw]"
-        />
-        {/* <HeroCar
-          className={
-            'h-dvh w-[156dvw] origin-bottom-right md:w-[152dvw] lg:w-[72dvw] !bg-transparent'
-          }
-        /> */}
-      </div>
+      {isMounted && (
+        <div className="absolute right-[-80%] scale-130 lg:right-0 bottom-[-30%]  md:bottom-[-22%] lg:bottom-[-28%] lg:scale-100 xl:bottom-[-20%]">
+          <Image
+            src="/T1C.svg"
+            alt="HeroImage"
+            width={1000}
+            height={1000}
+            className="h-dvh w-[156dvw] origin-bottom-right !bg-transparent md:w-[152dvw] lg:w-[72dvw]"
+            priority
+          />
+        </div>
+      )}
 
       <Box
         maw={1800}
@@ -89,7 +72,6 @@ const HeroSection: React.FC = () => {
               </TextAnimate>
             </Title>
 
-            {/* <Space className="h-6 md:h-8" /> */}
             <Title
               order={2}
               fw={400}
@@ -126,31 +108,29 @@ const HeroSection: React.FC = () => {
             <Box className="flex flex-wrap gap-4">
               <motion.div
                 initial={{ opacity: 0, filter: 'blur(10px)', y: 20 }}
-                whileInView={{
-                  opacity: 1,
-                  filter: 'blur(0px)',
-                  y: 0,
-                }}
-                viewport={{ once: true }}
+                animate={{ opacity: 1, filter: 'blur(0px)', y: 0 }}
                 transition={{ duration: 0.4, delay: 2 }}
               >
-                <Box onClick={handleAdvertiseClick}>
+                <Box
+                  onClick={() => {
+                    const target = document.querySelector(
+                      '#pricing-configurator'
+                    );
+                    if (target) {
+                      target.scrollIntoView({ behavior: 'smooth' });
+                    }
+                  }}
+                >
                   <PrimaryBtn btnText="Advertise" glowOnHover />
                 </Box>
               </motion.div>
 
               <motion.div
                 initial={{ opacity: 0, filter: 'blur(10px)', y: 20 }}
-                whileInView={{
-                  opacity: 1,
-                  filter: 'blur(0px)',
-                  y: 0,
-                }}
-                viewport={{ once: true }}
+                animate={{ opacity: 1, filter: 'blur(0px)', y: 0 }}
                 transition={{ duration: 0.4, delay: 2.4 }}
               >
                 <Link href={'/drive'}>
-                  {/* <PrimaryBtn type="outline" btnText="Drive" glowOnHover /> */}
                   <SecondaryButton btnText="Drive" glowOnHover />
                 </Link>
               </motion.div>
