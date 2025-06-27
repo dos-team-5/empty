@@ -72,7 +72,8 @@ export async function POST(req: NextRequest) {
         return NextResponse.json(
           {
             success: false,
-            message: 'A driver with this email already exists.',
+            message:
+              'You have already signed up for this form using this email.',
           },
           { status: 409 }
         );
@@ -81,7 +82,8 @@ export async function POST(req: NextRequest) {
         return NextResponse.json(
           {
             success: false,
-            message: 'A driver with this phone number already exists.',
+            message:
+              'You have already signed up for this form using this phone number.',
           },
           { status: 409 }
         );

@@ -22,6 +22,11 @@ import { Icon } from '@iconify/react/dist/iconify.js';
 import { deleteFile } from '../FileManager/actions/fileActions';
 import { useLanguage } from '@/providers/languageToggleContext';
 import { steppingForm } from '@/contents/drive/steppingForm';
+import {
+  DriverApplication,
+  getDriverApplicationFromLocalStorage,
+  sendDriverApplicationEmail,
+} from '@/app/(main)/drive/action/driverApplication';
 
 // Zod validation schema
 export const schema = (lang: 'en' | 'fr') => {
@@ -76,6 +81,8 @@ const Step2_IdentityConfirmation = ({
     useState<boolean>(false);
   const { setIsIdentityConfirmationSubmitted } = useFormSubmission();
 
+  const [loading, setLoading] = useState<boolean>(false);
+
   // Load initial values from localStorage
   const getInitialValues = (): Step2IdentityConfirmationFormValues => {
     if (typeof window !== 'undefined') {
@@ -108,7 +115,8 @@ const Step2_IdentityConfirmation = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const handleSubmit = (values: Step2IdentityConfirmationFormValues) => {
+  const handleSubmit = async (values: Step2IdentityConfirmationFormValues) => {
+    setLoading(true);
     // Save values to localStorage
     if (typeof window !== 'undefined') {
       const valuesToSave = {
@@ -118,13 +126,52 @@ const Step2_IdentityConfirmation = ({
     }
 
     setIsIdentityConfirmationSubmitted(true);
-    notifications.show({
-      title: 'Form Submitted',
-      message: 'Identity Confirmation submitted successfully!',
-      color: 'green',
-      autoClose: 3000,
-    });
-    onNext();
+
+    // Simulate form submission (e.g., API call)
+    try {
+      const driverApplication: DriverApplication | null =
+        getDriverApplicationFromLocalStorage();
+
+      if (!driverApplication) {
+        notifications.show({
+          title: 'Missing Data',
+          message:
+            'Driver application data not found.Please fill all the forms',
+          color: 'red',
+        });
+        return;
+      }
+
+      const { success, message } =
+        await sendDriverApplicationEmail(driverApplication);
+
+      if (success === true) {
+        notifications.show({
+          title: 'Form Submitted. Please check you Email for confirmation',
+          message,
+          color: 'green',
+          autoClose: 3000,
+        });
+        onNext();
+      } else {
+        notifications.show({
+          title: 'Submission Failed',
+          message,
+          color: 'red',
+          autoClose: 5000,
+        });
+      }
+    } catch (err: any) {
+      console.error('Submission error:', err);
+      notifications.show({
+        title: 'Unexpected Error',
+        message: err.message ?? 'Something went wrong.',
+        color: 'red',
+        autoClose: 5000,
+      });
+    }
+
+    setLoading(false);
   };
 
   const handleBulkDelete = async (
@@ -330,7 +377,7 @@ const Step2_IdentityConfirmation = ({
 
   return (
     <form onSubmit={form.onSubmit(handleSubmit)}>
-      <Stack>
+      <Stack w={{ lg: 400 }}>
         {renderImageSection(
           'driversLicense',
           step2FormLabel.driversLicense[language],
@@ -367,6 +414,7 @@ const Step2_IdentityConfirmation = ({
             {language === 'fr' ? 'Retour' : 'Back'}
           </Button>
           <Button
+            loading={loading}
             type="submit"
             size="md"
             radius={12}
@@ -377,7 +425,7 @@ const Step2_IdentityConfirmation = ({
               loadingTripHistory
             }
           >
-            {language === 'fr' ? 'Continuer' : 'Continue'}
+            {language === 'fr' ? 'Soumettre' : 'Submit'}
           </Button>
         </Group>
       </Stack>

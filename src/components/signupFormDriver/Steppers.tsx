@@ -1,10 +1,9 @@
 'use client';
 import { useFormSubmission } from '@/contexts/FormSubmissionContext';
-import { Button, Divider, Space, Stack, Stepper, Text } from '@mantine/core';
+import { Divider, Space, Stack, Stepper, Text } from '@mantine/core';
 import { useState, useEffect, JSX } from 'react';
 import Step1_DriverInformation from './Step1_DriverInformation';
 import Step2_IdentityConfirmation from './Step2_IdentityConfirmation';
-import Step3_BankingInformation from './Step3_BankingInformation';
 import { CheckCircle } from 'lucide-react';
 import { steppingForm } from '@/contents/drive/steppingForm';
 import { useLanguage } from '@/providers/languageToggleContext';
@@ -88,23 +87,23 @@ const Steppers = () => {
         />
       ),
     },
-    {
-      id: 3,
-      title: (
-        <>
-          {insertBreakAfterFirstWord(
-            steppingForm.step3FormLabel.title[language]
-          )}
-        </>
-      ),
-      content: (
-        <Step3_BankingInformation
-          onNext={() => nextStep()}
-          onPrev={() => prevStep()}
-          step3FormLabel={steppingForm.step3FormLabel}
-        />
-      ),
-    },
+    // {
+    //   id: 3,
+    //   title: (
+    //     <>
+    //       {insertBreakAfterFirstWord(
+    //         steppingForm.step3FormLabel.title[language]
+    //       )}
+    //     </>
+    //   ),
+    //   content: (
+    //     <Step3_BankingInformation
+    //       onNext={() => nextStep()}
+    //       onPrev={() => prevStep()}
+    //       step3FormLabel={steppingForm.step3FormLabel}
+    //     />
+    //   ),
+    // },
   ];
 
   const nextStep = () =>
@@ -166,9 +165,9 @@ const Steppers = () => {
           >
             <span className="text-primary mr-1">
               {language === 'fr' ? 'Etape ' : 'Step'}{' '}
-              {active === 3 ? 3 : active + 1}
+              {active === 2 ? 2 : active + 1}
             </span>
-            of 3
+            of 2
           </Text>
         }
         description={
@@ -186,9 +185,9 @@ const Steppers = () => {
           <Stack align="center" gap="md">
             <CheckCircle className="text-primary-400 flex-shrink-0 rounded-md text-xl" />
             <Text fw={600} size="lg" className="font-inter text-center">
-              Félicitations ! Vous avez complété toutes les étapes !
+              Merci de vous inscrire comme chauffeur!!
             </Text>
-            <Text size="sm" c="dimmed" className="font-inter text-center">
+            {/* <Text size="sm" c="dimmed" className="font-inter text-center">
               Votre profil est maintenant complet. Vous pouvez revoir les étapes
               précédentes à l’aide du bouton Retour ou finaliser votre
               soumission.
@@ -201,15 +200,15 @@ const Steppers = () => {
               onClick={() => setActive(0)}
             >
               Revoir le profil
-            </Button>
+            </Button> */}
           </Stack>
         ) : (
           <Stack align="center" gap="md">
             <CheckCircle className="text-primary-400 flex-shrink-0 rounded-md text-xl" />
-            <Text fw={600} size="lg" className="font-inter text-center">
-              Congratulations! You have Completed All Steps!
+            <Text fw={600} size="xl" className="font-inter text-center">
+              Thank you for signing up as a Driver!!
             </Text>
-            <Text size="sm" c="dimmed" className="font-inter text-center">
+            {/* <Text size="sm" c="dimmed" className="font-inter text-center">
               Your profile is now complete. You can review previous steps using
               the Back button or finalize your submission.
             </Text>
@@ -221,7 +220,7 @@ const Steppers = () => {
               onClick={() => setActive(0)}
             >
               Review Profile
-            </Button>
+            </Button> */}
           </Stack>
         )}
       </Stepper.Step>
