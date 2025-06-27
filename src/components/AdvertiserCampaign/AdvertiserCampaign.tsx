@@ -43,7 +43,7 @@ const AdvertiserCampaign = () => {
       w="100%"
       mx="auto"
       py={24}
-      mb={160}
+      mb={80}
       mt={120}
     >
       <Title
