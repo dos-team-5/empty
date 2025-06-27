@@ -4,6 +4,7 @@ import { Box, Stack, Title } from '@mantine/core';
 import { memo } from 'react';
 import Steppers from './Steppers';
 import { EarnByDrivingSection } from './EarnByDrivingSection';
+import { useLanguage } from '@/providers/languageToggleContext';
 
 // Memoized TitleSection to prevent re-rendering
 const TitleSection = memo(() => (
@@ -15,6 +16,7 @@ const TitleSection = memo(() => (
 TitleSection.displayName = 'TitleSection';
 
 const DriverSignupSection: React.FC = () => {
+  const { language } = useLanguage();
   return (
     <Box mt={260} className="relative">
       <Box
@@ -34,7 +36,9 @@ const DriverSignupSection: React.FC = () => {
                   className="!mb-6 text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl"
                   ta="center"
                 >
-                  <span className="">Sign Up</span>
+                  <span className="">
+                    {language === 'fr' ? 'Inscrivez-vous' : 'Sign Up'}
+                  </span>
                 </Title>
               </Stack>
               <Box

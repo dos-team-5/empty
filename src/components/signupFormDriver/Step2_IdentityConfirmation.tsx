@@ -364,7 +364,7 @@ const Step2_IdentityConfirmation = ({
             className="!font-inter !w-full !border-2 !border-[#111111] !px-12 !text-sm !font-normal !text-black md:!w-auto"
             onClick={onPrev}
           >
-            Back
+            {language === 'fr' ? 'Retour' : 'Back'}
           </Button>
           <Button
             type="submit"
@@ -377,7 +377,7 @@ const Step2_IdentityConfirmation = ({
               loadingTripHistory
             }
           >
-            Continue
+            {language === 'fr' ? 'Continuer' : 'Continue'}
           </Button>
         </Group>
       </Stack>

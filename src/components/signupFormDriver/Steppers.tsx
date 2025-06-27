@@ -165,7 +165,8 @@ const Steppers = () => {
             className="font-inter flex h-14 items-center justify-start !text-[10px] lg:!text-xs"
           >
             <span className="text-primary mr-1">
-              Step {active === 3 ? 3 : active + 1}
+              {language === 'fr' ? 'Etape ' : 'Step'}{' '}
+              {active === 3 ? 3 : active + 1}
             </span>
             of 3
           </Text>
