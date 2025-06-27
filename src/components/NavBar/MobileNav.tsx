@@ -22,8 +22,8 @@ const MobileNav = ({ onClose }: MobileNavProps) => {
   return (
     <Box className="bg-default group relative flex h-[88dvh] w-full flex-col items-start justify-end p-4">
       {pathname === '/drive' && (
-        <Box onClick={onClose}>
-          <LanguageToggle />
+        <Box>
+          <LanguageToggle onClick={onClose} />
         </Box>
       )}
 

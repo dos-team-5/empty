@@ -10,7 +10,11 @@ const languageOptions = [
   { value: 'fr', label: 'Français' },
 ];
 
-export function LanguageToggle() {
+interface LanguageToggle {
+  readonly onClick?: () => void;
+}
+
+export function LanguageToggle({ onClick }: LanguageToggle) {
   const { language, setLanguage } = useLanguage();
   const router = useRouter();
 
@@ -19,6 +23,9 @@ export function LanguageToggle() {
       console.log('Select changing language to:', value); // Debug log
       setLanguage(value);
       router.refresh();
+    }
+    if (onClick) {
+      onClick();
     }
   };
 
