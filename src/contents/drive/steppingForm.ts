@@ -53,8 +53,8 @@ export const steppingForm = {
       fr: 'Plateforme(s) de covoiturage',
     },
     weeklyDrivingSchedule: {
-      en: 'Weekly Driving Hours/Schedule',
-      fr: 'Heures/horaires de conduite hebdomadaires',
+      en: 'How many hours do you drive per week?',
+      fr: 'Combien d’heures conduisez-vous par semaine ?',
     },
     weeklyDrivingSchedulePlaceholder: {
       en: 'e.g., 20 hours, Mon-Fri 9AM-2PM',
@@ -95,8 +95,8 @@ export const steppingForm = {
       fr: 'Photo du permis de conduire',
     },
     driverProfile: {
-      en: 'Screenshot of Driver Profile (Uber, Lyft, etc.)',
-      fr: 'Capture d’écran du profil du conducteur (Uber, Lyft, etc.)',
+      en: "Screenshot of Driver's Profile (Driver's face and name must be visible in the image)",
+      fr: "Capture d'écran du profil du chauffeur (Le visage et le nom du chauffeur doivent être visibles sur la photo.)",
     },
     tripHistory: {
       en: 'Screenshot of Recent Trip History/Driven Hours',
