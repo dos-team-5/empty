@@ -440,7 +440,7 @@ const Step3_BankingInformation = ({
               className="!font-inter !w-full !border-2 !border-[#111111] !px-12 !text-sm !font-normal !text-black md:!w-auto"
               onClick={onPrev}
             >
-              Back
+              {language === 'fr' ? 'Retour' : 'Back'}
             </Button>
             <Button
               loading={submitting}
@@ -449,7 +449,7 @@ const Step3_BankingInformation = ({
               radius={12}
               className="!font-inter !w-full !px-16 !text-sm !font-normal !text-white md:!w-auto"
             >
-              Submit
+              {language === 'fr' ? 'Soumettre' : 'Submit'}
             </Button>
           </Group>
         </Stack>

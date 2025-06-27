@@ -536,7 +536,7 @@ const Step1_DriverInformation = ({
             className="!font-inter !w-full !border-2 !border-[#111111] !px-12 !text-sm !font-normal !text-black md:!w-auto"
             onClick={onPrev}
           >
-            Cancel
+            {language === 'fr' ? 'Annuler' : 'Cancel'}
           </Button>
           <Button
             type="submit"
@@ -544,7 +544,7 @@ const Step1_DriverInformation = ({
             radius={12}
             className="!font-inter !w-full !px-16 !text-sm !font-normal !text-white md:!w-auto"
           >
-            Continue
+            {language === 'fr' ? 'Continuer' : 'Continue'}
           </Button>
         </Group>
       </Stack>
