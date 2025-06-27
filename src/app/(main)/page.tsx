@@ -7,7 +7,7 @@ import {
 } from '@/components';
 import AdvertiserCampaign from '@/components/AdvertiserCampaign/AdvertiserCampaign';
 import PricingConfigurator from '@/components/PricingSections/PriceConfigurator/PricingConfigurator';
-import RoiCalculator from '@/components/RoiCalculator';
+import RoiCalculator from '@/components/RoiCalculator/RoiCalculator';
 import ScanVsLeadSnatcher from '@/components/ScanVsLeadSnatcher/ScanVsLeadSnatcher';
 
 export default function Home() {
@@ -21,7 +21,7 @@ export default function Home() {
       {/* <WhyChooseUsSection /> */}
       <AnimatedAdSection />
 
-      <RoiCalculator />
+      {/* <RoiCalculator /> */}
 
       {/* <FeatureSection />
       <FeatureCard /> */}
@@ -30,6 +30,7 @@ export default function Home() {
       {/* <TimelineSectionAd /> */}
       {/* <PricingCards /> */}
       <AdvertiserCampaign />
+      <RoiCalculator />
       <PricingConfigurator />
       <ScanVsLeadSnatcher />
       <Faq />
