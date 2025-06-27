@@ -377,7 +377,7 @@ const Step2_IdentityConfirmation = ({
 
   return (
     <form onSubmit={form.onSubmit(handleSubmit)}>
-      <Stack w={400}>
+      <Stack w={{ lg: 400 }}>
         {renderImageSection(
           'driversLicense',
           step2FormLabel.driversLicense[language],
@@ -414,6 +414,7 @@ const Step2_IdentityConfirmation = ({
             {language === 'fr' ? 'Retour' : 'Back'}
           </Button>
           <Button
+            loading={loading}
             type="submit"
             size="md"
             radius={12}
@@ -421,8 +422,7 @@ const Step2_IdentityConfirmation = ({
             disabled={
               loadingDriversLicense ||
               loadingDriverProfile ||
-              loadingTripHistory ||
-              loading
+              loadingTripHistory
             }
           >
             {language === 'fr' ? 'Soumettre' : 'Submit'}
