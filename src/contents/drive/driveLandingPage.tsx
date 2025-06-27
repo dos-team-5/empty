@@ -227,18 +227,18 @@ export const getDrivePageContent: Record<'en' | 'fr', DrivePageContent> = {
           icon: <CirclePlus size={24} />,
         },
         {
-          title: 'Recevoir le sticker',
-          desc: 'Rendez-vous au centre d’installation local mentionné dans l’e-mail pour faire poser le sticker.',
+          title: 'Recevoir l’autocollant',
+          desc: 'Rendez-vous au centre d’installation local mentionné dans l’e-mail pour faire poser l’autocollant.',
           icon: <Tag size={24} />,
         },
         {
           title: 'Installez et conduisez',
-          desc: 'Après installation du sticker, connectez-vous sur notre site avec votre numéro de permis. Téléversez une photo du sticker et installez l’application Evertrack pour activer le suivi GPS.',
+          desc: 'Après installation de l’autocollant, connectez-vous sur notre site avec votre numéro de permis. Téléversez une photo de l’autocollant et installez l’application Evertrack pour activer le suivi GPS.',
           icon: <Cog size={24} />,
         },
         {
           title: 'Mises à jour hebdomadaires',
-          desc: 'Gardez l’application Evertrack ouverte pendant toute la campagne et téléversez une photo hebdomadaire des stickers.',
+          desc: 'Gardez l’application Evertrack ouverte pendant toute la campagne et téléversez une photo hebdomadaire des autocollants.',
           icon: <CalendarCheck size={24} />,
         },
         {
@@ -266,7 +266,7 @@ export const getDrivePageContent: Record<'en' | 'fr', DrivePageContent> = {
           step: 3,
           title: 'Conduisez normalement',
           description:
-            'Acceptez une campagne ? Super ! Faites installer le sticker dans un centre EMPTY. Ensuite, reprenez simplement vos trajets habituels.',
+            'Acceptez une campagne ? Super ! Faites installer l’autocollant dans un centre EMPTY. Ensuite, reprenez simplement vos trajets habituels.',
         },
         {
           step: 4,
