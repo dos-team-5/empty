@@ -16,8 +16,12 @@ import { IconUpload } from '@tabler/icons-react';
 import Canvas3D from './Canvas3D';
 import { useState, useEffect } from 'react';
 import { Icon } from '@iconify/react/dist/iconify.js';
+import { useLanguage } from '@/providers/languageToggleContext';
+import { getAdvertisePageContent } from '@/contents/advertise/AdvertisePage';
 
 const CarouselFeature = () => {
+  const { language } = useLanguage();
+  const content = getAdvertisePageContent[language];
   const [file, setFile] = useState<File | null>(null);
   const [applyImage, setApplyImage] = useState(false);
 
@@ -93,7 +97,7 @@ const CarouselFeature = () => {
                   ff={'var(--font-poppins)'}
                   className="text-start !text-base text-white capitalize xl:!ml-8 2xl:!ml-0 2xl:!text-lg"
                 >
-                  Upload Your Ad Creative
+                  {content.featureCarouselSection.canvasSection.title}
                 </Title>
                 <Menu width={300} position="right" offset={-35}>
                   <Menu.Target>
@@ -110,8 +114,10 @@ const CarouselFeature = () => {
                     >
                       <Stack gap="md">
                         <Title fz={16} order={3} fw={400}>
-                          Ads are minimum 2.25 x 1.5 feet, larger when door size
-                          allows
+                          {
+                            content.featureCarouselSection.canvasSection
+                              .menuDDInfo
+                          }
                         </Title>
                       </Stack>
                     </Paper>
@@ -119,11 +125,7 @@ const CarouselFeature = () => {
                 </Menu>
               </Flex>
               <p className="font-inter my-4 text-start text-xs font-normal text-white capitalize xl:!ml-8 2xl:!ml-0 2xl:text-sm">
-                Upload your advertise banner here to see exactly how it will
-                look in real-time on our 3D vehicle models.{' '}
-                <b className="">
-                  Please ensure your Asset is in a 3:2 aspect ratio.
-                </b>
+                {content.featureCarouselSection.canvasSection.content}
               </p>
               <div className="flex flex-wrap items-center gap-2 xl:!ml-8 2xl:!ml-0">
                 <FileInput
@@ -134,7 +136,10 @@ const CarouselFeature = () => {
                   placeholder={
                     <div className="flex items-center gap-2 text-black">
                       <IconUpload size={14} />
-                      Upload Ad
+                      {
+                        content.featureCarouselSection.canvasSection
+                          .inputPlaceholder
+                      }
                     </div>
                   }
                   accept="image/png,image/jpeg"
@@ -146,7 +151,7 @@ const CarouselFeature = () => {
                   className="!font-semibold"
                   onClick={() => setApplyImage(true)}
                 >
-                  Apply Ad
+                  {content.featureCarouselSection.canvasSection.applyBtn}
                 </Button>
               </div>
               <Canvas3D file={file} applyImage={applyImage} />

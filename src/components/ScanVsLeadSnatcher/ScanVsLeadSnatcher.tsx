@@ -1,7 +1,6 @@
 'use client';
 
 import { memo, useState /*, useEffect */ } from 'react';
-import { Smartphone, Users } from 'lucide-react';
 import {
   Box,
   Flex,
@@ -12,69 +11,14 @@ import {
   Title,
   ActionIcon,
 } from '@mantine/core';
-import type React from 'react';
 import { Icon } from '@iconify/react';
 import { TextAnimate } from '../TextAnimation';
-
-interface CarouselSlide {
-  id: string;
-  title: string;
-  subtitle: string;
-  description: string;
-  image: string;
-  backgroundColor: string;
-  icon: React.ReactNode;
-}
-
-const slides: CarouselSlide[] = [
-  {
-    id: 'scan-spin',
-    title: 'Scan & Spin',
-    subtitle: 'Attribution ',
-    description:
-      'Scan&Spin turns every vehicle into a mobile engagement hub. Passersby scan the QR code for a chance to win branded rewards, giveaways, or discounts, while we collect digital IDs from the devices that engage. These IDs can then be resold or used for high-intent retargeting across web and social platforms, giving you both direct attribution and a powerful sales funnel. We sell each of these IDs for $0.5.',
-    image: '/VS_SCANSPIN.png',
-    backgroundColor: 'from-pink-100 to-purple-100',
-    icon: <Smartphone className="h-6 w-6" />,
-  },
-  {
-    id: 'lead-snatcher',
-    title: 'Lead Snatcher',
-    subtitle: 'Impressions',
-    description:
-      'LeadSnatcher passively collects anonymized digital IDs from mobile devices near the car, allowing you to re-target people who were physically near your ad, even if they never scanned. We sell each of these IDs for $0.1.',
-    image: '/VS_LEAD_SNATCHER.png',
-    backgroundColor: 'from-blue-50 to-indigo-100',
-    icon: <Users className="h-6 w-6" />,
-  },
-];
-
-const TitleSection = memo(() => (
-  <div className="rounded-3xl">
-    <Title
-      order={1}
-      fw={700}
-      c="#000000"
-      ff={'var(--font-poppins)'}
-      className="text-center capitalize"
-    >
-      <TextAnimate
-        animation="blurInUp"
-        by="word"
-        startOnView
-        duration={0.5}
-        className="md:text-[52px] lg:text-[48px] xl:text-[48px] 2xl:text-[64px]"
-        once
-      >
-        Why Scan & Spin vs Lead Snatcher
-      </TextAnimate>
-    </Title>
-  </div>
-));
-
-TitleSection.displayName = 'TitleSection';
+import { useLanguage } from '@/providers/languageToggleContext';
+import { getAdvertisePageContent } from '@/contents/advertise/AdvertisePage';
 
 export default function ScanVsLeadSnatcher() {
+  const { language } = useLanguage();
+  const content = getAdvertisePageContent[language];
   const [currentSlide, setCurrentSlide] = useState(0);
 
   // Autoplay (Commented)
@@ -87,7 +31,32 @@ export default function ScanVsLeadSnatcher() {
   //   return () => clearInterval(interval);
   // }, []);
 
-  const slide = slides[currentSlide];
+  const slide = content.SSvsLSSection.slides[currentSlide];
+
+  const TitleSection = memo(() => (
+    <div className="rounded-3xl">
+      <Title
+        order={1}
+        fw={700}
+        c="#000000"
+        ff={'var(--font-poppins)'}
+        className="text-center capitalize"
+      >
+        <TextAnimate
+          animation="blurInUp"
+          by="word"
+          startOnView
+          duration={0.5}
+          className="md:text-[52px] lg:text-[48px] xl:text-[48px] 2xl:text-[64px]"
+          once
+        >
+          {content.SSvsLSSection.title}
+        </TextAnimate>
+      </Title>
+    </div>
+  ));
+
+  TitleSection.displayName = 'TitleSection';
 
   return (
     <Box py={24} mb={160} px={16} mx="auto" maw={{ lg: 900, xl: 1180 }}>
@@ -101,8 +70,7 @@ export default function ScanVsLeadSnatcher() {
           fz={{ base: 14, md: 20, xl: 22 }}
           maw={700}
         >
-          Choose the retargeting strategy that fits your goals, or combine both
-          for maximum impact.
+          {content.SSvsLSSection.subTitle}
         </Text>
       </Group>
 
@@ -179,7 +147,9 @@ export default function ScanVsLeadSnatcher() {
               onClick={() => {
                 // setTimeout(() => {
                 setCurrentSlide((prev) =>
-                  prev === 0 ? slides.length - 1 : prev - 1
+                  prev === 0
+                    ? content.SSvsLSSection.slides.length - 1
+                    : prev - 1
                 );
                 // }, 1500); // 500ms delay
               }}
@@ -195,7 +165,9 @@ export default function ScanVsLeadSnatcher() {
               onClick={() => {
                 // setTimeout(() => {
                 setCurrentSlide((prev) =>
-                  prev === slides.length - 1 ? 0 : prev + 1
+                  prev === content.SSvsLSSection.slides.length - 1
+                    ? 0
+                    : prev + 1
                 );
                 // }, 1500); // 500ms delay
               }}

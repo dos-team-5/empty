@@ -5,6 +5,8 @@ import { motion } from 'framer-motion';
 import { Box, Title } from '@mantine/core';
 import { TextAnimate } from '../TextAnimation';
 import { Icon } from '../FileManager/lib/Icon';
+import { useLanguage } from '@/providers/languageToggleContext';
+import { getBookACallPageContent } from '@/contents/bookACall/BookACallPage';
 
 const checkItemVariants = {
   hidden: { opacity: 0, x: -50 },
@@ -12,6 +14,9 @@ const checkItemVariants = {
 };
 
 const Meeting = () => {
+  const { language } = useLanguage();
+  const content = getBookACallPageContent[language];
+
   return (
     <Box
       maw={1800}
@@ -42,7 +47,7 @@ const Meeting = () => {
               className="text-[25px] md:text-[50px] lg:text-[30px] xl:text-[35px] 2xl:text-[40px]"
               once
             >
-              Lowest CPM in OOH. Period.
+              {content.titleSection.title}
             </TextAnimate>
           </Title>
           <Title
@@ -70,9 +75,7 @@ const Meeting = () => {
               className="lg:text-md max-w-[400px] text-sm normal-case md:max-w-[500px] md:text-[13px] xl:text-[12px] 2xl:max-w-[600px] 2xl:text-base"
               once
             >
-              Our CPM is the lowest in out-of-home and rivals digital. We’ll
-              show you how to drive high-value impressions for a fraction of the
-              cost of traditional OOH, with digital-level performance.
+              {content.titleSection.subtitle1}
             </TextAnimate>
             <TextAnimate
               animation="blurInUp"
@@ -82,11 +85,10 @@ const Meeting = () => {
               className="lg:text-md mt-2 max-w-[400px] text-sm normal-case md:max-w-[500px] md:text-[13px] xl:text-[12px] 2xl:text-base"
               once
             >
-              Re-target your real-world audience online for results that scale
-              fast, without the usual media buying headaches.
+              {content.titleSection.subtitle2}
             </TextAnimate>
           </Title>
-          <div className="border-[#FFDFDF] bg-[#FFFBFB] mt-16 rounded-lg border-1 p-8">
+          <div className="mt-16 rounded-lg border-1 border-[#FFDFDF] bg-[#FFFBFB] p-8">
             <Title
               order={2}
               fw={700}
@@ -102,43 +104,12 @@ const Meeting = () => {
                 className="text-lg md:text-2xl lg:text-xl xl:text-xl 2xl:text-2xl"
                 once
               >
-                In 20 Minutes You&apos;ll discover how to...
+                {content.discoverHowToSection.title}
               </TextAnimate>
             </Title>
 
             <div className="mt-4 grid grid-cols-1 gap-2 md:grid-cols-2">
-              {[
-                {
-                  title: 'Unlock full attribution from your ads',
-                  description:
-                    'Track scans, leads, and conversions with Scan & Spin',
-                },
-
-                {
-                  title: 'Analyze your impression data',
-                  description:
-                    ' Get weekly reports powered by real GPS and device tracking',
-                },
-                {
-                  title: 'Cut your CPM and boost ROI',
-                  description:
-                    'Leverage our high-volume model for the lowest CPM in OOH',
-                },
-                {
-                  title: 'Scale as you go',
-                  description:
-                    ' Launch with one car or expand to hundreds in days',
-                },
-                {
-                  title: 'Get Citywide visibility',
-                  description:
-                    'Get seen across the city without paying billboard prices.',
-                },
-                {
-                  title: 'Own 100% share of voice',
-                  description: 'On each vehicle, no competition',
-                },
-              ].map((item, index) => (
+              {content.discoverHowToSection.data.map((item, index) => (
                 <motion.div
                   key={index}
                   variants={checkItemVariants}
@@ -165,7 +136,7 @@ const Meeting = () => {
           </div>
         </div>
 
-        <div className="z-30 lg:w-1/2">
+        <div className="z-30 lg:w-1/2 lg:mt-4">
           <Calendly />
         </div>
       </div>

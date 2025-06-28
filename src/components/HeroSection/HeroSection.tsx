@@ -9,8 +9,12 @@ import { useMediaQuery } from '@mantine/hooks';
 import SecondaryButton from '../toggleModeSwitch/SecondaryButton';
 import Lottie from 'lottie-react';
 import animationData from '../../../public/T1C.json';
+import { useLanguage } from '@/providers/languageToggleContext';
+import { getAdvertisePageContent } from '@/contents/advertise/AdvertisePage';
 
 const HeroSection: React.FC = () => {
+  const { language } = useLanguage();
+  const content = getAdvertisePageContent[language];
   const xs = useMediaQuery('(max-width: 380px)');
 
   return (
@@ -44,10 +48,10 @@ const HeroSection: React.FC = () => {
                 by="word"
                 startOnView
                 duration={0.5}
-                className="md:text-[52px] lg:text-[48px] xl:text-[48px] 2xl:text-[64px]"
+                className={`${language === 'fr' ? 'text-[30px] lg:text-[36px]' : 'lg:text-[48px]'} md:text-[52px] xl:text-[48px] 2xl:text-[64px]`}
                 once
               >
-                Advertise on rideshare vehicles
+                {content.heroSection.title.line1}
               </TextAnimate>
               <TextAnimate
                 animation="blurInUp"
@@ -55,10 +59,10 @@ const HeroSection: React.FC = () => {
                 startOnView
                 duration={0.5}
                 delay={0.5}
-                className="md:text-[52px] lg:text-[48px] xl:text-[48px] 2xl:text-[64px]"
+                className={`${language === 'fr' ? 'text-[30px] lg:text-[36px]' : 'lg:text-[48px]'} md:text-[52px] xl:text-[48px] 2xl:text-[64px]`}
                 once
               >
-                in high-traffic areas
+                {content.heroSection.title.line2}
               </TextAnimate>
             </Title>
 
@@ -79,7 +83,7 @@ const HeroSection: React.FC = () => {
                 once
                 className="text-[16px] 2xl:text-lg"
               >
-                Unbeatable visibility and returns that
+                {content.heroSection.subtitle.line1}
               </TextAnimate>
               <TextAnimate
                 animation="blurInUp"
@@ -90,7 +94,7 @@ const HeroSection: React.FC = () => {
                 once
                 className="text-[16px] 2xl:text-lg"
               >
-                stationary ads can’t match.
+                {content.heroSection.subtitle.line2}
               </TextAnimate>
             </Title>
             <Space className="h-4 md:h-6" />
@@ -111,7 +115,10 @@ const HeroSection: React.FC = () => {
                     }
                   }}
                 >
-                  <PrimaryBtn btnText="Advertise" glowOnHover />
+                  <PrimaryBtn
+                    btnText={content.heroSection.cta.cta1}
+                    glowOnHover
+                  />
                 </Box>
               </motion.div>
 
@@ -121,7 +128,10 @@ const HeroSection: React.FC = () => {
                 transition={{ duration: 0.4, delay: 2.4 }}
               >
                 <Link href={'/drive'}>
-                  <SecondaryButton btnText="Drive" glowOnHover />
+                  <SecondaryButton
+                    btnText={content.heroSection.cta.cta2}
+                    glowOnHover
+                  />
                 </Link>
               </motion.div>
             </Box>

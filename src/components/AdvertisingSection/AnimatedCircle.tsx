@@ -2,55 +2,12 @@
 import { useState } from 'react';
 import { Icon } from '../FileManager/lib/Icon';
 import { AnimatePresence, motion } from 'framer-motion';
-
-const features = [
-  {
-    title: 'Lowest CPM in OOH',
-    description:
-      'We offer record-breaking CPM with more hours of weekly exposure across the city. Traditional OOH can’t compete on value, scale, or flexibility.',
-    animation: {
-      initial: { opacity: 0 },
-      whileInView: { opacity: 1 },
-    },
-    position:
-      'top-[25%]  md:top-[25%] lg:top-[25%] xl:top-[25%] left-1/2 -translate-x-1/2 lg:left-1/4',
-  },
-  {
-    title: 'Real time Campaign Dashboard',
-    description:
-      'See your ads move all over the city in real-time. Get live analytics and AI Insights on what to change to for the best possible results. Change your fleet size, creative or create a new campaign in minutes.',
-    animation: {
-      initial: { opacity: 0 },
-      whileInView: { opacity: 1 },
-    },
-    position:
-      'top-[25%]  md:top-[25%] lg:top-[15%] xl:top-[15%] right-1/2 translate-x-1/2 lg:right-1/4',
-  },
-  {
-    title: 'City-wide Coverage, Unbeatable Price ',
-    description:
-      'Each vehicle gives you 40+ hours a week across commercial, residential, and high-traffic zones. We give you city-wide coverage at an unbeatable price. Our ads travel directly to where your customers are.',
-    animation: {
-      initial: { opacity: 0 },
-      whileInView: { opacity: 1 },
-    },
-    position:
-      'top-[25%]  md:top-[25%] lg:top-[35%] xl:top-[37%] 2xl:top-[45%] left-1/2 lg:left-1/8 -translate-x-1/2',
-  },
-  {
-    title: 'Next Level Attribution',
-    description:
-      'Scan & Spin and Lead Snatcher provide lead information for retargeting, whether someone engaged with your brand via Scan & Spin or simply saw your ad while driving by. We’ve made it easy to identify who interacted with your brand.',
-    animation: {
-      initial: { opacity: 0 },
-      whileInView: { opacity: 1 },
-    },
-    position:
-      'top-[25%]  md:top-[25%] lg:top-[35%] xl:top-[37%] 2xl:top-[45%] right-1/2 lg:right-1/8 translate-x-1/2',
-  },
-];
+import { useLanguage } from '@/providers/languageToggleContext';
+import { getAdvertisePageContent } from '@/contents/advertise/AdvertisePage';
 
 const AnimatedCircle = () => {
+  const { language } = useLanguage();
+  const content = getAdvertisePageContent[language];
   const [visibleCard, setVisibleCard] = useState<null | number>(0);
 
   const handleShowCard = (index: number) => {
@@ -283,7 +240,7 @@ const AnimatedCircle = () => {
       </svg>
       <AnimatePresence>
         {/* Feature Cards - Mapped and absolutely positioned */}
-        {features.map((feature, index) =>
+        {content.advertisingSectionData.map((feature, index) =>
           visibleCard === index ? (
             <motion.div
               key={index}

@@ -2,8 +2,6 @@
 import { Box } from '@mantine/core';
 import Link from 'next/link';
 import PrimaryBtn from '../PrimaryBtn';
-import { LanguageToggle } from '../languageToggle';
-import { usePathname } from 'next/navigation';
 
 interface MobileNavProps {
   onClose: () => void;
@@ -18,15 +16,8 @@ const rightNavLinks = [
 ];
 
 const MobileNav = ({ onClose }: MobileNavProps) => {
-  const pathname = usePathname();
   return (
     <Box className="bg-default group relative flex h-[88dvh] w-full flex-col items-start justify-end p-4">
-      {pathname === '/drive' && (
-        <Box>
-          <LanguageToggle onClick={onClose} />
-        </Box>
-      )}
-
       {rightNavLinks.map((link, index) => (
         <div key={index} className="text-text relative w-full py-3 text-start">
           {typeof link.label === 'string' ? (

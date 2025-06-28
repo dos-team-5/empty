@@ -1,7 +1,12 @@
 import { Title } from '@mantine/core';
 import { TextAnimate } from '../TextAnimation';
+import { useLanguage } from '@/providers/languageToggleContext';
+import { getAdvertisePageContent } from '@/contents/advertise/AdvertisePage';
 
 const AnimatedTitle = () => {
+  const { language } = useLanguage();
+  const content = getAdvertisePageContent[language];
+
   return (
     <Title
       order={1}
@@ -17,7 +22,7 @@ const AnimatedTitle = () => {
         className="text-2xl md:text-3xl 2xl:text-4xl"
         once
       >
-        Billboards Don’t Move,
+        {content.featureCarouselSection.carouselSection.title.line1}
       </TextAnimate>
 
       <TextAnimate
@@ -29,7 +34,7 @@ const AnimatedTitle = () => {
         className="text-2xl md:text-3xl 2xl:text-4xl"
         once
       >
-        Your Customers Do.
+        {content.featureCarouselSection.carouselSection.title.line2}
       </TextAnimate>
     </Title>
   );
