@@ -1,30 +1,34 @@
 'use client';
 
+import { BackgroundImage, Box } from '@mantine/core';
+import { useMediaQuery } from '@mantine/hooks';
 import { useState } from 'react';
 
-export default function Component() {
-  const [billboardSpend, setBillboardSpend] = useState('');
+const RoiCalculator = () => {
+  const [billboardSpend, setBillboardSpend] = useState('10000');
   type PlanType = 'basic' | 'premium';
 
   const [selectedPlan, setSelectedPlan] = useState<PlanType>('basic');
   const [basicResults, setBasicResults] = useState({
-    cars: 0,
+    cars: 40,
     pricePerCar: 0,
     total: 0,
   });
   const [premiumResults, setPremiumResults] = useState({
-    cars: 0,
+    cars: 35,
     pricePerCar: 0,
     total: 0,
   });
-  const [showResults, setShowResults] = useState(false);
 
   // Pricing structures - Fixed tier ranges
-  const plans: Record<PlanType, {
-    name: string;
-    installation: number;
-    tiers: { min: number; max: number; price: number }[];
-  }> = {
+  const plans: Record<
+    PlanType,
+    {
+      name: string;
+      installation: number;
+      tiers: { min: number; max: number; price: number }[];
+    }
+  > = {
     basic: {
       name: 'Basic',
       installation: 66,
@@ -100,7 +104,7 @@ export default function Component() {
       const premiumCalc = calculateMaxCars(budget, 'premium');
       setBasicResults(basicCalc);
       setPremiumResults(premiumCalc);
-      setShowResults(true);
+      true;
     }
   };
 
@@ -113,88 +117,96 @@ export default function Component() {
     selectedPlan === 'basic' ? basicResults : premiumResults;
   const budget = Number.parseFloat(billboardSpend) || 0;
 
+  const md = useMediaQuery('(min-width: 768px)');
+
   return (
-    <div className="flex min-h-screen items-center justify-center bg-gradient-to-br from-slate-50 to-slate-200 p-8">
-      <div className="w-full max-w-6xl">
-        {/* Main Card */}
-        <div className="relative overflow-hidden rounded-[3rem] bg-pink-200 p-8 shadow-2xl">
-          {/* Plan Toggle - Top Right */}
-          <div className="absolute top-6 right-6 z-10">
-            <div className="flex rounded-full border border-pink-300/30 bg-white/80 p-1 backdrop-blur-sm">
-              <button
-                onClick={() => setSelectedPlan('basic')}
-                className={`rounded-full px-6 py-2 text-sm font-medium transition-all ${
-                  selectedPlan === 'basic'
-                    ? 'bg-white text-pink-600 shadow-md'
-                    : 'text-pink-600/70 hover:text-pink-600'
-                }`}
-              >
-                Basic Plan
-              </button>
-              <button
-                onClick={() => setSelectedPlan('premium')}
-                className={`rounded-full px-6 py-2 text-sm font-medium transition-all ${
-                  selectedPlan === 'premium'
-                    ? 'bg-white text-pink-600 shadow-md'
-                    : 'text-pink-600/70 hover:text-pink-600'
-                }`}
-              >
-                Premium Plan
-              </button>
-            </div>
-          </div>
+    <div className="relative">
+      <Box
+        maw={1800}
+        mx={'auto'}
+        className="px-4 sm:px-8 md:px-16 lg:px-20 xl:px-24 2xl:px-32"
+        mb={160}
+      >
+        <BackgroundImage
+          src={
+            md
+              ? '/roiCalculator/rcBgComputer.png'
+              : '/roiCalculator/rcBgMobile.png'
+          }
+          className="!relative mx-auto h-[810px] w-[349px] !bg-contain !bg-center bg-no-repeat md:h-auto md:w-auto md:!bg-contain lg:scale-90"
+        >
+          <div className="relative md:h-[50dvh] md:w-full lg:h-dvh">
+            <div className="flex h-full w-full flex-col items-center justify-center md:flex-row md:items-center md:justify-center">
+              {/* Left Side - Input Section */}
+              <div className="relative w-full origin-top scale-90 md:w-[30%] md:scale-100">
+                {/* Content */}
+                <div className="relative rounded-[2.5rem] bg-transparent p-8 text-white">
+                  <div className="lg:space-y-1 xl:space-y-6">
+                    <div>
+                      <h2 className="mb-4 text-2xl leading-tight font-semibold md:mb-2 md:text-base lg:mb-4 lg:text-xl xl:text-3xl">
+                        How much did you spend on billboards last month?
+                      </h2>
+                      <p className="text-[10px] leading-relaxed text-white md:leading-tight lg:text-sm lg:leading-relaxed xl:text-base">
+                        Let's see how many cars you could get instead with our
+                        car advertising service.
+                      </p>
+                    </div>
 
-          <div className="grid min-h-[400px] grid-cols-1 items-center gap-8 lg:grid-cols-2">
-            {/* Left Side - Input Section */}
-            <div className="relative">
-              {/* Curved Background Shape */}
-              <div className="absolute inset-0 scale-105 -rotate-2 transform rounded-[2.5rem] bg-gradient-to-br from-pink-500 to-pink-600"></div>
+                    <div className="origin-left scale-65 space-y-4 md:scale-60 lg:scale-75 xl:scale-100">
+                      <input
+                        type="text"
+                        value={billboardSpend}
+                        onChange={(e) =>
+                          handleBillboardSpendChange(e.target.value)
+                        }
+                        className="w-full rounded-md border-0 bg-[#FFDFF3] px-4 py-3 text-lg text-[#09090B] placeholder-[#09090B] placeholder:opacity-70 focus:ring-2 focus:ring-white/50 focus:outline-none xl:w-[88%]"
+                      />
 
-              {/* Content */}
-              <div className="relative rounded-[2.5rem] bg-gradient-to-br from-pink-500 to-pink-600 p-8 text-white">
-                <div className="space-y-6">
-                  <div>
-                    <h2 className="mb-4 text-2xl leading-tight font-bold">
-                      How much did you spend on billboards last month?
-                    </h2>
-                    <p className="text-sm leading-relaxed text-pink-100">
-                      Let's see how many cars you could get instead with our car
-                      advertising service.
-                    </p>
-                  </div>
-
-                  <div className="space-y-4">
-                    <input
-                      type="text"
-                      placeholder="$10000"
-                      value={billboardSpend}
-                      onChange={(e) =>
-                        handleBillboardSpendChange(e.target.value)
-                      }
-                      className="w-full rounded-xl border-0 bg-white/90 px-4 py-3 text-lg font-semibold text-pink-600 placeholder-pink-400 focus:ring-2 focus:ring-white/50 focus:outline-none"
-                    />
-
-                    <button
-                      onClick={handleCalculate}
-                      disabled={
-                        !billboardSpend ||
-                        Number.parseFloat(billboardSpend) <= 0
-                      }
-                      className="w-full rounded-xl border border-white/30 bg-white/20 py-3 font-semibold text-white transition-all hover:bg-white/30 disabled:cursor-not-allowed disabled:bg-white/10 disabled:opacity-50"
-                    >
-                      Calculate
-                    </button>
+                      <button
+                        onClick={handleCalculate}
+                        disabled={
+                          !billboardSpend ||
+                          Number.parseFloat(billboardSpend) <= 0
+                        }
+                        className="w-full cursor-pointer rounded-xl border bg-white py-3 font-semibold text-[#D381B5] transition-all hover:opacity-90 disabled:cursor-not-allowed disabled:bg-white disabled:opacity-70 xl:w-[88%]"
+                      >
+                        Calculate
+                      </button>
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
 
-            {/* Right Side - Results */}
-            <div className="flex min-h-[300px] items-center justify-center">
-              {showResults ? (
+              {/* Right Side - Results */}
+              <div className="relative mt-24 flex min-h-[300px] w-full items-center justify-center md:mt-0 md:w-[70%]">
                 <div className="space-y-6 text-center">
+                  {/* Plan Toggle - Top Right */}
+                  <div className="flex items-center justify-center 2xl:pb-8">
+                    <div className="flex rounded-full border border-[#672AA3] bg-transparent">
+                      <button
+                        onClick={() => setSelectedPlan('basic')}
+                        className={`w-36 cursor-pointer rounded-tl-full rounded-bl-full border-r border-[#672AA3] py-2 text-sm font-medium transition-all ${
+                          selectedPlan === 'basic'
+                            ? 'bg-white font-medium text-[#1D192B]'
+                            : 'bg-transparent'
+                        }`}
+                      >
+                        Basic Plan
+                      </button>
+                      <button
+                        onClick={() => setSelectedPlan('premium')}
+                        className={`w-36 cursor-pointer rounded-tr-full rounded-br-full border-l border-[#672AA3] py-2 text-sm font-medium transition-all ${
+                          selectedPlan === 'premium'
+                            ? 'bg-white font-medium text-[#1D192B]'
+                            : 'bg-transparent'
+                        }`}
+                      >
+                        Premium Plan
+                      </button>
+                    </div>
+                  </div>
                   <div>
-                    <p className="text-4xl leading-tight font-bold text-gray-800 lg:text-5xl">
+                    <p className="max-w-xs text-4xl leading-tight font-bold text-gray-800 md:max-w-sm lg:max-w-lg lg:text-5xl xl:max-w-xl xl:scale-110 2xl:scale-140 2xl:pb-8">
                       For{' '}
                       <span className="text-purple-400">
                         {formatCurrency(budget)}
@@ -212,20 +224,13 @@ export default function Component() {
                     {formatCurrency(plans[selectedPlan].installation)} per car
                   </p>
                 </div>
-              ) : (
-                <div className="text-center text-gray-500">
-                  <p className="mb-2 text-2xl font-semibold">
-                    Ready to Calculate?
-                  </p>
-                  <p className="text-lg">
-                    Enter your billboard spend to see the results
-                  </p>
-                </div>
-              )}
-            </div>
+              </div>
+            </div>{' '}
           </div>
-        </div>
-      </div>
+        </BackgroundImage>
+      </Box>
     </div>
   );
-}
+};
+
+export default RoiCalculator;
