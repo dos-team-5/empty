@@ -134,32 +134,6 @@ const RoiCalculator = () => {
           }
           className="!relative mx-auto h-dvh w-dvw bg-cover !bg-top bg-no-repeat md:h-dvh md:!bg-contain lg:scale-90"
         >
-          {/* Plan Toggle - Top Right */}
-          <div className="absolute top-[1.2%] right-[6.5%] z-10 origin-top-right scale-75 lg:top-[2.5%] lg:scale-100 xl:right-[8%] 2xl:right-[6.5%]">
-            <div className="flex rounded-full border border-[#672AA3] bg-transparent">
-              <button
-                onClick={() => setSelectedPlan('basic')}
-                className={`w-36 cursor-pointer rounded-tl-full rounded-bl-full border-r border-[#672AA3] py-2 text-sm font-medium transition-all ${
-                  selectedPlan === 'basic'
-                    ? 'bg-white font-medium text-[#1D192B]'
-                    : 'bg-transparent'
-                }`}
-              >
-                Basic Plan
-              </button>
-              <button
-                onClick={() => setSelectedPlan('premium')}
-                className={`w-36 cursor-pointer rounded-tr-full rounded-br-full border-l border-[#672AA3] py-2 text-sm font-medium transition-all ${
-                  selectedPlan === 'premium'
-                    ? 'bg-white font-medium text-[#1D192B]'
-                    : 'bg-transparent'
-                }`}
-              >
-                Premium Plan
-              </button>
-            </div>
-          </div>
-
           <div className="flex h-dvh w-full flex-col items-center justify-start md:flex-row md:items-start md:justify-between">
             {/* Left Side - Input Section */}
             <div className="relative mt-8 w-full md:mt-8 md:w-[30%] lg:mt-12 xl:mt-20 xl:ml-8 2xl:mt-40">
@@ -203,6 +177,31 @@ const RoiCalculator = () => {
 
             {/* Right Side - Results */}
             <div className="mt-24 flex min-h-[300px] w-full items-center justify-center md:mt-12 md:w-[70%] lg:mt-32 xl:mt-44 2xl:mt-64">
+              {/* Plan Toggle - Top Right */}
+              <div className="absolute top-[1.2%] right-[6.5%] z-10 origin-top-right scale-75 lg:top-[2.5%] lg:scale-100 xl:right-[8%] 2xl:right-[6.5%]">
+                <div className="flex rounded-full border border-[#672AA3] bg-transparent">
+                  <button
+                    onClick={() => setSelectedPlan('basic')}
+                    className={`w-36 cursor-pointer rounded-tl-full rounded-bl-full border-r border-[#672AA3] py-2 text-sm font-medium transition-all ${
+                      selectedPlan === 'basic'
+                        ? 'bg-white font-medium text-[#1D192B]'
+                        : 'bg-transparent'
+                    }`}
+                  >
+                    Basic Plan
+                  </button>
+                  <button
+                    onClick={() => setSelectedPlan('premium')}
+                    className={`w-36 cursor-pointer rounded-tr-full rounded-br-full border-l border-[#672AA3] py-2 text-sm font-medium transition-all ${
+                      selectedPlan === 'premium'
+                        ? 'bg-white font-medium text-[#1D192B]'
+                        : 'bg-transparent'
+                    }`}
+                  >
+                    Premium Plan
+                  </button>
+                </div>
+              </div>
               <div className="space-y-6 text-center">
                 <div>
                   <p className="max-w-xs text-2xl leading-tight font-bold text-gray-800 md:max-w-sm lg:max-w-lg lg:text-3xl xl:max-w-xl xl:text-4xl">

@@ -7,7 +7,7 @@ import {
 } from '@/components';
 import AdvertiserCampaign from '@/components/AdvertiserCampaign/AdvertiserCampaign';
 import PricingConfigurator from '@/components/PricingSections/PriceConfigurator/PricingConfigurator';
-import RoiCalculator from '@/components/RoiCalculator/RoiCalculator';
+import RoiCalculator from '@/components/RoiCalculator';
 import ScanVsLeadSnatcher from '@/components/ScanVsLeadSnatcher/ScanVsLeadSnatcher';
 
 export default function Home() {
