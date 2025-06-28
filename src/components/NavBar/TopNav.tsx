@@ -61,7 +61,7 @@ const TopNav = () => {
                 {typeof link.label === 'string' ? (
                   <Link
                     href={link.href}
-                    className="text-text hover:text-primary-400 mx-1 hidden !text-sm font-medium duration-150 group-hover:opacity-50 hover:opacity-100 lg:block"
+                    className={`hover:text-primary-400 mx-1 hidden !text-sm font-medium duration-150 group-hover:opacity-50 hover:opacity-100 lg:block ${pathname === link.href ? 'text-primary-400' : 'text-text'}`}
                   >
                     {link.label}
                   </Link>
@@ -76,48 +76,23 @@ const TopNav = () => {
 
           <Flex
             direction={'row'}
-            className="!ml-8 !hidden lg:!flex"
+            className="!gap-4 lg:!ml-8 lg:!gap-6 2xl:!gap-8"
             justify=""
             align="center"
-            gap={12}
           >
-            <Link href={'/contact'}>
-              {/* <Button
-                className="!text-primary-400 hover:!bg-primary !hidden !bg-white lg:!block"
-                size={IsAboveMobile ? 'lg' : 'md'}
-                radius={15}
-              >
-                Book A Call
-              </Button> */}
-              {/* <ShimmerButton
-                background="#ffffff"
-                className="border-primary-400 shadow-lg"
-                borderRadius="15px"
-              >
-                <span className="text-center text-sm leading-none font-medium tracking-tight whitespace-pre-wrap text-black lg:text-lg">
-                  Book A Call
-                </span>
-              </ShimmerButton> */}
-              {/* <div className="group relative z-50 inline-flex">
-                <div className="from-primary-800 to-primary-800 via-primary animate-infinite-tilt absolute -inset-px rounded-xl bg-gradient-to-r opacity-70 blur-lg"></div>
-                <div
-                  className="font-pj text-text border-default-color bg-default hover:bg-primary-400 hover:text-default hover:border-default relative inline-flex items-center justify-center rounded-xl border-2 px-3 py-2 text-base font-medium transition-all duration-200"
-                  role="button"
-                >
-                  Book A Call
-                </div>
-              </div> */}
+            <Link className="!hidden lg:!flex" href={'/contact'}>
               <PrimaryBtn btnText="Book A Call" glow arrow={false} />
             </Link>
-            <Box pl={20}>{pathname === '/drive' && <LanguageToggle />}</Box>
+            <Box className="">
+              <LanguageToggle />
+            </Box>
+            <Burger
+              opened={mobileMenuOpen}
+              onClick={toggleMobileMenu}
+              className="lg:!hidden"
+              size={'md'}
+            />
           </Flex>
-
-          <Burger
-            opened={mobileMenuOpen}
-            onClick={toggleMobileMenu}
-            className="lg:hidden"
-            size={'md'}
-          />
         </Group>
       </Group>
 

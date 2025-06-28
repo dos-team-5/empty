@@ -1,10 +1,14 @@
 'use client';
 
+import { getAdvertisePageContent } from '@/contents/advertise/AdvertisePage';
+import { useLanguage } from '@/providers/languageToggleContext';
 import { BackgroundImage, Box } from '@mantine/core';
 import { useMediaQuery } from '@mantine/hooks';
 import { useState } from 'react';
 
 const RoiCalculator = () => {
+  const { language } = useLanguage();
+  const content = getAdvertisePageContent[language];
   const [billboardSpend, setBillboardSpend] = useState('10000');
   type PlanType = 'basic' | 'premium';
 
@@ -144,11 +148,10 @@ const RoiCalculator = () => {
                   <div className="lg:space-y-1 xl:space-y-6">
                     <div>
                       <h2 className="mb-4 text-2xl leading-tight font-semibold md:mb-2 md:text-base lg:mb-4 lg:text-xl xl:text-3xl">
-                        How much did you spend on billboards last month?
+                        {content.ROISection.inputSection.title}
                       </h2>
                       <p className="text-[10px] leading-relaxed text-white md:leading-tight lg:text-sm lg:leading-relaxed xl:text-base">
-                        Let's see how many cars you could get instead with our
-                        car advertising service.
+                        {content.ROISection.inputSection.subTitle}
                       </p>
                     </div>
 
@@ -170,7 +173,7 @@ const RoiCalculator = () => {
                         }
                         className="w-full cursor-pointer rounded-xl border bg-white py-3 font-semibold text-[#D381B5] transition-all hover:opacity-90 disabled:cursor-not-allowed disabled:bg-white disabled:opacity-70 xl:w-[88%]"
                       >
-                        Calculate
+                        {content.ROISection.inputSection.btnText}
                       </button>
                     </div>
                   </div>
@@ -181,7 +184,7 @@ const RoiCalculator = () => {
               <div className="relative mt-24 flex min-h-[300px] w-full items-center justify-center md:mt-0 md:w-[70%]">
                 <div className="space-y-6 text-center">
                   {/* Plan Toggle - Top Right */}
-                  <div className="flex items-center justify-center 2xl:pb-8">
+                  <div className="flex items-center justify-center 2xl:pb-12">
                     <div className="flex rounded-full border border-[#672AA3] bg-transparent">
                       <button
                         onClick={() => setSelectedPlan('basic')}
@@ -191,7 +194,7 @@ const RoiCalculator = () => {
                             : 'bg-transparent'
                         }`}
                       >
-                        Basic Plan
+                        {content.ROISection.resultSection.toggleBtnBasic}
                       </button>
                       <button
                         onClick={() => setSelectedPlan('premium')}
@@ -201,27 +204,28 @@ const RoiCalculator = () => {
                             : 'bg-transparent'
                         }`}
                       >
-                        Premium Plan
+                        {content.ROISection.resultSection.toggleBtnpremium}
                       </button>
                     </div>
                   </div>
                   <div>
                     <p className="max-w-xs text-4xl leading-tight font-bold text-gray-800 md:max-w-sm lg:max-w-lg lg:text-5xl xl:max-w-xl xl:scale-110 2xl:scale-140 2xl:pb-8">
-                      For{' '}
+                      {content.ROISection.resultSection.resultMainContent.line1}{' '}
                       <span className="text-purple-400">
                         {formatCurrency(budget)}
                       </span>{' '}
-                      you could get{' '}
+                      {content.ROISection.resultSection.resultMainContent.line2}{' '}
                       <span className="text-purple-400">
                         {currentResults.cars}
                       </span>{' '}
-                      cars, driving with your ad full-time.
+                      {content.ROISection.resultSection.resultMainContent.line3}
                     </p>
                   </div>
 
                   <p className="text-sm text-gray-600">
-                    *One-time installation fee of{' '}
-                    {formatCurrency(plans[selectedPlan].installation)} per car
+                    {content.ROISection.resultSection.resultSubContent.line1}{' '}
+                    {formatCurrency(plans[selectedPlan].installation)}{' '}
+                    {content.ROISection.resultSection.resultSubContent.line2}
                   </p>
                 </div>
               </div>

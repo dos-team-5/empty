@@ -3,7 +3,7 @@ import {
   CarouselFeature,
   Faq,
   HeroSection,
-  TextRevealByWord,
+  TextRevealSection,
 } from '@/components';
 import AdvertiserCampaign from '@/components/AdvertiserCampaign/AdvertiserCampaign';
 import PricingConfigurator from '@/components/PricingSections/PriceConfigurator/PricingConfigurator';
@@ -14,9 +14,8 @@ export default function Home() {
   return (
     <main className="">
       <HeroSection />
-      <TextRevealByWord className="">
-        The Lowest CPM in OOH History
-      </TextRevealByWord>
+      <TextRevealSection />
+
       {/* <Advertisement /> */}
       {/* <WhyChooseUsSection /> */}
       <AnimatedAdSection />

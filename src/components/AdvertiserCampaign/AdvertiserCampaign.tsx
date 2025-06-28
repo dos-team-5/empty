@@ -14,13 +14,16 @@ import {
   Image,
 } from '@mantine/core';
 import { Swiper, SwiperClass, SwiperSlide } from 'swiper/react';
-import { campaignSteps } from './campaignData';
 import { Autoplay } from 'swiper/modules';
 import { useRef } from 'react';
 import { useMediaQuery } from '@mantine/hooks';
 import { TextAnimate } from '../TextAnimation';
+import { useLanguage } from '@/providers/languageToggleContext';
+import { getAdvertisePageContent } from '@/contents/advertise/AdvertisePage';
 
 const AdvertiserCampaign = () => {
+  const { language } = useLanguage();
+  const content = getAdvertisePageContent[language];
   const swiperRef = useRef<SwiperClass | null>(null);
   const isMobile = useMediaQuery('(max-width: 767px)');
   const tablet = useMediaQuery('(min-width: 768px) and (max-width: 1023px)');
@@ -61,7 +64,7 @@ const AdvertiserCampaign = () => {
           className="md:text-[52px] lg:text-[48px] xl:text-[48px] 2xl:text-[64px]"
           once
         >
-          Advertiser Campaign Timeline
+          {content.advertiserCampaignSection.title}
         </TextAnimate>
       </Title>
       <div className="lg:scale-80 xl:scale-100">
@@ -112,26 +115,32 @@ const AdvertiserCampaign = () => {
             </ActionIcon>
           </Group>
           <Box pos={'relative'} className="">
-            {campaignSteps.map((slide, index) => (
-              <SwiperSlide className="mt-20" key={index}>
-                <Flex direction={'column'} align="start" gap="lg">
-                  <BackgroundImage w={slide.width} h={120} src={slide.bgImage}>
-                    <Flex h="100%" justify="start" align="center">
-                      <ThemeIcon radius="100%" bg="#D481B5" w={46} h={46}>
-                        <Icon icon={slide.icon} width={30} height={30} />
-                      </ThemeIcon>
-                    </Flex>
-                  </BackgroundImage>
+            {content.advertiserCampaignSection.campaignSteps.map(
+              (slide, index) => (
+                <SwiperSlide className="mt-20" key={index}>
+                  <Flex direction={'column'} align="start" gap="lg">
+                    <BackgroundImage
+                      w={slide.width}
+                      h={120}
+                      src={slide.bgImage}
+                    >
+                      <Flex h="100%" justify="start" align="center">
+                        <ThemeIcon radius="100%" bg="#D481B5" w={46} h={46}>
+                          <Icon icon={slide.icon} width={30} height={30} />
+                        </ThemeIcon>
+                      </Flex>
+                    </BackgroundImage>
 
-                  <Box>
-                    <Title fz={24} mb={16}>
-                      {slide.title}
-                    </Title>
-                    <Text>{slide.description}</Text>
-                  </Box>
-                </Flex>
-              </SwiperSlide>
-            ))}
+                    <Box>
+                      <Title fz={24} mb={16}>
+                        {slide.title}
+                      </Title>
+                      <Text>{slide.description}</Text>
+                    </Box>
+                  </Flex>
+                </SwiperSlide>
+              )
+            )}
           </Box>
           <SimpleGrid cols={cols} spacing={0} mt={16}>
             <Image

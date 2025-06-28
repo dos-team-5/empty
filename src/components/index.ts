@@ -17,8 +17,7 @@ import HeroCar from './Icons/HeroCar';
 import QuestionSection from './QuestionSection';
 import TimelineSectionAd from './TimelineSectionAd';
 import TimelineSectionDrive from './TimelineSectionDrive';
-import { TextReveal } from './TextReveal';
-import { TextRevealByWord } from './TextRevealByWord';
+import TextRevealSection from './TextRevealSection';
 import PricingCards from './PricingSections/PricingCards';
 import PricingConfigurator from './PricingSections/PriceConfigurator/PricingConfigurator';
 import AnimatedAdSection from './AdvertisingSection/AnimatedAdSection';
@@ -49,8 +48,7 @@ export {
   QuestionSection,
   TimelineSectionAd,
   TimelineSectionDrive,
-  TextReveal,
-  TextRevealByWord,
+  TextRevealSection,
   PricingConfigurator,
   AnimatedAdSection,
   CarouselFeature,

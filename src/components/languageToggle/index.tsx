@@ -2,13 +2,9 @@
 
 import { useLanguage } from '@/providers/languageToggleContext';
 import { rem, Select } from '@mantine/core';
+import { useMediaQuery } from '@mantine/hooks';
 import { IconWorld } from '@tabler/icons-react';
 import { useRouter } from 'next/navigation';
-
-const languageOptions = [
-  { value: 'en', label: 'English' },
-  { value: 'fr', label: 'Français' },
-];
 
 interface LanguageToggle {
   readonly onClick?: () => void;
@@ -17,6 +13,13 @@ interface LanguageToggle {
 export function LanguageToggle({ onClick }: LanguageToggle) {
   const { language, setLanguage } = useLanguage();
   const router = useRouter();
+
+  const md = useMediaQuery('(min-width: 768px)');
+
+  const languageOptions = [
+    { value: 'en', label: md ? 'English' : 'En' },
+    { value: 'fr', label: md ? 'Français' : 'Fr' },
+  ];
 
   const handleLanguageChange = (value: string | null) => {
     if (value && (value === 'en' || value === 'fr')) {
@@ -36,8 +39,8 @@ export function LanguageToggle({ onClick }: LanguageToggle) {
       data={languageOptions}
       leftSection={<IconWorld style={{ width: rem(16), height: rem(16) }} />}
       variant="filled"
-      size="sm"
-      w={140}
+      size={md ? 'sm' : 'xs'}
+      w={md ? 120 : 75}
     />
   );
 }
