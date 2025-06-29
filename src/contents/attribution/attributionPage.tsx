@@ -20,6 +20,11 @@ type CardDataItem = {
   content: string;
 };
 
+type HowSpinWorksImages = {
+  id: number;
+  img: string;
+}[];
+
 type WhyScanSpinSection = {
   title: string;
   cardData: CardDataItem[];
@@ -28,6 +33,7 @@ type WhyScanSpinSection = {
 type AttributionPageLanguageContent = {
   heroSection: HeroSection;
   aboutScanSpinSection: AboutScanSpinSection;
+  howSpinWorksImages: HowSpinWorksImages;
   whyScanSpinSection: WhyScanSpinSection;
 };
 
@@ -54,6 +60,28 @@ export const attributionPageContent: AttributionPageContent = {
       description:
         "Scan & Spin delivers the kind of engagement you'd get if you hired dozens of people to hand out coupons across the city. But instead of guessing who took one, each person is tracked individually and can be re-targeted again and again. ",
     },
+    howSpinWorksImages: [
+      {
+        id: 1,
+        img: '/attribution/HowSpinWorks/image1.png',
+      },
+      {
+        id: 2,
+        img: '/attribution/HowSpinWorks/image2.png',
+      },
+      {
+        id: 3,
+        img: '/attribution/HowSpinWorks/image3.png',
+      },
+      {
+        id: 4,
+        img: '/attribution/HowSpinWorks/image4.png',
+      },
+      {
+        id: 5,
+        img: '/attribution/HowSpinWorks/image5.png',
+      },
+    ],
     whyScanSpinSection: {
       title: 'Why Scan & Spin? Your Key Advantages',
       cardData: [
@@ -116,6 +144,29 @@ export const attributionPageContent: AttributionPageContent = {
       description:
         "Scan & Spin offre le même niveau d'engagement que si vous engagiez des dizaines de personnes pour distribuer des coupons à travers la ville. Mais au lieu de deviner qui en a pris un, chaque personne est suivie individuellement et peut être reciblée à l'infini.",
     },
+
+    howSpinWorksImages: [
+      {
+        id: 1,
+        img: '/attribution/HowSpinWorks/img1.png',
+      },
+      {
+        id: 2,
+        img: '/attribution/HowSpinWorks/img2.png',
+      },
+      {
+        id: 3,
+        img: '/attribution/HowSpinWorks/img3.png',
+      },
+      {
+        id: 4,
+        img: '/attribution/HowSpinWorks/img4.png',
+      },
+      {
+        id: 5,
+        img: '/attribution/HowSpinWorks/img5.png',
+      },
+    ],
     whyScanSpinSection: {
       title: 'Pourquoi Scan & Spin ? Vos principaux avantages',
       cardData: [
