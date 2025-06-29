@@ -62,7 +62,6 @@ interface Step2IdentityConfirmationProps {
   onNext: () => void;
   onPrev: () => void;
   step2FormLabel: any;
-  questionLabel?: string;
 }
 
 const Step2_IdentityConfirmation = ({
