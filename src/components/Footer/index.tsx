@@ -2,26 +2,32 @@
 import { Anchor, Box, Group, Stack, Text } from '@mantine/core';
 import Link from 'next/link';
 import Image from 'next/image';
+import { useLanguage } from '@/providers/languageToggleContext';
 
 const links = [
-  { link: '/', label: 'Advertise' },
-  { link: '/drive', label: 'Drive' },
-  { link: '/ad-tracker', label: 'AdTracker (beta)' },
-  // { link: '/contact', label: 'Contact US' },
+  { href: '/', label: { fr: 'Annoncer', en: 'Advertise' } },
+  { href: '/drive', label: { fr: 'Conduire', en: 'Drive' } },
+  {
+    href: '/ad-tracker',
+    label: { fr: 'AdTracker (bêta)', en: 'AdTracker (beta)' },
+  },
+  // { href: '/contact', label: 'Contact Us' },
+  // { href: '#', label: <ToggleModeSwitch /> },
 ];
 
 const Footer = () => {
+  const { language } = useLanguage();
   const items = links.map((link) => (
     <Anchor
       component={Link}
-      key={link.label}
-      href={link.link}
+      key={link.label[language]}
+      href={link.href}
       lh={1}
       // onClick={(event) => event.preventDefault()}
       size="sm"
       className="!text-text"
     >
-      {link.label}
+      {link.label[language]}
     </Anchor>
   ));
 
@@ -100,7 +106,9 @@ const Footer = () => {
           size="xs"
           className="text-centerStep Center"
         >
-          © 2025 Empty Advertising | All Rights Reserved | Developed by
+          {language === 'fr'
+            ? '© 2025 Empty Advertising | Tous droits réservés | Développé par '
+            : '© 2025 Empty Advertising | All Rights Reserved | Developed by'}
           <Link
             className="hover:text-primary pl-1"
             target="_blank"

@@ -16,7 +16,7 @@ const rightNavLinks = [
   { href: '/drive', label: { fr: 'Conduire', en: 'Drive' } },
   {
     href: '/ad-tracker',
-    label: { fr: 'AdTracker (beta)', en: 'AdTracker (beta)' },
+    label: { fr: 'AdTracker (bêta)', en: 'AdTracker (beta)' },
   },
   // { href: '/contact', label: 'Contact Us' },
   // { href: '#', label: <ToggleModeSwitch /> },
