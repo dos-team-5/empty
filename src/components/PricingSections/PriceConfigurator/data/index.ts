@@ -46,15 +46,15 @@ export const PLAN_CONFIGS: Record<Language, Record<PlanType, PlanConfig>> = {
       installationFee: 66.0,
       pricing: { tier1: 269.0, tier2: 250.0, tier3: 241.0, tier4: 232.0 },
       features: [
-        'Plus de 40 heures d’exposition par voiture par semaine',
-        'Publicités affichées dans les zones à fort trafic de la ville',
+        "Plus de 40 heures d'exposition par voiture et par semaine",
+        'Annonces affichées dans les zones à fort trafic de la ville',
         {
-          'Rapports hebdomadaires :': [
+          'Rapports hebdomadaires  :': [
             'Carte thermique de la couverture',
             'CPM estimé',
             'Impressions estimées',
-            'Heures de conduite',
-            'Preuve de diffusion des publicités',
+            'Heures conduites',
+            "Preuve de livraison de l'annonce",
           ],
         },
       ],
@@ -63,13 +63,13 @@ export const PLAN_CONFIGS: Record<Language, Record<PlanType, PlanConfig>> = {
       installationFee: 210,
       pricing: { tier1: 303.0, tier2: 282.0, tier3: 271.0, tier4: 261.0 },
       features: [
-        'Taux de confiance de 95 à 99 % dans la précision des impressions',
-        'Technologie de mesure leader du secteur',
+        "Taux de confiance de 95 à 99 % dans la précision de l'impression",
+        'Technologie de mesure de pointe',
         {
           'Le rapport complet comprend :': [
-            'Nombre total d’impressions par quartier',
+            'Impressions totales par quartier',
             'Répartition horaire des impressions',
-            'Tendances quotidiennes et hebdomadaires des impressions',
+            "Tendances d'impression quotidiennes et hebdomadaires",
           ],
         },
       ],
@@ -135,10 +135,10 @@ export const ADDONS: { en: AddonConfig[]; fr: AddonConfig[] } = {
       },
       features: [
         'Identifiants d’appareils collectés pour le reciblage et l’attribution',
-        'Codes QR placés sur l’extérieur des véhicules',
-        'Les utilisateurs scannent pour des offres ou des codes promo',
-        'Leads très qualifiés provenant d’interactions réelles',
-        'Collecte d’emails',
+        "Codes QR placés à l'extérieur des véhicules",
+        'Les utilisateurs recherchent des offres ou des codes promotionnels',
+        `Des prospects à forte intention issus d'interactions dans le monde réel`,
+        "Capture d'e-mails",
         {
           pricing: ['0,50 par appareil collecté via Scan & Spin.'],
         },
@@ -147,7 +147,7 @@ export const ADDONS: { en: AddonConfig[]; fr: AddonConfig[] } = {
     {
       id: 'deviceIdPassBack',
       label: 'Ajouter Lead Snatcher',
-      subLabel: 'Capture passive d’identifiants d’appareils et restitution',
+      subLabel: "Capture d'ID d'appareil passif et retour",
       availableFor: ['premium'],
       samePrice: true,
       pricing: {
@@ -155,11 +155,11 @@ export const ADDONS: { en: AddonConfig[]; fr: AddonConfig[] } = {
           '0,01 par appareil collecté via Lead Snatcher - (Geofencing)',
       },
       features: [
-        'Informations personnelles collectées via la proximité WiFi et Bluetooth',
-        'Identifiants collectés sans aucune interaction utilisateur',
-        'Filtré par rayon, intensité du signal et localisation',
-        'Utilisé pour la modélisation d’audience et le reciblage',
-        'Entièrement conforme à la vie privée (États-Unis, Canada, Europe)',
+        'Informations personnelles sur les appareils collectées via la proximité WiFi et Bluetooth',
+        "Identifiants collectés sans aucune interaction de l'utilisateur",
+        'Filtré par rayon, force du signal et emplacement',
+        "Utilisé pour la modélisation d'audience et le reciblage",
+        'Entièrement conforme à la confidentialité (États-Unis, Canada, Europe)',
         {
           pricing: [
             '0,01 par appareil collecté via Lead Snatcher - (Geofencing).',

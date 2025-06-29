@@ -104,15 +104,15 @@ export const attributionPageContent: AttributionPageContent = {
   fr: {
     heroSection: {
       title: {
-        line1: 'Connaissez exactement qui est engagé qui',
-        line2: "s'engage avec votre campagne OOH ",
+        line1: "Sachez exactement qui s'engage",
+        line2: 'avec votre campagne OOH',
       },
       description:
         "Scan & Spin est un outil basé sur le QR code qui suit l'engagement en temps réel avec vos publicités extérieures. En proposant des récompenses instantanées et interactives, il fournit des informations claires sur les interactions avec votre marque et sur la manière dont ces interactions génèrent des conversions concrètes. Aucune autre solution OOH n'offre un tel niveau de précision et de suivi du retour sur investissement. Les informations de chaque utilisateur sont collectées, ce qui vous permet de les recibler avec une précision extrême.",
       button: 'Réserver un Appel',
     },
     aboutScanSpinSection: {
-      title: 'Comment Cela Fonctionne : La Journée de Scan & Spin',
+      title: 'Comment ça marche : le parcours Scan & Spin',
       description:
         "Scan & Spin offre le même niveau d'engagement que si vous engagiez des dizaines de personnes pour distribuer des coupons à travers la ville. Mais au lieu de deviner qui en a pris un, chaque personne est suivie individuellement et peut être reciblée à l'infini.",
     },
