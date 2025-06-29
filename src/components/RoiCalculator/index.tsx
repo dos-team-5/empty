@@ -4,7 +4,7 @@ import { getAdvertisePageContent } from '@/contents/advertise/AdvertisePage';
 import { useLanguage } from '@/providers/languageToggleContext';
 import { BackgroundImage, Box } from '@mantine/core';
 import { useMediaQuery } from '@mantine/hooks';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 const RoiCalculator = () => {
   const { language } = useLanguage();
@@ -108,7 +108,9 @@ const RoiCalculator = () => {
       const premiumCalc = calculateMaxCars(budget, 'premium');
       setBasicResults(basicCalc);
       setPremiumResults(premiumCalc);
-      true;
+    } else {
+      setBasicResults({ cars: 0, pricePerCar: 0, total: 0 });
+      setPremiumResults({ cars: 0, pricePerCar: 0, total: 0 });
     }
   };
 
@@ -116,6 +118,11 @@ const RoiCalculator = () => {
     const numericValue = value.replace(/[^0-9.]/g, '');
     setBillboardSpend(numericValue);
   };
+
+  // Trigger calculation on billboardSpend change
+  useEffect(() => {
+    handleCalculate();
+  }, [billboardSpend]);
 
   const currentResults =
     selectedPlan === 'basic' ? basicResults : premiumResults;
@@ -142,12 +149,16 @@ const RoiCalculator = () => {
           <div className="relative md:h-[50dvh] md:w-full lg:h-dvh">
             <div className="flex h-full w-full flex-col items-center justify-center md:flex-row md:items-center md:justify-center">
               {/* Left Side - Input Section */}
-              <div className="relative w-full origin-top scale-90 md:w-[30%] md:scale-100">
+              <div
+                className={`relative w-full origin-top ${language === 'fr' ? 'scale-80 lg:scale-90 xl:scale-100' : 'scale-90 md:scale-100'} md:w-[30%] md:origin-center`}
+              >
                 {/* Content */}
                 <div className="relative rounded-[2.5rem] bg-transparent p-8 text-white">
                   <div className="lg:space-y-1 xl:space-y-6">
                     <div>
-                      <h2 className="mb-4 text-2xl leading-tight font-semibold md:mb-2 md:text-base lg:mb-4 lg:text-xl xl:text-3xl">
+                      <h2
+                        className={`mb-4 text-2xl leading-tight font-semibold md:mb-2 md:text-base lg:mb-4 lg:text-xl xl:text-2xl 2xl:text-3xl`}
+                      >
                         {content.ROISection.inputSection.title}
                       </h2>
                       <p className="text-[10px] leading-relaxed text-white md:leading-tight lg:text-sm lg:leading-relaxed xl:text-base">
@@ -181,10 +192,14 @@ const RoiCalculator = () => {
               </div>
 
               {/* Right Side - Results */}
-              <div className="relative mt-24 flex min-h-[300px] w-full items-center justify-center md:mt-0 md:w-[70%]">
+              <div
+                className={`relative flex min-h-[300px] w-full items-center justify-center md:mt-0 md:w-[70%] ${language === 'fr' ? 'scale-80 xl:scale-90 2xl:scale-100' : 'mt-24 scale-100'}`}
+              >
                 <div className="space-y-6 text-center">
                   {/* Plan Toggle - Top Right */}
-                  <div className="flex items-center justify-center 2xl:pb-12">
+                  <div
+                    className={`flex items-center justify-center ${language === 'fr' ? '2xl:pb-20' : '2xl:pb-12'}`}
+                  >
                     <div className="flex rounded-full border border-[#672AA3] bg-transparent">
                       <button
                         onClick={() => setSelectedPlan('basic')}
@@ -222,7 +237,7 @@ const RoiCalculator = () => {
                     </p>
                   </div>
 
-                  <p className="text-sm text-gray-600">
+                  <p className="text-sm text-gray-600 2xl:pt-4">
                     {content.ROISection.resultSection.resultSubContent.line1}{' '}
                     {formatCurrency(plans[selectedPlan].installation)}{' '}
                     {content.ROISection.resultSection.resultSubContent.line2}
