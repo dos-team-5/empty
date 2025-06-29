@@ -107,7 +107,7 @@ const Footer = () => {
           className="text-centerStep Center"
         >
           {language === 'fr'
-            ? '© 2025 Empty Advertising | Tous droits réservés | Développé par '
+            ? '© 2025 Empty Advertising | Tous droits réservés | Développé par'
             : '© 2025 Empty Advertising | All Rights Reserved | Developed by'}
           <Link
             className="hover:text-primary pl-1"

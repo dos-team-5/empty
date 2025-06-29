@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 'use client';
 
 import {
@@ -13,22 +14,24 @@ import {
 } from '@mantine/core';
 import { Currency, PlanType } from '../types';
 import { usePricingCalculation } from '../hooks/usePriceCalculation';
-import { ADDONS, currencyOptions, PLAN_CONFIGS } from '../data';
+import { ADDONS, currencyOptions, Language, PLAN_CONFIGS } from '../data';
 import { Calendar, CreditCard } from 'lucide-react';
 import FeatureList from './FeatureList';
 import { motion } from 'framer-motion';
 import { formatPrice } from '../../utils/formatPrice';
 import { useRouter } from 'next/navigation';
 import classes from './Demo.module.css';
+import { useLanguage } from '@/providers/languageToggleContext';
 
 interface FeatureComparisonProps {
   planType: 'basic' | 'premium';
+  language: Language;
 }
 
-const FeatureComparison = ({ planType }: FeatureComparisonProps) => {
-  const basicFeatures = PLAN_CONFIGS.basic.features;
+const FeatureComparison = ({ planType, language }: FeatureComparisonProps) => {
+  const basicFeatures = PLAN_CONFIGS[language].basic.features;
   const premiumOnlyFeatures =
-    planType === 'premium' ? PLAN_CONFIGS.premium.features : [];
+    planType === 'premium' ? PLAN_CONFIGS[language].premium.features : [];
 
   return (
     <Flex direction={{ base: 'column', md: 'row' }} gap={32} align="flex-start">
@@ -84,6 +87,7 @@ export const PricingCard = ({
   onCheckout: CheckoutButtonProps['onCheckout'];
   months: number;
 }) => {
+  const { language } = useLanguage();
   const router = useRouter();
   const totalPrice =
     pricing.totalMonthlyPrice * months + pricing.totalInstallationFee;
@@ -156,18 +160,18 @@ export const PricingCard = ({
             <Text fz={24} fw={700}>
               Included Features:
             </Text>
-            <FeatureComparison planType={planType} />
+            <FeatureComparison planType={planType} language={language} />
           </Box>
 
           {/* Add-on Pricing Summary */}
           {selectedAddons.some((addonId) => {
-            const addon = ADDONS.find((a) => a.id === addonId);
+            const addon = ADDONS[language].find((a) => a.id === addonId);
             return addon?.pricing;
           }) && (
             <Box pos="relative">
               <Divider mb={16} />
               {selectedAddons.map((addonId) => {
-                const addon = ADDONS.find((a) => a.id === addonId);
+                const addon = ADDONS[language].find((a) => a.id === addonId);
                 return addon?.pricing ? (
                   <Flex direction="column" align="start" gap={16} key={addonId}>
                     {Object.entries(addon.pricing).map(([label, value]) => (
@@ -197,7 +201,7 @@ export const PricingCard = ({
                 </Text>
               ) : (
                 selectedAddons.map((addonId) => {
-                  const addon = ADDONS.find((a) => a.id === addonId);
+                  const addon = ADDONS[language].find((a) => a.id === addonId);
                   return addon ? (
                     <Badge key={addonId}>
                       {addon.label.replace('Add ', '').replace('Passive ', '')}
