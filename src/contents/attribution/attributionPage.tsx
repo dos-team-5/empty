@@ -9,6 +9,7 @@ type HeroSection = {
 };
 
 type AboutScanSpinSection = {
+  title: string;
   description: string;
 };
 
@@ -30,7 +31,7 @@ type AttributionPageLanguageContent = {
   whyScanSpinSection: WhyScanSpinSection;
 };
 
-export type LanguageCode = 'en' | 'fr';
+export type LanguageCode = 'fr' | 'en';
 
 export type AttributionPageContent = Record<
   LanguageCode,
@@ -49,6 +50,7 @@ export const attributionPageContent: AttributionPageContent = {
       button: 'Book A Call',
     },
     aboutScanSpinSection: {
+      title: 'How It Works: The Scan & Spin Journey',
       description:
         "Scan & Spin delivers the kind of engagement you'd get if you hired dozens of people to hand out coupons across the city. But instead of guessing who took one, each person is tracked individually and can be re-targeted again and again. ",
     },
@@ -110,6 +112,7 @@ export const attributionPageContent: AttributionPageContent = {
       button: 'Réserver un Appel',
     },
     aboutScanSpinSection: {
+      title: 'Comment Cela Fonctionne : La Journée de Scan & Spin',
       description:
         "Scan & Spin offre le même niveau d'engagement que si vous engagiez des dizaines de personnes pour distribuer des coupons à travers la ville. Mais au lieu de deviner qui en a pris un, chaque personne est suivie individuellement et peut être reciblée à l'infini.",
     },

@@ -67,7 +67,12 @@ const GiftInfoMain = () => {
         </Text>
         <Link href={'/contact'}>
           {' '}
-          <PrimaryBtn btnText={content.heroSection.button} glow arrow={false} />
+          <PrimaryBtn
+            btnText={'Book A Call'}
+            frText="Réserver un appel"
+            glow
+            arrow={false}
+          />
         </Link>
       </Stack>
       {/* right section */}

@@ -12,7 +12,7 @@ const GiftInfoCard = () => {
       {/* title */}
       <Stack>
         <Text ta="center" fz={{ base: 25, sm: 35 }} fw={400} mb={40}>
-          Why Scan & Spin? Your Key Advantages
+          {content.whyScanSpinSection.title}
         </Text>
         {/* <Text
           fz={{ base: 13, sm: 16 }}

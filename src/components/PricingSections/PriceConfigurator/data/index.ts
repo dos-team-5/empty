@@ -152,7 +152,7 @@ export const ADDONS: { en: AddonConfig[]; fr: AddonConfig[] } = {
       samePrice: true,
       pricing: {
         'geo fencing':
-          '0,01 par appareil collecté via Lead Snatcher - (Géorepérage)',
+          '0,01 par appareil collecté via Lead Snatcher - (Geofencing)',
       },
       features: [
         'Informations personnelles collectées via la proximité WiFi et Bluetooth',
@@ -162,7 +162,7 @@ export const ADDONS: { en: AddonConfig[]; fr: AddonConfig[] } = {
         'Entièrement conforme à la vie privée (États-Unis, Canada, Europe)',
         {
           pricing: [
-            '0,01 par appareil collecté via Lead Snatcher - (Géorepérage).',
+            '0,01 par appareil collecté via Lead Snatcher - (Geofencing).',
           ],
         },
       ],

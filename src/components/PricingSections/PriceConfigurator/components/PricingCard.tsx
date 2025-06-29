@@ -153,7 +153,7 @@ export const PricingCard = ({
                   language,
                   currencyType
                 ).toLocaleString()}
-                /month
+                /{language === 'fr' ? 'mois' : 'month'}
               </Text>
             </Flex>
             <Text fz={14} fw={600} c="dimmed">

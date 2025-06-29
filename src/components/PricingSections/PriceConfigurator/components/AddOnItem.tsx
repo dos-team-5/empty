@@ -38,13 +38,13 @@ export const AddonItem = ({
           gap={8}
         >
           <InputLabel
-            fz={16}
+            fz={language === 'fr' ? 14 : 16}
             htmlFor={addon.id}
             className="cursor-pointer text-base font-medium"
           >
             {addon.label}
             {addon.subLabel && (
-              <Text fz={12} my={4} c={'dimmed'}>
+              <Text fz={language === 'fr' ? 10 : 12} my={4} c={'dimmed'}>
                 {addon.subLabel}
               </Text>
             )}
