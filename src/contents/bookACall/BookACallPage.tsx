@@ -65,43 +65,43 @@ export const getBookACallPageContent: Record<
 
   fr: {
     titleSection: {
-      title: 'Le CPM le plus bas en affichage extérieur. Point final.',
+      title: 'CPM le plus bas en affichage extérieur. Point.',
       subtitle1:
-        'Notre CPM est le plus bas en affichage extérieur et rivalise avec le numérique. Nous vous montrerons comment générer des impressions de grande valeur pour une fraction du coût de l’affichage extérieur traditionnel, avec des performances de niveau numérique.',
+        'Notre CPM est le plus bas de la publicité extérieure et rivalise avec le digital. Nous vous montrerons comment générer des impressions à forte valeur ajoutée pour une fraction du coût de la publicité extérieure traditionnelle, avec des performances de niveau digital.',
       subtitle2:
-        'Reciblez votre audience du monde réel en ligne pour des résultats qui évoluent rapidement, sans les habituels casse-têtes d’achat média.',
+        "Reciblez votre public réel en ligne pour obtenir des résultats évolutifs rapidement, sans les maux de tête habituels liés à l'achat de médias.",
     },
     discoverHowToSection: {
       title: 'En 20 minutes, vous découvrirez comment...',
       data: [
         {
-          title: 'Obtenez une attribution complète de vos publicités',
+          title: "Débloquez l'attribution complète de vos annonces",
           description:
-            'Suivez les scans, les prospects et les conversions avec Scan & Spin',
+            'Suivez les analyses, les prospects et les conversions avec Scan & Spin',
         },
         {
-          title: 'Analysez vos données d’impression',
+          title: "Analysez vos données d'impression",
           description:
-            'Recevez des rapports hebdomadaires basés sur le suivi GPS et des appareils',
+            "Obtenez des rapports hebdomadaires alimentés par un véritable GPS et un suivi d'appareil",
         },
         {
           title: 'Réduisez votre CPM et augmentez votre ROI',
           description:
-            'Tirez parti de notre modèle à haut volume pour le CPM le plus bas en affichage extérieur',
+            'Tirez parti de notre modèle à volume élevé pour le CPM le plus bas en OOH',
         },
         {
-          title: 'Évoluez à votre rythme',
+          title: 'Évoluez au fur et à mesure',
           description:
-            'Lancez avec une seule voiture ou passez à des centaines en quelques jours',
+            'Lancez-vous avec une seule voiture ou développez-la à des centaines en quelques jours',
         },
         {
-          title: 'Obtenez une visibilité à l’échelle de la ville',
+          title: 'Obtenez une visibilité dans toute la ville',
           description:
-            'Soyez vu dans toute la ville sans payer le prix des panneaux d’affichage',
+            "Soyez visible dans toute la ville sans payer le prix des panneaux d'affichage.",
         },
         {
-          title: 'Bénéficiez d’une part de voix exclusive',
-          description: 'Sur chaque véhicule, sans concurrence',
+          title: 'Avoir une part de voix de 100%',
+          description: 'Sur chaque véhicule, pas de concurrence',
         },
       ],
     },

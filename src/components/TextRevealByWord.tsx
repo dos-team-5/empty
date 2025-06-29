@@ -12,6 +12,8 @@ import { cn } from '@/lib/utils';
 import { Flex } from '@mantine/core';
 import Link from 'next/link';
 import SecondaryButton from './toggleModeSwitch/SecondaryButton';
+import { useLanguage } from '@/providers/languageToggleContext';
+import { getAdvertisePageContent } from '@/contents/advertise/AdvertisePage';
 
 export interface TextRevealByWordProps extends ComponentPropsWithoutRef<'div'> {
   children: string;
@@ -23,6 +25,8 @@ export const TextRevealByWord: FC<TextRevealByWordProps> = ({
   className,
   textColor = 'text-[#D481B5]',
 }) => {
+  const { language } = useLanguage();
+  const content = getAdvertisePageContent[language];
   const targetRef = useRef<HTMLDivElement | null>(null);
   const { scrollYProgress } = useScroll({
     target: targetRef,
@@ -37,7 +41,8 @@ export const TextRevealByWord: FC<TextRevealByWordProps> = ({
   // Calculate the range for the last word
   const lastWordIndex = words.length - 1;
   const lastWordStart = lastWordIndex / words.length;
-  const lastWordEnd = lastWordStart + 0.5 / words.length;
+  const lastWordEnd =
+    lastWordStart + (language === 'fr' ? 0.3 : 0.5) / words.length;
 
   // Button animation starts after the last word's opacity animation ends
   const y = useTransform(
@@ -82,7 +87,7 @@ export const TextRevealByWord: FC<TextRevealByWordProps> = ({
             align="center"
           >
             <SecondaryButton
-              btnText={"Don't Believe Us?"}
+              btnText={content.textRevealSection.cta}
               glowOnHover
               customeSize
             />

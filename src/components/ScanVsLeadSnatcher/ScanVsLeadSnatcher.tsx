@@ -10,6 +10,7 @@ import {
   Text,
   Title,
   ActionIcon,
+  Badge,
 } from '@mantine/core';
 import { Icon } from '@iconify/react';
 import { TextAnimate } from '../TextAnimation';
@@ -115,6 +116,7 @@ export default function ScanVsLeadSnatcher() {
         className={`rounded-[40px]`}
         direction={{ base: 'column', md: 'row' }}
         gap={0}
+        mih={language === 'fr' ? 600 : 'auto'}
       >
         {/* Description */}
         <Flex
@@ -126,15 +128,19 @@ export default function ScanVsLeadSnatcher() {
           pb={{ base: 16, md: 26 }}
           w={{ base: '100%', md: 370 }}
         >
-          <Group>
+          <Group align="center">
             <Group mb={'xs'}>
-              <Text c="#555555" fz={20} fw={500}>
+              {/* <Text c="#555555" fz={20} fw={500}>
                 {slide.subtitle}
-              </Text>
+              </Text> */}
             </Group>
             <Text className="min-h-55 md:min-h-30" c="#4A4A4A" fz="sm">
               {slide.description}
             </Text>
+
+            <Badge miw={190} variant="outline">
+              {slide.subtitle}
+            </Badge>
           </Group>
 
           {/* Navigation */}
@@ -185,8 +191,9 @@ export default function ScanVsLeadSnatcher() {
           px={{ base: 16, md: 24, lg: 36 }}
           radius={40}
           bg="#FFE4F5"
+          className="!flex !items-center !justify-center"
         >
-          <Paper radius={40} p={12} bg="#FFF0F9" h={390}>
+          <Paper radius={40} p={12} bg="#FFF0F9">
             <Image
               src={slide.image}
               alt={`Image representing ${slide.title}`}

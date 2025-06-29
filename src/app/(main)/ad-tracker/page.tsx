@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { PrimaryBtn } from '@/components';
 import Image from 'next/image';
 import Head from 'next/head';
+import { useLanguage } from '@/providers/languageToggleContext';
 
 const images = [
   '/Empty1.jpg',
@@ -15,6 +16,7 @@ const images = [
 ];
 
 const AdTracker = () => {
+  const { language } = useLanguage();
   return (
     <>
       <Head>
@@ -34,7 +36,7 @@ const AdTracker = () => {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.2, ease: 'easeOut' }}
               >
-                COMING
+                {language === 'fr' ? 'Bientôt' : 'COMING'}
               </motion.span>
               <motion.span
                 initial={{ opacity: 0, y: 20 }}
@@ -42,7 +44,7 @@ const AdTracker = () => {
                 transition={{ duration: 0.6, delay: 0.4, ease: 'easeOut' }}
                 className="ml-2"
               >
-                SOON
+                {language === 'fr' ? '' : 'Soon'}
               </motion.span>
             </motion.h1>
 
@@ -52,7 +54,11 @@ const AdTracker = () => {
               transition={{ duration: 0.4, delay: 0.6, ease: 'easeOut' }}
             >
               <Link href={'/'}>
-                <PrimaryBtn btnText="Back to Home" />
+                <PrimaryBtn
+                  btnText={
+                    language === 'fr' ? "Page d'accueil" : 'Back to Home'
+                  }
+                />
               </Link>
             </motion.div>
           </div>
