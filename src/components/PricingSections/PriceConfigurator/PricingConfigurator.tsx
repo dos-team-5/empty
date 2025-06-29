@@ -365,6 +365,7 @@ export default function PricingConfigurator() {
                     addon={addon}
                     checked={addonSelections[addon.id] || false}
                     onChange={(checked) => handleAddonChange(addon.id, checked)}
+                    language={language}
                   />
                 ))}
               </Accordion>

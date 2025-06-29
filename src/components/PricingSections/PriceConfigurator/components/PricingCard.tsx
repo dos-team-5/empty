@@ -111,7 +111,9 @@ export const PricingCard = ({
             {planType === 'basic' ? 'Basic Plan' : 'Premium Plan'}
           </Title>
           <Text mt={2} c="white">
-            {carCount} car{carCount !== 1 ? 's' : ''} selected
+            {carCount} {language === 'en' ? 'car' : 'voiture'}
+            {language === 'en' && carCount !== 1 ? 's' : ''}{' '}
+            {language === 'en' ? 'selected' : 'choisie'}
           </Text>
         </Card.Section>
 
@@ -125,10 +127,15 @@ export const PricingCard = ({
 
           {/* Installation Fee */}
           <Flex align="center" justify="space-between">
-            <Text fw={500}>One-Time Installation Fee</Text>
+            <Text fw={500}>
+              {language === 'fr'
+                ? 'Fonctionnalités incluses'
+                : 'One-Time Installation Fee'}
+            </Text>
             <Text fw={700} fz={18}>
               {formatPrice(
                 pricing.totalInstallationFee,
+                language,
                 currencyType
               ).toLocaleString()}
             </Text>
@@ -137,19 +144,24 @@ export const PricingCard = ({
           {/* Monthly Pricing */}
           <Box>
             <Flex align="center" justify="space-between">
-              <Text fw={500}>Monthly Price</Text>
+              <Text fw={500}>
+                {language === 'fr' ? 'Prix ​​mensuel' : 'Monthly Price'}
+              </Text>
               <Text fw={700} fz={18}>
                 {formatPrice(
                   pricing.totalMonthlyPrice,
+                  language,
                   currencyType
                 ).toLocaleString()}
                 /month
               </Text>
             </Flex>
             <Text fz={14} fw={600} c="dimmed">
-              {formatPrice(pricing.monthlyPricePerCar, currencyType)}
-              /car/month × {carCount} car
-              {carCount !== 1 ? 's' : ''}
+              {formatPrice(pricing.monthlyPricePerCar, language, currencyType)}/
+              {language === 'en' ? 'car' : 'voiture'}/
+              {language === 'fr' ? 'mois' : 'month'} × {carCount}{' '}
+              {language === 'en' ? 'car' : 'voiture'}
+              {language === 'en' && carCount !== 1 ? 's' : ''}
             </Text>
           </Box>
 
@@ -158,7 +170,10 @@ export const PricingCard = ({
           {/* Features */}
           <Box>
             <Text fz={24} fw={700}>
-              Included Features:
+              {language === 'fr'
+                ? "Frais d'installation uniques"
+                : 'Included Features'}
+              :
             </Text>
             <FeatureComparison planType={planType} language={language} />
           </Box>
@@ -193,11 +208,15 @@ export const PricingCard = ({
             align={{ base: 'start', md: 'center' }}
             gap={{ base: 12, md: 24, lg: 36 }}
           >
-            <Text fw={600}>Add-ons:</Text>
+            <Text fw={600}>
+              {language === 'fr' ? 'Modules complémentaires' : 'Add-ons'}:
+            </Text>
             <Flex align="center" gap={12} wrap={{ base: 'wrap', md: 'nowrap' }}>
               {selectedAddons.length === 0 ? (
                 <Text fz={12} c={'dimmed'}>
-                  No add-ons selected
+                  {language === 'fr'
+                    ? 'Aucun module complémentaire sélectionné'
+                    : 'No add-ons selected'}
                 </Text>
               ) : (
                 selectedAddons.map((addonId) => {
@@ -217,7 +236,7 @@ export const PricingCard = ({
           <Flex align="center" justify="space-between">
             <Text fw={500}>Total: </Text>
             <Text fw={700} fz={18}>
-              {formatPrice(totalPrice, currencyType).toLocaleString()}
+              {formatPrice(totalPrice, language, currencyType).toLocaleString()}
             </Text>
           </Flex>
 
@@ -234,21 +253,16 @@ export const PricingCard = ({
             h={48}
             fz={18}
             fw={600}
-            // style={{
-            //   backgroundColor: shouldBookCall
-            //     ? 'var(--color-primary)'
-            //     : 'black',
-            // }}
           >
             {shouldBookCall ? (
               <>
                 <Calendar className="mr-2 h-5 w-5" />
-                Book a Call
+                {language === 'fr' ? 'Réserver un appel' : 'Book a Call'}
               </>
             ) : (
               <>
                 <CreditCard className="mr-2 h-5 w-5" />
-                Checkout
+                {language === 'fr' ? 'Paiement' : 'Checkout'}
               </>
             )}
           </Button>
