@@ -1,10 +1,12 @@
 'use client';
+import { useLanguage } from '@/providers/languageToggleContext';
 import { ActionIcon, Image, Stack } from '@mantine/core';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
 const FixedSpinnerLogo = () => {
   const pathname = usePathname();
+  const { language } = useLanguage();
 
   if (pathname === '/scan&spin-attributation') {
     return null;
@@ -45,20 +47,26 @@ const FixedSpinnerLogo = () => {
           fallbackSrc="/spinnerLogo.svg"
           className="transition-transform duration-500 group-hover:animate-[spin_0.7s_linear_infinite]"
         />
-        <svg width="100" height="32" viewBox="0 0 100 20" className="fill-none">
+        <svg
+          width="100"
+          height="32"
+          viewBox="0 0 100 20"
+          className="overflow-visible fill-none"
+        >
+          {}
           <path
             id="smilePath"
             // d="M 10 20 Q 50 0 90 20" // Upward curve for smiley face
-            d="M 10 -10 Q 50 20 90 -10"
+            d="M 10 -5 Q 50 20 90 -5"
             stroke="none"
             fill="none"
           />
           <text
-            className="text-primary-800 fill-current text-[8px]"
+            className={`text-primary-800 fill-current ${language === 'fr' ? 'text-[7px] font-medium' : 'text-[8px]'}`}
             textAnchor="middle"
           >
             <textPath href="#smilePath" startOffset="50%">
-              How it works
+              {language === 'fr' ? 'Comment ça marche' : 'How it works'}
             </textPath>
           </text>
         </svg>
