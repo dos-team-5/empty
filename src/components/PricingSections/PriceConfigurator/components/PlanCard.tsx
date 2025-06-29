@@ -44,12 +44,13 @@ export const PlanCard = ({
       <Box className="space-y-2 text-sm">
         <Box fw={700}>
           <strong>Installation:</strong>{' '}
-          {formatPrice(installationFee, currency)}/
+          {formatPrice(installationFee, language, currency)}/
           {language === 'fr' ? 'voiture' : 'car'}
         </Box>
         <Box fw={700}>
           <strong>{language === 'fr' ? 'Mensuel' : 'Monthly'}:</strong>{' '}
-          {formatPrice(minPrice, currency)} - {formatPrice(maxPrice, currency)}/
+          {formatPrice(minPrice, language, currency)} -{' '}
+          {formatPrice(maxPrice, language, currency)}/
           {language === 'fr' ? 'voiture' : 'car'}
         </Box>
       </Box>

@@ -4,20 +4,12 @@ import { Stack, Title } from '@mantine/core';
 import { motion } from 'motion/react';
 import HowSpinWorks from './HowSpinWorks';
 import Image from 'next/image';
-
-const lines = [
-  {
-    text: "Scan & Spin delivers the kind of engagement you'd get if you hired dozens of people",
-  },
-  {
-    text: 'to hand out coupons across the city. But instead of guessing who took one, ',
-  },
-  {
-    text: 'each person is tracked individually and can be retargeted again and again.',
-  },
-];
+import { useLanguage } from '@/providers/languageToggleContext';
+import { attributionPageContent } from '@/contents/attribution/attributionPage';
 
 const GiftSteps = () => {
+  const { language } = useLanguage();
+  const content = attributionPageContent[language];
   return (
     <Stack maw={1200} mx="auto" mt={{ base: 80 }} mb={{ base: 80 }}>
       <div className="flex flex-col items-center justify-center lg:flex-row lg:gap-32">
@@ -42,10 +34,7 @@ const GiftSteps = () => {
           viewport={{ once: true }}
           className="mx-4 mt-16 rounded-2xl bg-[#FF83D5] p-8 text-center text-xs text-white sm:mx-24 md:text-sm lg:mx-0 lg:w-108"
         >
-          Scan & Spin delivers the kind of engagement you'd get if you hired
-          dozens of people to hand out coupons across the city. But instead of
-          guessing who took one, each person is tracked individually and can be
-          re-targeted again and again.
+          {content.aboutScanSpinSection.description}
         </motion.p>
       </div>
 
@@ -57,7 +46,7 @@ const GiftSteps = () => {
           duration={0.5}
           once
         >
-          How It Works: The Scan & Spin Journey
+          {content.aboutScanSpinSection.title}
         </TextAnimate>
       </Title>
       {/* <Text
