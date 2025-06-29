@@ -25,8 +25,10 @@ import { Icon } from '@iconify/react/dist/iconify.js';
 import { TextAnimate } from '@/components/TextAnimation';
 import { getExchangeRates } from './action/getExchangeRates';
 import { useHover } from '@mantine/hooks';
+import { useLanguage } from '@/providers/languageToggleContext';
+import { priceConfiguratorContent } from '@/contents/advertise/PricingConfigaratorContent';
 
-const TitleSection = memo(() => (
+const TitleSection = memo(({ title }: { title: string }) => (
   <div className="mb-12 space-y-6 rounded-3xl text-start">
     <Title
       order={1}
@@ -44,19 +46,8 @@ const TitleSection = memo(() => (
         once
         className="md:text-[52px] lg:text-[48px] xl:text-[52px] 2xl:text-[64px]"
       >
-        Build your ad campaign
+        {title}
       </TextAnimate>
-      {/* <TextAnimate
-        animation="blurInUp"
-        by="word"
-        startOnView
-        duration={0.5}
-        delay={0.5}
-        once
-        className="md:text-[52px] lg:text-[48px] xl:text-[52px] 2xl:text-[64px]"
-      >
-        you can own the road?
-      </TextAnimate> */}
     </Title>
   </div>
 ));
@@ -65,6 +56,7 @@ TitleSection.displayName = 'TitleSection';
 
 // Main Component
 export default function PricingConfigurator() {
+  const { language } = useLanguage();
   const [currency, setCurrency] = useState<Currency>('cad');
   const [exchangeRate, setExchangeRate] = useState<number>(1);
   const [resetKey, setResetKey] = useState(0);
@@ -100,6 +92,7 @@ export default function PricingConfigurator() {
   const pricing = usePricingCalculation(
     planType,
     carCount,
+    language,
     currency,
     exchangeRate
   );
@@ -153,8 +146,9 @@ export default function PricingConfigurator() {
   };
 
   const availableAddons = useMemo(
-    () => ADDONS.filter((addon) => addon.availableFor.includes(planType)),
-    [planType]
+    () =>
+      ADDONS[language].filter((addon) => addon.availableFor.includes(planType)),
+    [planType, language]
   );
 
   const handleReset = () => {
@@ -197,10 +191,12 @@ export default function PricingConfigurator() {
     }
   }, []);
 
+  const content = priceConfiguratorContent[language];
+
   return (
     <Box id="pricing-configurator" mb={180} p={16}>
       <Box className="mx-auto xl:!max-w-[1000px] 2xl:!max-w-[1100px]">
-        <TitleSection />
+        <TitleSection title={content.title} />
         <div className="flex w-full origin-top flex-col-reverse gap-y-8 md:flex-row-reverse md:items-start md:justify-between md:gap-y-0 lg:scale-80 xl:scale-100">
           {/* Left Side - Pricing Card */}
           <Box className="md:w-[48%]" h="100%">
@@ -242,7 +238,9 @@ export default function PricingConfigurator() {
               <Card>
                 <Card.Section>
                   <Flex align={'center'} justify="space-between">
-                    <Title fz={{ base: 20, sm: 32 }}>Choose Your Plan</Title>
+                    <Title fz={{ base: 20, sm: 32 }}>
+                      {content.rightSection.title}
+                    </Title>
                     <Button
                       mt={8}
                       mr={16}
@@ -268,7 +266,7 @@ export default function PricingConfigurator() {
                       htmlFor="car-count"
                       className="text-base font-medium"
                     >
-                      Number of Cars
+                      {content.rightSection.content1}
                     </InputLabel>
 
                     {/* Slider for quick selection */}
@@ -311,9 +309,9 @@ export default function PricingConfigurator() {
                         htmlFor="months"
                         className="text-base font-medium"
                       >
-                        Months Selected
+                        {content.rightSection.content2}
                       </InputLabel>
-                      <Badge variant="outline">{`${months} Month${months > 1 ? 's' : ''}`}</Badge>
+                      <Badge variant="outline">{`${months} ${content.rightSection.content3}${language === 'en' && months > 1 ? 's' : ''}`}</Badge>
                     </Flex>
 
                     {/* Slider for quick selection */}
@@ -367,6 +365,7 @@ export default function PricingConfigurator() {
                     addon={addon}
                     checked={addonSelections[addon.id] || false}
                     onChange={(checked) => handleAddonChange(addon.id, checked)}
+                    language={language}
                   />
                 ))}
               </Accordion>

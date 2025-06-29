@@ -1,8 +1,10 @@
+'use client';
 import { Box, InputLabel, Radio } from '@mantine/core';
 import { Currency, PlanType } from '../types';
 import { PLAN_CONFIGS } from '../data';
 import { formatPrice } from '../../utils/formatPrice';
 import { Dispatch, SetStateAction } from 'react';
+import { useLanguage } from '@/providers/languageToggleContext';
 
 // Components
 export const PlanCard = ({
@@ -18,7 +20,8 @@ export const PlanCard = ({
   exchangeRate: number;
   setAddonSelections: Dispatch<SetStateAction<Record<string, boolean>>>;
 }) => {
-  const config = PLAN_CONFIGS[planType];
+  const { language } = useLanguage();
+  const config = PLAN_CONFIGS[language][planType];
   const minPrice = Math.min(...Object.values(config.pricing)) * exchangeRate;
   const maxPrice = Math.max(...Object.values(config.pricing)) * exchangeRate;
   const installationFee = config.installationFee * exchangeRate;
@@ -41,11 +44,13 @@ export const PlanCard = ({
       <Box className="space-y-2 text-sm">
         <Box fw={700}>
           <strong>Installation:</strong>{' '}
-          {formatPrice(installationFee, currency)}/car
+          {formatPrice(installationFee, currency)}/
+          {language === 'fr' ? 'voiture' : 'car'}
         </Box>
         <Box fw={700}>
-          <strong>Monthly:</strong> {formatPrice(minPrice, currency)} -{' '}
-          {formatPrice(maxPrice, currency)}/car
+          <strong>{language === 'fr' ? 'Mensuel' : 'Monthly'}:</strong>{' '}
+          {formatPrice(minPrice, currency)} - {formatPrice(maxPrice, currency)}/
+          {language === 'fr' ? 'voiture' : 'car'}
         </Box>
       </Box>
     </InputLabel>
