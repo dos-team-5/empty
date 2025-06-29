@@ -4,6 +4,7 @@ import { GLTF } from 'three-stdlib';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { useFrame } from '@react-three/fiber';
 import { degToRad } from 'three/src/math/MathUtils.js';
+import { useLanguage } from '@/providers/languageToggleContext';
 
 type GLTFResult = GLTF & {
   nodes: {
@@ -41,10 +42,15 @@ export function CarModel({
   applyImage: boolean;
   rotationSpeed: number;
 }) {
+  const { language } = useLanguage();
   const groupRef = useRef<THREE.Group>(null);
 
   // Fallback texture for default view
-  const fallbackTexture = useTexture('/textures/uploadAdImage100.png');
+  const fallbackTexture = useTexture(
+    language === 'fr'
+      ? '/textures/Upload-Your-AdFr.png'
+      : '/textures/uploadAdImage100.png'
+  );
   const [customTexture, setCustomTexture] = useState<THREE.Texture | null>(
     null
   );

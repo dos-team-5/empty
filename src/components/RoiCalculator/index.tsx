@@ -71,7 +71,7 @@ const RoiCalculator = () => {
   const calculateMaxCars = (budget: number, plan: 'basic' | 'premium') => {
     if (budget <= 0) return { cars: 0, pricePerCar: 0, total: 0 };
 
-    for (let cars = 1; cars <= 1000; cars++) {
+    for (let cars = 1; cars <= 43103; cars++) {
       const pricePerCar = getPricing(cars, plan);
       const totalMonthlyCost = cars * pricePerCar;
 
@@ -88,8 +88,8 @@ const RoiCalculator = () => {
       }
     }
 
-    const finalPrice = getPricing(1000, plan);
-    return { cars: 1000, pricePerCar: finalPrice, total: 1000 * finalPrice };
+    const finalPrice = getPricing(43103, plan);
+    return { cars: 43103, pricePerCar: finalPrice, total: 43103 * finalPrice };
   };
 
   const formatCurrency = (amount: number) => {
@@ -116,7 +116,10 @@ const RoiCalculator = () => {
 
   const handleBillboardSpendChange = (value: string) => {
     const numericValue = value.replace(/[^0-9.]/g, '');
-    setBillboardSpend(numericValue);
+    // Limit to 7 digits
+    if (numericValue.replace('.', '').length <= 7) {
+      setBillboardSpend(numericValue);
+    }
   };
 
   // Trigger calculation on billboardSpend change
