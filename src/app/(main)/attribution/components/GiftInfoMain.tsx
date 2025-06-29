@@ -1,11 +1,17 @@
+'use client';
 import { PrimaryBtn } from '@/components';
 import { TextAnimate } from '@/components/TextAnimation';
+import { attributionPageContent } from '@/contents/attribution/attributionPage';
+import { useLanguage } from '@/providers/languageToggleContext';
 import { Box, Flex, Image, Stack, Text, Title } from '@mantine/core';
 
 import Link from 'next/link';
 import { useMemo } from 'react';
 
 const GiftInfoMain = () => {
+  const { language } = useLanguage();
+  const content = attributionPageContent[language];
+
   const titleContent = useMemo(
     () => (
       <>
@@ -14,25 +20,25 @@ const GiftInfoMain = () => {
           by="word"
           startOnView
           duration={0.5}
-          className="text-[24px] md:text-[32px]"
+          className={`text-[24px] ${language === 'fr' ? 'md:text-[20px]' : 'md:text-[32px]'}`}
           once
         >
-          Know Exactly Who's Engaging
+          {content.heroSection.title.line1}
         </TextAnimate>
         <TextAnimate
           animation="blurInUp"
           by="word"
           startOnView
           duration={0.5}
-          className="text-[24px] md:text-[32px]"
+          className={`text-[24px] ${language === 'fr' ? 'md:text-[20px]' : 'md:text-[32px]'}`}
           delay={0.5}
           once
         >
-          with Your OOH Campaign
+          {content.heroSection.title.line2}
         </TextAnimate>
       </>
     ),
-    []
+    [language, content.heroSection.title.line1, content.heroSection.title.line2]
   );
 
   return (
@@ -57,17 +63,16 @@ const GiftInfoMain = () => {
           {titleContent}
         </Title>
         <Text fz={{ base: 12, sm: 13, md: 14 }} ff={'var(--font-inter)'}>
-          Scan & Spin is a QR-powered tool that tracks real-time engagement with
-          your out-of-home ads. By offering instant, interactive rewards, it
-          provides clear insights into who’s interacting with your brand and how
-          those interactions drive real-world conversions. No other OOH solution
-          offers this level of precision and ROI tracking. Each user's
-          information is collected, enabling you to retarget them with pinpoint
-          accuracy.
+          {content.heroSection.description}
         </Text>
         <Link href={'/contact'}>
           {' '}
-          <PrimaryBtn btnText="Book A Call" glow arrow={false} />
+          <PrimaryBtn
+            btnText={'Book A Call'}
+            frText="Réserver un appel"
+            glow
+            arrow={false}
+          />
         </Link>
       </Stack>
       {/* right section */}

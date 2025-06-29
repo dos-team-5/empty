@@ -35,7 +35,12 @@ const MobileNav = ({ onClose }: MobileNavProps) => {
       ))}
       <Link href={'/contact'} className="">
         <div onClick={onClose} className="mt-5">
-          <PrimaryBtn btnText="Book A Call" glow arrow={false} />
+          <PrimaryBtn
+            btnText="Book A Call"
+            frText="Réserver un appel"
+            glow
+            arrow={false}
+          />
         </div>
       </Link>
     </Box>

@@ -14,10 +14,12 @@ export const AddonItem = ({
   addon,
   checked,
   onChange,
+  language,
 }: {
   addon: AddonConfig;
   checked: boolean;
   onChange: (checked: boolean) => void;
+  language: 'en' | 'fr';
 }) => (
   <Accordion.Item
     className="!rounded-[10px] !border-pink-100 !bg-white"
@@ -36,19 +38,23 @@ export const AddonItem = ({
           gap={8}
         >
           <InputLabel
-            fz={16}
+            fz={language === 'fr' ? 14 : 16}
             htmlFor={addon.id}
             className="cursor-pointer text-base font-medium"
           >
             {addon.label}
             {addon.subLabel && (
-              <Text fz={12} my={4} c={'dimmed'}>
+              <Text fz={language === 'fr' ? 10 : 12} my={4} c={'dimmed'}>
                 {addon.subLabel}
               </Text>
             )}
           </InputLabel>
 
-          {addon.samePrice && <Badge variant="outline">Same Pricing</Badge>}
+          {addon.samePrice && (
+            <Badge variant="outline">
+              {language === 'en' ? 'Same pricing' : 'Même prix'}
+            </Badge>
+          )}
         </Flex>
       </Flex>
     </Accordion.Control>
@@ -70,7 +76,7 @@ export const AddonItem = ({
             return (
               <React.Fragment key={index}>
                 <Text px={16} mt={'sm'} fw={600} fz={14}>
-                  Pricing
+                  {language === 'en' ? 'Pricing' : 'Tarifs'}
                 </Text>
                 <List
                   key={`pricing-${index}`}

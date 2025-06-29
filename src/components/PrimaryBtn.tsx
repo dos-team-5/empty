@@ -1,6 +1,7 @@
 'use client';
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
+import { useLanguage } from '@/providers/languageToggleContext';
 
 interface PrimaryBtnProps {
   btnText?: string;
@@ -8,16 +9,19 @@ interface PrimaryBtnProps {
   glowOnHover?: boolean;
   arrow?: boolean;
   type?: string;
+  frText?: string;
 }
 
 const PrimaryBtn = ({
   type = 'outline',
   btnText = 'Primary btn',
+  frText = 'Bouton principal',
   glow = false,
   glowOnHover = false,
   arrow = true,
 }: PrimaryBtnProps) => {
   const [btnHovered, setBtnHovered] = useState(false);
+  const { language } = useLanguage();
 
   return (
     <div
@@ -42,10 +46,10 @@ const PrimaryBtn = ({
       </AnimatePresence>
 
       <div
-        className="bg-primary-400 hover:bg-primary-400 text-default border-primary-400 relative inline-flex items-center justify-center rounded-lg border-2 px-[25px] py-3 text-sm font-bold capitalize transition-all duration-200 "
+        className="bg-primary-400 hover:bg-primary-400 text-default border-primary-400 relative inline-flex items-center justify-center rounded-lg border-2 px-[25px] py-3 text-sm font-bold capitalize transition-all duration-200"
         role="button"
       >
-        {btnText}
+        {language === 'fr' ? frText : btnText}
         {arrow && (
           <span className="relative ml-1 inline-block overflow-hidden">
             {/* <ArrowRight

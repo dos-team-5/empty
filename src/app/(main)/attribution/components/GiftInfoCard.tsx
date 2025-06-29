@@ -1,55 +1,18 @@
+'use client';
+import { attributionPageContent } from '@/contents/attribution/attributionPage';
+import { useLanguage } from '@/providers/languageToggleContext';
 import { Card, Flex, Image, SimpleGrid, Stack, Text } from '@mantine/core';
 
 const GiftInfoCard = () => {
-  const cardData = [
-    {
-      id: 1,
-      logo: '/giftDetails/engagement.svg',
-      title: 'Real Engagement',
-      content:
-        ' Branded QR codes on rideshare vehicles invite scans for instant rewards like discounts or free products, creating welcomed interaction in high-traffic areas.',
-    },
-    {
-      id: 2,
-      logo: '/giftDetails/verified.svg',
-      title: 'Verified Attribution',
-      content:
-        ' Every interaction is geo-verified, time-stamped, and linked to a unique digital ID. This provides precise engagement data, eliminating estimated impressions and tracking in-store redemption.',
-    },
-    {
-      id: 3,
-      logo: '/EMPTY-Logo.png',
-      title: 'none',
-      content: ' none',
-    },
-    {
-      id: 4,
-      logo: '/giftDetails/audiance.svg',
-      title: 'Retargetable Audiences',
-      content:
-        ' Capture high-intent users for retargeting via email, SMS, or loyalty campaigns. Digital IDs from real-world interactions offer precision targeting, outperforming OOH and digital ads.',
-    },
-    {
-      id: 5,
-      logo: '/giftDetails/mobileFirst.svg',
-      title: 'Mobile-First & Shareable',
-      content:
-        'The mobile-optimized experience, centered on an interactive prize wheel, boosts engagement and social sharing, increasing reach and brand memorability.',
-    },
-    {
-      id: 6,
-      logo: '/giftDetails/measure.svg',
-      title: 'Measurable ROI',
-      content:
-        'Scan & Spin links physical visibility to digital performance, transforming out-of-home advertising into a trackable, data-driven channel for conversions and customer acquisition.',
-    },
-  ];
+  const { language } = useLanguage();
+  const content = attributionPageContent[language];
+  const cardData = content.whyScanSpinSection.cardData;
   return (
     <Stack maw={1000} mx="auto" mb={200}>
       {/* title */}
       <Stack>
         <Text ta="center" fz={{ base: 25, sm: 35 }} fw={400} mb={40}>
-          Why Scan & Spin? Your Key Advantages
+          {content.whyScanSpinSection.title}
         </Text>
         {/* <Text
           fz={{ base: 13, sm: 16 }}

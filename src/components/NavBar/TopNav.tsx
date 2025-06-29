@@ -9,11 +9,15 @@ import PrimaryBtn from '../PrimaryBtn';
 import { motion } from 'motion/react';
 import { LanguageToggle } from '../languageToggle';
 import { usePathname } from 'next/navigation';
+import { useLanguage } from '@/providers/languageToggleContext';
 
 const rightNavLinks = [
-  { href: '/', label: 'Advertise' },
-  { href: '/drive', label: 'Drive' },
-  { href: '/ad-tracker', label: 'AdTracker(beta)' },
+  { href: '/', label: { fr: 'Annoncer', en: 'Advertise' } },
+  { href: '/drive', label: { fr: 'Conduire', en: 'Drive' } },
+  {
+    href: '/ad-tracker',
+    label: { fr: 'AdTracker (bêta)', en: 'AdTracker (beta)' },
+  },
   // { href: '/contact', label: 'Contact Us' },
   // { href: '#', label: <ToggleModeSwitch /> },
 ];
@@ -21,6 +25,7 @@ const rightNavLinks = [
 const TopNav = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const pathname = usePathname();
+  const { language } = useLanguage();
 
   const toggleMobileMenu = () => {
     setMobileMenuOpen(!mobileMenuOpen);
@@ -58,18 +63,12 @@ const TopNav = () => {
           <Group className="group">
             {rightNavLinks.map((link, index) => (
               <Box key={index} onKeyDown={(e) => e.preventDefault()}>
-                {typeof link.label === 'string' ? (
-                  <Link
-                    href={link.href}
-                    className={`hover:text-primary-400 mx-1 hidden !text-sm font-medium duration-150 group-hover:opacity-50 hover:opacity-100 lg:block ${pathname === link.href ? 'text-primary-400' : 'text-text'}`}
-                  >
-                    {link.label}
-                  </Link>
-                ) : (
-                  <div className="text-text mx-1 hidden text-lg font-medium transition-opacity group-hover:opacity-50 hover:opacity-100 lg:block xl:text-xl">
-                    {link.label}
-                  </div>
-                )}
+                <Link
+                  href={link.href}
+                  className={`hover:text-primary-400 mx-1 hidden !text-sm font-medium duration-150 group-hover:opacity-50 hover:opacity-100 lg:block ${pathname === link.href ? 'text-primary-400' : 'text-text'}`}
+                >
+                  {link.label[language]}
+                </Link>
               </Box>
             ))}
           </Group>
@@ -81,7 +80,12 @@ const TopNav = () => {
             align="center"
           >
             <Link className="!hidden lg:!flex" href={'/contact'}>
-              <PrimaryBtn btnText="Book A Call" glow arrow={false} />
+              <PrimaryBtn
+                btnText="Book A Call"
+                frText="Réserver un appel"
+                glow
+                arrow={false}
+              />
             </Link>
             <Box className="">
               <LanguageToggle />
