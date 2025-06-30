@@ -9,10 +9,11 @@ import { LoadingOverlay } from '@mantine/core';
 import { CarModel } from './CarModel';
 import Ramp from './Ramp';
 import { Suspense, useState } from 'react';
+import { useLanguage } from '@/providers/languageToggleContext';
 
 export const Loader = () => {
   return (
-    <div className="z-[100000002] flex h-full w-full flex-col items-center justify-center !bg-transparent">
+    <div className="z-[100000002] flex h-full w-100 flex-col items-center justify-center !bg-transparent">
       <LoadingOverlay
         visible
         overlayProps={{ radius: 'sm', bg: 'transparent' }}
@@ -31,8 +32,12 @@ const Canvas3D = ({
   file: File | null;
   applyImage: boolean;
 }) => {
+  const { language } = useLanguage();
+
   return (
-    <div className="absolute top-88 left-[52%] mx-auto h-80 w-screen origin-center -translate-x-1/2 touch-none select-none sm:left-1/2 sm:h-120 md:h-118 lg:top-62 lg:left-[40%] lg:h-110 lg:w-[50vw] xl:top-64 xl:h-100 2xl:top-90 2xl:left-[10%] 2xl:h-120">
+    <div
+      className={`h-full w-100 touch-none select-none ${language === 'fr' ? 'md:mt-0 xl:mt-16 2xl:mt-32' : 'md:mt-8 xl:mt-24 2xl:mt-32'} md:h-76 md:w-92 xl:h-88 xl:w-104 2xl:h-104 2xl:w-120`}
+    >
       <Suspense fallback={<Loader />}>
         <Canvas frameloop="always" shadows flat className="">
           <PerspectiveCamera position={[0, 3, 16]} fov={30} makeDefault />

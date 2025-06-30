@@ -1,3 +1,4 @@
+import { memo } from 'react';
 import { Title } from '@mantine/core';
 import { TextAnimate } from '../TextAnimation';
 import { useLanguage } from '@/providers/languageToggleContext';
@@ -19,7 +20,11 @@ const AnimatedTitle = () => {
         by="word"
         startOnView
         duration={0.5}
-        className="text-2xl md:text-3xl 2xl:text-4xl"
+        className={
+          language === 'fr'
+            ? 'text-lg xl:text-xl 2xl:text-4xl'
+            : 'text-xl xl:text-3xl 2xl:text-4xl'
+        }
         once
       >
         {content.featureCarouselSection.carouselSection.title.line1}
@@ -31,7 +36,11 @@ const AnimatedTitle = () => {
         startOnView
         duration={0.5}
         delay={1}
-        className="text-2xl md:text-3xl 2xl:text-4xl"
+        className={
+          language === 'fr'
+            ? 'text-lg xl:text-xl 2xl:text-4xl'
+            : 'text-xl xl:text-3xl 2xl:text-4xl'
+        }
         once
       >
         {content.featureCarouselSection.carouselSection.title.line2}
@@ -40,4 +49,4 @@ const AnimatedTitle = () => {
   );
 };
 
-export default AnimatedTitle;
+export default memo(AnimatedTitle);
