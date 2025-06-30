@@ -1,11 +1,11 @@
 import {
   AnimatedAdSection,
-  CarouselFeature,
   Faq,
   HeroSection,
   TextRevealSection,
 } from '@/components';
 import AdvertiserCampaign from '@/components/AdvertiserCampaign/AdvertiserCampaign';
+import BuilderSection from '@/components/CarouselFeature/BuilderSection';
 import PricingConfigurator from '@/components/PricingSections/PriceConfigurator/PricingConfigurator';
 import RoiCalculator from '@/components/RoiCalculator';
 import ScanVsLeadSnatcher from '@/components/ScanVsLeadSnatcher/ScanVsLeadSnatcher';
@@ -24,7 +24,8 @@ export default function Home() {
 
       {/* <FeatureSection />
       <FeatureCard /> */}
-      <CarouselFeature />
+      {/* <CarouselFeature /> */}
+      <BuilderSection />
 
       {/* <TimelineSectionAd /> */}
       {/* <PricingCards /> */}

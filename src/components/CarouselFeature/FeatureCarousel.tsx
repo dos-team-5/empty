@@ -40,21 +40,21 @@ const FeatureCarousel = () => {
         onSwiper={(swiper) => {
           swiperRef.current = swiper;
         }}
-        className="feature-slider !mx-0 mt-4 max-w-80 lg:mt-16"
+        className="feature-slider !mx-0 mt-2 max-w-80 md:max-w-60 lg:mt-4 xl:max-w-70 2xl:mt-16 2xl:max-w-70"
       >
         <>
           {content.featureCarouselSection.carouselSection.carouselData.map(
             (feature) => (
-              <SwiperSlide key={feature.id} className="py-12">
+              <SwiperSlide key={feature.id} className="py-10">
                 <Title
                   order={3}
                   fw={600}
                   ff={'var(--font-poppins)'}
-                  className="text-start !text-base capitalize"
+                  className={`text-start !text-sm capitalize ${language === 'fr' ? 'xl:!text-sm' : 'xl:!text-base'} `}
                 >
                   {feature.title}
                 </Title>
-                <p className="font-inter my-8 text-start text-xs font-normal">
+                <p className="font-inter my-4 text-start text-[10px] font-normal xl:my-8 xl:text-xs">
                   {feature.content}
                 </p>
               </SwiperSlide>
