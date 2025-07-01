@@ -5,7 +5,7 @@ export const priceConfiguratorContent = {
       title: 'Choose Your Plan ',
       content1: 'Number of Cars ',
       content2: 'Months Selected',
-      content3: 'Months',
+      content3: 'Month',
     },
     pricingCardContent: {
       basicPlan: 'Basic Plan',
