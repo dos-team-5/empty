@@ -311,7 +311,7 @@ export default function PricingConfigurator() {
                       >
                         {content.rightSection.content2}
                       </InputLabel>
-                      <Badge variant="outline">{`${months} ${content.rightSection.content3}${language === 'en' && months > 1 ? 's' : ''}`}</Badge>
+                      <Badge variant="outline">{`${months} ${content.rightSection.content3}${language === 'en' && month > 1 ? 's' : ''}`}</Badge>
                     </Flex>
 
                     {/* Slider for quick selection */}
