@@ -1,6 +1,9 @@
 import type { NextConfig } from 'next';
 
 const nextConfig: NextConfig = {
+  images: {
+    domains: ['www.facebook.com'],
+  },
   // x-robots-tag:
   async headers() {
     return [
