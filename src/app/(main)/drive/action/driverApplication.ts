@@ -1,3 +1,11 @@
+type FileAttachment = {
+  key: string;
+  url: string;
+  size: number;
+  type: string;
+  name: string;
+};
+
 /* eslint-disable @typescript-eslint/no-explicit-any */
 export type DriverApplication = {
   from: string;
@@ -29,12 +37,25 @@ export type DriverApplication = {
   };
 };
 
-type FileAttachment = {
-  key: string;
-  url: string;
-  size: number;
-  type: string;
+export type DriverApplicationPayload = {
   name: string;
+  email: string;
+  phone: string;
+  password: string;
+  city: string;
+  province: string;
+  postalCode: string;
+  streetAddress1: string;
+  streetAddress2: string;
+  vehicleMake: string;
+  vehicleModel: string;
+  vehicleYear: string;
+  vehiclePhotos: FileAttachment[];
+  rideSharePlatforms: string[];
+  weeklyDrivingHours: string;
+  driversLicense: FileAttachment;
+  driverProfile: FileAttachment;
+  tripHistory: FileAttachment;
 };
 
 export function getDriverApplicationFromLocalStorage(): DriverApplication | null {
