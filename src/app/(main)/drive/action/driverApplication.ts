@@ -1,3 +1,5 @@
+import { API_ENDPOINT } from '@/constants';
+
 type FileAttachment = {
   key: string;
   url: string;
@@ -6,47 +8,16 @@ type FileAttachment = {
   name: string;
 };
 
-/* eslint-disable @typescript-eslint/no-explicit-any */
-export type DriverApplication = {
-  from: string;
-  to: string;
-  subject: string;
-  templateName: string;
-  templateData: {
-    driverInfo: {
-      fullName: string;
-      email: string;
-      phone: string;
-      cityProvince: string;
-      shippingAddress: string;
-      vehicleMake: string;
-      vehicleModel: string;
-      vehicleYear: string;
-      vehiclePhotos: FileAttachment[];
-      rideSharePlatforms: string[];
-      weeklyDrivingSchedule: string;
-    };
-    kyc: {
-      driversLicense: FileAttachment;
-      driverProfile: FileAttachment;
-      tripHistory: FileAttachment;
-    };
-    bankInfo: {
-      voidCheque: FileAttachment;
-    };
-  };
-};
-
 export type DriverApplicationPayload = {
   name: string;
   email: string;
   phone: string;
   password: string;
-  city: string;
-  province: string;
-  postalCode: string;
   streetAddress1: string;
   streetAddress2: string;
+  postalCode: string;
+  city: string;
+  province: string;
   vehicleMake: string;
   vehicleModel: string;
   vehicleYear: string;
@@ -56,6 +27,16 @@ export type DriverApplicationPayload = {
   driversLicense: FileAttachment;
   driverProfile: FileAttachment;
   tripHistory: FileAttachment;
+  // bankInfo?: FileAttachment;
+};
+
+/* eslint-disable @typescript-eslint/no-explicit-any */
+export type DriverApplication = {
+  from: string;
+  to: string;
+  subject: string;
+  templateName: string;
+  templateData: DriverApplicationPayload;
 };
 
 export function getDriverApplicationFromLocalStorage(): DriverApplication | null {
@@ -64,22 +45,7 @@ export function getDriverApplicationFromLocalStorage(): DriverApplication | null
       localStorage.getItem('step1FormValues') ?? '{}'
     );
     const kyc = JSON.parse(localStorage.getItem('step2FormValues') ?? '{}');
-    // const bankInfo = JSON.parse(
-    //   localStorage.getItem('step3FormValues') ?? '{}'
-    // );
 
-    // Dummy bank info object
-    const dummyBankInfo = {
-      voidCheque: {
-        key: 'dummy-void-cheque',
-        name: 'void-cheque.pdf',
-        url: 'https://example.com/dummy-void-cheque.pdf',
-        type: 'application/pdf',
-        size: 102400, // in bytes (e.g., 100 KB)
-      },
-    };
-
-    // Ensure single file for each KYC and bank field (assuming only one file per field)
     const formatSingleFile = (arr: FileAttachment[] = []) => arr[0] ?? null;
 
     const app: DriverApplication = {
@@ -88,27 +54,25 @@ export function getDriverApplicationFromLocalStorage(): DriverApplication | null
       subject: `New Driver Application: ${driverInfo.fullName ?? 'Unknown'}`,
       templateName: 'driver-application',
       templateData: {
-        driverInfo: {
-          fullName: driverInfo.fullName,
-          email: driverInfo.email,
-          phone: driverInfo.phone,
-          cityProvince: driverInfo.cityProvince,
-          shippingAddress: driverInfo.shippingAddress,
-          vehicleMake: driverInfo.vehicleMake,
-          vehicleModel: driverInfo.vehicleModel,
-          vehicleYear: driverInfo.vehicleYear,
-          vehiclePhotos: driverInfo.vehiclePhotos ?? [],
-          rideSharePlatforms: driverInfo.rideSharePlatforms ?? [],
-          weeklyDrivingSchedule: driverInfo.weeklyDrivingSchedule,
-        },
-        kyc: {
-          driversLicense: formatSingleFile(kyc.driversLicense),
-          driverProfile: formatSingleFile(kyc.driverProfile),
-          tripHistory: formatSingleFile(kyc.tripHistory),
-        },
-        bankInfo: {
-          voidCheque: dummyBankInfo.voidCheque,
-        },
+        name: driverInfo.name,
+        email: driverInfo.email,
+        phone: driverInfo.phone,
+        password: driverInfo.password,
+        streetAddress1: driverInfo.streetAddress1,
+        streetAddress2: driverInfo.streetAddress2 || '',
+        postalCode: driverInfo.postalCode,
+        city: driverInfo.city,
+        province: driverInfo.city,
+        vehicleMake: driverInfo.vehicleMake,
+        vehicleModel: driverInfo.vehicleModel,
+        vehicleYear: driverInfo.vehicleYear,
+        vehiclePhotos: driverInfo.vehiclePhotos ?? [],
+        rideSharePlatforms: driverInfo.rideSharePlatforms ?? [],
+        weeklyDrivingHours: driverInfo.weeklyDrivingHours ?? '',
+        driversLicense: formatSingleFile(kyc.driversLicense),
+        driverProfile: formatSingleFile(kyc.driverProfile),
+        tripHistory: formatSingleFile(kyc.tripHistory),
+        // bankInfo: dummyBankInfo,
       },
     };
 
@@ -147,17 +111,18 @@ export function greetDrivers() {
 export async function sendDriverApplicationEmail(
   applicationData: DriverApplication
 ): Promise<{ success: boolean; message: string }> {
-  // Step 1: Save the application to the database
+  console.log('applicationData ====>', API_ENDPOINT);
   try {
-    const saveResponse = await fetch('/api/drivers/create', {
+    // Step 1: Save the application
+    const saveResponse = await fetch(`${API_ENDPOINT}/auth/driver-signup`, {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(applicationData),
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(applicationData.templateData),
     });
 
     const saveResult = await saveResponse.json();
+
+    console.log('save result ====>', saveResult);
 
     if (!saveResponse.ok) {
       console.error('Failed to save application data:', saveResult.message);
@@ -167,66 +132,55 @@ export async function sendDriverApplicationEmail(
       };
     }
 
-    // Step 2: Send the email notification
-    try {
-      const emailResponse = await fetch('/api/send-email', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(applicationData),
-      });
+    // Step 2: Send application confirmation email
+    const emailResponse = await fetch('/api/send-email', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(applicationData),
+    });
 
-      const emailResult = await emailResponse.json();
+    const emailResult = await emailResponse.json();
 
-      if (!emailResponse.ok) {
-        return {
-          success: false,
-          message: `Your application was saved, but the confirmation email failed to send. Reason: ${emailResult.error ?? 'Unknown server error'}`,
-        };
-      }
-
-      // Step 3: Greet the driver
-      const greetingEmailInfo = greetDrivers();
-      if (!greetingEmailInfo) {
-        return {
-          success: false,
-          message:
-            'Your application was saved, could not send greeting email due to missing driver info.',
-        };
-      }
-      const greetingResponse = await fetch('/api/send-email', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(greetingEmailInfo),
-      });
-
-      const greetingResult = await greetingResponse.json();
-      if (!greetingResponse.ok) {
-        return {
-          success: false,
-          message: `Your application was saved, but the greeting email failed to send. Reason: ${greetingResult.error ?? 'Unknown server error'}`,
-        };
-      }
-      return {
-        success: true,
-        message:
-          'Your application was saved and a confirmation email has been sent.',
-      };
-    } catch (error: any) {
-      console.error('Network error sending email:', error);
+    if (!emailResponse.ok) {
       return {
         success: false,
-        message: `Your application was saved, but the confirmation email failed with a network error: ${error.message}`,
+        message: `Application saved, but confirmation email failed. Reason: ${emailResult.error ?? 'Unknown error'}`,
       };
     }
+
+    // Step 3: Send greeting email
+    const greetingEmailInfo = greetDrivers();
+    if (!greetingEmailInfo) {
+      return {
+        success: false,
+        message: 'Application saved, but could not send greeting email.',
+      };
+    }
+
+    const greetingResponse = await fetch('/api/send-email', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(greetingEmailInfo),
+    });
+
+    const greetingResult = await greetingResponse.json();
+
+    if (!greetingResponse.ok) {
+      return {
+        success: false,
+        message: `Application saved, but greeting email failed. Reason: ${greetingResult.error ?? 'Unknown error'}`,
+      };
+    }
+
+    return {
+      success: true,
+      message: 'Application saved and all emails sent successfully.',
+    };
   } catch (error: any) {
-    console.error('Network error while saving driver data:', error);
+    console.error('Unexpected error during application process:', error);
     return {
       success: false,
-      message: 'A network error occurred while saving your application.',
+      message: 'An unexpected error occurred during the application process.',
     };
   }
 }

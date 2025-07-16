@@ -2,11 +2,11 @@
 import { useFormSubmission } from '@/contexts/FormSubmissionContext';
 import { Divider, Space, Stack, Stepper, Text } from '@mantine/core';
 import { useState, useEffect, JSX } from 'react';
-import Step1_DriverInformation from './Step1_DriverInformation';
 import Step2_IdentityConfirmation from './Step2_IdentityConfirmation';
 import { CheckCircle } from 'lucide-react';
 import { steppingForm } from '@/contents/drive/steppingForm';
 import { useLanguage } from '@/providers/languageToggleContext';
+import Step1_DriverInformationNew from './Step1_DriverInformation';
 
 const Steppers = () => {
   const { language } = useLanguage();
@@ -63,7 +63,7 @@ const Steppers = () => {
         </>
       ),
       content: (
-        <Step1_DriverInformation
+        <Step1_DriverInformationNew
           onNext={() => nextStep()}
           onPrev={() => prevStep()}
           step1FormLabel={steppingForm.step1Form1Labels}

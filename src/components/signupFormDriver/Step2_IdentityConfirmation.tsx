@@ -20,7 +20,6 @@ import { notifications } from '@mantine/notifications';
 import { useForm, zodResolver } from '@mantine/form';
 import { useEffect, useState } from 'react';
 import { z } from 'zod';
-import { fileHandlerResSchema } from './Step1_DriverInformation';
 import { FileHandlerRes, ImageHandler } from '../FileManager';
 import { Icon } from '@iconify/react/dist/iconify.js';
 import { deleteFile } from '../FileManager/actions/fileActions';
@@ -31,6 +30,7 @@ import {
   getDriverApplicationFromLocalStorage,
   sendDriverApplicationEmail,
 } from '@/app/(main)/drive/action/driverApplication';
+import { fileHandlerResSchema } from './Step1_DriverInformation/validation';
 
 // Zod validation schema
 export const schema = (lang: 'en' | 'fr') => {

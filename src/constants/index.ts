@@ -1,1 +1,1 @@
-export const API_ENDPOINT = `${process.env.API_URL}/api/v1`;
+export const API_ENDPOINT = `${process.env.NEXT_PUBLIC_API_URL}/api/v1`;

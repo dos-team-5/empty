@@ -4,7 +4,7 @@ export const steppingForm = {
       en: 'Driver Information',
       fr: 'Informations du chauffeur',
     },
-    fullName: {
+    name: {
       en: 'Full Name',
       fr: 'Nom complet',
     },
@@ -16,13 +16,25 @@ export const steppingForm = {
       en: 'Phone Number',
       fr: 'Numéro de téléphone',
     },
-    cityProvince: {
+    password: {
+      en: 'Password',
+      fr: 'Mot de passe',
+    },
+    city: {
       en: 'City',
       fr: 'Ville',
     },
-    shippingAddress: {
-      en: 'Shipping Address',
-      fr: 'Adresse de livraison',
+    postalCode: {
+      en: 'Postal Code',
+      fr: 'Code postal',
+    },
+    streetAddress1: {
+      en: 'Address Line 1',
+      fr: 'Adresse 1',
+    },
+    streetAddress2: {
+      en: 'Address Line 2',
+      fr: 'Adresse 2',
     },
     vehicleMake: {
       en: 'Vehicle Make',
