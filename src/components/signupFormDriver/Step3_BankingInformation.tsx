@@ -24,7 +24,6 @@ import { notifications } from '@mantine/notifications';
 import { useForm, zodResolver } from '@mantine/form';
 import { useEffect, useState } from 'react';
 import { z } from 'zod';
-import { fileHandlerResSchema } from './Step1_DriverInformation';
 import { FileHandler, FileHandlerRes, ImageHandler } from '../FileManager';
 import { Icon } from '@iconify/react/dist/iconify.js';
 import {
@@ -37,6 +36,7 @@ import Link from 'next/link';
 import { useLanguage } from '@/providers/languageToggleContext';
 import { step3helpContent } from '@/contents/drive/steppingForm';
 import { useFormSubmission } from '@/contexts/FormSubmissionContext';
+import { fileHandlerResSchema } from './Step1_DriverInformation/validation';
 
 // Zod validation schema
 const schema = (lang: 'en' | 'fr') =>
