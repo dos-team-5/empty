@@ -17,8 +17,8 @@ export function LanguageToggle({ onClick }: LanguageToggle) {
   const md = useMediaQuery('(min-width: 768px)');
 
   const languageOptions = [
-    { value: 'en', label: md ? 'English' : 'En' },
-    { value: 'fr', label: md ? 'Français' : 'Fr' },
+    { value: 'en', label: 'En' },
+    { value: 'fr', label: 'Fr' },
   ];
 
   const handleLanguageChange = (value: string | null) => {
@@ -40,7 +40,7 @@ export function LanguageToggle({ onClick }: LanguageToggle) {
       leftSection={<IconWorld style={{ width: rem(16), height: rem(16) }} />}
       variant="filled"
       size={md ? 'sm' : 'xs'}
-      w={md ? 120 : 75}
+      w={90}
     />
   );
 }

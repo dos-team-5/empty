@@ -9,7 +9,7 @@ export const PLAN_CONFIGS: Record<Language, Record<PlanType, PlanConfig>> = {
   en: {
     basic: {
       installationFee: 66.0,
-      pricing: { tier1: 269.0, tier2: 250.0, tier3: 241.0, tier4: 232.0 },
+      pricing: { tier1: 269.0, tier2: 269.0, tier3: 269.0, tier4: 269.0 },
       features: [
         '40+ hours of exposure per car per week',
         'Ads displayed across high-traffic areas in the city',

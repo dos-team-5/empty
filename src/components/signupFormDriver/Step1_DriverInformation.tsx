@@ -100,9 +100,6 @@ const schema = (lang: Language) => {
     email: z.string().email(validationMessages.email[lang]),
     phone: z.string().min(1, validationMessages.phone[lang]),
     cityProvince: z.string().min(1, validationMessages.cityProvince[lang]),
-    shippingAddress: z
-      .string()
-      .min(1, validationMessages.shippingAddress[lang]),
     vehicleMake: z.string().min(1, validationMessages.vehicleMake[lang]),
     vehicleModel: z.string().min(1, validationMessages.vehicleModel[lang]),
     vehicleYear: z
@@ -126,7 +123,6 @@ interface Step1DriverInformationFormValues {
   email: string;
   phone: string;
   cityProvince: string;
-  shippingAddress: string;
   vehicleMake: string;
   vehicleModel: string;
   vehicleYear: string;
@@ -174,7 +170,6 @@ const Step1_DriverInformation = ({
       email: '',
       phone: '',
       cityProvince: '',
-      shippingAddress: '',
       vehicleMake: '',
       vehicleModel: '',
       vehicleYear: '',
@@ -375,22 +370,7 @@ const Step1_DriverInformation = ({
             />
           </Input.Wrapper>
         </SimpleGrid>
-        <SimpleGrid cols={{ base: 1, sm: 2 }} spacing="md">
-          <Input.Wrapper
-            label={step1FormLabel.shippingAddress[language]}
-            withAsterisk
-            className="font-inter text-xs font-normal text-[#5E6366]"
-          >
-            <Space h={4} />
-            <TextInput
-              variant="filled"
-              radius="sm"
-              size="md"
-              placeholder="123 Main St, Toronto, ON, Canada"
-              {...form.getInputProps('shippingAddress')}
-            />
-          </Input.Wrapper>
-
+        <SimpleGrid cols={{ base: 1, sm: 3 }} spacing="md">
           <Input.Wrapper
             label={step1FormLabel.vehicleMake[language]}
             withAsterisk
@@ -405,8 +385,6 @@ const Step1_DriverInformation = ({
               {...form.getInputProps('vehicleMake')}
             />
           </Input.Wrapper>
-        </SimpleGrid>
-        <SimpleGrid cols={{ base: 1, sm: 2 }} spacing="md">
           <Input.Wrapper
             label={step1FormLabel.vehicleModel[language]}
             withAsterisk
