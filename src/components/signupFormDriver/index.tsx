@@ -2,7 +2,7 @@
 
 import { Box, Stack, Title } from '@mantine/core';
 import { memo } from 'react';
-import Steppers from './Steppers';
+import SingleSignupForm from './SingleSignupForm';
 import { EarnByDrivingSection } from './EarnByDrivingSection';
 import { useLanguage } from '@/providers/languageToggleContext';
 
@@ -48,12 +48,9 @@ const DriverSignupSection: React.FC = () => {
                 maw={690}
                 className="rounded-4xl !shadow-[20px_20px_60px_#bebebe,-20px_-20px_60px_#080F340F]"
               >
-                <Steppers />
+                <SingleSignupForm />
               </Box>
             </Stack>
-            {/* <div className="mt-8 w-full rounded-4xl p-4 !shadow-[20px_20px_60px_#bebebe,-20px_-20px_60px_#ffffff] md:p-8 lg:mt-0 lg:w-1/2">
-              <Steppers />
-            </div> */}
           </Box>
         </Box>
       </Box>
