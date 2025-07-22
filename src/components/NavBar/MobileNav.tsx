@@ -1,5 +1,5 @@
 'use client';
-import { Box } from '@mantine/core';
+import { Box, Button, Flex } from '@mantine/core';
 import Link from 'next/link';
 import PrimaryBtn from '../PrimaryBtn';
 
@@ -33,16 +33,28 @@ const MobileNav = ({ onClose }: MobileNavProps) => {
           )}
         </div>
       ))}
-      <Link href={'/contact'} className="">
-        <div onClick={onClose} className="mt-5">
-          <PrimaryBtn
-            btnText="Book A Call"
-            frText="Réserver un appel"
-            glow
-            arrow={false}
-          />
-        </div>
-      </Link>
+
+      <Flex align={'center'} gap={8}>
+        <Link className="block lg:hidden" href={'/login'}>
+          <Button
+            gradient={{ from: '#D482B6', to: '#CB6AA7', deg: 90 }}
+            size="sm"
+            variant="gradient"
+          >
+            Login
+          </Button>
+        </Link>
+        <Link href={'/contact'} className="">
+          <div onClick={onClose}>
+            <PrimaryBtn
+              btnText="Book A Call"
+              frText="Réserver un appel"
+              glow
+              arrow={false}
+            />
+          </div>
+        </Link>
+      </Flex>
     </Box>
   );
 };

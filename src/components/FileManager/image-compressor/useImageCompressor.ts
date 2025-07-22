@@ -129,19 +129,33 @@ export const useImageCompressor = () => {
     [compressImage]
   );
 
-  // Handle file drop
+  /**
+   * Handle file drop - supports both single and multiple files
+   * For multiple files, processes the first one for preview
+   */
   const handleDrop = useCallback(
     async (files: File[]) => {
-      if (files.length !== 1) {
+      if (files.length === 0) {
         notifications.show({
           title: 'Error',
-          message: 'Please upload one image at a time.',
+          message: 'No files selected.',
           color: 'red',
         });
         return;
       }
 
+      // For now, process the first file for preview
+      // In a full multi-file implementation, you might want to process all files
       const file = files[0];
+      
+      if (files.length > 1) {
+        notifications.show({
+          title: 'Info',
+          message: `${files.length} files selected. Showing preview for: ${file.name}`,
+          color: 'blue',
+        });
+      }
+
       const imageData: ImageData = {
         file,
         url: URL.createObjectURL(file),

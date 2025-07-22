@@ -37,8 +37,8 @@ export const steppingForm = {
       fr: 'Année du véhicule',
     },
     vehiclePhotos: {
-      en: 'Vehicle Photos (Front, Side and Back)',
-      fr: 'Photos du véhicule (avant, côté et arrière)',
+      en: 'Vehicle Photos (Front Side)',
+      fr: 'Photos du véhicule (avant et arrière)',
       description: {
         en: 'Select one by one image',
         fr: 'Sélectionnez une image à la fois',

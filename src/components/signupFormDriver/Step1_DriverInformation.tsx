@@ -22,7 +22,7 @@ import { notifications } from '@mantine/notifications';
 import { useForm, zodResolver } from '@mantine/form';
 import { useEffect, useState } from 'react';
 import { z } from 'zod';
-import { FileHandlerRes, ImageHandler } from '../FileManager';
+import { FileHandlerRes, MultiFileImageHandler } from '../FileManager';
 import { Icon } from '@iconify/react/dist/iconify.js';
 import { deleteFile } from '../FileManager/actions/fileActions';
 import { useLanguage } from '@/providers/languageToggleContext';
@@ -470,12 +470,12 @@ const Step1_DriverInformation = ({
             </SimpleGrid>
           ) : (
             <Box pos={'relative'}>
-              <ImageHandler
+              <MultiFileImageHandler
                 label={step1FormLabel.vehiclePhotos[language]}
                 withAsterisk
                 description={step1FormLabel.vehiclePhotos.description[language]}
                 onUploadSuccess={handleFileUpload}
-                multiple
+                maxFiles={2}
               />
               <Box pos={'absolute'} top={20} right={{ base: 8, md: 16 }}>
                 <Menu width={300} position="bottom-start">
@@ -531,7 +531,7 @@ const Step1_DriverInformation = ({
             variant="filled"
             radius="sm"
             size="md"
-            placeholder="e.g., 20 hours, Mon-Fri 9AM-2PM"
+            placeholder="e.g., 50 hours, Mon-Fri 9AM-2PM"
             {...form.getInputProps('weeklyDrivingSchedule')}
           />
         </Input.Wrapper>

@@ -79,7 +79,7 @@ const TopNav = () => {
             justify=""
             align="center"
           >
-            <Link href={'/login'}>
+            <Link className="hidden lg:block" href={'/login'}>
               <Button
                 gradient={{ from: '#D482B6', to: '#CB6AA7', deg: 90 }}
                 size="md"
@@ -88,7 +88,7 @@ const TopNav = () => {
                 Login
               </Button>
             </Link>
-            <Link className="!hidden lg:!flex" href={'/contact'}>
+            <Link className="hidden lg:!flex" href={'/contact'}>
               <PrimaryBtn
                 btnText="Book A Call"
                 frText="Réserver un appel"
@@ -96,7 +96,7 @@ const TopNav = () => {
                 arrow={false}
               />
             </Link>
-            <Box className="">
+            <Box className="hidden lg:block">
               <LanguageToggle />
             </Box>
             <Burger

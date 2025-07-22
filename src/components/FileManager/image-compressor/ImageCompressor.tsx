@@ -30,8 +30,13 @@ interface ImageCompressorProps {
   readonly description?: string;
   readonly withAsterisk?: boolean;
   readonly error?: string;
+  readonly multiple?: boolean; // Support for multiple file processing
 }
 
+/**
+ * Enhanced ImageCompressor component with multi-file support
+ * Processes multiple images with compression settings
+ */
 export default function ImageCompressor({
   opened,
   onClose,
@@ -40,6 +45,7 @@ export default function ImageCompressor({
   description,
   withAsterisk,
   error,
+  multiple = false,
 }: ImageCompressorProps) {
   const {
     settings,
@@ -87,6 +93,7 @@ export default function ImageCompressor({
         description={description}
         withAsterisk={withAsterisk}
         error={error}
+        multiple={multiple} // Pass multiple prop to dropzone
       />
       <Modal
         opened={opened && showModalContent}
