@@ -1,5 +1,5 @@
 'use client';
-import { Box, Burger, Drawer, Flex, Group } from '@mantine/core';
+import { Box, Burger, Drawer, Flex, Group, Button } from '@mantine/core';
 import Link from 'next/link';
 import { useState } from 'react';
 import Image from 'next/image';
@@ -79,7 +79,16 @@ const TopNav = () => {
             justify=""
             align="center"
           >
-            <Link className="!hidden lg:!flex" href={'/contact'}>
+            <Link className="hidden lg:block" href={'/login'}>
+              <Button
+                gradient={{ from: '#D482B6', to: '#CB6AA7', deg: 90 }}
+                size="md"
+                variant="gradient"
+              >
+                Login
+              </Button>
+            </Link>
+            <Link className="hidden lg:!flex" href={'/contact'}>
               <PrimaryBtn
                 btnText="Book A Call"
                 frText="Réserver un appel"
@@ -87,7 +96,7 @@ const TopNav = () => {
                 arrow={false}
               />
             </Link>
-            <Box className="">
+            <Box className="hidden lg:block">
               <LanguageToggle />
             </Box>
             <Burger

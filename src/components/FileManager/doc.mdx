@@ -1,23 +1,257 @@
+# FileManager Component Documentation
+
+## Overview
+
+The FileManager component provides a comprehensive solution for handling file uploads, image compression, and file management with multi-select capabilities.
+
+## Features
+
+- **Multi-file Selection**: Select and upload multiple images simultaneously
+- **Batch Processing**: Compress and upload multiple files with progress tracking
+- **Bulk Operations**: Select multiple files for bulk deletion
+- **Image Compression**: Automatic image compression with customizable settings
+- **Real-time Progress**: Track upload and compression progress for each file
+- **Drag & Drop**: Support for drag and drop file selection
+- **File Management**: View, delete, and manage uploaded files
+
 ## Installation
 
 Install the required dependencies using npm or yarn:
 
 ### Using npm:
 
-npm/ yarn add browser-image-compression @iconify/react @aws-sdk/client-s3 @aws-sdk/s3-request-presigner
+```bash
+npm install browser-image-compression @iconify/react @aws-sdk/client-s3 @aws-sdk/s3-request-presigner
+```
 
-/\*\*
+### Using yarn:
 
-- Experimental configuration for Next.js server actions
--
-- @property {Object} serverActions - Configuration options for server actions
-- @property {string} serverActions.bodySizeLimit - Sets the maximum body size limit for server actions to 50MB.
--                                                   This allows handling larger payloads in server actions compared to the default limit.
--                                                   Useful for file uploads or large data processing operations.
-  \*/
+```bash
+yarn add browser-image-compression @iconify/react @aws-sdk/client-s3 @aws-sdk/s3-request-presigner
+```
 
+## Next.js Configuration
+
+Add the following configuration to your `next.config.js` file:
+
+```javascript
+/**
+ * Experimental configuration for Next.js server actions
+ *
+ * @property {Object} serverActions - Configuration options for server actions
+ * @property {string} serverActions.bodySizeLimit - Sets the maximum body size limit for server actions to 50MB.
+ *                                                   This allows handling larger payloads in server actions compared to the default limit.
+ *                                                   Useful for file uploads or large data processing operations.
+ */
 experimental: {
-serverActions: {
-bodySizeLimit: '50mb',
+  serverActions: {
+    bodySizeLimit: '50mb',
+  },
 },
-},
+```
+
+## Components
+
+### FileManager
+
+The main component that provides a complete file management interface with multi-select capabilities.
+
+```tsx
+import { FileManager } from '@/components/FileManager';
+
+function App() {
+  return <FileManager />;
+}
+```
+
+### MultiFileImageHandler
+
+A specialized component for handling multiple image uploads with batch processing.
+
+```tsx
+import { MultiFileImageHandler } from '@/components/FileManager';
+
+function App() {
+  const handleUploadSuccess = (files) => {
+    console.log('Uploaded files:', files);
+  };
+
+  return (
+    <MultiFileImageHandler
+      onUploadSuccess={handleUploadSuccess}
+      label="Upload Multiple Images"
+      description="Select multiple images to upload and compress at once"
+      maxFiles={5} // Limit to 5 files at once
+    />
+  );
+}
+```
+
+### ImageHandler
+
+The original single/multi-file image handler component.
+
+```tsx
+import { ImageHandler } from '@/components/FileManager';
+
+function App() {
+  return (
+    <ImageHandler
+      multiple={true}
+      onUploadSuccess={(files) => console.log(files)}
+    />
+  );
+}
+```
+
+## Key Features
+
+### Multi-Select File Operations
+
+- **Selection Mode**: Toggle between normal view and selection mode
+- **Bulk Selection**: Select all files or clear selection
+- **Bulk Deletion**: Delete multiple selected files at once
+- **Visual Feedback**: Selected files are highlighted with a blue border
+- **Upload Limits**: Configurable maximum number of files per upload
+
+### Batch Image Processing
+
+- **Simultaneous Upload**: Process multiple images concurrently
+- **Progress Tracking**: Real-time progress for each file
+- **Error Handling**: Individual error handling for each file
+- **Compression Settings**: Customizable compression settings for all files
+- **Smart Validation**: Prevents exceeding upload limits with clear error messages
+
+### Enhanced User Experience
+
+- **Drag & Drop**: Support for multiple file drag and drop
+- **Progress Indicators**: Visual progress bars for each processing file
+- **Status Badges**: Clear status indicators (pending, processing, completed, error)
+- **Responsive Design**: Works on desktop and mobile devices
+
+## Usage Examples
+
+### Basic Multi-File Upload
+
+```tsx
+import { MultiFileImageHandler } from '@/components/FileManager';
+
+function ImageUploader() {
+  const handleSuccess = (uploadedFiles) => {
+    console.log(`Successfully uploaded ${uploadedFiles.length} files`);
+  };
+
+  return (
+    <MultiFileImageHandler
+      onUploadSuccess={handleSuccess}
+      label="Upload Product Images"
+      description="Select multiple product images to upload"
+      maxFiles={8} // Allow up to 8 product images
+    />
+  );
+}
+```
+
+### File Manager with Bulk Operations
+
+```tsx
+import { FileManager } from '@/components/FileManager';
+
+function FileManagement() {
+  return (
+    <div>
+      <h2>File Management Dashboard</h2>
+      <FileManager />
+    </div>
+  );
+}
+```
+
+## API Reference
+
+### MultiFileImageHandler Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `onUploadSuccess` | `(files: FileHandlerRes[]) => void` | - | Callback when files are successfully uploaded |
+| `withModal` | `boolean` | `false` | Whether to show upload interface in a modal |
+| `defaultValue` | `FileHandlerRes[]` | `[]` | Initial files to display |
+| `label` | `string` | - | Label for the upload area |
+| `description` | `string` | - | Description text for the upload area |
+| `withAsterisk` | `boolean` | `false` | Whether to show required asterisk |
+| `error` | `string` | - | Error message to display |
+| `maxFiles` | `number` | `10` | Maximum number of files that can be uploaded at once |
+
+### FileHandlerRes Interface
+
+```typescript
+interface FileHandlerRes {
+  key: string;        // Unique file identifier
+  url: string;        // File URL
+  size: number;       // File size in bytes
+  type: string;       // MIME type
+  name: string;       // File name
+  [key: string]: unknown; // Additional properties
+}
+```
+
+## Upload Limits Configuration
+
+### Setting Upload Limits
+
+The `maxFiles` prop allows you to control how many files users can upload at once:
+
+```tsx
+// Allow up to 3 files at once
+<MultiFileImageHandler maxFiles={3} />
+
+// Allow up to 10 files (default)
+<MultiFileImageHandler maxFiles={10} />
+
+// No specific limit mentioned (uses default of 10)
+<MultiFileImageHandler />
+```
+
+### Validation Behavior
+
+- **Selection Validation**: Prevents users from selecting more files than the limit
+- **Total Limit Check**: Considers already uploaded files when validating new selections
+- **Clear Error Messages**: Shows specific error messages with current counts and limits
+- **User-Friendly Feedback**: Displays the upload limit in the dropzone help text
+
+### Recommended Limits
+
+- **Product Images**: 5-8 files for product galleries
+- **Profile Pictures**: 1-3 files for profile/avatar uploads
+- **Document Uploads**: 3-5 files for document collections
+- **Bulk Processing**: 10-20 files for batch operations (consider server capacity)
+
+## Best Practices
+
+1. **File Size Limits**: Configure appropriate file size limits based on your needs
+2. **Upload Limits**: Set reasonable upload limits based on your use case and server capacity
+3. **Error Handling**: Implement proper error handling for failed uploads
+4. **Progress Feedback**: Always provide visual feedback during file processing
+5. **Accessibility**: Ensure proper ARIA labels and keyboard navigation
+6. **Performance**: Consider implementing file chunking for very large files
+7. **User Experience**: Clearly communicate upload limits to users
+
+## Troubleshooting
+
+### Common Issues
+
+1. **Large File Uploads**: Ensure your server configuration supports large file uploads
+2. **CORS Issues**: Configure proper CORS settings for your file storage service
+3. **Memory Issues**: For many large files, consider processing them in smaller batches
+4. **Network Timeouts**: Implement retry logic for failed uploads
+
+### Performance Tips
+
+1. Use appropriate compression settings to balance quality and file size
+2. Implement lazy loading for large file lists
+3. Consider using web workers for heavy compression tasks
+4. Optimize image formats (WebP for better compression)
+
+## Support
+
+For issues and feature requests, please refer to the project documentation or create an issue in the project repository.

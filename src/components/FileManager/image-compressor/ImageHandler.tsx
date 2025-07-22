@@ -148,6 +148,7 @@ export default function ImageHandler({
       description={description}
       withAsterisk={withAsterisk}
       error={error}
+      multiple={multiple} // Pass multiple prop to compressor
       opened={withModal ? compressOpen : true}
       onClose={() => setCompressOpen(false)}
       onConfirm={handleConfirmAndUpload}
