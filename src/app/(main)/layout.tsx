@@ -2,7 +2,6 @@ import { Box } from '@mantine/core';
 import { Footer, Navbar } from '@/components';
 import FixedSpinnerLogo from '@/components/FixedSpinnerLogo';
 import React from 'react';
-import ReactLenis from 'lenis/react';
 import AnimatedGradient from '@/providers/AnimatedGradient';
 import { Metadata } from 'next';
 
@@ -30,15 +29,18 @@ export default function MainLayout({
   signupModal: React.ReactNode;
 }>) {
   return (
-    <ReactLenis
-      root
-      options={{
-        duration: 1.2, // Smooth and natural scroll duration
-        wheelMultiplier: 0.8, // Slightly slower scroll for better control
-        syncTouch: false, // Sync touch for better mobile experience
-        overscroll: false, // Disable overscroll for a cleaner feel
-      }}
-    >
+    // <ReactLenis
+    //   root
+    //   options={{
+    //     duration: 1.2, // Smooth and natural scroll duration
+    //     wheelMultiplier: 0.8, // Slightly slower scroll for better control
+    //     syncTouch: false, // Sync touch for better mobile experience
+    //     overscroll: false, // Disable overscroll for a cleaner feel
+    //   }}
+    // >
+
+    // </ReactLenis>
+    <Box>
       <Box maw={2000} mx={'auto'} className="relative">
         <Navbar />
         <Box>
@@ -103,6 +105,6 @@ export default function MainLayout({
         <Footer />
       </Box>
       <AnimatedGradient />
-    </ReactLenis>
+    </Box>
   );
 }
