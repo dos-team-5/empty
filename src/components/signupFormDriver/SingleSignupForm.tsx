@@ -12,6 +12,7 @@ import {
   TextInput,
   Title,
   Divider,
+  ScrollArea,
 } from '@mantine/core';
 import { notifications } from '@mantine/notifications';
 import { useForm, zodResolver } from '@mantine/form';
@@ -367,236 +368,241 @@ const SingleSignupForm = () => {
   }
 
   return (
-    <Box className="max-h-[740px] overflow-y-auto pr-2">
-      <form onSubmit={form.onSubmit(handleSubmit)}>
-        <Stack gap="xl">
-          {/* Main Form Title */}
-          <Title
-            order={2}
-            mb="xl"
-            className="font-inter sticky top-0 z-10 bg-white py-4 text-center"
-          >
-            {language === 'fr'
-              ? 'Inscription Chauffeur'
-              : 'Driver Registration'}
-          </Title>
+    <Box pr={8}>
+      <ScrollArea h={740} scrollbars="y">
+        <form onSubmit={form.onSubmit(handleSubmit)}>
+          <Stack gap="xl">
+            {/* Main Form Title */}
+            <Title
+              order={2}
+              mb="xl"
+              className="font-inter sticky top-0 z-10 bg-white py-4 text-center"
+            >
+              {language === 'fr'
+                ? 'Inscription Chauffeur'
+                : 'Driver Registration'}
+            </Title>
 
-          {/* Driver Information Section */}
-          <Box>
-            <SimpleGrid cols={{ base: 1, md: 2 }} spacing="md">
-              <TextInput
-                label={steppingForm.step1Form1Labels.fullName[language]}
-                placeholder={steppingForm.step1Form1Labels.fullName[language]}
-                key={form.key('fullName')}
-                {...form.getInputProps('fullName')}
-                required
-              />
+            {/* Driver Information Section */}
+            <Box>
+              <SimpleGrid cols={{ base: 1, md: 2 }} spacing="md">
+                <TextInput
+                  label={steppingForm.step1Form1Labels.fullName[language]}
+                  placeholder={steppingForm.step1Form1Labels.fullName[language]}
+                  key={form.key('fullName')}
+                  {...form.getInputProps('fullName')}
+                  required
+                />
 
-              <TextInput
-                label={steppingForm.step1Form1Labels.email[language]}
-                placeholder={steppingForm.step1Form1Labels.email[language]}
-                type="email"
-                key={form.key('email')}
-                {...form.getInputProps('email')}
-                required
-              />
+                <TextInput
+                  label={steppingForm.step1Form1Labels.email[language]}
+                  placeholder={steppingForm.step1Form1Labels.email[language]}
+                  type="email"
+                  key={form.key('email')}
+                  {...form.getInputProps('email')}
+                  required
+                />
 
-              <TextInput
-                label={steppingForm.step1Form1Labels.phone[language]}
-                placeholder={steppingForm.step1Form1Labels.phone[language]}
-                key={form.key('phone')}
-                {...form.getInputProps('phone')}
-                required
-              />
+                <TextInput
+                  label={steppingForm.step1Form1Labels.phone[language]}
+                  placeholder={steppingForm.step1Form1Labels.phone[language]}
+                  key={form.key('phone')}
+                  {...form.getInputProps('phone')}
+                  required
+                />
 
-              <TextInput
-                label={steppingForm.step1Form1Labels.cityProvince[language]}
-                placeholder={
-                  steppingForm.step1Form1Labels.cityProvince[language]
+                <TextInput
+                  label={steppingForm.step1Form1Labels.cityProvince[language]}
+                  placeholder={
+                    steppingForm.step1Form1Labels.cityProvince[language]
+                  }
+                  key={form.key('cityProvince')}
+                  {...form.getInputProps('cityProvince')}
+                  required
+                />
+
+                <TextInput
+                  label={steppingForm.step1Form1Labels.vehicleMake[language]}
+                  placeholder={
+                    steppingForm.step1Form1Labels.vehicleMake[language]
+                  }
+                  key={form.key('vehicleMake')}
+                  {...form.getInputProps('vehicleMake')}
+                  required
+                />
+
+                <TextInput
+                  label={steppingForm.step1Form1Labels.vehicleModel[language]}
+                  placeholder={
+                    steppingForm.step1Form1Labels.vehicleModel[language]
+                  }
+                  key={form.key('vehicleModel')}
+                  {...form.getInputProps('vehicleModel')}
+                  required
+                />
+
+                <TextInput
+                  label={steppingForm.step1Form1Labels.vehicleYear[language]}
+                  placeholder="2020"
+                  key={form.key('vehicleYear')}
+                  {...form.getInputProps('vehicleYear')}
+                  required
+                />
+              </SimpleGrid>
+
+              <Space h="md" />
+
+              <MultiSelect
+                label={
+                  steppingForm.step1Form1Labels.rideSharePlatforms[language]
                 }
-                key={form.key('cityProvince')}
-                {...form.getInputProps('cityProvince')}
-                required
-              />
-
-              <TextInput
-                label={steppingForm.step1Form1Labels.vehicleMake[language]}
                 placeholder={
-                  steppingForm.step1Form1Labels.vehicleMake[language]
+                  steppingForm.step1Form1Labels.rideSharePlatforms[language]
                 }
-                key={form.key('vehicleMake')}
-                {...form.getInputProps('vehicleMake')}
+                data={platformOptions}
+                key={form.key('rideSharePlatforms')}
+                {...form.getInputProps('rideSharePlatforms')}
                 required
               />
 
+              <Space h="md" />
+
               <TextInput
-                label={steppingForm.step1Form1Labels.vehicleModel[language]}
+                label={
+                  steppingForm.step1Form1Labels.weeklyDrivingSchedule[language]
+                }
                 placeholder={
-                  steppingForm.step1Form1Labels.vehicleModel[language]
+                  steppingForm.step1Form1Labels
+                    .weeklyDrivingSchedulePlaceholder[language]
                 }
-                key={form.key('vehicleModel')}
-                {...form.getInputProps('vehicleModel')}
+                key={form.key('weeklyDrivingSchedule')}
+                {...form.getInputProps('weeklyDrivingSchedule')}
                 required
               />
 
-              <TextInput
-                label={steppingForm.step1Form1Labels.vehicleYear[language]}
-                placeholder="2020"
-                key={form.key('vehicleYear')}
-                {...form.getInputProps('vehicleYear')}
+              <Space h="md" />
+
+              {/* Vehicle Photos */}
+              <Input.Wrapper
+                label={steppingForm.step1Form1Labels.vehiclePhotos[language]}
+                description={
+                  steppingForm.step1Form1Labels.vehiclePhotosDescription[
+                    language
+                  ]
+                }
+                error={form.errors.vehiclePhotos}
                 required
-              />
-            </SimpleGrid>
-
-            <Space h="md" />
-
-            <MultiSelect
-              label={steppingForm.step1Form1Labels.rideSharePlatforms[language]}
-              placeholder={
-                steppingForm.step1Form1Labels.rideSharePlatforms[language]
-              }
-              data={platformOptions}
-              key={form.key('rideSharePlatforms')}
-              {...form.getInputProps('rideSharePlatforms')}
-              required
-            />
-
-            <Space h="md" />
-
-            <TextInput
-              label={
-                steppingForm.step1Form1Labels.weeklyDrivingSchedule[language]
-              }
-              placeholder={
-                steppingForm.step1Form1Labels.weeklyDrivingSchedulePlaceholder[
-                  language
-                ]
-              }
-              key={form.key('weeklyDrivingSchedule')}
-              {...form.getInputProps('weeklyDrivingSchedule')}
-              required
-            />
-
-            <Space h="md" />
-
-            {/* Vehicle Photos */}
-            <Input.Wrapper
-              label={steppingForm.step1Form1Labels.vehiclePhotos[language]}
-              description={
-                steppingForm.step1Form1Labels.vehiclePhotosDescription[language]
-              }
-              error={form.errors.vehiclePhotos}
-              required
-            >
-              <Box
-                className={`rounded-md border-2 p-4 ${
-                  form.errors.vehiclePhotos
-                    ? 'border-red-300 bg-red-50'
-                    : 'border-gray-200'
-                }`}
               >
-                <MultiFileImageHandler
-                  onUploadSuccess={(files: FileHandlerRes[]) =>
-                    form.setFieldValue('vehiclePhotos', files)
-                  }
-                  maxFiles={2}
-                />
-              </Box>
-            </Input.Wrapper>
-          </Box>
+                <Box
+                  className={`rounded-md border-2 p-4 ${
+                    form.errors.vehiclePhotos
+                      ? 'border-red-300 bg-red-50'
+                      : 'border-gray-200'
+                  }`}
+                >
+                  <MultiFileImageHandler
+                    onUploadSuccess={(files: FileHandlerRes[]) =>
+                      form.setFieldValue('vehiclePhotos', files)
+                    }
+                    maxFiles={2}
+                  />
+                </Box>
+              </Input.Wrapper>
+            </Box>
 
-          <Divider size="md" />
+            <Divider size="md" />
 
-          {/* Identity Confirmation Section */}
-          <Box>
-            {/* Driver's License */}
-            <Input.Wrapper
-              label={steppingForm.step2FormLabel.driversLicense[language]}
-              error={form.errors.driversLicense}
-              required
-              mb="md"
-            >
-              <Box
-                className={`rounded-md border-2 p-4 ${
-                  form.errors.driversLicense
-                    ? 'border-red-300 bg-red-50'
-                    : 'border-gray-200'
-                }`}
+            {/* Identity Confirmation Section */}
+            <Box>
+              {/* Driver's License */}
+              <Input.Wrapper
+                label={steppingForm.step2FormLabel.driversLicense[language]}
+                error={form.errors.driversLicense}
+                required
+                mb="md"
               >
-                <ImageHandler
-                  onUploadSuccess={(files: FileHandlerRes[]) =>
-                    form.setFieldValue('driversLicense', files)
-                  }
-                />
-              </Box>
-            </Input.Wrapper>
+                <Box
+                  className={`rounded-md border-2 p-4 ${
+                    form.errors.driversLicense
+                      ? 'border-red-300 bg-red-50'
+                      : 'border-gray-200'
+                  }`}
+                >
+                  <ImageHandler
+                    onUploadSuccess={(files: FileHandlerRes[]) =>
+                      form.setFieldValue('driversLicense', files)
+                    }
+                  />
+                </Box>
+              </Input.Wrapper>
 
-            {/* Driver Profile */}
-            <Input.Wrapper
-              label={steppingForm.step2FormLabel.driverProfile[language]}
-              error={form.errors.driverProfile}
-              required
-              mb="md"
-            >
-              <Box
-                className={`rounded-md border-2 p-4 ${
-                  form.errors.driverProfile
-                    ? 'border-red-300 bg-red-50'
-                    : 'border-gray-200'
-                }`}
+              {/* Driver Profile */}
+              <Input.Wrapper
+                label={steppingForm.step2FormLabel.driverProfile[language]}
+                error={form.errors.driverProfile}
+                required
+                mb="md"
               >
-                <ImageHandler
-                  onUploadSuccess={(files: FileHandlerRes[]) =>
-                    form.setFieldValue('driverProfile', files)
-                  }
-                />
-              </Box>
-            </Input.Wrapper>
+                <Box
+                  className={`rounded-md border-2 p-4 ${
+                    form.errors.driverProfile
+                      ? 'border-red-300 bg-red-50'
+                      : 'border-gray-200'
+                  }`}
+                >
+                  <ImageHandler
+                    onUploadSuccess={(files: FileHandlerRes[]) =>
+                      form.setFieldValue('driverProfile', files)
+                    }
+                  />
+                </Box>
+              </Input.Wrapper>
 
-            {/* Trip History */}
-            <Input.Wrapper
-              label={steppingForm.step2FormLabel.tripHistory[language]}
-              error={form.errors.tripHistory}
-              required
-              mb="md"
-            >
-              <Box
-                className={`rounded-md border-2 p-4 ${
-                  form.errors.tripHistory
-                    ? 'border-red-300 bg-red-50'
-                    : 'border-gray-200'
-                }`}
+              {/* Trip History */}
+              <Input.Wrapper
+                label={steppingForm.step2FormLabel.tripHistory[language]}
+                error={form.errors.tripHistory}
+                required
+                mb="md"
               >
-                <ImageHandler
-                  onUploadSuccess={(files: FileHandlerRes[]) =>
-                    form.setFieldValue('tripHistory', files)
-                  }
-                />
-              </Box>
-            </Input.Wrapper>
-          </Box>
+                <Box
+                  className={`rounded-md border-2 p-4 ${
+                    form.errors.tripHistory
+                      ? 'border-red-300 bg-red-50'
+                      : 'border-gray-200'
+                  }`}
+                >
+                  <ImageHandler
+                    onUploadSuccess={(files: FileHandlerRes[]) =>
+                      form.setFieldValue('tripHistory', files)
+                    }
+                  />
+                </Box>
+              </Input.Wrapper>
+            </Box>
 
-          {/* Submit Button */}
-          <Group justify="center" mt="xl">
-            <Stack align="center" gap="sm">
-              <Button
-                type={getErrorCount() > 0 ? 'button' : 'submit'}
-                size="lg"
-                radius={12}
-                loading={loading}
-                onClick={getErrorCount() > 0 ? triggerValidation : undefined}
-                className={`!font-inter !px-16 !text-sm !font-normal ${
-                  getErrorCount() > 0
-                    ? '!bg-red-500 !text-white hover:!bg-red-600'
-                    : '!bg-[var(--mantine-primary-color-5)] !text-white'
-                }`}
-              >
-                {language === 'fr' ? 'Soumission...' : 'Submitting...'}
-              </Button>
-            </Stack>
-          </Group>
-        </Stack>
-      </form>
+            {/* Submit Button */}
+            <Group justify="center" mt="xl">
+              <Stack align="center" gap="sm">
+                <Button
+                  type={getErrorCount() > 0 ? 'button' : 'submit'}
+                  size="lg"
+                  radius={12}
+                  loading={loading}
+                  onClick={getErrorCount() > 0 ? triggerValidation : undefined}
+                  className={`!font-inter !px-16 !text-sm !font-normal ${
+                    getErrorCount() > 0
+                      ? '!bg-red-500 !text-white hover:!bg-red-600'
+                      : '!bg-[var(--mantine-primary-color-5)] !text-white'
+                  }`}
+                >
+                  {language === 'fr' ? 'Soumission...' : 'Submitting...'}
+                </Button>
+              </Stack>
+            </Group>
+          </Stack>
+        </form>
+      </ScrollArea>
     </Box>
   );
 };
