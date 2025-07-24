@@ -14,10 +14,10 @@ import { useLanguage } from '@/providers/languageToggleContext';
 const rightNavLinks = [
   { href: '/', label: { fr: 'Annoncer', en: 'Advertise' } },
   { href: '/drive', label: { fr: 'Conduire', en: 'Drive' } },
-  {
-    href: '/ad-tracker',
-    label: { fr: 'AdTracker (bêta)', en: 'AdTracker (beta)' },
-  },
+  // {
+  //   href: '/ad-tracker',
+  //   label: { fr: 'AdTracker (bêta)', en: 'AdTracker (beta)' },
+  // },
   // { href: '/contact', label: 'Contact Us' },
   // { href: '#', label: <ToggleModeSwitch /> },
 ];
@@ -79,7 +79,10 @@ const TopNav = () => {
             justify=""
             align="center"
           >
-            <Link className="hidden lg:block" href={'/login'}>
+            <Link
+              className="hidden lg:block"
+              href="https://dashboard.emptyad.com/"
+            >
               <Button
                 gradient={{ from: '#D482B6', to: '#CB6AA7', deg: 90 }}
                 size="md"

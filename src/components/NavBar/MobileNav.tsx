@@ -10,7 +10,7 @@ interface MobileNavProps {
 const rightNavLinks = [
   { href: '/', label: 'Advertise' },
   { href: '/drive', label: 'Drive' },
-  { href: '/ad-tracker', label: 'AdTracker (beta)' },
+  // { href: '/ad-tracker', label: 'AdTracker (beta)' },
   // { href: '/contact', label: 'Contact US' },
   // { href: '#', label: <ToggleModeSwitch /> },
 ];
