@@ -369,7 +369,7 @@ const SingleSignupForm = () => {
 
   return (
     <Box pr={8}>
-      <ScrollArea bg={'red'} h={700} scrollbars="y">
+      <ScrollArea h={740} scrollbars="y">
         <form onSubmit={form.onSubmit(handleSubmit)}>
           <Stack gap="xl">
             {/* Main Form Title */}
