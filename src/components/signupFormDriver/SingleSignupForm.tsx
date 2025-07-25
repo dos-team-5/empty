@@ -596,7 +596,7 @@ const SingleSignupForm = () => {
                       : '!bg-[var(--mantine-primary-color-5)] !text-white'
                   }`}
                 >
-                  {language === 'fr' ? 'Soumission...' : 'Submitting...'}
+                  {language === 'fr' ? 'Soumettre' : 'Submit'}
                 </Button>
               </Stack>
             </Group>

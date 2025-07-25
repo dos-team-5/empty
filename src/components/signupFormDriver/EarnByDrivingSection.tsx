@@ -1,6 +1,6 @@
 'use client';
 
-import { Title, Text, SimpleGrid, Paper, List, Image } from '@mantine/core';
+import { Title, Text, SimpleGrid, Paper, Center } from '@mantine/core';
 import { motion } from 'motion/react';
 import { FC } from 'react';
 import { TextAnimate } from '../TextAnimation';
@@ -91,14 +91,14 @@ export const EarnByDrivingSection: FC = () => {
         {/* What to Expect Section */}
         <div>
           <Paper withBorder radius="xl" className="!bg-[#FFF0BF] p-6 sm:p-8">
-            <div className="mb-6 flex items-start justify-between">
+            {/* <div className="mb-6 flex items-start justify-between">
               <Title order={3} className="text-xl font-bold text-gray-900">
                 {language === 'en'
                   ? 'What to Expect'
                   : 'Ce que vous devez attendre'}
               </Title>
               <div className="flex h-10 w-10 items-center justify-center">
-                {/* <MessageCircleWarning size={24} /> */}
+                
                 <Image alt="form-i-icon" src="form-i-icon.svg" />
               </div>
             </div>
@@ -137,7 +137,20 @@ export const EarnByDrivingSection: FC = () => {
                   </List.Item>
                 </motion.div>
               ))}
-            </List>
+            </List> */}
+            <Center>
+                <iframe
+
+          width="315"
+          height="400"
+          src="https://www.youtube.com/embed/0EtGERURFwc?si=SUCK_ELs6Pf-Gw6O"
+          title="YouTube video player"
+          frameBorder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          allowFullScreen
+        ></iframe>
+            </Center>
+             
           </Paper>
         </div>
       </div>
