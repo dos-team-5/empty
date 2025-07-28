@@ -1,6 +1,6 @@
 'use client';
 
-import { Title, Text, SimpleGrid, Paper, Center } from '@mantine/core';
+import { Title, Text, SimpleGrid, Paper, List, Image } from '@mantine/core';
 import { motion } from 'motion/react';
 import { FC } from 'react';
 import { TextAnimate } from '../TextAnimation';
@@ -15,9 +15,10 @@ export const EarnByDrivingSection: FC = () => {
   const howItWorksSteps = content.driverSignUp.howItWorksSteps;
   const whatToExpectItems = content.driverSignUp.whatToExpectItems;
   return (
-    <div className="font-sans">
-      <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
-        {/* Header Section */}
+    <div className="font-sans  ">
+      <div className="mx-auto  px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between  gap-3">
+        {/* left section */}
+        <div className="h-full ">
         <div className="mb-6 text-left sm:mb-6">
           <Title
             ff={'var(--font-inter)'}
@@ -87,11 +88,15 @@ export const EarnByDrivingSection: FC = () => {
             ))}
           </SimpleGrid>
         </div>
+        </div>
+        {/* Header Section */}
+       
+        
 
         {/* What to Expect Section */}
-        <div>
+        <div className="h-full">
           <Paper withBorder radius="xl" className="!bg-[#FFF0BF] p-6 sm:p-8">
-            {/* <div className="mb-6 flex items-start justify-between">
+            <div className=" flex items-start justify-between">
               <Title order={3} className="text-xl font-bold text-gray-900">
                 {language === 'en'
                   ? 'What to Expect'
@@ -137,8 +142,8 @@ export const EarnByDrivingSection: FC = () => {
                   </List.Item>
                 </motion.div>
               ))}
-            </List> */}
-            <Center>
+            </List>
+            {/* <Center>
                 <iframe
 
           width="315"
@@ -149,7 +154,7 @@ export const EarnByDrivingSection: FC = () => {
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
           allowFullScreen
         ></iframe>
-            </Center>
+            </Center> */}
              
           </Paper>
         </div>

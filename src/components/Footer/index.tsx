@@ -7,10 +7,10 @@ import { useLanguage } from '@/providers/languageToggleContext';
 const links = [
   { href: '/', label: { fr: 'Annoncer', en: 'Advertise' } },
   { href: '/drive', label: { fr: 'Conduire', en: 'Drive' } },
-  {
-    href: '/ad-tracker',
-    label: { fr: 'AdTracker (bêta)', en: 'AdTracker (beta)' },
-  },
+  // {
+  //   href: '/ad-tracker',
+  //   label: { fr: 'AdTracker (bêta)', en: 'AdTracker (beta)' },
+  // },
   // { href: '/contact', label: 'Contact Us' },
   // { href: '#', label: <ToggleModeSwitch /> },
 ];
