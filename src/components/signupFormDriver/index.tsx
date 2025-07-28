@@ -1,14 +1,14 @@
 'use client';
 
-import { Box, Stack, Title } from '@mantine/core';
+import { Box, Stack } from '@mantine/core';
 import { memo } from 'react';
-import SingleSignupForm from './SingleSignupForm';
 import { EarnByDrivingSection } from './EarnByDrivingSection';
 import { useLanguage } from '@/providers/languageToggleContext';
+import DriverSignUpForm from './DriverSignUpForm';
 
 // Memoized TitleSection to prevent re-rendering
 const TitleSection = memo(() => (
-  <div className="w-full lg:w-1/2">
+  <div className="w-full">
     <EarnByDrivingSection />
   </div>
 ));
@@ -19,6 +19,9 @@ const DriverSignupSection: React.FC = () => {
   const { language } = useLanguage();
   return (
     <Box mt={260} className="relative">
+      <Box>
+        <DriverSignUpForm/>
+      </Box>
       <Box
         maw={1800}
         mx="auto"
@@ -30,7 +33,7 @@ const DriverSignupSection: React.FC = () => {
             <TitleSection />
             {/* Render memoized title section */}
             <Stack>
-              <Stack maw={690} px={30}>
+              {/* <Stack maw={690} px={30}>
                 <Title
                   order={1}
                   className="!mb-6 text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl"
@@ -40,8 +43,8 @@ const DriverSignupSection: React.FC = () => {
                     {language === 'fr' ? 'Inscrivez-vous' : 'Sign Up'}
                   </span>
                 </Title>
-              </Stack>
-              <Box
+              </Stack> */}
+              {/* <Box
                 mt={{ base: 8, md: 32, lg: 0 }}
                 w={'100%'}
                 p={{ base: 16, md: 32 }}
@@ -49,7 +52,7 @@ const DriverSignupSection: React.FC = () => {
                 className="rounded-4xl !shadow-[20px_20px_60px_#bebebe,-20px_-20px_60px_#080F340F]"
               >
                 <SingleSignupForm />
-              </Box>
+              </Box> */}
             </Stack>
           </Box>
         </Box>

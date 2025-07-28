@@ -1,5 +1,5 @@
 'use client';
-import { Box, Burger, Drawer, Flex, Group, Button } from '@mantine/core';
+import { Box, Burger, Drawer, Flex, Group, SegmentedControl } from '@mantine/core';
 import Link from 'next/link';
 import { useState } from 'react';
 import Image from 'next/image';
@@ -7,9 +7,10 @@ import MobileNav from './MobileNav';
 import { X } from 'lucide-react';
 import PrimaryBtn from '../PrimaryBtn';
 import { motion } from 'motion/react';
-import { LanguageToggle } from '../languageToggle';
-import { usePathname } from 'next/navigation';
+
+import { usePathname, useRouter } from 'next/navigation';
 import { useLanguage } from '@/providers/languageToggleContext';
+import { InteractiveHoverButton } from '../InterectiveHoverButton';
 
 const rightNavLinks = [
   { href: '/', label: { fr: 'Annoncer', en: 'Advertise' } },
@@ -25,7 +26,8 @@ const rightNavLinks = [
 const TopNav = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const pathname = usePathname();
-  const { language } = useLanguage();
+  const { language, setLanguage } = useLanguage();
+  const router = useRouter();
 
   const toggleMobileMenu = () => {
     setMobileMenuOpen(!mobileMenuOpen);
@@ -79,7 +81,7 @@ const TopNav = () => {
             justify=""
             align="center"
           >
-            <Link
+            {/* <Link
               className="hidden lg:block"
               href="https://dashboard.emptyad.com/"
             >
@@ -90,6 +92,18 @@ const TopNav = () => {
               >
                 Login
               </Button>
+            </Link> */}
+             {/* <Link
+              className="hidden lg:block"
+              href="https://dashboard.emptyad.com/"
+            >
+              <InteractiveHoverButton>Login</InteractiveHoverButton>
+            </Link> */}
+            <Link
+              className="hidden lg:block"
+              href="https://dashboard.emptyad.com/"
+            >
+              <InteractiveHoverButton>Login</InteractiveHoverButton>
             </Link>
             <Link className="hidden lg:!flex" href={'/contact'}>
               <PrimaryBtn
@@ -99,8 +113,25 @@ const TopNav = () => {
                 arrow={false}
               />
             </Link>
-            <Box className="hidden lg:block">
-              <LanguageToggle />
+            <Box>
+              <Box className="rounded-md border border-[#D381B5]">
+                <SegmentedControl
+                  withItemsBorders={false}
+                  color="#D381B5"
+                  bg="white"
+                  value={language}
+                  onChange={(value) => {
+                    if (value === 'en' || value === 'fr') {
+                      setLanguage(value);
+                      router.refresh();
+                    }
+                  }}
+                  data={[
+                    { label: 'En', value: 'en' },
+                    { label: 'Fr', value: 'fr' },
+                  ]}
+                />
+              </Box>
             </Box>
             <Burger
               opened={mobileMenuOpen}
