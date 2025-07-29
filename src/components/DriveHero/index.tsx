@@ -100,6 +100,7 @@ const DriveHeroSection: React.FC = () => {
               <PrimaryBtn btnText={content.heroSection.cta} glowOnHover />
             </Box>
           </motion.div>
+         
         </Stack>
         <div className="w-full lg:w-[45%]">
           {/* <div

@@ -1,6 +1,7 @@
 'use client';
 
-import { createContext, useContext, useState, ReactNode, useMemo } from 'react';
+import { createContext, useContext, useState, ReactNode, useMemo, useEffect } from 'react';
+import { usePathname } from 'next/navigation';
 
 export type Language = 'en' | 'fr';
 
@@ -14,11 +15,47 @@ const LanguageContext = createContext<LanguageContextProps | undefined>(
 );
 
 export const LanguageProvider = ({ children }: { children: ReactNode }) => {
-  const [language, setLanguage] = useState<Language>('fr');
+  const pathname = usePathname();
+  
+  // Determine default language based on route
+  const getDefaultLanguage = (): Language => {
+    if (pathname === '/drive') {
+      return 'fr';
+    }
+    return 'en';
+  };
+  
+  const [language, setLanguage] = useState<Language>(getDefaultLanguage());
+  const [userHasChangedLanguage, setUserHasChangedLanguage] = useState(false);
+  const [previousPathname, setPreviousPathname] = useState<string>(pathname);
+
+  // Update language when route changes
+  useEffect(() => {
+    const defaultLang = getDefaultLanguage();
+    
+    // Only reset language if we're navigating to a different page
+    if (pathname !== previousPathname) {
+      if (pathname === '/drive') {
+        // Always reset to French when landing on /drive page from another page
+        setLanguage('fr');
+        setUserHasChangedLanguage(false);
+      } else if (!userHasChangedLanguage) {
+        // For other pages, only change if user hasn't manually changed it
+        setLanguage(defaultLang);
+      }
+      setPreviousPathname(pathname);
+    }
+  }, [pathname, userHasChangedLanguage, previousPathname]);
+
+  // Custom setLanguage that tracks manual changes
+  const handleSetLanguage = (lang: Language) => {
+    setLanguage(lang);
+    setUserHasChangedLanguage(true);
+  };
 
   const contextValue = useMemo(
-    () => ({ language, setLanguage }),
-    [language, setLanguage]
+    () => ({ language, setLanguage: handleSetLanguage }),
+    [language]
   );
 
   return (
