@@ -1,7 +1,8 @@
 'use client';
-import { Box, Button, Flex } from '@mantine/core';
+import { Box, Flex } from '@mantine/core';
 import Link from 'next/link';
 import PrimaryBtn from '../PrimaryBtn';
+import { InteractiveHoverButton } from '../InterectiveHoverButton';
 
 interface MobileNavProps {
   onClose: () => void;
@@ -33,17 +34,14 @@ const MobileNav = ({ onClose }: MobileNavProps) => {
           )}
         </div>
       ))}
+       
 
       <Flex align={'center'} gap={8}>
-        <Link className="block lg:hidden" href={'/login'}>
-          <Button
-            gradient={{ from: '#D482B6', to: '#CB6AA7', deg: 90 }}
-            size="sm"
-            variant="gradient"
-          >
-            Login
-          </Button>
-        </Link>
+        <Link
+              href="https://dashboard.emptyad.com/"
+            >
+              <InteractiveHoverButton>Login</InteractiveHoverButton>
+            </Link>
         <Link href={'/contact'} className="">
           <div onClick={onClose}>
             <PrimaryBtn
@@ -55,6 +53,7 @@ const MobileNav = ({ onClose }: MobileNavProps) => {
           </div>
         </Link>
       </Flex>
+      
     </Box>
   );
 };

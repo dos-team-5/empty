@@ -18,15 +18,15 @@ TitleSection.displayName = 'TitleSection';
 const DriverSignupSection: React.FC = () => {
   const { language } = useLanguage();
   return (
-    <Box mt={260} className="relative">
-      <Box>
+    <Box mt={260} className="relative" id="signUpDriver">
+      <Box  >
         <DriverSignUpForm/>
       </Box>
       <Box
         maw={1800}
         mx="auto"
         className="px-4 pb-16 sm:px-8 md:px-16 lg:px-20 xl:px-24 2xl:px-32"
-        id="signUpDriver"
+       
       >
         <Box className="flex flex-col justify-start" mt={110} mb={50}>
           <Box className="relative flex flex-col items-center justify-center gap-8 lg:flex-row lg:items-start lg:justify-between">
