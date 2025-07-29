@@ -1,0 +1,1 @@
+export const API_ENDPOINT = `https://api.emptyad.com/api/v1`;

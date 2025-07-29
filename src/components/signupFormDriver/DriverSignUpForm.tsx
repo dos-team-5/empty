@@ -5,15 +5,20 @@ import { Icon } from '@/components/FileManager/lib/Icon';
 import { useLanguage } from '@/providers/languageToggleContext';
 import { driverSignUpFormContent } from '@/contents/drive/DriverSignUpFormContent';
 import SuccessMessage from './SuccessMessage';
+import { notifications } from '@mantine/notifications';
+import { useRouter } from 'next/navigation';
+import { driverSignUp } from '@/app/actions/driverSignup';
+
 
 
 interface FormValues {
   name: string;
   email: string;
   phone: string;
-  hours: string;
+  weeklyDrivingHours: string;
   city: string;
   referralCode?: string;
+  password: string;
 }
 
 const DriverSignUpForm = () => {
@@ -21,28 +26,58 @@ const DriverSignUpForm = () => {
   const content = driverSignUpFormContent[language];
   const [videoModalOpened, setVideoModalOpened] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const router = useRouter()
   
   const form = useForm<FormValues>({
     initialValues: {
       name: '',
       email: '',
       phone: '',
-      hours: '',
+     weeklyDrivingHours: '',
       city: '',
       referralCode: '',
+      password: 'Password@1',
     },
     validate: {
       name: (value) => (value.length < 2 ? content.validation.nameRequired : null),
       email: (value) => (/^\S+@\S+$/.test(value) ? null : content.validation.emailInvalid),
       phone: (value) => (value.length < 10 ? content.validation.phoneRequired : null),
-      hours: (value) => (value.length === 0 ? content.validation.hoursRequired : null),
+      weeklyDrivingHours: (value) => (value.length === 0 ? content.validation.hoursRequired : null),
       city: (value) => (value.length < 2 ? content.validation.cityRequired : null),
     },
   });
 
-  const handleSubmit = (values: FormValues) => {
-    console.log('Form submitted with values:', values);
-    setIsSubmitted(true);
+   const handleSubmit = async (values: FormValues) => {
+    setIsLoading(true);
+    try {
+      // Add default password to the form values
+      const formData = {
+        ...values,
+        password: 'Password@1'
+      };
+      console.log(formData, )
+      
+      const response = await driverSignUp(formData);
+      if (response?.success) {
+        notifications.show({
+          title: 'Success',
+          message: 'You have successfully registered as a driver.',
+          color: 'green',
+        });
+        setIsSubmitted(true);
+        router.push('https://dashboard.emptyad.com/driver-login');
+      } else {
+        notifications.show({
+          title: 'Failed',
+          message: <Text>{response?.error}</Text>,
+          color: 'red',
+        });
+        console.log(response?.error);
+      }
+    } finally {
+      setIsLoading(false);
+    }
   };
 
  
@@ -146,7 +181,7 @@ const DriverSignUpForm = () => {
                       />
                       </Flex>
                       
-                      <Flex  gap={{base:15, sm:10}} direction={{base:'column', sm:'row'}}  wrap='nowrap'  w='100%' justify='center' >
+                      <Flex  gap={{base:15, sm:10}} direction={{base:'column', sm:'row'}}  wrap='nowrap'  w='100%' justify='center' align='flex-start' >
                                <TextInput   w={{base:'100%', md:"48%"}}
                                
                                radius='md'
@@ -154,6 +189,11 @@ const DriverSignUpForm = () => {
                                  input: {
                                    border: 'none',
                                    boxShadow: '0 0 10px rgba(0, 0, 0, 0.1)'
+                                 },
+                                 label: {
+                                   whiteSpace: 'nowrap',
+                                   overflow: 'hidden',
+                                   textOverflow: 'ellipsis'
                                  }
                                }}
                         label={content.form.phone.label}
@@ -169,12 +209,17 @@ const DriverSignUpForm = () => {
                          input: {
                            border: 'none',
                            boxShadow: '0 0 10px rgba(0, 0, 0, 0.1)'
+                         },
+                         label: {
+                           whiteSpace: 'nowrap',
+                           overflow: 'hidden',
+                           textOverflow: 'ellipsis'
                          }
                        }}
                         label={content.form.hours.label}
                         placeholder={content.form.hours.placeholder}
                         required
-                        {...form.getInputProps('hours')}
+                        {...form.getInputProps('weeklyDrivingHours')}
                       />
                       </Flex>
                       
@@ -215,7 +260,7 @@ const DriverSignUpForm = () => {
                           <Button className='!text-[#D481B5] !border !border-[#D481B5]' variant='default'>
                               {content.buttons.back}
                           </Button>
-                              <Button bg="#D481B5" type="submit" >
+                              <Button loading={isLoading} bg="#D481B5" type="submit" >
                         {content.buttons.submit}
                       </Button>
                       </Group>
@@ -237,7 +282,13 @@ const DriverSignUpForm = () => {
       withCloseButton={false}
 
     >
-      <Box style={{ aspectRatio: '9/16' }}>
+      <Box bg='red' style={{ aspectRatio: '9/16' }} className='!relative'>
+      <ActionIcon variant='default' className="!absolute top-2 left-2 z-50" onClick={(e) => {
+        e.stopPropagation();
+        setVideoModalOpened(false);
+      }}>
+        <Icon icon='gridicons:cross'/>
+      </ActionIcon>
         <iframe
           width="100%"
           height="100%"
