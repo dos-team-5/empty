@@ -66,7 +66,7 @@ const DriverSignUpForm = () => {
           color: 'green',
         });
         setIsSubmitted(true);
-        router.push('https://dashboard.emptyad.com/driver-login');
+        // router.push('https://dashboard.emptyad.com/driver-login');
       } else {
         notifications.show({
           title: 'Failed',
@@ -127,7 +127,7 @@ const DriverSignUpForm = () => {
               <iframe
                 width="100%"
                 height="100%"
-                src={`${content.videoUrl.replace('youtube.com/shorts/', 'www.youtube.com/embed/').split('?')[0]}?autoplay=0&loop=1&mute=0&playlist=${content.videoUrl.split('/').pop()?.split('?')[0]}&controls=1&modestbranding=1&rel=0`}
+                src="https://www.youtube.com/embed/lCH67l4mk5o" 
                 frameBorder="0"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                 allowFullScreen
@@ -292,7 +292,7 @@ const DriverSignUpForm = () => {
         <iframe
           width="100%"
           height="100%"
-          src={`${content.videoUrl.replace('youtube.com/shorts/', 'www.youtube.com/embed/').split('?')[0]}?autoplay=0&loop=1&mute=0&playlist=${content.videoUrl.split('/').pop()?.split('?')[0]}&controls=1&modestbranding=1&rel=0`}
+           src="https://www.youtube.com/embed/lCH67l4mk5o"
           frameBorder="0"
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
           allowFullScreen
