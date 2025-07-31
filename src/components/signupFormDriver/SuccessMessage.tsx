@@ -1,5 +1,6 @@
-import { Card, Title, Stack, Image, Text, Box } from '@mantine/core';
+import { Card, Title, Stack, Image, Text, Box, Button } from '@mantine/core';
 import { useLanguage } from '@/providers/languageToggleContext';
+import Link from 'next/link';
 
 const SuccessMessage = () => {
   const { language } = useLanguage();
@@ -7,7 +8,8 @@ const SuccessMessage = () => {
   const content = {
     en: {
       title: "You have successfully signed up",
-      message: "Check your email for further information"
+      message: "Check your email for further information",
+      loginNow: 'Login Now'
     },
     fr: {
       title: "Vous vous êtes inscrit avec succès",
@@ -27,6 +29,10 @@ const SuccessMessage = () => {
         <Text ta='center' fz={13}>{content[language].message}</Text>
         <Stack align="center" gap={15}>
         </Stack>
+       
+          <Button component={Link} href="https://dashboard.emptyad.com/driver-login"  bg="#D481B5" type="submit" >
+           Login Now
+          </Button>
       </Stack>
     </Card>
   );
