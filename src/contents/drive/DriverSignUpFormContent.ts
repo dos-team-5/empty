@@ -23,6 +23,14 @@ export type DriverSignUpFormLanguageContent = {
       label: string;
       placeholder: string;
     };
+    vehicleMake: {
+      label: string;
+      placeholder: string;
+    };
+    vehicleModel: {
+      label: string;
+      placeholder: string;
+    };
     city: {
       label: string;
       placeholder: string;
@@ -42,6 +50,8 @@ export type DriverSignUpFormLanguageContent = {
     phoneRequired: string;
     hoursRequired: string;
     cityRequired: string;
+    vehicleMakeRequired: string;
+    vehicleModelRequired: string;
   };
 };
 
@@ -55,49 +65,61 @@ export type DriverSignUpFormContent = Record<
 export const driverSignUpFormContent: DriverSignUpFormContent = {
   fr: {
     title: 'Inscription Conducteur',
-    subtitle: 'Veuillez remplir vos informations pour que nous puissions vous contacter.',
+    subtitle:
+      'Veuillez remplir vos informations pour que nous puissions vous contacter.',
     videoPlayText: 'Lire la Vidéo',
-    videoSubtext: 'Pour en savoir plus sur l\'inscription',
+    videoSubtext: "Pour en savoir plus sur l'inscription",
     videoPlayTextDesktop: 'Lire la Vidéo Encore',
     videoSubtextDesktop: 'Pour en savoir plus sur cette section',
     videoUrl: 'https://youtube.com/shorts/jcuC62OprKU?si=t-mlgLL4F7IRb93P',
     form: {
       fullName: {
         label: 'Nom Complet',
-        placeholder: 'Entrez votre nom complet'
+        placeholder: 'Entrez votre nom complet',
       },
       email: {
         label: 'Email',
-        placeholder: 'Entrez votre email'
+        placeholder: 'Entrez votre email',
       },
       phone: {
         label: 'Téléphone',
-        placeholder: 'Entrez votre numéro de téléphone'
+        placeholder: 'Entrez votre numéro de téléphone',
       },
       hours: {
-        label: 'Combien d\'heures conduisez-vous par semaine?',
-        placeholder: 'Heures disponibles par semaine'
+        label: "Combien d'heures conduisez-vous par semaine?",
+        placeholder: 'Heures disponibles par semaine',
+      },
+      vehicleMake: {
+        label: 'Marque de véhicule',
+        placeholder: 'Entrez la marque de votre véhicule',
+      },
+      vehicleModel: {
+        label: 'Modèle de véhicule',
+        placeholder: 'Entrez le modèle de votre véhicule',
       },
       city: {
         label: 'Ville',
-        placeholder: 'Entrez votre ville'
+        placeholder: 'Entrez votre ville',
       },
       referralCode: {
         label: 'Code de Parrainage (Optionnel)',
-        placeholder: 'Entrez le code de parrainage si vous en avez un'
-      }
+        placeholder: 'Entrez le code de parrainage si vous en avez un',
+      },
     },
     buttons: {
       back: 'Retour',
-      submit: 'Soumettre'
+      submit: 'Soumettre',
     },
     validation: {
       nameRequired: 'Le nom doit contenir au moins 2 lettres',
       emailInvalid: 'Email invalide',
-      phoneRequired: 'Le numéro de téléphone doit contenir au moins 10 chiffres',
+      phoneRequired:
+        'Le numéro de téléphone doit contenir au moins 10 chiffres',
       hoursRequired: 'Le champ heures est requis',
-      cityRequired: 'La ville doit contenir au moins 2 lettres'
-    }
+      cityRequired: 'La ville doit contenir au moins 2 lettres',
+      vehicleMakeRequired: 'La marque de véhicule est requise',
+      vehicleModelRequired: 'Le modèle de véhicule est requis',
+    },
   },
   en: {
     title: 'Driver Sign Up',
@@ -110,39 +132,49 @@ export const driverSignUpFormContent: DriverSignUpFormContent = {
     form: {
       fullName: {
         label: 'Full Name',
-        placeholder: 'Enter your full name'
+        placeholder: 'Enter your full name',
       },
       email: {
         label: 'Email',
-        placeholder: 'Enter your email'
+        placeholder: 'Enter your email',
       },
       phone: {
         label: 'Phone',
-        placeholder: 'Enter your phone number'
+        placeholder: 'Enter your phone number',
       },
       hours: {
         label: 'How many hours do you drive per week?',
-        placeholder: 'Available hours per week'
+        placeholder: 'Available hours per week',
+      },
+      vehicleMake: {
+        label: 'Vehicle Brand',
+        placeholder: 'Enter vehicle Brand',
+      },
+      vehicleModel: {
+        label: 'Vehicle Model',
+        placeholder: 'Enter vehicle model',
       },
       city: {
         label: 'City',
-        placeholder: 'Enter your city'
+        placeholder: 'Enter your city',
       },
       referralCode: {
         label: 'Referral Code (Optional)',
-        placeholder: 'Enter referral code if you have one'
-      }
+        placeholder: 'Enter referral code if you have one',
+      },
     },
     buttons: {
       back: 'Back',
-      submit: 'Submit'
+      submit: 'Submit',
     },
     validation: {
       nameRequired: 'Name must have at least 2 letters',
       emailInvalid: 'Invalid email',
       phoneRequired: 'Phone number must be at least 10 digits',
       hoursRequired: 'Hours field is required',
-      cityRequired: 'City must have at least 2 letters'
-    }
-  }
+      cityRequired: 'City must have at least 2 letters',
+      vehicleMakeRequired: 'Vehicle make is required',
+      vehicleModelRequired: 'Vehicle model is required',
+    },
+  },
 };
