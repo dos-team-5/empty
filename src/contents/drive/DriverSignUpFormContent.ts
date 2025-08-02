@@ -173,7 +173,7 @@ export const driverSignUpFormContent: DriverSignUpFormContent = {
       phoneRequired: 'Phone number must be at least 10 digits',
       hoursRequired: 'Hours field is required',
       cityRequired: 'City must have at least 2 letters',
-      vehicleMakeRequired: 'Vehicle make is required',
+      vehicleMakeRequired: 'Vehicle Brand is required',
       vehicleModelRequired: 'Vehicle model is required',
     },
   },
