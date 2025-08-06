@@ -116,9 +116,7 @@ const PricingCards = () => {
 
   const selectedOption = carOptions[selectedIndex];
 
-  if (!process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY) {
-    throw new Error('Stripe publishable key is not defined');
-  }
+  // Stripe publishable key validation is handled in the Stripe provider
 
   const fetchClientSecret = useCallback(async () => {
     if (selectedOption.price === null) {
@@ -133,6 +131,10 @@ const PricingCards = () => {
         body: JSON.stringify({
           price: selectedOption.price,
           cars: selectedOption.cars,
+          planType: 'basic', // Default to basic plan for this component
+          months: 1, // Default to 1 month
+          currency: 'cad', // Default to CAD
+          exchangeRate: 1, // Default exchange rate
         }),
       });
       const data = await response.json();
