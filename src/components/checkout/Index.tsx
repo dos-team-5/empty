@@ -1,10 +1,10 @@
 import { Modal, ScrollArea } from '@mantine/core';
-import {
-  EmbeddedCheckoutProvider,
-  EmbeddedCheckout,
-} from '@stripe/react-stripe-js';
-import { Stripe } from '@stripe/stripe-js/dist';
-import { useState, useEffect } from 'react';
+// import {
+//   EmbeddedCheckoutProvider,
+//   EmbeddedCheckout,
+// } from '@stripe/react-stripe-js';
+// import { Stripe } from '@stripe/stripe-js/dist';
+import { useEffect, useState } from 'react';
 
 interface CheckoutModalProps {
   opened: boolean;
@@ -13,7 +13,8 @@ interface CheckoutModalProps {
     fetchClientSecret: () => Promise<string>;
     [key: string]: any;
   };
-  stripePromise: Promise<Stripe | null>;
+  // stripePromise: Promise<Stripe | null>;
+  stripePromise: Promise<any | null>;
 }
 
 const CheckoutModal = ({
@@ -22,7 +23,8 @@ const CheckoutModal = ({
   options,
   stripePromise,
 }: CheckoutModalProps) => {
-  const [stripe, setStripe] = useState<Stripe | null>(null);
+  // const [stripe, setStripe] = useState<Stripe | null>(null);
+  const [stripe, setStripe] = useState<any | null>(null);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
@@ -59,15 +61,16 @@ const CheckoutModal = ({
         {error ? (
           <div className="text-red-500">{error}</div>
         ) : stripe ? (
-          <EmbeddedCheckoutProvider
-            stripe={stripe}
-            options={{
-              ...options,
-              fetchClientSecret: wrappedFetchClientSecret,
-            }}
-          >
-            <EmbeddedCheckout />
-          </EmbeddedCheckoutProvider>
+          // <EmbeddedCheckoutProvider
+          //   stripe={stripe}
+          //   options={{
+          //     ...options,
+          //     fetchClientSecret: wrappedFetchClientSecret,
+          //   }}
+          // >
+          //   <EmbeddedCheckout />
+          // </EmbeddedCheckoutProvider>
+          <div>Checkout component temporarily disabled</div>
         ) : (
           <div>Loading checkout...</div>
         )}

@@ -1,6 +1,9 @@
 'use client';
 
-import { useState, useMemo, memo, useEffect, useCallback } from 'react';
+import { TextAnimate } from '@/components/TextAnimation';
+import { priceConfiguratorContent } from '@/contents/advertise/PricingConfigaratorContent';
+import { useLanguage } from '@/providers/languageToggleContext';
+import { Icon } from '@iconify/react/dist/iconify.js';
 import {
   Accordion,
   Badge,
@@ -14,19 +17,16 @@ import {
   Slider,
   Title,
 } from '@mantine/core';
-import { motion } from 'motion/react';
-import { Currency, PlanType } from './types';
-import { usePricingCalculation } from './hooks/usePriceCalculation';
-import { ADDONS, CAR_OPTIONS } from './data';
-import { PricingCard } from './components/PricingCard';
-import { PlanCard } from './components/PlanCard';
-import { AddonItem } from './components/AddOnItem';
-import { Icon } from '@iconify/react/dist/iconify.js';
-import { TextAnimate } from '@/components/TextAnimation';
-import { getExchangeRates } from './action/getExchangeRates';
 import { useHover } from '@mantine/hooks';
-import { useLanguage } from '@/providers/languageToggleContext';
-import { priceConfiguratorContent } from '@/contents/advertise/PricingConfigaratorContent';
+import { motion } from 'motion/react';
+import { memo, useCallback, useEffect, useMemo, useState } from 'react';
+import { getExchangeRates } from './action/getExchangeRates';
+import { AddonItem } from './components/AddOnItem';
+import { PlanCard } from './components/PlanCard';
+import { PricingCard } from './components/PricingCard';
+import { ADDONS, CAR_OPTIONS } from './data';
+import { usePricingCalculation } from './hooks/usePriceCalculation';
+import { Currency, PlanType } from './types';
 
 const TitleSection = memo(({ title }: { title: string }) => (
   <div className="mb-12 space-y-6 rounded-3xl text-start">
@@ -160,9 +160,7 @@ export default function PricingConfigurator() {
     setCarOptions(CAR_OPTIONS);
   };
 
-  if (!process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY) {
-    throw new Error('Stripe publishable key is not defined');
-  }
+  // Stripe publishable key validation is handled in the Stripe provider
 
   const fetchClientSecret = useCallback(async (price: number, cars: number) => {
     if (price === null || price === undefined) {
@@ -175,7 +173,14 @@ export default function PricingConfigurator() {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ price, cars }),
+        body: JSON.stringify({ 
+          price, 
+          cars, 
+          planType, 
+          months, 
+          currency, 
+          exchangeRate 
+        }),
       });
 
       const data = await response.json();
@@ -189,7 +194,7 @@ export default function PricingConfigurator() {
       console.error('Error fetching client secret:', error);
       throw error;
     }
-  }, []);
+  }, [planType, months, currency, exchangeRate]);
 
   const content = priceConfiguratorContent[language];
 

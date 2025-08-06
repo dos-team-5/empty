@@ -1,16 +1,14 @@
-import { cn, delay } from './utils';
-import { theme } from './theme';
 import { generateColors, generateColorsMap } from './colors-generator';
 import { ReactLenis, useLenis } from './lenis';
-import { stripe } from './stripe';
+import { theme } from './theme';
+import { cn, delay } from './utils';
 
 export {
   cn,
   delay,
-  theme,
   generateColors,
   generateColorsMap,
   ReactLenis,
+  theme,
   useLenis,
-  stripe,
 };
