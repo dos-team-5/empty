@@ -35,6 +35,10 @@ export type DriverSignUpFormLanguageContent = {
       label: string;
       placeholder: string;
     };
+    preferredLocation: {
+      label: string;
+      placeholder: string;
+    };
     referralCode: {
       label: string;
       placeholder: string;
@@ -101,6 +105,10 @@ export const driverSignUpFormContent: DriverSignUpFormContent = {
         label: 'Ville',
         placeholder: 'Entrez votre ville',
       },
+      preferredLocation: {
+        label: 'Où conduisez-vous habituellement ?',
+        placeholder: 'Choisissez un quartier',
+      },
       referralCode: {
         label: 'Code de Parrainage (Optionnel)',
         placeholder: 'Entrez le code de parrainage si vous en avez un',
@@ -157,6 +165,10 @@ export const driverSignUpFormContent: DriverSignUpFormContent = {
       city: {
         label: 'City',
         placeholder: 'Enter your city',
+      },
+       preferredLocation: {
+        label: 'Where do you usually drive?',
+        placeholder: 'Choose a neighbourhood',
       },
       referralCode: {
         label: 'Referral Code (Optional)',
