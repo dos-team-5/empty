@@ -1,4 +1,3 @@
-import { driverSignUp } from '@/app/actions/driverSignup';
 import { Icon } from '@/components/FileManager/lib/Icon';
 import { driverSignUpFormContent } from '@/contents/drive/DriverSignUpFormContent';
 import { useLanguage } from '@/providers/languageToggleContext';
@@ -16,10 +15,12 @@ import {
   Title,
 } from '@mantine/core';
 import { useForm } from '@mantine/form';
-import { notifications } from '@mantine/notifications';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import SuccessMessage from './SuccessMessage';
+import { MultiSelectCreatable } from './MultiSelectCreatable';
+import { driverSignUp } from '@/app/actions/driverSignup';
+import { notifications } from '@mantine/notifications';
 
 interface FormValues {
   name: string;
@@ -31,6 +32,7 @@ interface FormValues {
   vehicleModel: string;
   referralCode?: string;
   password: string;
+  preferredLocation:string;
 }
 
 const DriverSignUpForm = () => {
@@ -40,6 +42,19 @@ const DriverSignUpForm = () => {
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const router = useRouter();
+   const neighbourhoods = [
+    { value: 'Plateau Mont Royal', label: 'Plateau Mont Royal' },
+    { value: 'Mile End', label: 'Mile End' },
+    { value: 'Verdun', label: 'Verdun' },
+    { value: 'Notre Dame de Grâce', label: 'Notre Dame de Grâce' },
+    { value: 'Saint Henri', label: 'Saint Henri' },
+    { value: 'Rosemont La Petite Patrie', label: 'Rosemont La Petite Patrie' },
+    {
+      value: 'Villeray Saint-Michel Parc-Extension',
+      label: 'Villeray Saint-Michel Parc-Extension',
+    },
+    { value: 'Airport', label: 'Airport' },
+  ];
 
   const form = useForm<FormValues>({
     initialValues: {
@@ -52,6 +67,7 @@ const DriverSignUpForm = () => {
       vehicleModel: '',
       referralCode: '',
       password: 'Password@1',
+      preferredLocation:''
     },
     validate: {
       name: (value) =>
@@ -78,8 +94,11 @@ const DriverSignUpForm = () => {
       const formData = {
         ...values,
         password: 'Password@1',
+        preferredLocation: Array.isArray(values.preferredLocation) 
+        ? values.preferredLocation.join(', ') 
+        : values.preferredLocation || '',
       };
-      console.log(formData);
+     ;
 
       const response = await driverSignUp(formData);
       if (response?.success) {
@@ -253,9 +272,29 @@ const DriverSignUpForm = () => {
                       required
                       {...form.getInputProps('phone')}
                     />
-
-                    <TextInput
+                  <TextInput
                       w={{ base: '100%', md: '48%' }}
+                      radius="md"
+                       styles={{
+                        input: {
+                          border: 'none',
+                          boxShadow: '0 0 10px rgba(0, 0, 0, 0.1)',
+                        },
+                        label: {
+                          whiteSpace: 'nowrap',
+                          overflow: 'hidden',
+                          textOverflow: 'ellipsis',
+                        },
+                      }}
+                      label={content.form.city.label}
+                      placeholder={content.form.city.placeholder}
+                      required
+                      {...form.getInputProps('city')}
+                    />
+                   
+                  </Flex>
+                   <TextInput
+                      w={{ base: '100%', md: '100%' }}
                       radius="md"
                       styles={{
                         input: {
@@ -273,7 +312,6 @@ const DriverSignUpForm = () => {
                       required
                       {...form.getInputProps('weeklyDrivingHours')}
                     />
-                  </Flex>
 
                   <Flex
                     gap={{ base: 15, md: 10 }}
@@ -313,29 +351,31 @@ const DriverSignUpForm = () => {
                   </Flex>
 
                   <Flex
+                 
                     gap={{ base: 15, md: 10 }}
                     direction={{ base: 'column', md: 'row' }}
                     wrap="nowrap"
                     w="100%"
                     justify="center"
                   >
-                    <TextInput
-                      w={{ base: '100%', md: '48%' }}
+                    
+
+                    <MultiSelectCreatable
+                  
+                      multiple={true}
+                      
                       radius="md"
-                      styles={{
-                        input: {
-                          border: 'none',
-                          boxShadow: '0 0 10px rgba(0, 0, 0, 0.1)',
-                        },
-                      }}
-                      label={content.form.city.label}
-                      placeholder={content.form.city.placeholder}
-                      required
-                      {...form.getInputProps('city')}
+                     
+                      data={neighbourhoods}
+                      // onChange={setSelectedNeighbourhood}
+                      label={ content.form.preferredLocation.label}
+                      placeholder={content.form.preferredLocation.placeholder}
+                      {...form.getInputProps('preferredLocation')}
                     />
 
                     <TextInput
-                      w={{ base: '100%', md: '48%' }}
+                     w={{ base: '100%', md: '48%' }}
+                     
                       radius="md"
                       styles={{
                         input: {
