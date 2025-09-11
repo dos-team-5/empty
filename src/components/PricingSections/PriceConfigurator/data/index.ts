@@ -8,8 +8,8 @@ export type Language = 'en' | 'fr';
 export const PLAN_CONFIGS: Record<Language, Record<PlanType, PlanConfig>> = {
   en: {
     basic: {
-      installationFee: 66.0,
-      pricing: { tier1: 269.0, tier2: 269.0, tier3: 269.0, tier4: 269.0 },
+      installationFee: 96.0,
+      pricing: { tier1: 335.0, tier2: 335.0, tier3: 335.0, tier4: 335.0 },
       features: [
         '40+ hours of exposure per car per week',
         'Ads displayed across high-traffic areas in the city',
@@ -25,8 +25,8 @@ export const PLAN_CONFIGS: Record<Language, Record<PlanType, PlanConfig>> = {
       ],
     },
     premium: {
-      installationFee: 210,
-      pricing: { tier1: 303.0, tier2: 282.0, tier3: 271.0, tier4: 261.0 },
+      installationFee: 289,
+      pricing: { tier1: 365.0, tier2: 365.0, tier3: 365.0, tier4: 365.0 },
       features: [
         '95-99% confidence rate in impression accuracy',
         'Industry-leading measurement technology',

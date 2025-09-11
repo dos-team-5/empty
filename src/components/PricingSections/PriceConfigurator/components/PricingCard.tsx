@@ -108,7 +108,7 @@ export const PricingCard = ({
       <Card radius={10} className="!border-primary border-2">
         <Card.Section p={16} className="text-center" bg="var(--color-primary)">
           <Title fz={18} c="white">
-            {planType === 'basic' ? 'Basic Plan' : 'Premium Plan'}
+            {planType === 'basic' ? 'Standard Plan' : 'Premium Plan'}
           </Title>
           <Text mt={2} c="white">
             {carCount} {language === 'en' ? 'car' : 'voiture'}
