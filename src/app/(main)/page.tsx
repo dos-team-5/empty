@@ -1,7 +1,7 @@
 import {
   AnimatedAdSection,
   Faq,
-  HeroSection, TextRevealSection
+  HeroSection, PricingConfigurator, TextRevealSection
 } from '@/components';
 import AdvertiserCampaign from '@/components/AdvertiserCampaign/AdvertiserCampaign';
 import BuilderSection from '@/components/CarouselFeature/BuilderSection';
@@ -29,7 +29,7 @@ export default function Home() {
       {/* <PricingCards /> */}
       <AdvertiserCampaign />
       <RoiCalculator />
-      {/* <PricingConfigurator /> */}
+      <PricingConfigurator />
       <ScanVsLeadSnatcher />
       <Faq />
     </main>
