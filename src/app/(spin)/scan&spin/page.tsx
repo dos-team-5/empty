@@ -76,6 +76,8 @@ export default function Home() {
           </Group>
           <ParticipationForm
             onSubmit={async (formVal) => {
+             
+
               try {
                 const res = await makeParticipation({
                   id: 1,

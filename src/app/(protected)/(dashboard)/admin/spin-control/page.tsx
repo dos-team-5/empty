@@ -20,6 +20,8 @@ const SpinControl = async (props: { searchParams: SearchParams }) => {
 
   const campaign = campaignResponse?.data?.records?.[0];
 
+  
+
   return (
     <>
       <Head>

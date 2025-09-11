@@ -18,8 +18,7 @@ import {
   Card,
   rem,
   Image,
-  ActionIcon,
-  LoadingOverlay,
+  ActionIcon
 } from '@mantine/core';
 import {
   Calendar,
@@ -128,8 +127,47 @@ export default function SpinCampaignCard({
     return undefined;
   };
 
+  // if (!data) {
+  //   return <LoadingOverlay visible />; // or fallback UI
+  // }
+
   if (!data) {
-    return <LoadingOverlay visible />; // or fallback UI
+    return(
+<>
+<Group justify="end" my={10}>
+      <Button
+           
+            leftSection={<Plus size={18} />}
+            onClick={handleCreateCampaign}
+            size="md"
+            style={{
+              backgroundColor: PRIMARY_COLOR,
+            }}
+            styles={{
+              root: {
+                '&:hover': {
+                  backgroundColor: `${PRIMARY_COLOR}dd`,
+                },
+              },
+            }}
+          >
+            Create New Campaign
+          </Button>
+          <ReusableFormModal
+        opened={modalOpened}
+        onClose={() => setModalOpened(false)}
+        onSubmit={handleFormSubmit}
+        mode={modalMode}
+        initialData={getInitialFormData()}
+        entityId={modalMode === 'edit' ? campaign.id : undefined}
+        title={modalMode === 'create' ? 'Create New Campaign' : 'Edit Campaign'}
+        size={'xl'}
+      />
+</Group>
+ 
+</>
+      
+    ); // or fallback UI
   }
 
   return (
